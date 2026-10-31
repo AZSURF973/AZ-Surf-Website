@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AZ Surf U13 Boys - Team Dashboard</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Supabase JS Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            surf: {
+              gold: '#EAB308',
+              goldHover: '#CA8A04',
+              goldLight: '#FEF08A',
+              black: '#09090B',
+              dark: '#121215',
+              card: '#18181B',
+              border: '#27272A'
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="h-full text-slate-100 font-sans flex flex-col bg-slate-950">
+
+  <!-- TOP HEADER -->
+  <header class="bg-surf-dark border-b border-surf-border sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Logo & Team Name -->
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-full bg-surf-gold text-surf-black flex items-center justify-center font-black text-xl shadow-lg shadow-surf-gold/20">
+          AZ
+        </div>
+        <div>
+          <h1 class="text-lg font-bold tracking-tight text-white leading-tight">AZ SURF</h1>
+          <p class="text-xs font-semibold text-surf-gold">U13 BOYS CLUB SOCCER</p>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="hidden md:flex space-x-1">
+        <button onclick="switchTab('overview')" id="tab-overview" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-surf-gold bg-surf-border/50">Overview</button>
+        <button onclick="switchTab('roster')" id="tab-roster" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all">Roster</button>
+        <button onclick="switchTab('games')" id="tab-games" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all">Game Log</button>
+        <button onclick="switchTab('leaderboards')" id="tab-leaderboards" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all">Leaderboards</button>
+        <button onclick="switchTab('schedule')" id="tab-schedule" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all">Schedule</button>
+      </nav>
+
+      <!-- Action Button -->
+      <button onclick="toggleModal('admin-modal', true)" class="flex items-center space-x-2 bg-surf-gold text-surf-black px-4 py-2 rounded-lg font-bold text-sm hover:bg-surf-goldHover transition-all shadow-md shadow-surf-gold/10 hover:shadow-surf-gold/30">
+        <i data-lucide="plus-circle" class="w-4 h-4"></i>
+        <span>Add Stats</span>
+      </button>
+    </div>
+
+    <!-- Mobile Nav Bar -->
+    <div class="flex md:hidden border-t border-surf-border justify-around py-2 bg-surf-black">
+      <button onclick="switchTab('overview')" class="text-xs px-2 py-1 font-medium text-surf-gold">Overview</button>
+      <button onclick="switchTab('roster')" class="text-xs px-2 py-1 font-medium text-slate-400">Roster</button>
+      <button onclick="switchTab('games')" class="text-xs px-2 py-1 font-medium text-slate-400">Games</button>
+      <button onclick="switchTab('leaderboards')" class="text-xs px-2 py-1 font-medium text-slate-400">Leaders</button>
+      <button onclick="switchTab('schedule')" class="text-xs px-2 py-1 font-medium text-slate-400">Schedule</button>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- OVERVIEW TAB -->
+    <section id="sec-overview" class="space-y-6">
+      
+      <!-- HERO STAT BANNER -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex items-center space-x-4 hover:border-surf-gold/40 transition-all shadow-sm">
+          <div class="p-3 bg-surf-gold/10 text-surf-gold rounded-lg">
+            <i data-lucide="trophy" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <p class="text-xs font-medium text-slate-400 uppercase tracking-wide">Season Record</p>
+            <h3 id="stat-record" class="text-2xl font-black text-white">0 - 0 - 0</h3>
+          </div>
+        </div>
+
+        <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex items-center space-x-4 hover:border-emerald-500/40 transition-all shadow-sm">
+          <div class="p-3 bg-emerald-500/10 text-emerald-400 rounded-lg">
+            <i data-lucide="target" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <p class="text-xs font-medium text-slate-400 uppercase tracking-wide">Goals Scored</p>
+            <h3 id="stat-total-goals" class="text-2xl font-black text-white">0</h3>
+          </div>
+        </div>
+
+        <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex items-center space-x-4 hover:border-blue-500/40 transition-all shadow-sm">
+          <div class="p-3 bg-blue-500/10 text-blue-400 rounded-lg">
+            <i data-lucide="footprints" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <p class="text-xs font-medium text-slate-400 uppercase tracking-wide">Total Assists</p>
+            <h3 id="stat-total-assists" class="text-2xl font-black text-white">0</h3>
+          </div>
+        </div>
+
+        <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex items-center space-x-4 hover:border-purple-500/40 transition-all shadow-sm">
+          <div class="p-3 bg-purple-500/10 text-purple-400 rounded-lg">
+            <i data-lucide="shield" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <p class="text-xs font-medium text-slate-400 uppercase tracking-wide">Total Saves</p>
+            <h3 id="stat-total-saves" class="text-2xl font-black text-white">0</h3>
+          </div>
+        </div>
+      </div>
+
+      <!-- TEAM WIN/LOSS ANALYTICS GRID -->
+      <div class="bg-surf-card border border-surf-border rounded-xl p-6">
+        <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-4 gap-2">
+          <h2 class="font-bold text-lg text-white flex items-center space-x-2">
+            <i data-lucide="pie-chart" class="w-5 h-5 text-surf-gold"></i>
+            <span>Team Performance Analytics</span>
+          </h2>
+          <!-- Form Guide Badges -->
+          <div class="flex items-center space-x-2">
+            <span class="text-xs text-slate-400 font-semibold mr-1">Form:</span>
+            <div id="form-guide-container" class="flex space-x-1">
+              <span class="text-xs text-slate-500">No games</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Progress Bar for Win Rate -->
+        <div class="space-y-2 mb-6">
+          <div class="flex justify-between text-xs font-semibold">
+            <span class="text-slate-300">Win Rate: <strong id="win-rate-pct" class="text-emerald-400">0%</strong></span>
+            <span class="text-slate-400"><span id="goals-per-game">0.0</span> Goals / Game</span>
+          </div>
+          <div class="w-full bg-slate-900 rounded-full h-3 overflow-hidden flex border border-surf-border">
+            <div id="bar-wins" class="bg-emerald-500 h-full transition-all duration-500" style="width: 0%"></div>
+            <div id="bar-draws" class="bg-slate-500 h-full transition-all duration-500" style="width: 0%"></div>
+            <div id="bar-losses" class="bg-rose-500 h-full transition-all duration-500" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <!-- Analytical Breakdown Cards -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+          <div class="bg-slate-900/50 border border-surf-border p-3 rounded-lg">
+            <span class="text-[10px] text-slate-400 font-bold uppercase block">Win %</span>
+            <span id="metric-win-pct" class="text-xl font-black text-emerald-400">0%</span>
+          </div>
+          <div class="bg-slate-900/50 border border-surf-border p-3 rounded-lg">
+            <span class="text-[10px] text-slate-400 font-bold uppercase block">Goal Diff</span>
+            <span id="metric-gd" class="text-xl font-black text-white">+0</span>
+          </div>
+          <div class="bg-slate-900/50 border border-surf-border p-3 rounded-lg">
+            <span class="text-[10px] text-slate-400 font-bold uppercase block">Avg Goals Allowed</span>
+            <span id="metric-gaa" class="text-xl font-black text-rose-400">0.0</span>
+          </div>
+          <div class="bg-slate-900/50 border border-surf-border p-3 rounded-lg">
+            <span class="text-[10px] text-slate-400 font-bold uppercase block">Total Matches</span>
+            <span id="metric-total-games" class="text-xl font-black text-surf-gold">0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN DASHBOARD GRID -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Top Performers Card -->
+        <div class="bg-surf-card border border-surf-border rounded-xl p-6 lg:col-span-2">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="font-bold text-lg text-white flex items-center space-x-2">
+              <i data-lucide="star" class="w-5 h-5 text-surf-gold"></i>
+              <span>Stat Leaders Highlight</span>
+            </h2>
+          </div>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="bg-slate-900/60 border border-surf-border rounded-lg p-4 text-center">
+              <span class="text-xs font-bold text-surf-gold uppercase">Top Goal Scorer</span>
+              <div class="my-2">
+                <span id="top-scorer-num" class="inline-block bg-surf-gold/20 text-surf-gold font-mono font-bold px-2 py-0.5 rounded text-xs">#-</span>
+                <p id="top-scorer-name" class="font-bold text-lg text-white mt-1">None</p>
+              </div>
+              <p class="text-2xl font-black text-surf-gold"><span id="top-scorer-count">0</span> <span class="text-xs text-slate-400 font-normal">Goals</span></p>
+            </div>
+
+            <div class="bg-slate-900/60 border border-surf-border rounded-lg p-4 text-center">
+              <span class="text-xs font-bold text-blue-400 uppercase">Assist Leader</span>
+              <div class="my-2">
+                <span id="top-assist-num" class="inline-block bg-blue-500/20 text-blue-400 font-mono font-bold px-2 py-0.5 rounded text-xs">#-</span>
+                <p id="top-assist-name" class="font-bold text-lg text-white mt-1">None</p>
+              </div>
+              <p class="text-2xl font-black text-blue-400"><span id="top-assist-count">0</span> <span class="text-xs text-slate-400 font-normal">Assists</span></p>
+            </div>
+
+            <div class="bg-slate-900/60 border border-surf-border rounded-lg p-4 text-center">
+              <span class="text-xs font-bold text-purple-400 uppercase">Goalkeeping</span>
+              <div class="my-2">
+                <span id="top-gk-num" class="inline-block bg-purple-500/20 text-purple-400 font-mono font-bold px-2 py-0.5 rounded text-xs">#-</span>
+                <p id="top-gk-name" class="font-bold text-lg text-white mt-1">None</p>
+              </div>
+              <p class="text-2xl font-black text-purple-400"><span id="top-gk-count">0</span> <span class="text-xs text-slate-400 font-normal">Saves</span></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Results Column -->
+        <div class="bg-surf-card border border-surf-border rounded-xl p-6">
+          <h2 class="font-bold text-lg text-white mb-4 flex items-center space-x-2">
+            <i data-lucide="calendar" class="w-5 h-5 text-surf-gold"></i>
+            <span>Recent Match Results</span>
+          </h2>
+          <div id="recent-games-list" class="space-y-3">
+            <p class="text-xs text-slate-500">No games recorded yet.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ROSTER TAB -->
+    <section id="sec-roster" class="hidden space-y-6">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+          <h2 class="text-xl font-bold text-white">AZ Surf U13 Squad Roster</h2>
+          <p class="text-sm text-slate-400">Click any player to view detailed breakdown grid & edit details</p>
+        </div>
+
+        <!-- Search & Filter Bar -->
+        <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
+          <div class="relative flex-grow md:flex-grow-0">
+            <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
+            <input type="text" id="roster-search" oninput="filterRoster()" placeholder="Search player..." class="bg-slate-900 border border-surf-border rounded-lg pl-9 pr-3 py-1.5 text-xs text-white focus:outline-none focus:border-surf-gold w-full md:w-44" />
+          </div>
+          <select id="roster-pos-filter" onchange="filterRoster()" class="bg-slate-900 border border-surf-border rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-surf-gold">
+            <option value="ALL">All Positions</option>
+            <option value="Forward">Forwards</option>
+            <option value="Midfield">Midfielders</option>
+            <option value="Defender">Defenders</option>
+            <option value="Goalkeeper">Goalkeepers</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="roster-grid">
+        <!-- Players rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- GAME LOG TAB -->
+    <section id="sec-games" class="hidden space-y-6">
+      <div class="flex justify-between items-center">
+        <div>
+          <h2 class="text-xl font-bold text-white">Match History & Box Scores</h2>
+          <p class="text-sm text-slate-400">Season game logs, results, and game management</p>
+        </div>
+      </div>
+
+      <div class="bg-surf-card border border-surf-border rounded-xl overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm text-slate-300">
+            <thead class="bg-slate-900 text-slate-400 uppercase text-xs font-semibold">
+              <tr>
+                <th class="p-4">Date</th>
+                <th class="p-4">Opponent</th>
+                <th class="p-4 text-center">Result</th>
+                <th class="p-4 text-center">Score</th>
+                <th class="p-4 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="games-table-body" class="divide-y divide-surf-border">
+              <!-- Rendered via Supabase -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEADERBOARDS TAB -->
+    <section id="sec-leaderboards" class="hidden space-y-6">
+      <div class="flex justify-between items-center">
+        <div>
+          <h2 class="text-xl font-bold text-white">Player Stat Leaderboards</h2>
+          <p class="text-sm text-slate-400">Top rankings across key stats</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="bg-surf-card border border-surf-border rounded-xl p-5">
+          <h3 class="font-bold text-base text-surf-gold mb-3 flex items-center justify-between">
+            <span>Goals Scored</span>
+            <i data-lucide="target" class="w-4 h-4"></i>
+          </h3>
+          <ul id="leaderboard-goals" class="space-y-2"></ul>
+        </div>
+
+        <div class="bg-surf-card border border-surf-border rounded-xl p-5">
+          <h3 class="font-bold text-base text-blue-400 mb-3 flex items-center justify-between">
+            <span>Assists</span>
+            <i data-lucide="footprints" class="w-4 h-4"></i>
+          </h3>
+          <ul id="leaderboard-assists" class="space-y-2"></ul>
+        </div>
+
+        <div class="bg-surf-card border border-surf-border rounded-xl p-5">
+          <h3 class="font-bold text-base text-purple-400 mb-3 flex items-center justify-between">
+            <span>Goalie Saves</span>
+            <i data-lucide="shield" class="w-4 h-4"></i>
+          </h3>
+          <ul id="leaderboard-saves" class="space-y-2"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCHEDULE TAB -->
+    <section id="sec-schedule" class="hidden space-y-6">
+      <div class="flex justify-between items-center">
+        <div>
+          <h2 class="text-xl font-bold text-white">Xainden's Tentative Soccer Schedule</h2>
+          <p class="text-sm text-slate-400">Official season fixtures, tournaments, and venue locations</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        
+        <!-- Sep 26 -->
+        <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex justify-between items-center">
+          <div>
+            <span class="text-xs font-bold text-slate-400 uppercase">Game</span>
+            <h3 class="text-base font-bold text-white mt-1">September 26th Game</h3>
+            <p class="text-xs text-surf-gold mt-1"><i data-lucide="clock" class="inline w-3 h-3 mr-1"></i>11:30 AM, 3:30 PM</p>
+            <p class="text-xs text-slate-400"><i data-lucide="map-pin" class="inline w-3 h-3 mr-1"></i>Deem Hills Park</p>
+          </div>
+          <a href="https://maps.google.com/?q=Deem+Hills+Park" target="_blank" class="bg-slate-900 border border-surf-border hover:border-surf-gold text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0">
+            <span>Map</span>
+            <i data-lucide="external-link" class="w-3 h-3"></i>
+          </a>
+        </div>
+
+        <!-- Oct 3 -->
+        <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex justify-between items-center">
+          <div>
+            <span class="text-xs font-bold text-slate-400 uppercase">Game</span>
+            <h3 class="text-base font-bold text-white mt-1">October 3rd Game</h3>
+            <p class="text-xs text-surf-gold mt-1"><i data-lucide="clock" class="inline w-3 h-3 mr-1"></i>11:40 AM</p>
+            <p class="text-xs text-slate-400"><i data-lucide="map-pin" class="inline w-3 h-3 mr-1"></i>Deem Hills Park</p>
+          </div>
+          <a href="https://maps.google.com/?q=Deem+Hills+Park" target="_blank" class="bg-slate-900 border border-surf-border hover:border-surf-gold text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0">
+            <span>Map</span>
+            <i data-lucide="external-link" class="w-3 h-3"></i>
+          </a>
+        </div>
+
+        <!-- Oct 17 -->
+        <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex justify-between items-center">
+          <div>
+            <span class="text-xs font-bold text-slate-400 uppercase">Game</span>
+            <h3 class="text-base font-bold text-white mt-1">October 17th Game</h3>
+            <p class="text-xs text-surf-gold mt-1"><i data-lucide="clock" class="inline w-3 h-3 mr-1"></i>12:00 PM</p>
+            <p class="text-xs text-slate-400"><i data-lucide="map-pin" class="inline w-3 h-3 mr-1"></i>Arizona Athletics Grounds</p>
+          </div>
+          <a href="https://maps.google.com/?q=Arizona+Athletics+Grounds" target="_blank" class="bg-slate-900 border border-surf-border hover:border-surf-gold text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0">
+            <span>Map</span>
+            <i data-lucide="external-link" class="w-3 h-3"></i>
+          </a>
+        </div>
+
+        <!-- Oct 24 -->
+        <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex justify-between items-center">
+          <div>
+            <span class="text-xs font-bold text-slate-400 uppercase">Game</span>
+            <h3 class="text-base font-bold text-white mt-1">October 24th Game</h3>
+            <p class="text-xs text-surf-gold mt-1"><i data-lucide="clock" class="inline w-3 h-3 mr-1"></i>9:00 AM</p>
+            <p class="text-xs text-slate-400"><i data-lucide="map-pin" class="inline w-3 h-3 mr-1"></i>Vista College Prep</p>
+          </div>
+          <a href="https://maps.google.com/?q=Vista+College+Prep" target="_blank" class="bg-slate-900 border border-surf-border hover:border-surf-gold text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0">
+            <span>Map</span>
+            <i data-lucide="external-link" class="w-3 h-3"></i>
+          </a>
+        </div>
+
+        <!-- Oct 31 -->
+        <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex justify-between items-center">
+          <div>
+            <span class="text-xs font-bold text-emerald-400 uppercase">Today's Game</span>
+            <h3 class="text-base font-bold text-white mt-1">October 31st Game</h3>
+            <p class="text-xs text-surf-gold mt-1"><i data-lucide="clock" class="inline w-3 h-3 mr-1"></i>9:00 AM</p>
+            <p class="text-xs text-slate-400"><i data-lucide="map-pin" class="inline w-3 h-3 mr-1"></i>Venturoso Park</p>
+          </div>
+          <a href="https://maps.google.com/?q=Venturoso+Park" target="_blank" class="bg-slate-900 border border-surf-border hover:border-surf-gold text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0">
+            <span>Map</span>
+            <i data-lucide="external-link" class="w-3 h-3"></i>
+          </a>
+        </div>
+
+        <!-- Nov 6-8 -->
+        <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex justify-between items-center">
+          <div>
+            <span class="text-xs font-bold text-surf-gold uppercase">Tournament</span>
+            <h3 class="text-base font-bold text-white mt-1">November 6-8: Kick for the Cure</h3>
+            <p class="text-xs text-surf-gold mt-1"><i data-lucide="clock" class="inline w-3 h-3 mr-1"></i>Time and Place TBD</p>
+          </div>
+        </div>
+
+        <!-- Nov 14 -->
+        <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex justify-between items-center">
+          <div>
+            <span class="text-xs font-bold text-slate-400 uppercase">Game</span>
+            <h3 class="text-base font-bold text-white mt-1">November 14th Game</h3>
+            <p class="text-xs text-surf-gold mt-1"><i data-lucide="clock" class="inline w-3 h-3 mr-1"></i>11:00 AM</p>
+            <p class="text-xs text-slate-400"><i data-lucide="map-pin" class="inline w-3 h-3 mr-1"></i>Benedict Sports Complex</p>
+          </div>
+          <a href="https://maps.google.com/?q=Benedict+Sports+Complex" target="_blank" class="bg-slate-900 border border-surf-border hover:border-surf-gold text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0">
+            <span>Map</span>
+            <i data-lucide="external-link" class="w-3 h-3"></i>
+          </a>
+        </div>
+
+        <!-- Nov 21 -->
+        <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex justify-between items-center">
+          <div>
+            <span class="text-xs font-bold text-slate-400 uppercase">Game</span>
+            <h3 class="text-base font-bold text-white mt-1">November 21st Game</h3>
+            <p class="text-xs text-surf-gold mt-1"><i data-lucide="clock" class="inline w-3 h-3 mr-1"></i>2:30 PM</p>
+            <p class="text-xs text-slate-400"><i data-lucide="map-pin" class="inline w-3 h-3 mr-1"></i>West Valley Events Complex</p>
+          </div>
+          <a href="https://maps.google.com/?q=West+Valley+Events+Complex" target="_blank" class="bg-slate-900 border border-surf-border hover:border-surf-gold text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0">
+            <span>Map</span>
+            <i data-lucide="external-link" class="w-3 h-3"></i>
+          </a>
+        </div>
+
+        <!-- Dec 11-13 -->
+        <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex justify-between items-center md:col-span-2">
+          <div>
+            <span class="text-xs font-bold text-surf-gold uppercase">Tournament</span>
+            <h3 class="text-base font-bold text-white mt-1">December 11-13: Holiday Classic</h3>
+            <p class="text-xs text-surf-gold mt-1"><i data-lucide="clock" class="inline w-3 h-3 mr-1"></i>Time and Place TBD</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ADD / RECORD STATS MODAL -->
+  <div id="admin-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-surf-dark border border-surf-border rounded-xl max-w-xl w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      
+      <button onclick="toggleModal('admin-modal', false)" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+
+      <h3 class="text-lg font-bold text-white mb-1 flex items-center space-x-2">
+        <i data-lucide="plus-circle" class="text-surf-gold w-5 h-5"></i>
+        <span>Add Game Stats</span>
+      </h3>
+      <p class="text-xs text-slate-400 mb-6">Enter new match results and player performance metrics.</p>
+
+      <form id="stats-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Opponent Team</label>
+            <input type="text" id="form-opponent" required placeholder="e.g. RSL AZ" class="w-full bg-slate-900 border border-surf-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-surf-gold" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Date</label>
+            <input type="date" id="form-date" required class="w-full bg-slate-900 border border-surf-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-surf-gold" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">AZ Surf Score</label>
+            <input type="number" id="form-our-score" required min="0" placeholder="3" class="w-full bg-slate-900 border border-surf-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-surf-gold" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Opponent Score</label>
+            <input type="number" id="form-their-score" required min="0" placeholder="1" class="w-full bg-slate-900 border border-surf-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-surf-gold" />
+          </div>
+        </div>
+
+        <hr class="border-surf-border my-4" />
+
+        <h4 class="text-sm font-bold text-surf-gold mb-2">Record Player Performance</h4>
+        
+        <div class="grid grid-cols-1 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Select Player</label>
+            <select id="form-player-select" class="w-full bg-slate-900 border border-surf-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-surf-gold"></select>
+          </div>
+
+          <div class="grid grid-cols-5 gap-2">
+            <div>
+              <label class="block text-[10px] font-semibold text-slate-400 mb-1 text-center">Goals</label>
+              <input type="number" id="form-player-goals" min="0" value="0" class="w-full bg-slate-900 border border-surf-border rounded-lg px-2 py-1.5 text-center text-sm text-white" />
+            </div>
+            <div>
+              <label class="block text-[10px] font-semibold text-slate-400 mb-1 text-center">Assists</label>
+              <input type="number" id="form-player-assists" min="0" value="0" class="w-full bg-slate-900 border border-surf-border rounded-lg px-2 py-1.5 text-center text-sm text-white" />
+            </div>
+            <div>
+              <label class="block text-[10px] font-semibold text-slate-400 mb-1 text-center">Yellow C.</label>
+              <input type="number" id="form-player-yc" min="0" value="0" class="w-full bg-slate-900 border border-surf-border rounded-lg px-2 py-1.5 text-center text-sm text-white" />
+            </div>
+            <div>
+              <label class="block text-[10px] font-semibold text-slate-400 mb-1 text-center">Red C.</label>
+              <input type="number" id="form-player-rc" min="0" value="0" class="w-full bg-slate-900 border border-surf-border rounded-lg px-2 py-1.5 text-center text-sm text-white" />
+            </div>
+            <div>
+              <label class="block text-[10px] font-semibold text-slate-400 mb-1 text-center">Saves</label>
+              <input type="number" id="form-player-saves" min="0" value="0" class="w-full bg-slate-900 border border-surf-border rounded-lg px-2 py-1.5 text-center text-sm text-white" />
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-4 flex justify-end space-x-3">
+          <button type="button" onclick="toggleModal('admin-modal', false)" class="px-4 py-2 rounded-lg text-sm text-slate-400 hover:text-white border border-surf-border">Cancel</button>
+          <button type="submit" id="save-btn" class="px-4 py-2 rounded-lg text-sm bg-surf-gold text-surf-black font-bold hover:bg-surf-goldHover">Save Match Stats</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- PLAYER DETAILED ANALYTICS & EDIT MODAL -->
+  <div id="player-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-surf-dark border border-surf-border rounded-xl max-w-lg w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      
+      <button onclick="toggleModal('player-modal', false)" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+
+      <!-- Profile Header -->
+      <div class="flex items-center space-x-4 mb-6">
+        <div id="pm-jersey-badge" class="w-14 h-14 rounded-full bg-surf-gold/20 text-surf-gold font-mono font-black text-2xl flex items-center justify-center border border-surf-gold/40">
+          #0
+        </div>
+        <div>
+          <h3 id="pm-name" class="text-xl font-bold text-white leading-tight">Player Name</h3>
+          <span id="pm-pos" class="inline-block bg-slate-900 border border-surf-border text-surf-gold text-xs font-semibold px-2.5 py-0.5 rounded mt-1">Position</span>
+        </div>
+      </div>
+
+      <!-- Stat Analytics Grid -->
+      <div class="grid grid-cols-4 gap-2 mb-6 bg-slate-900/60 p-3 rounded-xl border border-surf-border text-center">
+        <div>
+          <span class="text-[10px] text-slate-400 uppercase font-semibold">Goals</span>
+          <p id="pm-goals" class="text-lg font-black text-surf-gold">0</p>
+        </div>
+        <div>
+          <span class="text-[10px] text-slate-400 uppercase font-semibold">Assists</span>
+          <p id="pm-assists" class="text-lg font-black text-blue-400">0</p>
+        </div>
+        <div>
+          <span class="text-[10px] text-slate-400 uppercase font-semibold">Cards (Y/R)</span>
+          <p id="pm-cards" class="text-lg font-black text-slate-300">0/0</p>
+        </div>
+        <div>
+          <span class="text-[10px] text-slate-400 uppercase font-semibold">Saves</span>
+          <p id="pm-saves" class="text-lg font-black text-purple-400">0</p>
+        </div>
+      </div>
+
+      <!-- Percentages & Impact Bars -->
+      <div class="space-y-4 mb-6">
+        <div>
+          <div class="flex justify-between text-xs font-semibold mb-1">
+            <span class="text-slate-300">Team Goal Contribution %</span>
+            <span id="pm-goal-share" class="text-surf-gold">0%</span>
+          </div>
+          <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-surf-border">
+            <div id="pm-bar-goals" class="bg-surf-gold h-full transition-all duration-500" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex justify-between text-xs font-semibold mb-1">
+            <span class="text-slate-300">Team Assist Share %</span>
+            <span id="pm-assist-share" class="text-blue-400">0%</span>
+          </div>
+          <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-surf-border">
+            <div id="pm-bar-assists" class="bg-blue-400 h-full transition-all duration-500" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Edit Form -->
+      <details class="bg-slate-900/40 border border-surf-border rounded-lg p-3">
+        <summary class="text-xs font-bold text-slate-300 cursor-pointer flex items-center justify-between">
+          <span>Edit Player Details & Career Stat Correction</span>
+          <i data-lucide="chevron-down" class="w-4 h-4"></i>
+        </summary>
+        
+        <form id="edit-player-form" onsubmit="handleEditPlayerSubmit(event)" class="mt-3 space-y-3">
+          <input type="hidden" id="edit-p-id" />
+          
+          <div class="grid grid-cols-3 gap-2">
+            <div>
+              <label class="block text-[10px] text-slate-400">Name</label>
+              <input type="text" id="edit-p-name" required class="w-full bg-slate-900 border border-surf-border rounded px-2 py-1 text-xs text-white" />
+            </div>
+            <div>
+              <label class="block text-[10px] text-slate-400">Jersey #</label>
+              <input type="number" id="edit-p-number" required class="w-full bg-slate-900 border border-surf-border rounded px-2 py-1 text-xs text-white" />
+            </div>
+            <div>
+              <label class="block text-[10px] text-slate-400">Position</label>
+              <input type="text" id="edit-p-pos" required class="w-full bg-slate-900 border border-surf-border rounded px-2 py-1 text-xs text-white" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-5 gap-1">
+            <div>
+              <label class="block text-[9px] text-slate-400 text-center">Goals</label>
+              <input type="number" id="edit-p-goals" min="0" class="w-full bg-slate-900 border border-surf-border rounded px-1 py-1 text-xs text-center text-white" />
+            </div>
+            <div>
+              <label class="block text-[9px] text-slate-400 text-center">Assists</label>
+              <input type="number" id="edit-p-assists" min="0" class="w-full bg-slate-900 border border-surf-border rounded px-1 py-1 text-xs text-center text-white" />
+            </div>
+            <div>
+              <label class="block text-[9px] text-slate-400 text-center">YC</label>
+              <input type="number" id="edit-p-yc" min="0" class="w-full bg-slate-900 border border-surf-border rounded px-1 py-1 text-xs text-center text-white" />
+            </div>
+            <div>
+              <label class="block text-[9px] text-slate-400 text-center">RC</label>
+              <input type="number" id="edit-p-rc" min="0" class="w-full bg-slate-900 border border-surf-border rounded px-1 py-1 text-xs text-center text-white" />
+            </div>
+            <div>
+              <label class="block text-[9px] text-slate-400 text-center">Saves</label>
+              <input type="number" id="edit-p-saves" min="0" class="w-full bg-slate-900 border border-surf-border rounded px-1 py-1 text-xs text-center text-white" />
+            </div>
+          </div>
+
+          <button type="submit" class="w-full bg-surf-gold text-surf-black font-bold py-1.5 rounded text-xs hover:bg-surf-goldHover transition-colors mt-2">
+            Save Player Updates
+          </button>
+        </form>
+      </details>
+
+    </div>
+  </div>
+
+  <!-- EDIT GAME LOG MODAL -->
+  <div id="game-edit-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-surf-dark border border-surf-border rounded-xl max-w-md w-full p-6 shadow-2xl relative">
+      <button onclick="toggleModal('game-edit-modal', false)" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+
+      <h3 class="text-lg font-bold text-white mb-4">Edit Game Log</h3>
+
+      <form id="edit-game-form" onsubmit="handleGameEditSubmit(event)" class="space-y-3">
+        <input type="hidden" id="edit-g-id" />
+        
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Opponent</label>
+          <input type="text" id="edit-g-opponent" required class="w-full bg-slate-900 border border-surf-border rounded px-3 py-1.5 text-sm text-white" />
+        </div>
+
+        <div class="grid grid-cols-3 gap-2">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Date</label>
+            <input type="date" id="edit-g-date" required class="w-full bg-slate-900 border border-surf-border rounded px-2 py-1.5 text-xs text-white" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">AZ Surf</label>
+            <input type="number" id="edit-g-ourscore" required min="0" class="w-full bg-slate-900 border border-surf-border rounded px-2 py-1.5 text-sm text-white text-center" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Opponent</label>
+            <input type="number" id="edit-g-oppscore" required min="0" class="w-full bg-slate-900 border border-surf-border rounded px-2 py-1.5 text-sm text-white text-center" />
+          </div>
+        </div>
+
+        <div class="pt-3 flex justify-end space-x-2">
+          <button type="button" onclick="toggleModal('game-edit-modal', false)" class="px-3 py-1.5 text-xs text-slate-400 hover:text-white border border-surf-border rounded">Cancel</button>
+          <button type="submit" class="px-4 py-1.5 text-xs bg-surf-gold text-surf-black font-bold rounded hover:bg-surf-goldHover">Update Game</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT & SUPABASE INTEGRATION -->
+  <script>
+    // Initialize Supabase Client
+    const SUPABASE_URL = 'https://cwnqjtlcwpmzimsnwepd.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN3bnFqdGxjd3Btemltc253ZXBkIkpXVCIsInJvbGUiOiJhbm9uIiwiaWF0IjoxNzkzNDY4MjYzLCJleHAiOjIxMDkwNDQyNjN9.yWdBQy07QmBFPaz7xQ4K8hlRSXMPZ68k2KuFXxwGM08';
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    let players = [];
+    let games = [];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      loadDataFromDatabase();
+    });
+
+    async function loadDataFromDatabase() {
+      const { data: dbPlayers, error: pErr } = await supabaseClient.from('players').select('*');
+      const { data: dbGames, error: gErr } = await supabaseClient.from('games').select('*');
+
+      if (pErr) console.error("Error fetching players:", pErr.message);
+      if (gErr) console.error("Error fetching games:", gErr.message);
+
+      if (dbPlayers) players = dbPlayers;
+      if (dbGames) games = dbGames;
+
+      renderAll();
+    }
+
+    function switchTab(tabName) {
+      ['overview', 'roster', 'games', 'leaderboards', 'schedule'].forEach(tab => {
+        document.getElementById(`sec-${tab}`).classList.add('hidden');
+        const btn = document.getElementById(`tab-${tab}`);
+        if(btn) {
+          btn.classList.remove('text-surf-gold', 'bg-surf-border/50');
+          btn.classList.add('text-slate-400');
+        }
+      });
+
+      document.getElementById(`sec-${tabName}`).classList.remove('hidden');
+      const activeBtn = document.getElementById(`tab-${tabName}`);
+      if(activeBtn) {
+        activeBtn.classList.add('text-surf-gold', 'bg-surf-border/50');
+        activeBtn.classList.remove('text-slate-400');
+      }
+    }
+
+    function toggleModal(modalId, show) {
+      const modal = document.getElementById(modalId);
+      if (show) {
+        modal.classList.remove('hidden');
+        if (modalId === 'admin-modal') populatePlayerDropdown();
+      } else {
+        modal.classList.add('hidden');
+      }
+    }
+
+    function populatePlayerDropdown() {
+      const select = document.getElementById('form-player-select');
+      const sorted = [...players].sort((a,b) => a.number - b.number);
+      select.innerHTML = sorted.map(p => `<option value="${p.id}">#${p.number} - ${p.name} (${p.pos || 'Player'})</option>`).join('');
+    }
+
+    function renderAll() {
+      renderOverview();
+      renderRoster();
+      renderGames();
+      renderLeaderboards();
+      lucide.createIcons();
+    }
+
+    function renderOverview() {
+      const wins = games.filter(g => g.result === 'WIN').length;
+      const losses = games.filter(g => g.result === 'LOSS').length;
+      const draws = games.filter(g => g.result === 'DRAW').length;
+      const totalGames = games.length;
+
+      document.getElementById('stat-record').innerText = `${wins} - ${losses} - ${draws}`;
+
+      const totalGoals = players.reduce((sum, p) => sum + (p.goals || 0), 0);
+      const totalAssists = players.reduce((sum, p) => sum + (p.assists || 0), 0);
+      const totalSaves = players.reduce((sum, p) => sum + (p.saves || 0), 0);
+
+      document.getElementById('stat-total-goals').innerText = totalGoals;
+      document.getElementById('stat-total-assists').innerText = totalAssists;
+      document.getElementById('stat-total-saves').innerText = totalSaves;
+
+      // Analytics calculation
+      const winPct = totalGames > 0 ? Math.round((wins / totalGames) * 100) : 0;
+      const drawPct = totalGames > 0 ? Math.round((draws / totalGames) * 100) : 0;
+      const lossPct = totalGames > 0 ? Math.round((losses / totalGames) * 100) : 0;
+      const gpg = totalGames > 0 ? (totalGoals / totalGames).toFixed(1) : '0.0';
+
+      const goalsConceded = games.reduce((sum, g) => sum + (g.opponentScore || 0), 0);
+      const gaAvg = totalGames > 0 ? (goalsConceded / totalGames).toFixed(1) : '0.0';
+      const goalDiff = totalGoals - goalsConceded;
+
+      document.getElementById('win-rate-pct').innerText = `${winPct}%`;
+      document.getElementById('goals-per-game').innerText = gpg;
+      document.getElementById('bar-wins').style.width = `${winPct}%`;
+      document.getElementById('bar-draws').style.width = `${drawPct}%`;
+      document.getElementById('bar-losses').style.width = `${lossPct}%`;
+
+      document.getElementById('metric-win-pct').innerText = `${winPct}%`;
+      document.getElementById('metric-gd').innerText = (goalDiff >= 0 ? `+${goalDiff}` : `${goalDiff}`);
+      document.getElementById('metric-gaa').innerText = gaAvg;
+      document.getElementById('metric-total-games').innerText = totalGames;
+
+      // Form Guide (Last 5)
+      const formContainer = document.getElementById('form-guide-container');
+      const recent5 = [...games].reverse().slice(0, 5);
+      if (recent5.length === 0) {
+        formContainer.innerHTML = `<span class="text-xs text-slate-500">No games</span>`;
+      } else {
+        formContainer.innerHTML = recent5.map(g => {
+          let bg = 'bg-slate-700 text-slate-200';
+          if (g.result === 'WIN') bg = 'bg-emerald-500 text-white';
+          if (g.result === 'LOSS') bg = 'bg-rose-500 text-white';
+          return `<span class="w-5 h-5 rounded ${bg} text-[10px] font-black flex items-center justify-center">${g.result[0]}</span>`;
+        }).join('');
+      }
+
+      // Top Performers
+      const topScorer = [...players].sort((a,b) => (b.goals || 0) - (a.goals || 0))[0];
+      const topAssist = [...players].sort((a,b) => (b.assists || 0) - (a.assists || 0))[0];
+      const topGK = [...players].sort((a,b) => (b.saves || 0) - (a.saves || 0))[0];
+
+      if(topScorer && topScorer.goals > 0) {
+        document.getElementById('top-scorer-num').innerText = `#${topScorer.number}`;
+        document.getElementById('top-scorer-name').innerText = topScorer.name;
+        document.getElementById('top-scorer-count').innerText = topScorer.goals;
+      }
+
+      if(topAssist && topAssist.assists > 0) {
+        document.getElementById('top-assist-num').innerText = `#${topAssist.number}`;
+        document.getElementById('top-assist-name').innerText = topAssist.name;
+        document.getElementById('top-assist-count').innerText = topAssist.assists;
+      }
+
+      if(topGK && topGK.saves > 0) {
+        document.getElementById('top-gk-num').innerText = `#${topGK.number}`;
+        document.getElementById('top-gk-name').innerText = topGK.name;
+        document.getElementById('top-gk-count').innerText = topGK.saves;
+      }
+
+      // Render Recent Games list
+      const recentContainer = document.getElementById('recent-games-list');
+      if (games.length === 0) {
+        recentContainer.innerHTML = `<p class="text-xs text-slate-500">No games recorded yet.</p>`;
+      } else {
+        recentContainer.innerHTML = games.slice(-3).reverse().map(g => `
+          <div class="bg-slate-900/50 border border-surf-border rounded-lg p-3 flex justify-between items-center">
+            <div>
+              <p class="text-xs text-slate-400">${g.date}</p>
+              <p class="font-semibold text-sm text-white">vs ${g.opponent}</p>
+            </div>
+            <div class="text-right">
+              <span class="inline-block text-xs font-bold px-2 py-0.5 rounded ${g.result === 'WIN' ? 'bg-emerald-500/20 text-emerald-400' : (g.result === 'LOSS' ? 'bg-rose-500/20 text-rose-400' : 'bg-slate-500/20 text-slate-300')}">
+                ${g.result} ${g.ourScore}-${g.opponentScore}
+              </span>
+            </div>
+          </div>
+        `).join('');
+      }
+    }
+
+    function filterRoster() {
+      renderRoster();
+    }
+
+    function renderRoster() {
+      const rosterGrid = document.getElementById('roster-grid');
+      const searchVal = document.getElementById('roster-search')?.value.toLowerCase() || '';
+      const posVal = document.getElementById('roster-pos-filter')?.value || 'ALL';
+
+      let filtered = [...players].filter(p => {
+        const matchesName = p.name.toLowerCase().includes(searchVal) || p.number.toString().includes(searchVal);
+        const matchesPos = posVal === 'ALL' || (p.pos || '').toLowerCase().includes(posVal.toLowerCase());
+        return matchesName && matchesPos;
+      });
+
+      filtered.sort((a,b) => a.number - b.number);
+
+      if (filtered.length === 0) {
+        rosterGrid.innerHTML = `<p class="text-xs text-slate-500 col-span-full py-4">No players found matching filter.</p>`;
+        return;
+      }
+
+      rosterGrid.innerHTML = filtered.map(p => `
+        <div onclick="openPlayerModal(${p.id})" class="bg-surf-card border border-surf-border rounded-xl p-4 hover:border-surf-gold/50 cursor-pointer transition-all hover:scale-[1.02]">
+          <div class="flex justify-between items-start mb-3">
+            <span class="w-8 h-8 rounded-full bg-surf-gold/20 text-surf-gold font-mono font-bold flex items-center justify-center text-sm border border-surf-gold/30">
+              #${p.number}
+            </span>
+            <span class="text-[10px] font-semibold text-slate-400 bg-slate-900 px-2 py-1 rounded border border-surf-border">
+              ${p.pos || 'Player'}
+            </span>
+          </div>
+
+          <h3 class="font-bold text-lg text-white mb-2">${p.name}</h3>
+
+          <div class="grid grid-cols-4 gap-1 bg-slate-900/60 p-2 rounded-lg text-center text-xs">
+            <div>
+              <span class="block text-[9px] text-slate-400">G</span>
+              <span class="font-bold text-surf-gold">${p.goals || 0}</span>
+            </div>
+            <div>
+              <span class="block text-[9px] text-slate-400">A</span>
+              <span class="font-bold text-blue-400">${p.assists || 0}</span>
+            </div>
+            <div>
+              <span class="block text-[9px] text-slate-400">YC/RC</span>
+              <span class="font-bold text-slate-300">${p.yc || 0}/${p.rc || 0}</span>
+            </div>
+            <div>
+              <span class="block text-[9px] text-slate-400">SV</span>
+              <span class="font-bold text-purple-400">${p.saves || 0}</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openPlayerModal(playerId) {
+      const p = players.find(x => x.id === playerId);
+      if (!p) return;
+
+      document.getElementById('pm-jersey-badge').innerText = `#${p.number}`;
+      document.getElementById('pm-name').innerText = p.name;
+      document.getElementById('pm-pos').innerText = p.pos || 'Player';
+
+      document.getElementById('pm-goals').innerText = p.goals || 0;
+      document.getElementById('pm-assists').innerText = p.assists || 0;
+      document.getElementById('pm-cards').innerText = `${p.yc || 0}/${p.rc || 0}`;
+      document.getElementById('pm-saves').innerText = p.saves || 0;
+
+      const teamTotalGoals = players.reduce((sum, item) => sum + (item.goals || 0), 0);
+      const teamTotalAssists = players.reduce((sum, item) => sum + (item.assists || 0), 0);
+
+      const goalPct = teamTotalGoals > 0 ? Math.round(((p.goals || 0) / teamTotalGoals) * 100) : 0;
+      const assistPct = teamTotalAssists > 0 ? Math.round(((p.assists || 0) / teamTotalAssists) * 100) : 0;
+
+      document.getElementById('pm-goal-share').innerText = `${goalPct}%`;
+      document.getElementById('pm-bar-goals').style.width = `${goalPct}%`;
+
+      document.getElementById('pm-assist-share').innerText = `${assistPct}%`;
+      document.getElementById('pm-bar-assists').style.width = `${assistPct}%`;
+
+      document.getElementById('edit-p-id').value = p.id;
+      document.getElementById('edit-p-name').value = p.name;
+      document.getElementById('edit-p-number').value = p.number;
+      document.getElementById('edit-p-pos').value = p.pos || '';
+      document.getElementById('edit-p-goals').value = p.goals || 0;
+      document.getElementById('edit-p-assists').value = p.assists || 0;
+      document.getElementById('edit-p-yc').value = p.yc || 0;
+      document.getElementById('edit-p-rc').value = p.rc || 0;
+      document.getElementById('edit-p-saves').value = p.saves || 0;
+
+      toggleModal('player-modal', true);
+    }
+
+    async function handleEditPlayerSubmit(e) {
+      e.preventDefault();
+      const id = parseInt(document.getElementById('edit-p-id').value);
+      const name = document.getElementById('edit-p-name').value;
+      const number = parseInt(document.getElementById('edit-p-number').value);
+      const pos = document.getElementById('edit-p-pos').value;
+      const goals = parseInt(document.getElementById('edit-p-goals').value) || 0;
+      const assists = parseInt(document.getElementById('edit-p-assists').value) || 0;
+      const yc = parseInt(document.getElementById('edit-p-yc').value) || 0;
+      const rc = parseInt(document.getElementById('edit-p-rc').value) || 0;
+      const saves = parseInt(document.getElementById('edit-p-saves').value) || 0;
+
+      const { error } = await supabaseClient
+        .from('players')
+        .update({ name, number, pos, goals, assists, yc, rc, saves })
+        .eq('id', id);
+
+      if (error) {
+        alert("Error updating player: " + error.message);
+        return;
+      }
+
+      toggleModal('player-modal', false);
+      await loadDataFromDatabase();
+    }
+
+    function renderGames() {
+      const body = document.getElementById('games-table-body');
+      if (games.length === 0) {
+        body.innerHTML = `<tr><td colspan="5" class="p-4 text-xs text-center text-slate-500">No matches recorded in Supabase yet.</td></tr>`;
+        return;
+      }
+
+      body.innerHTML = games.map(g => `
+        <tr class="hover:bg-slate-900/40">
+          <td class="p-4 text-xs font-mono text-slate-400">${g.date}</td>
+          <td class="p-4 font-semibold text-white">${g.opponent}</td>
+          <td class="p-4 text-center">
+            <span class="px-2 py-1 rounded text-xs font-bold ${g.result === 'WIN' ? 'bg-emerald-500/20 text-emerald-400' : (g.result === 'LOSS' ? 'bg-rose-500/20 text-rose-400' : 'bg-slate-500/20 text-slate-300')}">
+              ${g.result}
+            </span>
+          </td>
+          <td class="p-4 text-center font-mono font-bold">${g.ourScore} - ${g.opponentScore}</td>
+          <td class="p-4 text-right space-x-2">
+            <button onclick="openGameEditModal(${g.id})" class="text-xs text-slate-400 hover:text-surf-gold"><i data-lucide="edit-2" class="inline w-3.5 h-3.5"></i></button>
+            <button onclick="deleteGame(${g.id})" class="text-xs text-slate-400 hover:text-rose-400"><i data-lucide="trash-2" class="inline w-3.5 h-3.5"></i></button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function openGameEditModal(gameId) {
+      const g = games.find(x => x.id === gameId);
+      if (!g) return;
+      document.getElementById('edit-g-id').value = g.id;
+      document.getElementById('edit-g-opponent').value = g.opponent;
+      document.getElementById('edit-g-date').value = g.date;
+      document.getElementById('edit-g-ourscore').value = g.ourScore;
+      document.getElementById('edit-g-oppscore').value = g.opponentScore;
+      toggleModal('game-edit-modal', true);
+    }
+
+    async function handleGameEditSubmit(e) {
+      e.preventDefault();
+      const id = parseInt(document.getElementById('edit-g-id').value);
+      const opponent = document.getElementById('edit-g-opponent').value;
+      const date = document.getElementById('edit-g-date').value;
+      const ourScore = parseInt(document.getElementById('edit-g-ourscore').value);
+      const opponentScore = parseInt(document.getElementById('edit-g-oppscore').value);
+
+      let result = "DRAW";
+      if (ourScore > opponentScore) result = "WIN";
+      if (ourScore < opponentScore) result = "LOSS";
+
+      const { error } = await supabaseClient
+        .from('games')
+        .update({ opponent, date, ourScore, opponentScore, result })
+        .eq('id', id);
+
+      if (error) {
+        alert("Error updating game: " + error.message);
+        return;
+      }
+
+      toggleModal('game-edit-modal', false);
+      await loadDataFromDatabase();
+    }
+
+    async function deleteGame(gameId) {
+      if(!confirm("Are you sure you want to delete this game log entry?")) return;
+      const { error } = await supabaseClient.from('games').delete().eq('id', gameId);
+      if (error) {
+        alert("Error deleting game: " + error.message);
+        return;
+      }
+      await loadDataFromDatabase();
+    }
+
+    function renderLeaderboards() {
+      const goalsList = document.getElementById('leaderboard-goals');
+      const assistsList = document.getElementById('leaderboard-assists');
+      const savesList = document.getElementById('leaderboard-saves');
+
+      const byGoals = [...players].sort((a,b) => (b.goals || 0) - (a.goals || 0)).slice(0, 5);
+      const byAssists = [...players].sort((a,b) => (b.assists || 0) - (a.assists || 0)).slice(0, 5);
+      const bySaves = [...players].filter(p => (p.saves || 0) > 0).sort((a,b) => b.saves - a.saves);
+
+      goalsList.innerHTML = byGoals.map(p => `
+        <li class="flex justify-between items-center text-sm p-2 bg-slate-900/40 rounded">
+          <span class="text-white"><strong class="text-surf-gold">#${p.number}</strong> ${p.name}</span>
+          <span class="font-black text-surf-gold">${p.goals || 0}</span>
+        </li>
+      `).join('');
+
+      assistsList.innerHTML = byAssists.map(p => `
+        <li class="flex justify-between items-center text-sm p-2 bg-slate-900/40 rounded">
+          <span class="text-white"><strong class="text-blue-400">#${p.number}</strong> ${p.name}</span>
+          <span class="font-black text-blue-400">${p.assists || 0}</span>
+        </li>
+      `).join('');
+
+      savesList.innerHTML = bySaves.length > 0 ? bySaves.map(p => `
+        <li class="flex justify-between items-center text-sm p-2 bg-slate-900/40 rounded">
+          <span class="text-white"><strong class="text-purple-400">#${p.number}</strong> ${p.name}</span>
+          <span class="font-black text-purple-400">${p.saves}</span>
+        </li>
+      `) : `<p class="text-xs text-slate-500">No goalie saves logged yet.</p>`;
+    }
+
+    async function handleFormSubmit(e) {
+      e.preventDefault();
+
+      const btn = document.getElementById('save-btn');
+      btn.innerText = "Saving...";
+      btn.disabled = true;
+
+      const opponent = document.getElementById('form-opponent').value;
+      const date = document.getElementById('form-date').value;
+      const ourScore = parseInt(document.getElementById('form-our-score').value);
+      const opponentScore = parseInt(document.getElementById('form-their-score').value);
+      
+      const playerId = parseInt(document.getElementById('form-player-select').value);
+      const goals = parseInt(document.getElementById('form-player-goals').value) || 0;
+      const assists = parseInt(document.getElementById('form-player-assists').value) || 0;
+      const yc = parseInt(document.getElementById('form-player-yc').value) || 0;
+      const rc = parseInt(document.getElementById('form-player-rc').value) || 0;
+      const saves = parseInt(document.getElementById('form-player-saves').value) || 0;
+
+      let result = "DRAW";
+      if (ourScore > opponentScore) result = "WIN";
+      if (ourScore < opponentScore) result = "LOSS";
+
+      const { error: gameErr } = await supabaseClient
+        .from('games')
+        .insert([{ date, opponent, ourScore, opponentScore, result }]);
+
+      if (gameErr) {
+        alert("Error saving game: " + gameErr.message);
+        btn.innerText = "Save Match Stats";
+        btn.disabled = false;
+        return;
+      }
+
+      const { data: curPlayer } = await supabaseClient
+        .from('players')
+        .select('*')
+        .eq('id', playerId)
+        .single();
+
+      if (curPlayer) {
+        const { error: pUpdateErr } = await supabaseClient
+          .from('players')
+          .update({
+            goals: (curPlayer.goals || 0) + goals,
+            assists: (curPlayer.assists || 0) + assists,
+            yc: (curPlayer.yc || 0) + yc,
+            rc: (curPlayer.rc || 0) + rc,
+            saves: (curPlayer.saves || 0) + saves
+          })
+          .eq('id', playerId);
+
+        if (pUpdateErr) console.error("Error updating player:", pUpdateErr.message);
+      }
+
+      await loadDataFromDatabase();
+
+      btn.innerText = "Save Match Stats";
+      btn.disabled = false;
+      toggleModal('admin-modal', false);
+      document.getElementById('stats-form').reset();
+    }
+  </script>
+</body>
+</html>
