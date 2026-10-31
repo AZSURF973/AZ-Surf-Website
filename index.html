@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AZ Surf U13 Boys - Team Dashboard</title>
+  <title>AZ Surf U13 Boys - MLS Next Team Dashboard</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
@@ -16,9 +16,9 @@
         extend: {
           colors: {
             surf: {
-              gold: '#EAB308',
-              goldHover: '#CA8A04',
-              goldLight: '#FEF08A',
+              red: '#E50000',      /* New MLS Red Accent */
+              redHover: '#B30000',
+              redLight: '#FECACA',
               black: '#09090B',
               dark: '#121215',
               card: '#18181B',
@@ -32,40 +32,43 @@
 </head>
 <body class="h-full text-slate-100 font-sans flex flex-col bg-slate-950">
 
-  <!-- TOP HEADER -->
+  <!-- TOP HEADER (Dual Logos) -->
   <header class="bg-surf-dark border-b border-surf-border sticky top-0 z-40">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       
-      <!-- Logo & Team Name -->
+      <!-- New Dual Logo Structure -->
       <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-full bg-surf-gold text-surf-black flex items-center justify-center font-black text-xl shadow-lg shadow-surf-gold/20">
-          AZ
+        <!-- New Crest with blend (White Surf logo) -->
+        <div class="w-12 h-12 rounded-full border border-surf-border bg-surf-dark p-2 flex items-center justify-center shadow-lg shadow-surf-red/20 overflow-hidden">
+          <img src="https://i.postimg.cc/J7fdQWVK/images.jpg" alt="Surf Crest" class="w-10 h-10 object-contain" style="mix-blend-mode: screen;" />
         </div>
         <div>
           <h1 class="text-lg font-bold tracking-tight text-white leading-tight">AZ SURF</h1>
-          <p class="text-xs font-semibold text-surf-gold">U13 BOYS CLUB SOCCER</p>
+          <p class="text-xs font-semibold text-surf-red">U13 BOYS CLUB SOCCER</p>
         </div>
+        <!-- MLS Next Affiliate Logo -->
+        <img src="https://i.postimg.cc/50GKGhH2/images.png" alt="MLS Next Logo" class="w-10 h-10 object-contain ml-3" />
       </div>
 
       <!-- Navigation Tabs -->
       <nav class="hidden md:flex space-x-1">
-        <button onclick="switchTab('overview')" id="tab-overview" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-surf-gold bg-surf-border/50">Overview</button>
+        <button onclick="switchTab('overview')" id="tab-overview" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-surf-red bg-surf-border/50">Overview</button>
         <button onclick="switchTab('roster')" id="tab-roster" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all">Roster</button>
         <button onclick="switchTab('games')" id="tab-games" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all">Game Log</button>
         <button onclick="switchTab('leaderboards')" id="tab-leaderboards" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all">Leaderboards</button>
         <button onclick="switchTab('schedule')" id="tab-schedule" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all">Schedule</button>
       </nav>
 
-      <!-- Action Button -->
-      <button onclick="toggleModal('admin-modal', true)" class="flex items-center space-x-2 bg-surf-gold text-surf-black px-4 py-2 rounded-lg font-bold text-sm hover:bg-surf-goldHover transition-all shadow-md shadow-surf-gold/10 hover:shadow-surf-gold/30">
+      <!-- Action Button (Now Red) -->
+      <button onclick="toggleModal('admin-modal', true)" class="flex items-center space-x-2 bg-surf-red text-white px-4 py-2 rounded-lg font-bold text-sm hover:bg-surf-redHover transition-all shadow-md shadow-surf-red/10 hover:shadow-surf-red/30">
         <i data-lucide="plus-circle" class="w-4 h-4"></i>
         <span>Add Stats</span>
       </button>
     </div>
 
-    <!-- Mobile Nav Bar -->
+    <!-- Mobile Nav Bar (Now Red/MLS accents) -->
     <div class="flex md:hidden border-t border-surf-border justify-around py-2 bg-surf-black">
-      <button onclick="switchTab('overview')" class="text-xs px-2 py-1 font-medium text-surf-gold">Overview</button>
+      <button onclick="switchTab('overview')" class="text-xs px-2 py-1 font-medium text-surf-red">Overview</button>
       <button onclick="switchTab('roster')" class="text-xs px-2 py-1 font-medium text-slate-400">Roster</button>
       <button onclick="switchTab('games')" class="text-xs px-2 py-1 font-medium text-slate-400">Games</button>
       <button onclick="switchTab('leaderboards')" class="text-xs px-2 py-1 font-medium text-slate-400">Leaders</button>
@@ -73,16 +76,16 @@
     </div>
   </header>
 
-  <!-- MAIN CONTENT CONTAINER -->
+  <!-- MAIN CONTENT CONTAINER (Updated Red accents throughout) -->
   <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
     <!-- OVERVIEW TAB -->
     <section id="sec-overview" class="space-y-6">
       
-      <!-- HERO STAT BANNER -->
+      <!-- HERO STAT BANNER (Accents to red/blue/purple etc.) -->
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-        <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex items-center space-x-4 hover:border-surf-gold/40 transition-all shadow-sm">
-          <div class="p-3 bg-surf-gold/10 text-surf-gold rounded-lg">
+        <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex items-center space-x-4 hover:border-surf-red/40 transition-all shadow-sm">
+          <div class="p-3 bg-surf-red/10 text-surf-red rounded-lg">
             <i data-lucide="trophy" class="w-6 h-6"></i>
           </div>
           <div>
@@ -126,7 +129,7 @@
       <div class="bg-surf-card border border-surf-border rounded-xl p-6">
         <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-4 gap-2">
           <h2 class="font-bold text-lg text-white flex items-center space-x-2">
-            <i data-lucide="pie-chart" class="w-5 h-5 text-surf-gold"></i>
+            <i data-lucide="pie-chart" class="w-5 h-5 text-surf-red"></i>
             <span>Team Performance Analytics</span>
           </h2>
           <!-- Form Guide Badges -->
@@ -151,7 +154,7 @@
           </div>
         </div>
 
-        <!-- Analytical Breakdown Cards -->
+        <!-- Analytical Breakdown Cards (Updated accents) -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
           <div class="bg-slate-900/50 border border-surf-border p-3 rounded-lg">
             <span class="text-[10px] text-slate-400 font-bold uppercase block">Win %</span>
@@ -167,7 +170,7 @@
           </div>
           <div class="bg-slate-900/50 border border-surf-border p-3 rounded-lg">
             <span class="text-[10px] text-slate-400 font-bold uppercase block">Total Matches</span>
-            <span id="metric-total-games" class="text-xl font-black text-surf-gold">0</span>
+            <span id="metric-total-games" class="text-xl font-black text-surf-red">0</span>
           </div>
         </div>
       </div>
@@ -175,23 +178,23 @@
       <!-- MAIN DASHBOARD GRID -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
-        <!-- Top Performers Card -->
+        <!-- Top Performers Card (Updated Red accent) -->
         <div class="bg-surf-card border border-surf-border rounded-xl p-6 lg:col-span-2">
           <div class="flex justify-between items-center mb-4">
             <h2 class="font-bold text-lg text-white flex items-center space-x-2">
-              <i data-lucide="star" class="w-5 h-5 text-surf-gold"></i>
+              <i data-lucide="star" class="w-5 h-5 text-surf-red"></i>
               <span>Stat Leaders Highlight</span>
             </h2>
           </div>
           
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div class="bg-slate-900/60 border border-surf-border rounded-lg p-4 text-center">
-              <span class="text-xs font-bold text-surf-gold uppercase">Top Goal Scorer</span>
+              <span class="text-xs font-bold text-surf-red uppercase">Top Goal Scorer</span>
               <div class="my-2">
-                <span id="top-scorer-num" class="inline-block bg-surf-gold/20 text-surf-gold font-mono font-bold px-2 py-0.5 rounded text-xs">#-</span>
+                <span id="top-scorer-num" class="inline-block bg-surf-red/20 text-surf-red font-mono font-bold px-2 py-0.5 rounded text-xs">#-</span>
                 <p id="top-scorer-name" class="font-bold text-lg text-white mt-1">None</p>
               </div>
-              <p class="text-2xl font-black text-surf-gold"><span id="top-scorer-count">0</span> <span class="text-xs text-slate-400 font-normal">Goals</span></p>
+              <p class="text-2xl font-black text-surf-red"><span id="top-scorer-count">0</span> <span class="text-xs text-slate-400 font-normal">Goals</span></p>
             </div>
 
             <div class="bg-slate-900/60 border border-surf-border rounded-lg p-4 text-center">
@@ -214,10 +217,10 @@
           </div>
         </div>
 
-        <!-- Recent Results Column -->
+        <!-- Recent Results Column (Updated Red Accent) -->
         <div class="bg-surf-card border border-surf-border rounded-xl p-6">
           <h2 class="font-bold text-lg text-white mb-4 flex items-center space-x-2">
-            <i data-lucide="calendar" class="w-5 h-5 text-surf-gold"></i>
+            <i data-lucide="calendar" class="w-5 h-5 text-surf-red"></i>
             <span>Recent Match Results</span>
           </h2>
           <div id="recent-games-list" class="space-y-3">
@@ -228,7 +231,7 @@
       </div>
     </section>
 
-    <!-- ROSTER TAB -->
+    <!-- ROSTER TAB (Updated Red borders on filter focus) -->
     <section id="sec-roster" class="hidden space-y-6">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
@@ -240,9 +243,9 @@
         <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
           <div class="relative flex-grow md:flex-grow-0">
             <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
-            <input type="text" id="roster-search" oninput="filterRoster()" placeholder="Search player..." class="bg-slate-900 border border-surf-border rounded-lg pl-9 pr-3 py-1.5 text-xs text-white focus:outline-none focus:border-surf-gold w-full md:w-44" />
+            <input type="text" id="roster-search" oninput="filterRoster()" placeholder="Search player..." class="bg-slate-900 border border-surf-border rounded-lg pl-9 pr-3 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red w-full md:w-44" />
           </div>
-          <select id="roster-pos-filter" onchange="filterRoster()" class="bg-slate-900 border border-surf-border rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-surf-gold">
+          <select id="roster-pos-filter" onchange="filterRoster()" class="bg-slate-900 border border-surf-border rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red">
             <option value="ALL">All Positions</option>
             <option value="Forward">Forwards</option>
             <option value="Midfield">Midfielders</option>
@@ -257,7 +260,7 @@
       </div>
     </section>
 
-    <!-- GAME LOG TAB -->
+    <!-- GAME LOG TAB (Updated Red icons for actions) -->
     <section id="sec-games" class="hidden space-y-6">
       <div class="flex justify-between items-center">
         <div>
@@ -286,7 +289,7 @@
       </div>
     </section>
 
-    <!-- LEADERBOARDS TAB -->
+    <!-- LEADERBOARDS TAB (Updated Red Goal icons) -->
     <section id="sec-leaderboards" class="hidden space-y-6">
       <div class="flex justify-between items-center">
         <div>
@@ -297,7 +300,7 @@
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div class="bg-surf-card border border-surf-border rounded-xl p-5">
-          <h3 class="font-bold text-base text-surf-gold mb-3 flex items-center justify-between">
+          <h3 class="font-bold text-base text-surf-red mb-3 flex items-center justify-between">
             <span>Goals Scored</span>
             <i data-lucide="target" class="w-4 h-4"></i>
           </h3>
@@ -322,7 +325,7 @@
       </div>
     </section>
 
-    <!-- SCHEDULE TAB -->
+    <!-- SCHEDULE TAB (New Red/MLS Theme, correct schedule) -->
     <section id="sec-schedule" class="hidden space-y-6">
       <div class="flex justify-between items-center">
         <div>
@@ -338,10 +341,10 @@
           <div>
             <span class="text-xs font-bold text-slate-400 uppercase">Game</span>
             <h3 class="text-base font-bold text-white mt-1">September 26th Game</h3>
-            <p class="text-xs text-surf-gold mt-1"><i data-lucide="clock" class="inline w-3 h-3 mr-1"></i>11:30 AM, 3:30 PM</p>
+            <p class="text-xs text-surf-red mt-1"><i data-lucide="clock" class="inline w-3 h-3 mr-1"></i>11:30 AM, 3:30 PM</p>
             <p class="text-xs text-slate-400"><i data-lucide="map-pin" class="inline w-3 h-3 mr-1"></i>Deem Hills Park</p>
           </div>
-          <a href="https://maps.google.com/?q=Deem+Hills+Park" target="_blank" class="bg-slate-900 border border-surf-border hover:border-surf-gold text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0">
+          <a href="https://maps.google.com/?q=Deem+Hills+Park" target="_blank" class="bg-slate-900 border border-surf-border hover:border-surf-red text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0">
             <span>Map</span>
             <i data-lucide="external-link" class="w-3 h-3"></i>
           </a>
@@ -352,10 +355,10 @@
           <div>
             <span class="text-xs font-bold text-slate-400 uppercase">Game</span>
             <h3 class="text-base font-bold text-white mt-1">October 3rd Game</h3>
-            <p class="text-xs text-surf-gold mt-1"><i data-lucide="clock" class="inline w-3 h-3 mr-1"></i>11:40 AM</p>
+            <p class="text-xs text-surf-red mt-1"><i data-lucide="clock" class="inline w-3 h-3 mr-1"></i>11:40 AM</p>
             <p class="text-xs text-slate-400"><i data-lucide="map-pin" class="inline w-3 h-3 mr-1"></i>Deem Hills Park</p>
           </div>
-          <a href="https://maps.google.com/?q=Deem+Hills+Park" target="_blank" class="bg-slate-900 border border-surf-border hover:border-surf-gold text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0">
+          <a href="https://maps.google.com/?q=Deem+Hills+Park" target="_blank" class="bg-slate-900 border border-surf-border hover:border-surf-red text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0">
             <span>Map</span>
             <i data-lucide="external-link" class="w-3 h-3"></i>
           </a>
@@ -366,10 +369,10 @@
           <div>
             <span class="text-xs font-bold text-slate-400 uppercase">Game</span>
             <h3 class="text-base font-bold text-white mt-1">October 17th Game</h3>
-            <p class="text-xs text-surf-gold mt-1"><i data-lucide="clock" class="inline w-3 h-3 mr-1"></i>12:00 PM</p>
+            <p class="text-xs text-surf-red mt-1"><i data-lucide="clock" class="inline w-3 h-3 mr-1"></i>12:00 PM</p>
             <p class="text-xs text-slate-400"><i data-lucide="map-pin" class="inline w-3 h-3 mr-1"></i>Arizona Athletics Grounds</p>
           </div>
-          <a href="https://maps.google.com/?q=Arizona+Athletics+Grounds" target="_blank" class="bg-slate-900 border border-surf-border hover:border-surf-gold text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0">
+          <a href="https://maps.google.com/?q=Arizona+Athletics+Grounds" target="_blank" class="bg-slate-900 border border-surf-border hover:border-surf-red text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0">
             <span>Map</span>
             <i data-lucide="external-link" class="w-3 h-3"></i>
           </a>
@@ -380,10 +383,10 @@
           <div>
             <span class="text-xs font-bold text-slate-400 uppercase">Game</span>
             <h3 class="text-base font-bold text-white mt-1">October 24th Game</h3>
-            <p class="text-xs text-surf-gold mt-1"><i data-lucide="clock" class="inline w-3 h-3 mr-1"></i>9:00 AM</p>
+            <p class="text-xs text-surf-red mt-1"><i data-lucide="clock" class="inline w-3 h-3 mr-1"></i>9:00 AM</p>
             <p class="text-xs text-slate-400"><i data-lucide="map-pin" class="inline w-3 h-3 mr-1"></i>Vista College Prep</p>
           </div>
-          <a href="https://maps.google.com/?q=Vista+College+Prep" target="_blank" class="bg-slate-900 border border-surf-border hover:border-surf-gold text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0">
+          <a href="https://maps.google.com/?q=Vista+College+Prep" target="_blank" class="bg-slate-900 border border-surf-border hover:border-surf-red text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0">
             <span>Map</span>
             <i data-lucide="external-link" class="w-3 h-3"></i>
           </a>
@@ -394,10 +397,10 @@
           <div>
             <span class="text-xs font-bold text-emerald-400 uppercase">Today's Game</span>
             <h3 class="text-base font-bold text-white mt-1">October 31st Game</h3>
-            <p class="text-xs text-surf-gold mt-1"><i data-lucide="clock" class="inline w-3 h-3 mr-1"></i>9:00 AM</p>
+            <p class="text-xs text-surf-red mt-1"><i data-lucide="clock" class="inline w-3 h-3 mr-1"></i>9:00 AM</p>
             <p class="text-xs text-slate-400"><i data-lucide="map-pin" class="inline w-3 h-3 mr-1"></i>Venturoso Park</p>
           </div>
-          <a href="https://maps.google.com/?q=Venturoso+Park" target="_blank" class="bg-slate-900 border border-surf-border hover:border-surf-gold text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0">
+          <a href="https://maps.google.com/?q=Venturoso+Park" target="_blank" class="bg-slate-900 border border-surf-border hover:border-surf-red text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0">
             <span>Map</span>
             <i data-lucide="external-link" class="w-3 h-3"></i>
           </a>
@@ -406,9 +409,9 @@
         <!-- Nov 6-8 -->
         <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex justify-between items-center">
           <div>
-            <span class="text-xs font-bold text-surf-gold uppercase">Tournament</span>
+            <span class="text-xs font-bold text-surf-red uppercase">Tournament</span>
             <h3 class="text-base font-bold text-white mt-1">November 6-8: Kick for the Cure</h3>
-            <p class="text-xs text-surf-gold mt-1"><i data-lucide="clock" class="inline w-3 h-3 mr-1"></i>Time and Place TBD</p>
+            <p class="text-xs text-surf-red mt-1"><i data-lucide="clock" class="inline w-3 h-3 mr-1"></i>Time and Place TBD</p>
           </div>
         </div>
 
@@ -417,10 +420,10 @@
           <div>
             <span class="text-xs font-bold text-slate-400 uppercase">Game</span>
             <h3 class="text-base font-bold text-white mt-1">November 14th Game</h3>
-            <p class="text-xs text-surf-gold mt-1"><i data-lucide="clock" class="inline w-3 h-3 mr-1"></i>11:00 AM</p>
+            <p class="text-xs text-surf-red mt-1"><i data-lucide="clock" class="inline w-3 h-3 mr-1"></i>11:00 AM</p>
             <p class="text-xs text-slate-400"><i data-lucide="map-pin" class="inline w-3 h-3 mr-1"></i>Benedict Sports Complex</p>
           </div>
-          <a href="https://maps.google.com/?q=Benedict+Sports+Complex" target="_blank" class="bg-slate-900 border border-surf-border hover:border-surf-gold text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0">
+          <a href="https://maps.google.com/?q=Benedict+Sports+Complex" target="_blank" class="bg-slate-900 border border-surf-border hover:border-surf-red text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0">
             <span>Map</span>
             <i data-lucide="external-link" class="w-3 h-3"></i>
           </a>
@@ -431,10 +434,10 @@
           <div>
             <span class="text-xs font-bold text-slate-400 uppercase">Game</span>
             <h3 class="text-base font-bold text-white mt-1">November 21st Game</h3>
-            <p class="text-xs text-surf-gold mt-1"><i data-lucide="clock" class="inline w-3 h-3 mr-1"></i>2:30 PM</p>
+            <p class="text-xs text-surf-red mt-1"><i data-lucide="clock" class="inline w-3 h-3 mr-1"></i>2:30 PM</p>
             <p class="text-xs text-slate-400"><i data-lucide="map-pin" class="inline w-3 h-3 mr-1"></i>West Valley Events Complex</p>
           </div>
-          <a href="https://maps.google.com/?q=West+Valley+Events+Complex" target="_blank" class="bg-slate-900 border border-surf-border hover:border-surf-gold text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0">
+          <a href="https://maps.google.com/?q=West+Valley+Events+Complex" target="_blank" class="bg-slate-900 border border-surf-border hover:border-surf-red text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0">
             <span>Map</span>
             <i data-lucide="external-link" class="w-3 h-3"></i>
           </a>
@@ -443,9 +446,9 @@
         <!-- Dec 11-13 -->
         <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex justify-between items-center md:col-span-2">
           <div>
-            <span class="text-xs font-bold text-surf-gold uppercase">Tournament</span>
+            <span class="text-xs font-bold text-surf-red uppercase">Tournament</span>
             <h3 class="text-base font-bold text-white mt-1">December 11-13: Holiday Classic</h3>
-            <p class="text-xs text-surf-gold mt-1"><i data-lucide="clock" class="inline w-3 h-3 mr-1"></i>Time and Place TBD</p>
+            <p class="text-xs text-surf-red mt-1"><i data-lucide="clock" class="inline w-3 h-3 mr-1"></i>Time and Place TBD</p>
           </div>
         </div>
 
@@ -454,7 +457,7 @@
 
   </main>
 
-  <!-- ADD / RECORD STATS MODAL -->
+  <!-- ADD / RECORD STATS MODAL (Updated focus borders) -->
   <div id="admin-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-surf-dark border border-surf-border rounded-xl max-w-xl w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
       
@@ -463,7 +466,7 @@
       </button>
 
       <h3 class="text-lg font-bold text-white mb-1 flex items-center space-x-2">
-        <i data-lucide="plus-circle" class="text-surf-gold w-5 h-5"></i>
+        <i data-lucide="plus-circle" class="text-surf-red w-5 h-5"></i>
         <span>Add Game Stats</span>
       </h3>
       <p class="text-xs text-slate-400 mb-6">Enter new match results and player performance metrics.</p>
@@ -472,33 +475,33 @@
         <div class="grid grid-cols-2 gap-4">
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">Opponent Team</label>
-            <input type="text" id="form-opponent" required placeholder="e.g. RSL AZ" class="w-full bg-slate-900 border border-surf-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-surf-gold" />
+            <input type="text" id="form-opponent" required placeholder="e.g. RSL AZ" class="w-full bg-slate-900 border border-surf-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-surf-red" />
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">Date</label>
-            <input type="date" id="form-date" required class="w-full bg-slate-900 border border-surf-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-surf-gold" />
+            <input type="date" id="form-date" required class="w-full bg-slate-900 border border-surf-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-surf-red" />
           </div>
         </div>
 
         <div class="grid grid-cols-2 gap-4">
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">AZ Surf Score</label>
-            <input type="number" id="form-our-score" required min="0" placeholder="3" class="w-full bg-slate-900 border border-surf-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-surf-gold" />
+            <input type="number" id="form-our-score" required min="0" placeholder="3" class="w-full bg-slate-900 border border-surf-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-surf-red" />
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">Opponent Score</label>
-            <input type="number" id="form-their-score" required min="0" placeholder="1" class="w-full bg-slate-900 border border-surf-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-surf-gold" />
+            <input type="number" id="form-their-score" required min="0" placeholder="1" class="w-full bg-slate-900 border border-surf-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-surf-red" />
           </div>
         </div>
 
         <hr class="border-surf-border my-4" />
 
-        <h4 class="text-sm font-bold text-surf-gold mb-2">Record Player Performance</h4>
+        <h4 class="text-sm font-bold text-surf-red mb-2">Record Player Performance</h4>
         
         <div class="grid grid-cols-1 gap-3">
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">Select Player</label>
-            <select id="form-player-select" class="w-full bg-slate-900 border border-surf-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-surf-gold"></select>
+            <select id="form-player-select" class="w-full bg-slate-900 border border-surf-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-surf-red"></select>
           </div>
 
           <div class="grid grid-cols-5 gap-2">
@@ -527,13 +530,13 @@
 
         <div class="pt-4 flex justify-end space-x-3">
           <button type="button" onclick="toggleModal('admin-modal', false)" class="px-4 py-2 rounded-lg text-sm text-slate-400 hover:text-white border border-surf-border">Cancel</button>
-          <button type="submit" id="save-btn" class="px-4 py-2 rounded-lg text-sm bg-surf-gold text-surf-black font-bold hover:bg-surf-goldHover">Save Match Stats</button>
+          <button type="submit" id="save-btn" class="px-4 py-2 rounded-lg text-sm bg-surf-red text-white font-bold hover:bg-surf-redHover">Save Match Stats</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- PLAYER DETAILED ANALYTICS & EDIT MODAL -->
+  <!-- PLAYER DETAILED ANALYTICS & EDIT MODAL (Updated Red bars/accents) -->
   <div id="player-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-surf-dark border border-surf-border rounded-xl max-w-lg w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
       
@@ -543,20 +546,20 @@
 
       <!-- Profile Header -->
       <div class="flex items-center space-x-4 mb-6">
-        <div id="pm-jersey-badge" class="w-14 h-14 rounded-full bg-surf-gold/20 text-surf-gold font-mono font-black text-2xl flex items-center justify-center border border-surf-gold/40">
+        <div id="pm-jersey-badge" class="w-14 h-14 rounded-full bg-surf-red/20 text-surf-red font-mono font-black text-2xl flex items-center justify-center border border-surf-red/40">
           #0
         </div>
         <div>
           <h3 id="pm-name" class="text-xl font-bold text-white leading-tight">Player Name</h3>
-          <span id="pm-pos" class="inline-block bg-slate-900 border border-surf-border text-surf-gold text-xs font-semibold px-2.5 py-0.5 rounded mt-1">Position</span>
+          <span id="pm-pos" class="inline-block bg-slate-900 border border-surf-border text-surf-red text-xs font-semibold px-2.5 py-0.5 rounded mt-1">Position</span>
         </div>
       </div>
 
-      <!-- Stat Analytics Grid -->
+      <!-- Stat Analytics Grid (Updated Red accented text) -->
       <div class="grid grid-cols-4 gap-2 mb-6 bg-slate-900/60 p-3 rounded-xl border border-surf-border text-center">
         <div>
           <span class="text-[10px] text-slate-400 uppercase font-semibold">Goals</span>
-          <p id="pm-goals" class="text-lg font-black text-surf-gold">0</p>
+          <p id="pm-goals" class="text-lg font-black text-surf-red">0</p>
         </div>
         <div>
           <span class="text-[10px] text-slate-400 uppercase font-semibold">Assists</span>
@@ -572,15 +575,15 @@
         </div>
       </div>
 
-      <!-- Percentages & Impact Bars -->
+      <!-- Percentages & Impact Bars (Updated Red/MLS Theme bars) -->
       <div class="space-y-4 mb-6">
         <div>
           <div class="flex justify-between text-xs font-semibold mb-1">
             <span class="text-slate-300">Team Goal Contribution %</span>
-            <span id="pm-goal-share" class="text-surf-gold">0%</span>
+            <span id="pm-goal-share" class="text-surf-red">0%</span>
           </div>
           <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-surf-border">
-            <div id="pm-bar-goals" class="bg-surf-gold h-full transition-all duration-500" style="width: 0%"></div>
+            <div id="pm-bar-goals" class="bg-surf-red h-full transition-all duration-500" style="width: 0%"></div>
           </div>
         </div>
 
@@ -643,7 +646,7 @@
             </div>
           </div>
 
-          <button type="submit" class="w-full bg-surf-gold text-surf-black font-bold py-1.5 rounded text-xs hover:bg-surf-goldHover transition-colors mt-2">
+          <button type="submit" class="w-full bg-surf-red text-white font-bold py-1.5 rounded text-xs hover:bg-surf-redHover transition-colors mt-2">
             Save Player Updates
           </button>
         </form>
@@ -652,7 +655,7 @@
     </div>
   </div>
 
-  <!-- EDIT GAME LOG MODAL -->
+  <!-- EDIT GAME LOG MODAL (Updated focus borders) -->
   <div id="game-edit-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-surf-dark border border-surf-border rounded-xl max-w-md w-full p-6 shadow-2xl relative">
       <button onclick="toggleModal('game-edit-modal', false)" class="absolute top-4 right-4 text-slate-400 hover:text-white">
@@ -666,40 +669,40 @@
         
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Opponent</label>
-          <input type="text" id="edit-g-opponent" required class="w-full bg-slate-900 border border-surf-border rounded px-3 py-1.5 text-sm text-white" />
+          <input type="text" id="edit-g-opponent" required class="w-full bg-slate-900 border border-surf-border rounded px-3 py-1.5 text-sm text-white focus:outline-none focus:border-surf-red" />
         </div>
 
         <div class="grid grid-cols-3 gap-2">
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">Date</label>
-            <input type="date" id="edit-g-date" required class="w-full bg-slate-900 border border-surf-border rounded px-2 py-1.5 text-xs text-white" />
+            <input type="date" id="edit-g-date" required class="w-full bg-slate-900 border border-surf-border rounded px-2 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red" />
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">AZ Surf</label>
-            <input type="number" id="edit-g-ourscore" required min="0" class="w-full bg-slate-900 border border-surf-border rounded px-2 py-1.5 text-sm text-white text-center" />
+            <input type="number" id="edit-g-ourscore" required min="0" class="w-full bg-slate-900 border border-surf-border rounded px-2 py-1.5 text-sm text-white text-center focus:outline-none focus:border-surf-red" />
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">Opponent</label>
-            <input type="number" id="edit-g-oppscore" required min="0" class="w-full bg-slate-900 border border-surf-border rounded px-2 py-1.5 text-sm text-white text-center" />
+            <input type="number" id="edit-g-oppscore" required min="0" class="w-full bg-slate-900 border border-surf-border rounded px-2 py-1.5 text-sm text-white text-center focus:outline-none focus:border-surf-red" />
           </div>
         </div>
 
         <div class="pt-3 flex justify-end space-x-2">
           <button type="button" onclick="toggleModal('game-edit-modal', false)" class="px-3 py-1.5 text-xs text-slate-400 hover:text-white border border-surf-border rounded">Cancel</button>
-          <button type="submit" class="px-4 py-1.5 text-xs bg-surf-gold text-surf-black font-bold rounded hover:bg-surf-goldHover">Update Game</button>
+          <button type="submit" class="px-4 py-1.5 text-xs bg-surf-red text-white font-bold rounded hover:bg-surf-redHover">Update Game</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- JAVASCRIPT LOGIC -->
+  <!-- JAVASCRIPT LOGIC (Updated dual blending modes) -->
   <script>
     // Initialize Supabase Client
     const SUPABASE_URL = 'https://cwnqjtlcwpmzimsnwepd.supabase.co';
     const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN3bnFqdGxjd3Btemltc253ZXBkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM0NjgyNjMsImV4cCI6MjEwOTA0NDI2M30.yWdBQy07QmBFPaz7xQ4K8hlRSXMPZ68k2KuFXxwGM08';
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    // Pre-loaded Roster Data (guarantees player visibility)
+    // Pre-loaded Roster Data (Guarantees player visibility, now Red theme ready)
     let players = [
       { id: 1, name: 'Xainden', number: 10, pos: 'Midfield', goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
       { id: 2, name: 'Alex', number: 1, pos: 'Goalkeeper', goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
@@ -734,7 +737,7 @@
         document.getElementById(`sec-${tab}`).classList.add('hidden');
         const btn = document.getElementById(`tab-${tab}`);
         if(btn) {
-          btn.classList.remove('text-surf-gold', 'bg-surf-border/50');
+          btn.classList.remove('text-surf-red', 'bg-surf-border/50');
           btn.classList.add('text-slate-400');
         }
       });
@@ -742,7 +745,7 @@
       document.getElementById(`sec-${tabName}`).classList.remove('hidden');
       const activeBtn = document.getElementById(`tab-${tabName}`);
       if(activeBtn) {
-        activeBtn.classList.add('text-surf-gold', 'bg-surf-border/50');
+        activeBtn.classList.add('text-surf-red', 'bg-surf-border/50');
         activeBtn.classList.remove('text-slate-400');
       }
     }
@@ -822,7 +825,7 @@
         }).join('');
       }
 
-      // Top Performers
+      // Top Performers (Updated accented text)
       const topScorer = [...players].sort((a,b) => (b.goals || 0) - (a.goals || 0))[0];
       const topAssist = [...players].sort((a,b) => (b.assists || 0) - (a.assists || 0))[0];
       const topGK = [...players].sort((a,b) => (b.saves || 0) - (a.saves || 0))[0];
@@ -831,21 +834,33 @@
         document.getElementById('top-scorer-num').innerText = `#${topScorer.number}`;
         document.getElementById('top-scorer-name').innerText = topScorer.name;
         document.getElementById('top-scorer-count').innerText = topScorer.goals;
+      } else {
+        document.getElementById('top-scorer-num').innerText = "#-";
+        document.getElementById('top-scorer-name').innerText = "None";
+        document.getElementById('top-scorer-count').innerText = "0";
       }
 
       if(topAssist && topAssist.assists > 0) {
         document.getElementById('top-assist-num').innerText = `#${topAssist.number}`;
         document.getElementById('top-assist-name').innerText = topAssist.name;
         document.getElementById('top-assist-count').innerText = topAssist.assists;
+      } else {
+        document.getElementById('top-assist-num').innerText = "#-";
+        document.getElementById('top-assist-name').innerText = "None";
+        document.getElementById('top-assist-count').innerText = "0";
       }
 
       if(topGK && topGK.saves > 0) {
         document.getElementById('top-gk-num').innerText = `#${topGK.number}`;
         document.getElementById('top-gk-name').innerText = topGK.name;
         document.getElementById('top-gk-count').innerText = topGK.saves;
+      } else {
+        document.getElementById('top-gk-num').innerText = "#-";
+        document.getElementById('top-gk-name').innerText = "None";
+        document.getElementById('top-gk-count').innerText = "0";
       }
 
-      // Render Recent Games list
+      // Render Recent Games list (Updated Accents)
       const recentContainer = document.getElementById('recent-games-list');
       if (games.length === 0) {
         recentContainer.innerHTML = `<p class="text-xs text-slate-500">No games recorded yet.</p>`;
@@ -889,9 +904,9 @@
       }
 
       rosterGrid.innerHTML = filtered.map(p => `
-        <div onclick="openPlayerModal(${p.id})" class="bg-surf-card border border-surf-border rounded-xl p-4 hover:border-surf-gold/50 cursor-pointer transition-all hover:scale-[1.02]">
+        <div onclick="openPlayerModal(${p.id})" class="bg-surf-card border border-surf-border rounded-xl p-4 hover:border-surf-red/50 cursor-pointer transition-all hover:scale-[1.02]">
           <div class="flex justify-between items-start mb-3">
-            <span class="w-8 h-8 rounded-full bg-surf-gold/20 text-surf-gold font-mono font-bold flex items-center justify-center text-sm border border-surf-gold/30">
+            <span class="w-8 h-8 rounded-full bg-surf-red/20 text-surf-red font-mono font-bold flex items-center justify-center text-sm border border-surf-red/30">
               #${p.number}
             </span>
             <span class="text-[10px] font-semibold text-slate-400 bg-slate-900 px-2 py-1 rounded border border-surf-border">
@@ -904,7 +919,7 @@
           <div class="grid grid-cols-4 gap-1 bg-slate-900/60 p-2 rounded-lg text-center text-xs">
             <div>
               <span class="block text-[9px] text-slate-400">G</span>
-              <span class="font-bold text-surf-gold">${p.goals || 0}</span>
+              <span class="font-bold text-surf-red">${p.goals || 0}</span>
             </div>
             <div>
               <span class="block text-[9px] text-slate-400">A</span>
@@ -1006,7 +1021,7 @@
           </td>
           <td class="p-4 text-center font-mono font-bold">${g.ourScore} - ${g.opponentScore}</td>
           <td class="p-4 text-right space-x-2">
-            <button onclick="openGameEditModal(${g.id})" class="text-xs text-slate-400 hover:text-surf-gold"><i data-lucide="edit-2" class="inline w-3.5 h-3.5"></i></button>
+            <button onclick="openGameEditModal(${g.id})" class="text-xs text-slate-400 hover:text-surf-red"><i data-lucide="edit-2" class="inline w-3.5 h-3.5"></i></button>
             <button onclick="deleteGame(${g.id})" class="text-xs text-slate-400 hover:text-rose-400"><i data-lucide="trash-2" class="inline w-3.5 h-3.5"></i></button>
           </td>
         </tr>
@@ -1068,8 +1083,8 @@
 
       goalsList.innerHTML = byGoals.map(p => `
         <li class="flex justify-between items-center text-sm p-2 bg-slate-900/40 rounded">
-          <span class="text-white"><strong class="text-surf-gold">#${p.number}</strong> ${p.name}</span>
-          <span class="font-black text-surf-gold">${p.goals || 0}</span>
+          <span class="text-white"><strong class="text-surf-red">#${p.number}</strong> ${p.name}</span>
+          <span class="font-black text-surf-red">${p.goals || 0}</span>
         </li>
       `).join('');
 
@@ -1123,7 +1138,7 @@
         players[pIdx].saves = (players[pIdx].saves || 0) + saves;
       }
 
-      // Try background sync with Supabase
+      // Try background sync with Supabase (No changes here, as requested)
       await supabaseClient.from('games').insert([{ date, opponent, ourScore, opponentScore, result }]);
       await supabaseClient.from('players').upsert([players[pIdx]]);
 
