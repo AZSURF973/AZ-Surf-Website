@@ -313,11 +313,11 @@
       </div>
     </section>
 
-    <!-- SCHEDULE TAB (DYNAMIC FROM SUPABASE) -->
+    <!-- SCHEDULE TAB -->
     <section id="sec-schedule" class="hidden space-y-6">
       <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
         <div>
-          <h2 class="text-xl font-bold text-white">Xainden's Soccer Schedule</h2>
+          <h2 class="text-xl font-bold text-white">Surf Upcoming Games</h2>
           <p class="text-sm text-slate-400">Official team fixtures, tournaments, and field maps</p>
         </div>
         <button onclick="toggleModal('schedule-modal', true)" class="bg-surf-red text-white text-xs px-3 py-2 rounded-lg font-bold hover:bg-surf-redHover transition-all self-start sm:self-auto flex items-center space-x-1">
@@ -326,9 +326,7 @@
         </button>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="schedule-cards-grid">
-        <!-- Rendered dynamically via JavaScript -->
-      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="schedule-cards-grid"></div>
     </section>
 
   </main>
@@ -634,8 +632,6 @@
     ];
 
     let games = [];
-    
-    // Default fallback schedule
     let schedule = [
       { id: 1, title: 'September 26th Game', type: 'Game', time: '11:30 AM, 3:30 PM', location: 'Deem Hills Park', mapUrl: 'https://maps.google.com/?q=Deem+Hills+Park' },
       { id: 2, title: 'October 3rd Game', type: 'Game', time: '11:40 AM', location: 'Deem Hills Park', mapUrl: 'https://maps.google.com/?q=Deem+Hills+Park' },
@@ -1019,7 +1015,6 @@
       `) : `<p class="text-xs text-slate-500">No goalie saves logged yet.</p>`;
     }
 
-    // RENDER DYNAMIC SCHEDULE CARDS
     function renderSchedule() {
       const grid = document.getElementById('schedule-cards-grid');
       if (schedule.length === 0) {
