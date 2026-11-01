@@ -52,6 +52,7 @@
       <nav class="hidden md:flex space-x-1">
         <button onclick="switchTab('overview')" id="tab-overview" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-surf-red bg-surf-border/50">Overview</button>
         <button onclick="switchTab('roster')" id="tab-roster" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all">Roster</button>
+        <button onclick="switchTab('tactics')" id="tab-tactics" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all">Tactics Board</button>
         <button onclick="switchTab('games')" id="tab-games" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all">Game Log</button>
         <button onclick="switchTab('leaderboards')" id="tab-leaderboards" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all">Leaderboards</button>
         <button onclick="switchTab('schedule')" id="tab-schedule" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all">Schedule</button>
@@ -65,12 +66,13 @@
     </div>
 
     <!-- Mobile Nav Bar -->
-    <div class="flex md:hidden border-t border-surf-border justify-around py-2 bg-surf-black">
-      <button onclick="switchTab('overview')" class="text-xs px-2 py-1 font-medium text-surf-red">Overview</button>
-      <button onclick="switchTab('roster')" class="text-xs px-2 py-1 font-medium text-slate-400">Roster</button>
-      <button onclick="switchTab('games')" class="text-xs px-2 py-1 font-medium text-slate-400">Games</button>
-      <button onclick="switchTab('leaderboards')" class="text-xs px-2 py-1 font-medium text-slate-400">Leaders</button>
-      <button onclick="switchTab('schedule')" class="text-xs px-2 py-1 font-medium text-slate-400">Schedule</button>
+    <div class="flex md:hidden border-t border-surf-border justify-around py-2 bg-surf-black overflow-x-auto">
+      <button onclick="switchTab('overview')" class="text-xs px-2 py-1 font-medium text-surf-red shrink-0">Overview</button>
+      <button onclick="switchTab('roster')" class="text-xs px-2 py-1 font-medium text-slate-400 shrink-0">Roster</button>
+      <button onclick="switchTab('tactics')" class="text-xs px-2 py-1 font-medium text-slate-400 shrink-0">Tactics</button>
+      <button onclick="switchTab('games')" class="text-xs px-2 py-1 font-medium text-slate-400 shrink-0">Games</button>
+      <button onclick="switchTab('leaderboards')" class="text-xs px-2 py-1 font-medium text-slate-400 shrink-0">Leaders</button>
+      <button onclick="switchTab('schedule')" class="text-xs px-2 py-1 font-medium text-slate-400 shrink-0">Schedule</button>
     </div>
   </header>
 
@@ -244,6 +246,54 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="roster-grid"></div>
     </section>
 
+    <!-- TACTICS & FORMATION BUILDER TAB -->
+    <section id="sec-tactics" class="hidden space-y-6">
+      <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+        <div>
+          <h2 class="text-xl font-bold text-white flex items-center space-x-2">
+            <i data-lucide="layout" class="text-surf-red w-6 h-6"></i>
+            <span>Interactive Pitch Formation Builder</span>
+          </h2>
+          <p class="text-sm text-slate-400">Drag squad members from the right onto the pitch positions.</p>
+        </div>
+
+        <div class="flex items-center space-x-2">
+          <select id="formation-select" onchange="changeFormation(this.value)" class="bg-slate-900 border border-surf-border rounded-lg px-3 py-1.5 text-xs text-white font-bold focus:outline-none focus:border-surf-red">
+            <option value="4-3-3">Formation: 4-3-3</option>
+            <option value="4-2-3-1">Formation: 4-2-3-1</option>
+            <option value="4-4-2">Formation: 4-4-2</option>
+            <option value="3-4-3">Formation: 3-4-3</option>
+          </select>
+          <button onclick="clearPitch()" class="bg-slate-900 border border-surf-border hover:border-surf-red text-slate-300 px-3 py-1.5 rounded-lg text-xs font-bold transition-all">Clear</button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- TACTICAL GREEN PITCH -->
+        <div class="lg:col-span-2 bg-emerald-950/60 border-2 border-emerald-600/40 rounded-2xl p-4 relative min-h-[520px] flex flex-col justify-between overflow-hidden shadow-2xl">
+          <!-- Pitch Markings -->
+          <div class="absolute inset-x-0 top-1/2 h-0.5 bg-emerald-500/30"></div>
+          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-28 border-2 border-emerald-500/30 rounded-full"></div>
+          <div class="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-20 border-b-2 border-x-2 border-emerald-500/30 rounded-b-xl"></div>
+          <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-48 h-20 border-t-2 border-x-2 border-emerald-500/30 rounded-t-xl"></div>
+
+          <!-- PITCH SLOTS CONTAINER -->
+          <div id="pitch-slots-container" class="relative w-full h-[500px] z-10"></div>
+        </div>
+
+        <!-- BENCH / SQUAD SELECTION -->
+        <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex flex-col">
+          <h3 class="font-bold text-white text-base mb-1 flex items-center justify-between">
+            <span>Available Roster</span>
+            <span class="text-xs font-normal text-slate-400">Drag to pitch</span>
+          </h3>
+          <p class="text-xs text-slate-400 mb-4">Unassigned players ready for substitution</p>
+
+          <div id="bench-container" class="space-y-2 flex-grow overflow-y-auto max-h-[440px] pr-1"></div>
+        </div>
+      </div>
+    </section>
+
     <!-- GAME LOG TAB -->
     <section id="sec-games" class="hidden space-y-6">
       <div class="flex justify-between items-center">
@@ -307,7 +357,7 @@
       </div>
     </section>
 
-    <!-- SCHEDULE TAB (Static/Hardcoded, easily editable right in the code below) -->
+    <!-- SCHEDULE TAB -->
     <section id="sec-schedule" class="hidden space-y-6">
       <div class="flex justify-between items-center">
         <div>
@@ -316,9 +366,7 @@
         </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="schedule-cards-grid">
-        <!-- Rendered statically from JavaScript schedule array -->
-      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="schedule-cards-grid"></div>
     </section>
 
   </main>
@@ -401,7 +449,7 @@
     </div>
   </div>
 
-<!-- PLAYER DETAILED ANALYTICS & EDIT MODAL -->
+  <!-- PLAYER DETAILED ANALYTICS & EDIT MODAL -->
   <div id="player-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-surf-dark border border-surf-border rounded-xl max-w-lg w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
       <button onclick="toggleModal('player-modal', false)" class="absolute top-4 right-4 text-slate-400 hover:text-white">
@@ -572,7 +620,6 @@
 
     let games = [];
 
-    // SCHEDULE IS NOW HARDCODED HERE - You can easily type/edit your games right in this list anytime!
     const schedule = [
       { title: 'September 26th Game', type: 'Game', time: '11:30 AM, 3:30 PM', location: 'Deem Hills Park', mapUrl: 'https://maps.google.com/?q=Deem+Hills+Park' },
       { title: 'October 3rd Game', type: 'Game', time: '11:40 AM', location: 'Deem Hills Park', mapUrl: 'https://maps.google.com/?q=Deem+Hills+Park' },
@@ -585,13 +632,71 @@
       { title: 'December 11-13: Holiday Classic', type: 'Tournament', time: 'TBD', location: 'TBD', mapUrl: '' }
     ];
 
+    // FORMATION COORDINATES (X%, Y%)
+    const FORMATIONS = {
+      '4-3-3': [
+        { label: 'GK', top: '86%', left: '50%' },
+        { label: 'LB', top: '68%', left: '15%' },
+        { label: 'CB', top: '72%', left: '38%' },
+        { label: 'CB', top: '72%', left: '62%' },
+        { label: 'RB', top: '68%', left: '85%' },
+        { label: 'LCM', top: '46%', left: '28%' },
+        { label: 'CDM', top: '50%', left: '50%' },
+        { label: 'RCM', top: '46%', left: '72%' },
+        { label: 'LW', top: '20%', left: '20%' },
+        { label: 'ST', top: '15%', left: '50%' },
+        { label: 'RW', top: '20%', left: '80%' }
+      ],
+      '4-2-3-1': [
+        { label: 'GK', top: '86%', left: '50%' },
+        { label: 'LB', top: '68%', left: '15%' },
+        { label: 'CB', top: '72%', left: '38%' },
+        { label: 'CB', top: '72%', left: '62%' },
+        { label: 'RB', top: '68%', left: '85%' },
+        { label: 'LDM', top: '53%', left: '35%' },
+        { label: 'RDM', top: '53%', left: '65%' },
+        { label: 'LAM', top: '32%', left: '22%' },
+        { label: 'CAM', top: '30%', left: '50%' },
+        { label: 'RAM', top: '32%', left: '78%' },
+        { label: 'ST', top: '12%', left: '50%' }
+      ],
+      '4-4-2': [
+        { label: 'GK', top: '86%', left: '50%' },
+        { label: 'LB', top: '68%', left: '15%' },
+        { label: 'CB', top: '72%', left: '38%' },
+        { label: 'CB', top: '72%', left: '62%' },
+        { label: 'RB', top: '68%', left: '85%' },
+        { label: 'LM', top: '42%', left: '18%' },
+        { label: 'CM', top: '45%', left: '38%' },
+        { label: 'CM', top: '45%', left: '62%' },
+        { label: 'RM', top: '42%', left: '82%' },
+        { label: 'ST', top: '16%', left: '35%' },
+        { label: 'ST', top: '16%', left: '65%' }
+      ],
+      '3-4-3': [
+        { label: 'GK', top: '86%', left: '50%' },
+        { label: 'CB', top: '72%', left: '25%' },
+        { label: 'CB', top: '74%', left: '50%' },
+        { label: 'CB', top: '72%', left: '75%' },
+        { label: 'LM', top: '45%', left: '15%' },
+        { label: 'CM', top: '48%', left: '38%' },
+        { label: 'CM', top: '48%', left: '62%' },
+        { label: 'RM', top: '45%', left: '85%' },
+        { label: 'LW', top: '20%', left: '20%' },
+        { label: 'ST', top: '15%', left: '50%' },
+        { label: 'RW', top: '20%', left: '80%' }
+      ]
+    };
+
+    let pitchAssignments = {}; // slotIndex -> playerId
+    let currentFormationKey = '4-3-3';
+
     document.addEventListener('DOMContentLoaded', () => {
       lucide.createIcons();
       loadDataFromDatabase();
     });
 
     async function loadDataFromDatabase() {
-      // Only fetches players and games from Supabase now
       const { data: dbPlayers } = await supabaseClient.from('players').select('*');
       const { data: dbGames } = await supabaseClient.from('games').select('*');
 
@@ -602,8 +707,10 @@
     }
 
     function switchTab(tabName) {
-      ['overview', 'roster', 'games', 'leaderboards', 'schedule'].forEach(tab => {
-        document.getElementById(`sec-${tab}`).classList.add('hidden');
+      ['overview', 'roster', 'tactics', 'games', 'leaderboards', 'schedule'].forEach(tab => {
+        const sec = document.getElementById(`sec-${tab}`);
+        if(sec) sec.classList.add('hidden');
+        
         const btn = document.getElementById(`tab-${tab}`);
         if(btn) {
           btn.classList.remove('text-surf-red', 'bg-surf-border/50');
@@ -616,6 +723,10 @@
       if(activeBtn) {
         activeBtn.classList.add('text-surf-red', 'bg-surf-border/50');
         activeBtn.classList.remove('text-slate-400');
+      }
+
+      if (tabName === 'tactics') {
+        renderTacticsBoard();
       }
     }
 
@@ -641,7 +752,110 @@
       renderGames();
       renderLeaderboards();
       renderSchedule();
+      renderTacticsBoard();
       lucide.createIcons();
+    }
+
+    /* --- TACTICS & PITCH BUILDER LOGIC --- */
+    function changeFormation(key) {
+      currentFormationKey = key;
+      renderTacticsBoard();
+    }
+
+    function clearPitch() {
+      pitchAssignments = {};
+      renderTacticsBoard();
+    }
+
+    function renderTacticsBoard() {
+      const container = document.getElementById('pitch-slots-container');
+      const benchContainer = document.getElementById('bench-container');
+      if (!container || !benchContainer) return;
+
+      container.innerHTML = '';
+      const slots = FORMATIONS[currentFormationKey] || FORMATIONS['4-3-3'];
+
+      // Render pitch slots
+      slots.forEach((slot, idx) => {
+        const assignedPlayerId = pitchAssignments[idx];
+        const player = players.find(p => p.id === assignedPlayerId);
+
+        const slotDiv = document.createElement('div');
+        slotDiv.className = 'absolute -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center cursor-pointer group';
+        slotDiv.style.top = slot.top;
+        slotDiv.style.left = slot.left;
+
+        slotDiv.ondragover = (e) => e.preventDefault();
+        slotDiv.ondrop = (e) => handleDropOnSlot(e, idx);
+        slotDiv.onclick = () => {
+          if (assignedPlayerId) {
+            delete pitchAssignments[idx];
+            renderTacticsBoard();
+          }
+        };
+
+        if (player) {
+          slotDiv.innerHTML = `
+            <div class="w-10 h-10 rounded-full bg-surf-red text-white border-2 border-white font-mono font-black flex items-center justify-center text-sm shadow-lg shadow-black/60 group-hover:scale-110 transition-transform">
+              #${player.number}
+            </div>
+            <span class="bg-black/80 text-white font-bold text-[10px] px-2 py-0.5 rounded mt-1 shadow border border-surf-border whitespace-nowrap">
+              ${player.name}
+            </span>
+          `;
+        } else {
+          slotDiv.innerHTML = `
+            <div class="w-10 h-10 rounded-full bg-emerald-900/60 border-2 border-dashed border-emerald-400/50 text-emerald-300 font-bold flex items-center justify-center text-xs group-hover:border-white transition-colors">
+              ${slot.label}
+            </div>
+            <span class="text-[9px] font-semibold text-emerald-400/70 mt-1 uppercase tracking-wider">${slot.label}</span>
+          `;
+        }
+
+        container.appendChild(slotDiv);
+      });
+
+      // Render Bench Roster
+      const assignedIds = Object.values(pitchAssignments);
+      const unassigned = players.filter(p => !assignedIds.includes(p.id));
+
+      if (unassigned.length === 0) {
+        benchContainer.innerHTML = `<p class="text-xs text-slate-500 py-4 text-center">All players placed on pitch!</p>`;
+      } else {
+        benchContainer.innerHTML = unassigned.map(p => `
+          <div draggable="true" ondragstart="handleDragStart(event, ${p.id})" class="bg-slate-900 border border-surf-border hover:border-surf-red p-3 rounded-lg flex justify-between items-center cursor-grab active:cursor-grabbing hover:bg-slate-800/80 transition-all">
+            <div class="flex items-center space-x-3">
+              <span class="w-7 h-7 rounded-full bg-surf-red/20 text-surf-red font-mono font-bold flex items-center justify-center text-xs border border-surf-red/30">
+                #${p.number}
+              </span>
+              <div>
+                <p class="text-xs font-bold text-white">${p.name}</p>
+                <span class="text-[9px] text-slate-400 uppercase">${p.pos || 'Player'}</span>
+              </div>
+            </div>
+            <i data-lucide="grip-vertical" class="w-4 h-4 text-slate-500"></i>
+          </div>
+        `).join('');
+      }
+
+      lucide.createIcons();
+    }
+
+    function handleDragStart(e, playerId) {
+      e.dataTransfer.setData('text/plain', playerId.toString());
+    }
+
+    function handleDropOnSlot(e, slotIdx) {
+      e.preventDefault();
+      const playerId = parseInt(e.dataTransfer.getData('text/plain'));
+      if (playerId) {
+        // Remove player from any previous slot
+        Object.keys(pitchAssignments).forEach(key => {
+          if (pitchAssignments[key] === playerId) delete pitchAssignments[key];
+        });
+        pitchAssignments[slotIdx] = playerId;
+        renderTacticsBoard();
+      }
     }
 
     function renderOverview() {
