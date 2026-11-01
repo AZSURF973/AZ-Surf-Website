@@ -83,9 +83,40 @@
 
     <!-- OVERVIEW TAB -->
     <section id="sec-overview" class="space-y-6">
+
+      <!-- NEW: MATCH COUNTDOWN & WEATHER WIDGET ROW -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Countdown Widget -->
+        <div class="bg-gradient-to-r from-surf-red/20 via-surf-card to-surf-card border border-surf-red/40 rounded-xl p-4 flex items-center justify-between shadow-lg">
+          <div class="flex items-center space-x-3">
+            <div class="p-2.5 bg-surf-red text-white rounded-lg">
+              <i data-lucide="timer" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold text-surf-red uppercase tracking-wide">Next Kickoff Countdown</span>
+              <h4 id="countdown-timer" class="font-mono font-black text-white text-lg">Loading...</h4>
+            </div>
+          </div>
+          <span class="text-xs text-slate-400 hidden sm:inline">Deem Hills Park</span>
+        </div>
+
+        <!-- Weather Widget -->
+        <div class="bg-surf-card border border-surf-border rounded-xl p-4 flex items-center justify-between shadow-lg">
+          <div class="flex items-center space-x-3">
+            <div class="p-2.5 bg-blue-500/20 text-blue-400 rounded-lg border border-blue-500/30">
+              <i data-lucide="cloud-sun" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold text-blue-400 uppercase tracking-wide">Field Weather (Peoria, AZ)</span>
+              <h4 id="weather-widget" class="font-bold text-white text-base">Fetching weather...</h4>
+            </div>
+          </div>
+          <span class="text-[10px] bg-slate-900 border border-surf-border text-slate-300 px-2.5 py-1 rounded">Live API</span>
+        </div>
+      </div>
       
       <!-- Announcements & Birthdays Header with Post Button -->
-      <div class="flex justify-between items-center">
+      <div class="flex justify-between items-center pt-2">
         <h2 class="font-bold text-lg text-white flex items-center space-x-2">
           <i data-lucide="bell" class="w-5 h-5 text-surf-red"></i>
           <span>Team Spotlight & Announcements</span>
@@ -918,7 +949,44 @@
     document.addEventListener('DOMContentLoaded', () => {
       lucide.createIcons();
       loadDataFromDatabase();
+      initCountdown();
+      fetchWeather();
     });
+
+    // FEATURE #2: LIVE WEATHER WIDGET (Deem Hills Park, Peoria, AZ)
+    async function fetchWeather() {
+      try {
+        const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=33.715&longitude=-112.155&current=temperature_2m,weather_code&temperature_unit=fahrenheit');
+        const data = await res.json();
+        const temp = Math.round(data.current.temperature_2m);
+        document.getElementById('weather-widget').innerText = `${temp}°F - Deem Hills Park`;
+      } catch(e) {
+        document.getElementById('weather-widget').innerText = "Weather unavailable";
+      }
+    }
+
+    // FEATURE #1: COUNTDOWN TIMER TO NEXT KICKOFF
+    function initCountdown() {
+      // Set next game target (e.g. Sept 26, 2026 at 11:30 AM)
+      const nextGameTime = new Date('2026-09-26T11:30:00').getTime();
+      
+      setInterval(() => {
+        const now = new Date().getTime();
+        const distance = nextGameTime - now;
+
+        if (distance < 0) {
+          document.getElementById('countdown-timer').innerText = "IT'S MATCHDAY! ⚽";
+          return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById('countdown-timer').innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+      }, 1000);
+    }
 
     async function loadDataFromDatabase() {
       const { data: dbPlayers } = await supabaseClient.from('players').select('*');
