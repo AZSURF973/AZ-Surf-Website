@@ -38,14 +38,14 @@
       
       <!-- Dual Logos -->
       <div class="flex items-center space-x-3">
-        <div class="w-12 h-12 rounded-full border border-surf-border bg-surf-dark p-2 flex items-center justify-center shadow-lg shadow-surf-red/20 overflow-hidden">
+        <div class="w-12 h-12 rounded-full border border-surf-border bg-surf-dark p-2 flex items-center justify-center shadow-lg shadow-surf-red/20 overflow-hidden shrink-0">
           <img src="https://i.postimg.cc/J7fdQWVK/images.jpg" alt="Surf Crest" class="w-10 h-10 object-contain" style="mix-blend-mode: screen;" />
         </div>
         <div>
           <h1 class="text-lg font-bold tracking-tight text-white leading-tight">AZ SURF</h1>
           <p class="text-xs font-semibold text-surf-red">U13 BOYS CLUB SOCCER</p>
         </div>
-        <img src="https://i.postimg.cc/50GKGhH2/images.png" alt="MLS Next Logo" class="w-10 h-10 object-contain ml-3" />
+        <img src="https://i.postimg.cc/50GKGhH2/images.png" alt="MLS Next Logo" class="w-10 h-10 object-contain ml-3 shrink-0" />
       </div>
 
       <!-- Navigation Tabs -->
@@ -60,7 +60,7 @@
       </nav>
 
       <!-- Action Button -->
-      <button onclick="toggleModal('admin-modal', true)" class="flex items-center space-x-2 bg-surf-red text-white px-4 py-2 rounded-lg font-bold text-sm hover:bg-surf-redHover transition-all shadow-md shadow-surf-red/10 hover:shadow-surf-red/30">
+      <button onclick="toggleModal('admin-modal', true)" class="flex items-center space-x-2 bg-surf-red text-white px-4 py-2 rounded-lg font-bold text-sm hover:bg-surf-redHover transition-all shadow-md shadow-surf-red/10 hover:shadow-surf-red/30 shrink-0">
         <i data-lucide="plus-circle" class="w-4 h-4"></i>
         <span>Add Stats</span>
       </button>
@@ -84,26 +84,26 @@
     <!-- OVERVIEW TAB -->
     <section id="sec-overview" class="space-y-6">
 
-      <!-- NEW: MATCH COUNTDOWN & WEATHER WIDGET ROW -->
+      <!-- MATCH COUNTDOWN & WEATHER WIDGET ROW -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <!-- Countdown Widget -->
+        <!-- Dynamic Countdown Widget -->
         <div class="bg-gradient-to-r from-surf-red/20 via-surf-card to-surf-card border border-surf-red/40 rounded-xl p-4 flex items-center justify-between shadow-lg">
           <div class="flex items-center space-x-3">
-            <div class="p-2.5 bg-surf-red text-white rounded-lg">
+            <div class="p-2.5 bg-surf-red text-white rounded-lg shrink-0">
               <i data-lucide="timer" class="w-5 h-5"></i>
             </div>
             <div>
-              <span class="text-[10px] font-bold text-surf-red uppercase tracking-wide">Next Kickoff Countdown</span>
-              <h4 id="countdown-timer" class="font-mono font-black text-white text-lg">Loading...</h4>
+              <span id="countdown-label" class="text-[10px] font-bold text-surf-red uppercase tracking-wide">Next Kickoff Countdown</span>
+              <h4 id="countdown-timer" class="font-mono font-black text-white text-lg">Loading schedule...</h4>
             </div>
           </div>
-          <span class="text-xs text-slate-400 hidden sm:inline">Deem Hills Park</span>
+          <span id="countdown-location" class="text-xs text-slate-400 hidden sm:inline font-semibold">Peoria, AZ</span>
         </div>
 
         <!-- Weather Widget -->
         <div class="bg-surf-card border border-surf-border rounded-xl p-4 flex items-center justify-between shadow-lg">
           <div class="flex items-center space-x-3">
-            <div class="p-2.5 bg-blue-500/20 text-blue-400 rounded-lg border border-blue-500/30">
+            <div class="p-2.5 bg-blue-500/20 text-blue-400 rounded-lg border border-blue-500/30 shrink-0">
               <i data-lucide="cloud-sun" class="w-5 h-5"></i>
             </div>
             <div>
@@ -132,7 +132,7 @@
 
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex items-center space-x-4 hover:border-surf-red/40 transition-all shadow-sm">
-          <div class="p-3 bg-surf-red/10 text-surf-red rounded-lg">
+          <div class="p-3 bg-surf-red/10 text-surf-red rounded-lg shrink-0">
             <i data-lucide="trophy" class="w-6 h-6"></i>
           </div>
           <div>
@@ -142,7 +142,7 @@
         </div>
 
         <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex items-center space-x-4 hover:border-emerald-500/40 transition-all shadow-sm">
-          <div class="p-3 bg-emerald-500/10 text-emerald-400 rounded-lg">
+          <div class="p-3 bg-emerald-500/10 text-emerald-400 rounded-lg shrink-0">
             <i data-lucide="target" class="w-6 h-6"></i>
           </div>
           <div>
@@ -152,7 +152,7 @@
         </div>
 
         <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex items-center space-x-4 hover:border-blue-500/40 transition-all shadow-sm">
-          <div class="p-3 bg-blue-500/10 text-blue-400 rounded-lg">
+          <div class="p-3 bg-blue-500/10 text-blue-400 rounded-lg shrink-0">
             <i data-lucide="footprints" class="w-6 h-6"></i>
           </div>
           <div>
@@ -162,7 +162,7 @@
         </div>
 
         <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex items-center space-x-4 hover:border-purple-500/40 transition-all shadow-sm">
-          <div class="p-3 bg-purple-500/10 text-purple-400 rounded-lg">
+          <div class="p-3 bg-purple-500/10 text-purple-400 rounded-lg shrink-0">
             <i data-lucide="shield" class="w-6 h-6"></i>
           </div>
           <div>
@@ -625,7 +625,7 @@
       </button>
 
       <div class="flex items-center space-x-4 mb-6">
-        <div id="pm-jersey-badge" class="w-14 h-14 rounded-full bg-surf-red/20 text-surf-red font-mono font-black text-2xl flex items-center justify-center border border-surf-red/40">
+        <div id="pm-jersey-badge" class="w-14 h-14 rounded-full bg-surf-red/20 text-surf-red font-mono font-black text-2xl flex items-center justify-center border border-surf-red/40 shrink-0">
           #0
         </div>
         <div>
@@ -794,60 +794,12 @@
     let milestones = [];
     let savedPlaybooks = [];
 
+    // SCHEDULE WITH ISO TIMESTAMP PARSING FOR AUTOMATED COUNTDOWNS
     const schedule = [
       { 
-        title: 'September 26th Game', 
-        type: 'Game', 
-        time: '11:30 AM, 3:30 PM', 
-        location: 'Deem Hills Park', 
-        mapUrl: 'https://maps.google.com/?q=Deem+Hills+Park',
-        studs: 'Firm Ground Cleats',
-        clothes: 'Standard Jersey',
-        hydration: '2 Water Bottles'
-      },
-      { 
-        title: 'October 3rd Game', 
-        type: 'Game', 
-        time: '11:40 AM', 
-        location: 'Deem Hills Park', 
-        mapUrl: 'https://maps.google.com/?q=Deem+Hills+Park',
-        studs: 'Firm Ground Cleats',
-        clothes: 'Light Warmup Top',
-        hydration: '2 Water Bottles'
-      },
-      { 
-        title: 'October 17th Game', 
-        type: 'Game', 
-        time: '12:00 PM', 
-        location: 'Arizona Athletics Grounds', 
-        mapUrl: 'https://maps.google.com/?q=Arizona+Athletics+Grounds',
-        studs: 'AG / Turf Cleats',
-        clothes: 'Standard Jersey',
-        hydration: '3 Water Bottles (Hot Day)'
-      },
-      { 
-        title: 'October 24th Game', 
-        type: 'Game', 
-        time: '9:00 AM', 
-        location: 'Vista College Prep', 
-        mapUrl: 'https://maps.google.com/?q=Vista+College+Prep',
-        studs: 'Firm Ground Cleats',
-        clothes: 'Extra Jacket (Morning Chill)',
-        hydration: '2 Water Bottles'
-      },
-      { 
-        title: 'October 31st Game', 
-        type: 'Game', 
-        time: '9:00 AM', 
-        location: 'Venturoso Park', 
-        mapUrl: 'https://maps.google.com/?q=Venturoso+Park',
-        studs: 'Firm Ground Cleats',
-        clothes: 'Extra Layer / Sweatshirt',
-        hydration: '2 Water Bottles'
-      },
-      { 
-        title: 'November 6-8: Kick for the Cure', 
+        title: 'Kick for the Cure Tournament', 
         type: 'Tournament', 
+        dateStr: '2026-11-06T08:00:00',
         time: 'TBD', 
         location: 'TBD', 
         mapUrl: '',
@@ -858,6 +810,7 @@
       { 
         title: 'November 14th Game', 
         type: 'Game', 
+        dateStr: '2026-11-14T11:00:00',
         time: '11:00 AM', 
         location: 'Benedict Sports Complex', 
         mapUrl: 'https://maps.google.com/?q=Benedict+Sports+Complex',
@@ -868,6 +821,7 @@
       { 
         title: 'November 21st Game', 
         type: 'Game', 
+        dateStr: '2026-11-21T14:30:00',
         time: '2:30 PM', 
         location: 'West Valley Events Complex', 
         mapUrl: 'https://maps.google.com/?q=West+Valley+Events+Complex',
@@ -876,8 +830,9 @@
         hydration: '2 Water Bottles'
       },
       { 
-        title: 'December 11-13: Holiday Classic', 
+        title: 'Holiday Classic Tournament', 
         type: 'Tournament', 
+        dateStr: '2026-12-11T09:00:00',
         time: 'TBD', 
         location: 'TBD', 
         mapUrl: '',
@@ -953,31 +908,41 @@
       fetchWeather();
     });
 
-    // FEATURE #2: LIVE WEATHER WIDGET (Deem Hills Park, Peoria, AZ)
+    // LIVE WEATHER WIDGET (Peoria, AZ)
     async function fetchWeather() {
       try {
         const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=33.715&longitude=-112.155&current=temperature_2m,weather_code&temperature_unit=fahrenheit');
         const data = await res.json();
         const temp = Math.round(data.current.temperature_2m);
-        document.getElementById('weather-widget').innerText = `${temp}°F - Deem Hills Park`;
+        document.getElementById('weather-widget').innerText = `${temp}°F - Peoria, AZ`;
       } catch(e) {
         document.getElementById('weather-widget').innerText = "Weather unavailable";
       }
     }
 
-    // FEATURE #1: COUNTDOWN TIMER TO NEXT KICKOFF
+    // DYNAMIC MATCH COUNTDOWN (AUTOMATICALLY FINDS THE NEXT UPCOMING GAME)
     function initCountdown() {
-      // Set next game target (e.g. Sept 26, 2026 at 11:30 AM)
-      const nextGameTime = new Date('2026-09-26T11:30:00').getTime();
-      
-      setInterval(() => {
+      function updateTimer() {
         const now = new Date().getTime();
-        const distance = nextGameTime - now;
+        
+        // Find upcoming fixture where date is greater than right now
+        const upcomingGames = schedule
+          .map(item => ({ ...item, timestamp: new Date(item.dateStr).getTime() }))
+          .filter(item => item.timestamp > now)
+          .sort((a, b) => a.timestamp - b.timestamp);
 
-        if (distance < 0) {
-          document.getElementById('countdown-timer').innerText = "IT'S MATCHDAY! ⚽";
+        if (upcomingGames.length === 0) {
+          document.getElementById('countdown-label').innerText = 'Season Completed';
+          document.getElementById('countdown-timer').innerText = 'NO MORE GAMES';
+          document.getElementById('countdown-location').innerText = '';
           return;
         }
+
+        const nextMatch = upcomingGames[0];
+        document.getElementById('countdown-label').innerText = `Next: ${nextMatch.title}`;
+        document.getElementById('countdown-location').innerText = nextMatch.location || 'AZ Field';
+
+        const distance = nextMatch.timestamp - now;
 
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -985,7 +950,10 @@
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
         document.getElementById('countdown-timer').innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-      }, 1000);
+      }
+
+      updateTimer();
+      setInterval(updateTimer, 1000);
     }
 
     async function loadDataFromDatabase() {
@@ -1071,7 +1039,6 @@
       lucide.createIcons();
     }
 
-    /* SUBMIT NEW ANNOUNCEMENT / BIRTHDAY TO SUPABASE */
     async function handleAnnouncementSubmit(e) {
       e.preventDefault();
       const badge_type = document.getElementById('ann-type').value;
@@ -1091,7 +1058,6 @@
       }
     }
 
-    /* SUBMIT NEW MILESTONE TO SUPABASE */
     async function handleMilestoneSubmit(e) {
       e.preventDefault();
       const title = document.getElementById('ms-title').value;
@@ -1122,7 +1088,7 @@
       container.innerHTML = announcements.map(a => `
         <div class="bg-gradient-to-r from-surf-red/20 via-surf-card to-surf-card border border-surf-red/40 rounded-xl p-4 flex items-center justify-between shadow-lg">
           <div class="flex items-center space-x-3">
-            <div class="p-2.5 bg-surf-red text-white rounded-lg">
+            <div class="p-2.5 bg-surf-red text-white rounded-lg shrink-0">
               <i data-lucide="${a.badge_type === 'Birthday' ? 'cake' : 'bell'}" class="w-5 h-5"></i>
             </div>
             <div>
@@ -1296,7 +1262,7 @@
                  onclick="selectBenchPlayer(${p.id})" 
                  class="bg-slate-900 border ${isSelected ? 'border-amber-400 bg-amber-500/10' : 'border-surf-border hover:border-surf-red'} p-3 rounded-lg flex justify-between items-center cursor-pointer active:cursor-grabbing transition-all">
               <div class="flex items-center space-x-3">
-                <span class="w-7 h-7 rounded-full bg-surf-red/20 text-surf-red font-mono font-bold flex items-center justify-center text-xs border border-surf-red/30">
+                <span class="w-7 h-7 rounded-full bg-surf-red/20 text-surf-red font-mono font-bold flex items-center justify-center text-xs border border-surf-red/30 shrink-0">
                   #${p.number}
                 </span>
                 <div>
@@ -1417,7 +1383,7 @@
       rosterGrid.innerHTML = filtered.map(p => `
         <div onclick="openPlayerModal(${p.id})" class="bg-surf-card border border-surf-border rounded-xl p-4 hover:border-surf-red/50 cursor-pointer transition-all hover:scale-[1.02] relative">
           <div class="flex justify-between items-start mb-3">
-            <span class="w-8 h-8 rounded-full bg-surf-red/20 text-surf-red font-mono font-bold flex items-center justify-center text-sm border border-surf-red/30">
+            <span class="w-8 h-8 rounded-full bg-surf-red/20 text-surf-red font-mono font-bold flex items-center justify-center text-sm border border-surf-red/30 shrink-0">
               #${p.number}
             </span>
             <div class="flex items-center space-x-1">
