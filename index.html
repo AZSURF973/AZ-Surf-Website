@@ -83,6 +83,9 @@
 
     <!-- OVERVIEW TAB -->
     <section id="sec-overview" class="space-y-6">
+      <!-- Announcements & Birthdays Banner -->
+      <div id="announcements-container" class="space-y-3"></div>
+
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex items-center space-x-4 hover:border-surf-red/40 transition-all shadow-sm">
           <div class="p-3 bg-surf-red/10 text-surf-red rounded-lg">
@@ -123,6 +126,15 @@
             <h3 id="stat-total-saves" class="text-2xl font-black text-white">0</h3>
           </div>
         </div>
+      </div>
+
+      <!-- TEAM MILESTONES -->
+      <div class="bg-surf-card border border-surf-border rounded-xl p-6">
+        <h2 class="font-bold text-lg text-white mb-4 flex items-center space-x-2">
+          <i data-lucide="flag" class="w-5 h-5 text-surf-red"></i>
+          <span>Team Season Milestones</span>
+        </h2>
+        <div id="milestones-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
       </div>
 
       <div class="bg-surf-card border border-surf-border rounded-xl p-6">
@@ -170,56 +182,6 @@
           </div>
         </div>
       </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div class="bg-surf-card border border-surf-border rounded-xl p-6 lg:col-span-2">
-          <div class="flex justify-between items-center mb-4">
-            <h2 class="font-bold text-lg text-white flex items-center space-x-2">
-              <i data-lucide="star" class="w-5 h-5 text-surf-red"></i>
-              <span>Stat Leaders Highlight</span>
-            </h2>
-          </div>
-          
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div class="bg-slate-900/60 border border-surf-border rounded-lg p-4 text-center">
-              <span class="text-xs font-bold text-surf-red uppercase">Top Goal Scorer</span>
-              <div class="my-2">
-                <span id="top-scorer-num" class="inline-block bg-surf-red/20 text-surf-red font-mono font-bold px-2 py-0.5 rounded text-xs">#-</span>
-                <p id="top-scorer-name" class="font-bold text-lg text-white mt-1">None</p>
-              </div>
-              <p class="text-2xl font-black text-surf-red"><span id="top-scorer-count">0</span> <span class="text-xs text-slate-400 font-normal">Goals</span></p>
-            </div>
-
-            <div class="bg-slate-900/60 border border-surf-border rounded-lg p-4 text-center">
-              <span class="text-xs font-bold text-blue-400 uppercase">Assist Leader</span>
-              <div class="my-2">
-                <span id="top-assist-num" class="inline-block bg-blue-500/20 text-blue-400 font-mono font-bold px-2 py-0.5 rounded text-xs">#-</span>
-                <p id="top-assist-name" class="font-bold text-lg text-white mt-1">None</p>
-              </div>
-              <p class="text-2xl font-black text-blue-400"><span id="top-assist-count">0</span> <span class="text-xs text-slate-400 font-normal">Assists</span></p>
-            </div>
-
-            <div class="bg-slate-900/60 border border-surf-border rounded-lg p-4 text-center">
-              <span class="text-xs font-bold text-purple-400 uppercase">Goalkeeping</span>
-              <div class="my-2">
-                <span id="top-gk-num" class="inline-block bg-purple-500/20 text-purple-400 font-mono font-bold px-2 py-0.5 rounded text-xs">#-</span>
-                <p id="top-gk-name" class="font-bold text-lg text-white mt-1">None</p>
-              </div>
-              <p class="text-2xl font-black text-purple-400"><span id="top-gk-count">0</span> <span class="text-xs text-slate-400 font-normal">Saves</span></p>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-surf-card border border-surf-border rounded-xl p-6">
-          <h2 class="font-bold text-lg text-white mb-4 flex items-center space-x-2">
-            <i data-lucide="calendar" class="w-5 h-5 text-surf-red"></i>
-            <span>Recent Match Results</span>
-          </h2>
-          <div id="recent-games-list" class="space-y-3">
-            <p class="text-xs text-slate-500">No games recorded yet.</p>
-          </div>
-        </div>
-      </div>
     </section>
 
     <!-- ROSTER TAB -->
@@ -248,7 +210,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="roster-grid"></div>
     </section>
 
-    <!-- TACTICS & FORMATION BUILDER TAB -->
+    <!-- TACTICS & FORMATION BUILDER TAB (With Tap-to-Place & Supabase Playbook) -->
     <section id="sec-tactics" class="hidden space-y-6">
       <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
         <div>
@@ -256,7 +218,7 @@
             <i data-lucide="layout" class="text-surf-red w-6 h-6"></i>
             <span>Interactive Pitch Formation Builder</span>
           </h2>
-          <p class="text-sm text-slate-400">Drag squad members from the right onto the pitch positions.</p>
+          <p class="text-sm text-slate-400">Drag players OR tap a player from the bench and tap a pitch slot!</p>
         </div>
 
         <div class="flex items-center space-x-2">
@@ -266,6 +228,7 @@
             <option value="4-4-2">Formation: 4-4-2</option>
             <option value="3-4-3">Formation: 3-4-3</option>
           </select>
+          <button onclick="saveTacticsToSupabase()" class="bg-surf-red hover:bg-surf-redHover text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all shadow">Save Lineup</button>
           <button onclick="clearPitch()" class="bg-slate-900 border border-surf-border hover:border-surf-red text-slate-300 px-3 py-1.5 rounded-lg text-xs font-bold transition-all">Clear</button>
         </div>
       </div>
@@ -283,9 +246,9 @@
         <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex flex-col">
           <h3 class="font-bold text-white text-base mb-1 flex items-center justify-between">
             <span>Available Roster</span>
-            <span class="text-xs font-normal text-slate-400">Drag to pitch</span>
+            <span class="text-xs font-normal text-amber-400" id="tap-mode-indicator">Tap player to select</span>
           </h3>
-          <p class="text-xs text-slate-400 mb-4">Unassigned players ready for substitution</p>
+          <p class="text-xs text-slate-400 mb-4">Drag or Tap to place on pitch</p>
 
           <div id="bench-container" class="space-y-2 flex-grow overflow-y-auto max-h-[440px] pr-1"></div>
         </div>
@@ -677,6 +640,8 @@
     ];
 
     let games = [];
+    let announcements = [];
+    let milestones = [];
 
     const schedule = [
       { 
@@ -828,6 +793,7 @@
 
     let pitchAssignments = {};
     let currentFormationKey = '4-3-3';
+    let selectedBenchPlayerId = null; // For easy Tap-to-Place mode
 
     document.addEventListener('DOMContentLoaded', () => {
       lucide.createIcons();
@@ -837,6 +803,9 @@
     async function loadDataFromDatabase() {
       const { data: dbPlayers } = await supabaseClient.from('players').select('*');
       const { data: dbGames } = await supabaseClient.from('games').select('*');
+      const { data: dbAnnouncements } = await supabaseClient.from('announcements').select('*');
+      const { data: dbMilestones } = await supabaseClient.from('team_milestones').select('*');
+      const { data: dbPlaybook } = await supabaseClient.from('playbook').select('*').order('created_at', { ascending: false }).limit(1);
 
       if (dbPlayers && dbPlayers.length > 0) {
         players = dbPlayers.map(p => ({
@@ -845,6 +814,16 @@
         }));
       }
       if (dbGames) games = dbGames;
+      if (dbAnnouncements) announcements = dbAnnouncements;
+      if (dbMilestones) milestones = dbMilestones;
+      
+      // Load saved playbook lineup if exists
+      if (dbPlaybook && dbPlaybook.length > 0) {
+        currentFormationKey = dbPlaybook[0].formation_key;
+        pitchAssignments = dbPlaybook[0].assignments || {};
+        const sel = document.getElementById('formation-select');
+        if(sel) sel.value = currentFormationKey;
+      }
 
       renderAll();
     }
@@ -898,9 +877,64 @@
       renderLeaderboards();
       renderSchedule();
       renderTacticsBoard();
+      renderAnnouncements();
+      renderMilestones();
       lucide.createIcons();
     }
 
+    function renderAnnouncements() {
+      const container = document.getElementById('announcements-container');
+      if (!container) return;
+      if (announcements.length === 0) {
+        container.innerHTML = '';
+        return;
+      }
+
+      container.innerHTML = announcements.map(a => `
+        <div class="bg-gradient-to-r from-surf-red/20 via-surf-card to-surf-card border border-surf-red/40 rounded-xl p-4 flex items-center justify-between shadow-lg">
+          <div class="flex items-center space-x-3">
+            <div class="p-2.5 bg-surf-red text-white rounded-lg">
+              <i data-lucide="${a.badge_type === 'Birthday' ? 'cake' : 'bell'}" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold text-surf-red uppercase tracking-wide">${a.badge_type} Spotlight</span>
+              <h4 class="font-bold text-white text-base">${a.title}</h4>
+              <p class="text-xs text-slate-300">${a.content}</p>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderMilestones() {
+      const grid = document.getElementById('milestones-grid');
+      if (!grid) return;
+      if (milestones.length === 0) {
+        grid.innerHTML = `<p class="text-xs text-slate-500 col-span-full">No milestones set.</p>`;
+        return;
+      }
+
+      // Automatically compute actual total goals from players for live progress!
+      const totalGoals = players.reduce((sum, p) => sum + (p.goals || 0), 0);
+
+      grid.innerHTML = milestones.map(m => {
+        const current = m.category === 'Goals' ? totalGoals : m.current_value;
+        const pct = Math.min(100, Math.round((current / m.target_value) * 100));
+        return `
+          <div class="bg-slate-900/60 border border-surf-border p-4 rounded-xl space-y-2">
+            <div class="flex justify-between items-center text-xs font-bold">
+              <span class="text-white">${m.title}</span>
+              <span class="text-surf-red">${current} / ${m.target_value} (${pct}%)</span>
+            </div>
+            <div class="w-full bg-slate-950 rounded-full h-2.5 overflow-hidden border border-surf-border">
+              <div class="bg-surf-red h-full transition-all duration-500" style="width: ${pct}%"></div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    /* --- TACTICS & PITCH BUILDER WITH TAP-TO-PLACE --- */
     function changeFormation(key) {
       currentFormationKey = key;
       renderTacticsBoard();
@@ -908,13 +942,36 @@
 
     function clearPitch() {
       pitchAssignments = {};
+      selectedBenchPlayerId = null;
       renderTacticsBoard();
+    }
+
+    async function saveTacticsToSupabase() {
+      const title = prompt("Enter a name for this lineup setup:", "Matchday Starting XI");
+      if (!title) return;
+
+      const { error } = await supabaseClient.from('playbook').insert([{
+        title,
+        formation_key: currentFormationKey,
+        assignments: pitchAssignments
+      }]);
+
+      if (error) {
+        alert("Error saving tactics: " + error.message);
+      } else {
+        alert("Tactics saved successfully to Supabase playbook!");
+      }
     }
 
     function renderTacticsBoard() {
       const container = document.getElementById('pitch-slots-container');
       const benchContainer = document.getElementById('bench-container');
+      const indicator = document.getElementById('tap-mode-indicator');
       if (!container || !benchContainer) return;
+
+      if (indicator) {
+        indicator.innerText = selectedBenchPlayerId ? "Player selected! Tap a pitch slot" : "Tap player to select";
+      }
 
       container.innerHTML = '';
       const slots = FORMATIONS[currentFormationKey] || FORMATIONS['4-3-3'];
@@ -928,10 +985,22 @@
         slotDiv.style.top = slot.top;
         slotDiv.style.left = slot.left;
 
+        // Drag events
         slotDiv.ondragover = (e) => e.preventDefault();
         slotDiv.ondrop = (e) => handleDropOnSlot(e, idx);
+
+        // Click / Tap event (handles both dragging and tap-to-place)
         slotDiv.onclick = () => {
-          if (assignedPlayerId) {
+          if (selectedBenchPlayerId) {
+            // Place selected player into this slot
+            Object.keys(pitchAssignments).forEach(key => {
+              if (pitchAssignments[key] === selectedBenchPlayerId) delete pitchAssignments[key];
+            });
+            pitchAssignments[idx] = selectedBenchPlayerId;
+            selectedBenchPlayerId = null;
+            renderTacticsBoard();
+          } else if (assignedPlayerId) {
+            // Remove player if clicked
             delete pitchAssignments[idx];
             renderTacticsBoard();
           }
@@ -964,26 +1033,41 @@
       if (unassigned.length === 0) {
         benchContainer.innerHTML = `<p class="text-xs text-slate-500 py-4 text-center">All players placed on pitch!</p>`;
       } else {
-        benchContainer.innerHTML = unassigned.map(p => `
-          <div draggable="true" ondragstart="handleDragStart(event, ${p.id})" class="bg-slate-900 border border-surf-border hover:border-surf-red p-3 rounded-lg flex justify-between items-center cursor-grab active:cursor-grabbing hover:bg-slate-800/80 transition-all">
-            <div class="flex items-center space-x-3">
-              <span class="w-7 h-7 rounded-full bg-surf-red/20 text-surf-red font-mono font-bold flex items-center justify-center text-xs border border-surf-red/30">
-                #${p.number}
-              </span>
-              <div>
-                <p class="text-xs font-bold text-white flex items-center space-x-1">
-                  <span>${p.name}</span>
-                  ${p.isCaptain ? '<span class="text-[9px] bg-amber-500/20 text-amber-400 border border-amber-500/30 px-1 py-0.2 rounded">C</span>' : ''}
-                </p>
-                <span class="text-[9px] text-slate-400 uppercase">${p.pos || 'Player'}</span>
+        benchContainer.innerHTML = unassigned.map(p => {
+          const isSelected = selectedBenchPlayerId === p.id;
+          return `
+            <div draggable="true" 
+                 ondragstart="handleDragStart(event, ${p.id})" 
+                 onclick="selectBenchPlayer(${p.id})" 
+                 class="bg-slate-900 border ${isSelected ? 'border-amber-400 bg-amber-500/10' : 'border-surf-border hover:border-surf-red'} p-3 rounded-lg flex justify-between items-center cursor-pointer active:cursor-grabbing transition-all">
+              <div class="flex items-center space-x-3">
+                <span class="w-7 h-7 rounded-full bg-surf-red/20 text-surf-red font-mono font-bold flex items-center justify-center text-xs border border-surf-red/30">
+                  #${p.number}
+                </span>
+                <div>
+                  <p class="text-xs font-bold text-white flex items-center space-x-1">
+                    <span>${p.name}</span>
+                    ${p.isCaptain ? '<span class="text-[9px] bg-amber-500/20 text-amber-400 border border-amber-500/30 px-1 py-0.2 rounded">C</span>' : ''}
+                  </p>
+                  <span class="text-[9px] text-slate-400 uppercase">${p.pos || 'Player'}</span>
+                </div>
               </div>
+              <span class="text-[10px] text-slate-400 font-semibold">${isSelected ? 'Selected (Tap slot)' : 'Drag/Tap'}</span>
             </div>
-            <i data-lucide="grip-vertical" class="w-4 h-4 text-slate-500"></i>
-          </div>
-        `).join('');
+          `;
+        }).join('');
       }
 
       lucide.createIcons();
+    }
+
+    function selectBenchPlayer(playerId) {
+      if (selectedBenchPlayerId === playerId) {
+        selectedBenchPlayerId = null; // deselect
+      } else {
+        selectedBenchPlayerId = playerId;
+      }
+      renderTacticsBoard();
     }
 
     function handleDragStart(e, playerId) {
@@ -998,6 +1082,7 @@
           if (pitchAssignments[key] === playerId) delete pitchAssignments[key];
         });
         pitchAssignments[slotIdx] = playerId;
+        selectedBenchPlayerId = null;
         renderTacticsBoard();
       }
     }
@@ -1049,47 +1134,6 @@
           if (g.result === 'LOSS') bg = 'bg-rose-500 text-white';
           return `<span class="w-5 h-5 rounded ${bg} text-[10px] font-black flex items-center justify-center">${g.result[0]}</span>`;
         }).join('');
-      }
-
-      const topScorer = [...players].sort((a,b) => (b.goals || 0) - (a.goals || 0))[0];
-      const topAssist = [...players].sort((a,b) => (b.assists || 0) - (a.assists || 0))[0];
-      const topGK = [...players].sort((a,b) => (b.saves || 0) - (a.saves || 0))[0];
-
-      if(topScorer && topScorer.goals > 0) {
-        document.getElementById('top-scorer-num').innerText = `#${topScorer.number}`;
-        document.getElementById('top-scorer-name').innerText = topScorer.name;
-        document.getElementById('top-scorer-count').innerText = topScorer.goals;
-      }
-
-      if(topAssist && topAssist.assists > 0) {
-        document.getElementById('top-assist-num').innerText = `#${topAssist.number}`;
-        document.getElementById('top-assist-name').innerText = topAssist.name;
-        document.getElementById('top-assist-count').innerText = topAssist.assists;
-      }
-
-      if(topGK && topGK.saves > 0) {
-        document.getElementById('top-gk-num').innerText = `#${topGK.number}`;
-        document.getElementById('top-gk-name').innerText = topGK.name;
-        document.getElementById('top-gk-count').innerText = topGK.saves;
-      }
-
-      const recentContainer = document.getElementById('recent-games-list');
-      if (games.length === 0) {
-        recentContainer.innerHTML = `<p class="text-xs text-slate-500">No games recorded yet.</p>`;
-      } else {
-        recentContainer.innerHTML = games.slice(-3).reverse().map(g => `
-          <div class="bg-slate-900/50 border border-surf-border rounded-lg p-3 flex justify-between items-center">
-            <div>
-              <p class="text-xs text-slate-400">${g.date}</p>
-              <p class="font-semibold text-sm text-white">vs ${g.opponent}</p>
-            </div>
-            <div class="text-right">
-              <span class="inline-block text-xs font-bold px-2 py-0.5 rounded ${g.result === 'WIN' ? 'bg-emerald-500/20 text-emerald-400' : (g.result === 'LOSS' ? 'bg-rose-500/20 text-rose-400' : 'bg-slate-500/20 text-slate-300')}">
-                ${g.result} ${g.ourScore}-${g.opponentScore}
-              </span>
-            </div>
-          </div>
-        `).join('');
       }
     }
 
@@ -1338,7 +1382,6 @@
             ${item.mapUrl ? `<a href="${item.mapUrl}" target="_blank" class="bg-slate-900 border border-surf-border hover:border-surf-red text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0"><i data-lucide="external-link" class="w-3 h-3"></i></a>` : ''}
           </div>
 
-          <!-- MATCHDAY RECOMMENDATION BADGES -->
           <div class="pt-3 border-t border-surf-border/60 grid grid-cols-3 gap-1.5 text-[10px]">
             <div class="bg-slate-900/80 border border-surf-border p-1.5 rounded flex flex-col items-center text-center">
               <i data-lucide="footprints" class="w-3.5 h-3.5 text-emerald-400 mb-1"></i>
