@@ -57,17 +57,11 @@
         <button onclick="switchTab('schedule')" id="tab-schedule" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all">Schedule</button>
       </nav>
 
-      <!-- Action Buttons -->
-      <div class="flex items-center space-x-2">
-        <button onclick="toggleModal('schedule-modal', true)" class="flex items-center space-x-1 bg-slate-900 border border-surf-border text-slate-300 hover:text-white px-3 py-2 rounded-lg font-bold text-xs hover:border-surf-red transition-all">
-          <i data-lucide="calendar-plus" class="w-4 h-4 text-surf-red"></i>
-          <span class="hidden sm:inline">Add Fixture</span>
-        </button>
-        <button onclick="toggleModal('admin-modal', true)" class="flex items-center space-x-2 bg-surf-red text-white px-4 py-2 rounded-lg font-bold text-sm hover:bg-surf-redHover transition-all shadow-md shadow-surf-red/10 hover:shadow-surf-red/30">
-          <i data-lucide="plus-circle" class="w-4 h-4"></i>
-          <span>Add Stats</span>
-        </button>
-      </div>
+      <!-- Action Button -->
+      <button onclick="toggleModal('admin-modal', true)" class="flex items-center space-x-2 bg-surf-red text-white px-4 py-2 rounded-lg font-bold text-sm hover:bg-surf-redHover transition-all shadow-md shadow-surf-red/10 hover:shadow-surf-red/30">
+        <i data-lucide="plus-circle" class="w-4 h-4"></i>
+        <span>Add Stats</span>
+      </button>
     </div>
 
     <!-- Mobile Nav Bar -->
@@ -313,76 +307,21 @@
       </div>
     </section>
 
-    <!-- SCHEDULE TAB -->
+    <!-- SCHEDULE TAB (Static/Hardcoded, easily editable right in the code below) -->
     <section id="sec-schedule" class="hidden space-y-6">
-      <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+      <div class="flex justify-between items-center">
         <div>
           <h2 class="text-xl font-bold text-white">Surf Upcoming Games</h2>
           <p class="text-sm text-slate-400">Official team fixtures, tournaments, and field maps</p>
         </div>
-        <button onclick="toggleModal('schedule-modal', true)" class="bg-surf-red text-white text-xs px-3 py-2 rounded-lg font-bold hover:bg-surf-redHover transition-all self-start sm:self-auto flex items-center space-x-1">
-          <i data-lucide="plus" class="w-3.5 h-3.5"></i>
-          <span>Add New Event</span>
-        </button>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="schedule-cards-grid"></div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="schedule-cards-grid">
+        <!-- Rendered statically from JavaScript schedule array -->
+      </div>
     </section>
 
   </main>
-
-  <!-- ADD / EDIT SCHEDULE MODAL -->
-  <div id="schedule-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-surf-dark border border-surf-border rounded-xl max-w-md w-full p-6 shadow-2xl relative">
-      <button onclick="toggleModal('schedule-modal', false)" class="absolute top-4 right-4 text-slate-400 hover:text-white">
-        <i data-lucide="x" class="w-6 h-6"></i>
-      </button>
-
-      <h3 id="sched-modal-title" class="text-lg font-bold text-white mb-1 flex items-center space-x-2">
-        <i data-lucide="calendar" class="text-surf-red w-5 h-5"></i>
-        <span>Add Schedule Event</span>
-      </h3>
-      <p class="text-xs text-slate-400 mb-4">Add or update game dates, field locations, and match times.</p>
-
-      <form id="schedule-form" onsubmit="handleScheduleFormSubmit(event)" class="space-y-3">
-        <input type="hidden" id="sched-id" />
-        
-        <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">Event Title</label>
-          <input type="text" id="sched-title" required placeholder="e.g. October 31st Game" class="w-full bg-slate-900 border border-surf-border rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red" />
-        </div>
-
-        <div class="grid grid-cols-2 gap-2">
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Type</label>
-            <select id="sched-type" class="w-full bg-slate-900 border border-surf-border rounded-lg px-2 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red">
-              <option value="Game">Regular Game</option>
-              <option value="Tournament">Tournament</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Time</label>
-            <input type="text" id="sched-time" placeholder="e.g. 9:00 AM" class="w-full bg-slate-900 border border-surf-border rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red" />
-          </div>
-        </div>
-
-        <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">Venue Name</label>
-          <input type="text" id="sched-location" placeholder="e.g. Venturoso Park" class="w-full bg-slate-900 border border-surf-border rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red" />
-        </div>
-
-        <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">Google Maps Link (Optional)</label>
-          <input type="url" id="sched-mapurl" placeholder="https://maps.google.com/..." class="w-full bg-slate-900 border border-surf-border rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red" />
-        </div>
-
-        <div class="pt-3 flex justify-end space-x-2">
-          <button type="button" onclick="toggleModal('schedule-modal', false)" class="px-3 py-1.5 text-xs text-slate-400 hover:text-white border border-surf-border rounded-lg">Cancel</button>
-          <button type="submit" id="sched-save-btn" class="px-4 py-1.5 text-xs bg-surf-red text-white font-bold rounded-lg hover:bg-surf-redHover">Save Event</button>
-        </div>
-      </form>
-    </div>
-  </div>
 
   <!-- ADD / RECORD STATS MODAL -->
   <div id="admin-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
@@ -462,7 +401,7 @@
     </div>
   </div>
 
-  <!-- PLAYER DETAILED ANALYTICS & EDIT MODAL -->
+<!-- PLAYER DETAILED ANALYTICS & EDIT MODAL -->
   <div id="player-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-surf-dark border border-surf-border rounded-xl max-w-lg w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
       <button onclick="toggleModal('player-modal', false)" class="absolute top-4 right-4 text-slate-400 hover:text-white">
@@ -632,16 +571,18 @@
     ];
 
     let games = [];
-    let schedule = [
-      { id: 1, title: 'September 26th Game', type: 'Game', time: '11:30 AM, 3:30 PM', location: 'Deem Hills Park', mapUrl: 'https://maps.google.com/?q=Deem+Hills+Park' },
-      { id: 2, title: 'October 3rd Game', type: 'Game', time: '11:40 AM', location: 'Deem Hills Park', mapUrl: 'https://maps.google.com/?q=Deem+Hills+Park' },
-      { id: 3, title: 'October 17th Game', type: 'Game', time: '12:00 PM', location: 'Arizona Athletics Grounds', mapUrl: 'https://maps.google.com/?q=Arizona+Athletics+Grounds' },
-      { id: 4, title: 'October 24th Game', type: 'Game', time: '9:00 AM', location: 'Vista College Prep', mapUrl: 'https://maps.google.com/?q=Vista+College+Prep' },
-      { id: 5, title: 'October 31st Game', type: 'Game', time: '9:00 AM', location: 'Venturoso Park', mapUrl: 'https://maps.google.com/?q=Venturoso+Park' },
-      { id: 6, title: 'November 6-8: Kick for the Cure', type: 'Tournament', time: 'TBD', location: 'TBD', mapUrl: '' },
-      { id: 7, title: 'November 14th Game', type: 'Game', time: '11:00 AM', location: 'Benedict Sports Complex', mapUrl: 'https://maps.google.com/?q=Benedict+Sports+Complex' },
-      { id: 8, title: 'November 21st Game', type: 'Game', time: '2:30 PM', location: 'West Valley Events Complex', mapUrl: 'https://maps.google.com/?q=West+Valley+Events+Complex' },
-      { id: 9, title: 'December 11-13: Holiday Classic', type: 'Tournament', time: 'TBD', location: 'TBD', mapUrl: '' }
+
+    // SCHEDULE IS NOW HARDCODED HERE - You can easily type/edit your games right in this list anytime!
+    const schedule = [
+      { title: 'September 26th Game', type: 'Game', time: '11:30 AM, 3:30 PM', location: 'Deem Hills Park', mapUrl: 'https://maps.google.com/?q=Deem+Hills+Park' },
+      { title: 'October 3rd Game', type: 'Game', time: '11:40 AM', location: 'Deem Hills Park', mapUrl: 'https://maps.google.com/?q=Deem+Hills+Park' },
+      { title: 'October 17th Game', type: 'Game', time: '12:00 PM', location: 'Arizona Athletics Grounds', mapUrl: 'https://maps.google.com/?q=Arizona+Athletics+Grounds' },
+      { title: 'October 24th Game', type: 'Game', time: '9:00 AM', location: 'Vista College Prep', mapUrl: 'https://maps.google.com/?q=Vista+College+Prep' },
+      { title: 'October 31st Game', type: 'Game', time: '9:00 AM', location: 'Venturoso Park', mapUrl: 'https://maps.google.com/?q=Venturoso+Park' },
+      { title: 'November 6-8: Kick for the Cure', type: 'Tournament', time: 'TBD', location: 'TBD', mapUrl: '' },
+      { title: 'November 14th Game', type: 'Game', time: '11:00 AM', location: 'Benedict Sports Complex', mapUrl: 'https://maps.google.com/?q=Benedict+Sports+Complex' },
+      { title: 'November 21st Game', type: 'Game', time: '2:30 PM', location: 'West Valley Events Complex', mapUrl: 'https://maps.google.com/?q=West+Valley+Events+Complex' },
+      { title: 'December 11-13: Holiday Classic', type: 'Tournament', time: 'TBD', location: 'TBD', mapUrl: '' }
     ];
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -650,13 +591,12 @@
     });
 
     async function loadDataFromDatabase() {
+      // Only fetches players and games from Supabase now
       const { data: dbPlayers } = await supabaseClient.from('players').select('*');
       const { data: dbGames } = await supabaseClient.from('games').select('*');
-      const { data: dbSchedule } = await supabaseClient.from('schedule').select('*');
 
       if (dbPlayers && dbPlayers.length > 0) players = dbPlayers;
       if (dbGames) games = dbGames;
-      if (dbSchedule && dbSchedule.length > 0) schedule = dbSchedule;
 
       renderAll();
     }
@@ -1017,11 +957,6 @@
 
     function renderSchedule() {
       const grid = document.getElementById('schedule-cards-grid');
-      if (schedule.length === 0) {
-        grid.innerHTML = `<p class="text-xs text-slate-500 col-span-full">No schedule events listed yet.</p>`;
-        return;
-      }
-
       grid.innerHTML = schedule.map(item => `
         <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex justify-between items-center">
           <div>
@@ -1030,61 +965,9 @@
             <p class="text-xs text-surf-red mt-1"><i data-lucide="clock" class="inline w-3 h-3 mr-1"></i>${item.time || 'TBD'}</p>
             <p class="text-xs text-slate-400"><i data-lucide="map-pin" class="inline w-3 h-3 mr-1"></i>${item.location || 'TBD'}</p>
           </div>
-          <div class="flex items-center space-x-2 shrink-0">
-            ${item.mapUrl ? `<a href="${item.mapUrl}" target="_blank" class="bg-slate-900 border border-surf-border hover:border-surf-red text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1"><i data-lucide="external-link" class="w-3 h-3"></i></a>` : ''}
-            <button onclick="editScheduleItem(${item.id})" class="p-2 bg-slate-900 border border-surf-border rounded-lg text-slate-400 hover:text-surf-red text-xs"><i data-lucide="edit-2" class="w-3.5 h-3.5"></i></button>
-            <button onclick="deleteScheduleItem(${item.id})" class="p-2 bg-slate-900 border border-surf-border rounded-lg text-slate-400 hover:text-rose-400 text-xs"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
-          </div>
+          ${item.mapUrl ? `<a href="${item.mapUrl}" target="_blank" class="bg-slate-900 border border-surf-border hover:border-surf-red text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0"><i data-lucide="external-link" class="w-3 h-3"></i></a>` : ''}
         </div>
       `).join('');
-    }
-
-    function editScheduleItem(id) {
-      const item = schedule.find(s => s.id === id);
-      if (!item) return;
-      document.getElementById('sched-id').value = item.id;
-      document.getElementById('sched-title').value = item.title;
-      document.getElementById('sched-type').value = item.type || 'Game';
-      document.getElementById('sched-time').value = item.time || '';
-      document.getElementById('sched-location').value = item.location || '';
-      document.getElementById('sched-mapurl').value = item.mapUrl || '';
-      toggleModal('schedule-modal', true);
-    }
-
-    async function deleteScheduleItem(id) {
-      if(!confirm("Delete this event from the schedule?")) return;
-      schedule = schedule.filter(s => s.id !== id);
-      await supabaseClient.from('schedule').delete().eq('id', id);
-      renderAll();
-    }
-
-    async function handleScheduleFormSubmit(e) {
-      e.preventDefault();
-      const idVal = document.getElementById('sched-id').value;
-      const title = document.getElementById('sched-title').value;
-      const type = document.getElementById('sched-type').value;
-      const time = document.getElementById('sched-time').value;
-      const location = document.getElementById('sched-location').value;
-      const mapUrl = document.getElementById('sched-mapurl').value;
-
-      let itemObj = { title, type, time, location, mapUrl };
-
-      if (idVal) {
-        const id = parseInt(idVal);
-        itemObj.id = id;
-        const idx = schedule.findIndex(s => s.id === id);
-        if (idx !== -1) schedule[idx] = itemObj;
-        await supabaseClient.from('schedule').update(itemObj).eq('id', id);
-      } else {
-        itemObj.id = Date.now();
-        schedule.push(itemObj);
-        await supabaseClient.from('schedule').insert([itemObj]);
-      }
-
-      toggleModal('schedule-modal', false);
-      document.getElementById('schedule-form').reset();
-      document.getElementById('sched-id').value = '';
-      renderAll();
     }
 
     async function handleFormSubmit(e) {
