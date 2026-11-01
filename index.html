@@ -53,6 +53,7 @@
         <button onclick="switchTab('overview')" id="tab-overview" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-surf-red bg-surf-border/50">Overview</button>
         <button onclick="switchTab('roster')" id="tab-roster" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all">Roster</button>
         <button onclick="switchTab('tactics')" id="tab-tactics" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all">Tactics Board</button>
+        <button onclick="switchTab('checklist')" id="tab-checklist" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all">Gear Checklist</button>
         <button onclick="switchTab('games')" id="tab-games" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all">Game Log</button>
         <button onclick="switchTab('leaderboards')" id="tab-leaderboards" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all">Leaderboards</button>
         <button onclick="switchTab('schedule')" id="tab-schedule" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all">Schedule</button>
@@ -70,6 +71,7 @@
       <button onclick="switchTab('overview')" class="text-xs px-2 py-1 font-medium text-surf-red shrink-0">Overview</button>
       <button onclick="switchTab('roster')" class="text-xs px-2 py-1 font-medium text-slate-400 shrink-0">Roster</button>
       <button onclick="switchTab('tactics')" class="text-xs px-2 py-1 font-medium text-slate-400 shrink-0">Tactics</button>
+      <button onclick="switchTab('checklist')" class="text-xs px-2 py-1 font-medium text-slate-400 shrink-0">Gear</button>
       <button onclick="switchTab('games')" class="text-xs px-2 py-1 font-medium text-slate-400 shrink-0">Games</button>
       <button onclick="switchTab('leaderboards')" class="text-xs px-2 py-1 font-medium text-slate-400 shrink-0">Leaders</button>
       <button onclick="switchTab('schedule')" class="text-xs px-2 py-1 font-medium text-slate-400 shrink-0">Schedule</button>
@@ -269,19 +271,15 @@
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <!-- TACTICAL GREEN PITCH -->
         <div class="lg:col-span-2 bg-emerald-950/60 border-2 border-emerald-600/40 rounded-2xl p-4 relative min-h-[520px] flex flex-col justify-between overflow-hidden shadow-2xl">
-          <!-- Pitch Markings -->
           <div class="absolute inset-x-0 top-1/2 h-0.5 bg-emerald-500/30"></div>
           <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-28 border-2 border-emerald-500/30 rounded-full"></div>
           <div class="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-20 border-b-2 border-x-2 border-emerald-500/30 rounded-b-xl"></div>
           <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-48 h-20 border-t-2 border-x-2 border-emerald-500/30 rounded-t-xl"></div>
 
-          <!-- PITCH SLOTS CONTAINER -->
           <div id="pitch-slots-container" class="relative w-full h-[500px] z-10"></div>
         </div>
 
-        <!-- BENCH / SQUAD SELECTION -->
         <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex flex-col">
           <h3 class="font-bold text-white text-base mb-1 flex items-center justify-between">
             <span>Available Roster</span>
@@ -290,6 +288,63 @@
           <p class="text-xs text-slate-400 mb-4">Unassigned players ready for substitution</p>
 
           <div id="bench-container" class="space-y-2 flex-grow overflow-y-auto max-h-[440px] pr-1"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GEAR CHECKLIST TAB -->
+    <section id="sec-checklist" class="hidden space-y-6">
+      <div class="max-w-2xl mx-auto bg-surf-card border border-surf-border rounded-xl p-6 shadow-xl">
+        <div class="flex items-center space-x-3 mb-4">
+          <div class="p-3 bg-surf-red/10 text-surf-red rounded-xl">
+            <i data-lucide="check-square" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <h2 class="text-xl font-bold text-white">Matchday Equipment Checklist</h2>
+            <p class="text-xs text-slate-400">Tick off mandatory gear before heading out to the pitch.</p>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <label class="flex items-center justify-between p-3.5 bg-slate-900/60 border border-surf-border rounded-lg cursor-pointer hover:border-surf-red/40 transition-all">
+            <div class="flex items-center space-x-3">
+              <input type="checkbox" class="w-4 h-4 rounded bg-slate-950 border-surf-border text-surf-red focus:ring-surf-red" />
+              <span class="text-sm font-semibold text-amber-400">Home Yellow Kit</span>
+            </div>
+            <span class="text-[10px] text-slate-400 bg-slate-950 px-2 py-1 rounded">Primary Jersey</span>
+          </label>
+
+          <label class="flex items-center justify-between p-3.5 bg-slate-900/60 border border-surf-border rounded-lg cursor-pointer hover:border-surf-red/40 transition-all">
+            <div class="flex items-center space-x-3">
+              <input type="checkbox" class="w-4 h-4 rounded bg-slate-950 border-surf-border text-surf-red focus:ring-surf-red" />
+              <span class="text-sm font-semibold text-slate-200">Away Black Kit</span>
+            </div>
+            <span class="text-[10px] text-slate-400 bg-slate-950 px-2 py-1 rounded">Alternate Jersey</span>
+          </label>
+
+          <label class="flex items-center justify-between p-3.5 bg-slate-900/60 border border-surf-border rounded-lg cursor-pointer hover:border-surf-red/40 transition-all">
+            <div class="flex items-center space-x-3">
+              <input type="checkbox" class="w-4 h-4 rounded bg-slate-950 border-surf-border text-surf-red focus:ring-surf-red" />
+              <span class="text-sm font-semibold text-surf-red">Bring Both Kits</span>
+            </div>
+            <span class="text-[10px] text-surf-red bg-surf-red/10 px-2 py-1 rounded font-bold">Mandatory</span>
+          </label>
+
+          <label class="flex items-center justify-between p-3.5 bg-slate-900/60 border border-surf-border rounded-lg cursor-pointer hover:border-surf-red/40 transition-all">
+            <div class="flex items-center space-x-3">
+              <input type="checkbox" class="w-4 h-4 rounded bg-slate-950 border-surf-border text-surf-red focus:ring-surf-red" />
+              <span class="text-sm font-semibold text-slate-200">Shin Guards</span>
+            </div>
+            <span class="text-[10px] text-slate-400 bg-slate-950 px-2 py-1 rounded">Required</span>
+          </label>
+
+          <label class="flex items-center justify-between p-3.5 bg-slate-900/60 border border-surf-border rounded-lg cursor-pointer hover:border-surf-red/40 transition-all">
+            <div class="flex items-center space-x-3">
+              <input type="checkbox" class="w-4 h-4 rounded bg-slate-950 border-surf-border text-surf-red focus:ring-surf-red" />
+              <span class="text-sm font-semibold text-blue-400">Hydration (Water Bottle / Electrolytes)</span>
+            </div>
+            <span class="text-[10px] text-slate-400 bg-slate-950 px-2 py-1 rounded">Min 32 oz</span>
+          </label>
         </div>
       </div>
     </section>
@@ -362,7 +417,7 @@
       <div class="flex justify-between items-center">
         <div>
           <h2 class="text-xl font-bold text-white">Surf Upcoming Games</h2>
-          <p class="text-sm text-slate-400">Official team fixtures, tournaments, and field maps</p>
+          <p class="text-sm text-slate-400">Official team fixtures, tournaments, and field guidance</p>
         </div>
       </div>
 
@@ -461,7 +516,10 @@
           #0
         </div>
         <div>
-          <h3 id="pm-name" class="text-xl font-bold text-white leading-tight">Player Name</h3>
+          <div class="flex items-center space-x-2">
+            <h3 id="pm-name" class="text-xl font-bold text-white leading-tight">Player Name</h3>
+            <span id="pm-captain-tag" class="hidden bg-amber-500/20 text-amber-400 border border-amber-500/40 text-[10px] font-bold px-2 py-0.5 rounded uppercase">Captain</span>
+          </div>
           <span id="pm-pos" class="inline-block bg-slate-900 border border-surf-border text-surf-red text-xs font-semibold px-2.5 py-0.5 rounded mt-1">Position</span>
         </div>
       </div>
@@ -608,31 +666,111 @@
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     let players = [
-      { id: 1, name: 'Xainden', number: 10, pos: 'Midfield', goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
-      { id: 2, name: 'Alex', number: 1, pos: 'Goalkeeper', goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
-      { id: 3, name: 'Liam', number: 4, pos: 'Defender', goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
-      { id: 4, name: 'Ethan', number: 7, pos: 'Forward', goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
-      { id: 5, name: 'Mason', number: 8, pos: 'Midfield', goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
-      { id: 6, name: 'Lucas', number: 11, pos: 'Forward', goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
-      { id: 7, name: 'Jackson', number: 14, pos: 'Defender', goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
-      { id: 8, name: 'Aiden', number: 17, pos: 'Defender', goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 }
+      { id: 1, name: 'CJ', number: 10, pos: 'Midfield', isCaptain: true, goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
+      { id: 2, name: 'Jionni', number: 7, pos: 'Forward', isCaptain: true, goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
+      { id: 3, name: 'Alex', number: 1, pos: 'Goalkeeper', isCaptain: false, goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
+      { id: 4, name: 'Liam', number: 4, pos: 'Defender', isCaptain: false, goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
+      { id: 5, name: 'Ethan', number: 9, pos: 'Forward', isCaptain: false, goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
+      { id: 6, name: 'Mason', number: 8, pos: 'Midfield', isCaptain: false, goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
+      { id: 7, name: 'Jackson', number: 14, pos: 'Defender', isCaptain: false, goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
+      { id: 8, name: 'Aiden', number: 17, pos: 'Defender', isCaptain: false, goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 }
     ];
 
     let games = [];
 
     const schedule = [
-      { title: 'September 26th Game', type: 'Game', time: '11:30 AM, 3:30 PM', location: 'Deem Hills Park', mapUrl: 'https://maps.google.com/?q=Deem+Hills+Park' },
-      { title: 'October 3rd Game', type: 'Game', time: '11:40 AM', location: 'Deem Hills Park', mapUrl: 'https://maps.google.com/?q=Deem+Hills+Park' },
-      { title: 'October 17th Game', type: 'Game', time: '12:00 PM', location: 'Arizona Athletics Grounds', mapUrl: 'https://maps.google.com/?q=Arizona+Athletics+Grounds' },
-      { title: 'October 24th Game', type: 'Game', time: '9:00 AM', location: 'Vista College Prep', mapUrl: 'https://maps.google.com/?q=Vista+College+Prep' },
-      { title: 'October 31st Game', type: 'Game', time: '9:00 AM', location: 'Venturoso Park', mapUrl: 'https://maps.google.com/?q=Venturoso+Park' },
-      { title: 'November 6-8: Kick for the Cure', type: 'Tournament', time: 'TBD', location: 'TBD', mapUrl: '' },
-      { title: 'November 14th Game', type: 'Game', time: '11:00 AM', location: 'Benedict Sports Complex', mapUrl: 'https://maps.google.com/?q=Benedict+Sports+Complex' },
-      { title: 'November 21st Game', type: 'Game', time: '2:30 PM', location: 'West Valley Events Complex', mapUrl: 'https://maps.google.com/?q=West+Valley+Events+Complex' },
-      { title: 'December 11-13: Holiday Classic', type: 'Tournament', time: 'TBD', location: 'TBD', mapUrl: '' }
+      { 
+        title: 'September 26th Game', 
+        type: 'Game', 
+        time: '11:30 AM, 3:30 PM', 
+        location: 'Deem Hills Park', 
+        mapUrl: 'https://maps.google.com/?q=Deem+Hills+Park',
+        studs: 'Firm Ground Cleats',
+        clothes: 'Standard Jersey',
+        hydration: '2 Water Bottles'
+      },
+      { 
+        title: 'October 3rd Game', 
+        type: 'Game', 
+        time: '11:40 AM', 
+        location: 'Deem Hills Park', 
+        mapUrl: 'https://maps.google.com/?q=Deem+Hills+Park',
+        studs: 'Firm Ground Cleats',
+        clothes: 'Light Warmup Top',
+        hydration: '2 Water Bottles'
+      },
+      { 
+        title: 'October 17th Game', 
+        type: 'Game', 
+        time: '12:00 PM', 
+        location: 'Arizona Athletics Grounds', 
+        mapUrl: 'https://maps.google.com/?q=Arizona+Athletics+Grounds',
+        studs: 'AG / Turf Cleats',
+        clothes: 'Standard Jersey',
+        hydration: '3 Water Bottles (Hot Day)'
+      },
+      { 
+        title: 'October 24th Game', 
+        type: 'Game', 
+        time: '9:00 AM', 
+        location: 'Vista College Prep', 
+        mapUrl: 'https://maps.google.com/?q=Vista+College+Prep',
+        studs: 'Firm Ground Cleats',
+        clothes: 'Extra Jacket (Morning Chill)',
+        hydration: '2 Water Bottles'
+      },
+      { 
+        title: 'October 31st Game', 
+        type: 'Game', 
+        time: '9:00 AM', 
+        location: 'Venturoso Park', 
+        mapUrl: 'https://maps.google.com/?q=Venturoso+Park',
+        studs: 'Firm Ground Cleats',
+        clothes: 'Extra Layer / Sweatshirt',
+        hydration: '2 Water Bottles'
+      },
+      { 
+        title: 'November 6-8: Kick for the Cure', 
+        type: 'Tournament', 
+        time: 'TBD', 
+        location: 'TBD', 
+        mapUrl: '',
+        studs: 'FG & AG Cleats (Bring Both)',
+        clothes: 'Full Warmup Suit',
+        hydration: 'Extra Hydration Pack'
+      },
+      { 
+        title: 'November 14th Game', 
+        type: 'Game', 
+        time: '11:00 AM', 
+        location: 'Benedict Sports Complex', 
+        mapUrl: 'https://maps.google.com/?q=Benedict+Sports+Complex',
+        studs: 'Firm Ground Cleats',
+        clothes: 'Standard Jersey',
+        hydration: '2 Water Bottles'
+      },
+      { 
+        title: 'November 21st Game', 
+        type: 'Game', 
+        time: '2:30 PM', 
+        location: 'West Valley Events Complex', 
+        mapUrl: 'https://maps.google.com/?q=West+Valley+Events+Complex',
+        studs: 'Firm Ground Cleats',
+        clothes: 'Standard Jersey',
+        hydration: '2 Water Bottles'
+      },
+      { 
+        title: 'December 11-13: Holiday Classic', 
+        type: 'Tournament', 
+        time: 'TBD', 
+        location: 'TBD', 
+        mapUrl: '',
+        studs: 'FG & AG Cleats',
+        clothes: 'Thermal Layering Gear',
+        hydration: 'Hydration Pack'
+      }
     ];
 
-    // FORMATION COORDINATES (X%, Y%)
     const FORMATIONS = {
       '4-3-3': [
         { label: 'GK', top: '86%', left: '50%' },
@@ -688,7 +826,7 @@
       ]
     };
 
-    let pitchAssignments = {}; // slotIndex -> playerId
+    let pitchAssignments = {};
     let currentFormationKey = '4-3-3';
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -700,14 +838,19 @@
       const { data: dbPlayers } = await supabaseClient.from('players').select('*');
       const { data: dbGames } = await supabaseClient.from('games').select('*');
 
-      if (dbPlayers && dbPlayers.length > 0) players = dbPlayers;
+      if (dbPlayers && dbPlayers.length > 0) {
+        players = dbPlayers.map(p => ({
+          ...p,
+          isCaptain: (p.name === 'CJ' || p.name === 'Jionni')
+        }));
+      }
       if (dbGames) games = dbGames;
 
       renderAll();
     }
 
     function switchTab(tabName) {
-      ['overview', 'roster', 'tactics', 'games', 'leaderboards', 'schedule'].forEach(tab => {
+      ['overview', 'roster', 'tactics', 'checklist', 'games', 'leaderboards', 'schedule'].forEach(tab => {
         const sec = document.getElementById(`sec-${tab}`);
         if(sec) sec.classList.add('hidden');
         
@@ -718,7 +861,9 @@
         }
       });
 
-      document.getElementById(`sec-${tabName}`).classList.remove('hidden');
+      const targetSec = document.getElementById(`sec-${tabName}`);
+      if (targetSec) targetSec.classList.remove('hidden');
+
       const activeBtn = document.getElementById(`tab-${tabName}`);
       if(activeBtn) {
         activeBtn.classList.add('text-surf-red', 'bg-surf-border/50');
@@ -743,7 +888,7 @@
     function populatePlayerDropdown() {
       const select = document.getElementById('form-player-select');
       const sorted = [...players].sort((a,b) => a.number - b.number);
-      select.innerHTML = sorted.map(p => `<option value="${p.id}">#${p.number} - ${p.name} (${p.pos || 'Player'})</option>`).join('');
+      select.innerHTML = sorted.map(p => `<option value="${p.id}">#${p.number} - ${p.name} ${p.isCaptain ? '(C)' : ''}</option>`).join('');
     }
 
     function renderAll() {
@@ -756,7 +901,6 @@
       lucide.createIcons();
     }
 
-    /* --- TACTICS & PITCH BUILDER LOGIC --- */
     function changeFormation(key) {
       currentFormationKey = key;
       renderTacticsBoard();
@@ -775,7 +919,6 @@
       container.innerHTML = '';
       const slots = FORMATIONS[currentFormationKey] || FORMATIONS['4-3-3'];
 
-      // Render pitch slots
       slots.forEach((slot, idx) => {
         const assignedPlayerId = pitchAssignments[idx];
         const player = players.find(p => p.id === assignedPlayerId);
@@ -800,7 +943,7 @@
               #${player.number}
             </div>
             <span class="bg-black/80 text-white font-bold text-[10px] px-2 py-0.5 rounded mt-1 shadow border border-surf-border whitespace-nowrap">
-              ${player.name}
+              ${player.name} ${player.isCaptain ? '(C)' : ''}
             </span>
           `;
         } else {
@@ -815,7 +958,6 @@
         container.appendChild(slotDiv);
       });
 
-      // Render Bench Roster
       const assignedIds = Object.values(pitchAssignments);
       const unassigned = players.filter(p => !assignedIds.includes(p.id));
 
@@ -829,7 +971,10 @@
                 #${p.number}
               </span>
               <div>
-                <p class="text-xs font-bold text-white">${p.name}</p>
+                <p class="text-xs font-bold text-white flex items-center space-x-1">
+                  <span>${p.name}</span>
+                  ${p.isCaptain ? '<span class="text-[9px] bg-amber-500/20 text-amber-400 border border-amber-500/30 px-1 py-0.2 rounded">C</span>' : ''}
+                </p>
                 <span class="text-[9px] text-slate-400 uppercase">${p.pos || 'Player'}</span>
               </div>
             </div>
@@ -849,7 +994,6 @@
       e.preventDefault();
       const playerId = parseInt(e.dataTransfer.getData('text/plain'));
       if (playerId) {
-        // Remove player from any previous slot
         Object.keys(pitchAssignments).forEach(key => {
           if (pitchAssignments[key] === playerId) delete pitchAssignments[key];
         });
@@ -972,14 +1116,17 @@
       }
 
       rosterGrid.innerHTML = filtered.map(p => `
-        <div onclick="openPlayerModal(${p.id})" class="bg-surf-card border border-surf-border rounded-xl p-4 hover:border-surf-red/50 cursor-pointer transition-all hover:scale-[1.02]">
+        <div onclick="openPlayerModal(${p.id})" class="bg-surf-card border border-surf-border rounded-xl p-4 hover:border-surf-red/50 cursor-pointer transition-all hover:scale-[1.02] relative">
           <div class="flex justify-between items-start mb-3">
             <span class="w-8 h-8 rounded-full bg-surf-red/20 text-surf-red font-mono font-bold flex items-center justify-center text-sm border border-surf-red/30">
               #${p.number}
             </span>
-            <span class="text-[10px] font-semibold text-slate-400 bg-slate-900 px-2 py-1 rounded border border-surf-border">
-              ${p.pos || 'Player'}
-            </span>
+            <div class="flex items-center space-x-1">
+              ${p.isCaptain ? '<span class="bg-amber-500/20 text-amber-400 border border-amber-500/40 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase">Captain</span>' : ''}
+              <span class="text-[10px] font-semibold text-slate-400 bg-slate-900 px-2 py-1 rounded border border-surf-border">
+                ${p.pos || 'Player'}
+              </span>
+            </div>
           </div>
 
           <h3 class="font-bold text-lg text-white mb-2">${p.name}</h3>
@@ -1013,6 +1160,13 @@
       document.getElementById('pm-jersey-badge').innerText = `#${p.number}`;
       document.getElementById('pm-name').innerText = p.name;
       document.getElementById('pm-pos').innerText = p.pos || 'Player';
+
+      const captTag = document.getElementById('pm-captain-tag');
+      if (p.isCaptain) {
+        captTag.classList.remove('hidden');
+      } else {
+        captTag.classList.add('hidden');
+      }
 
       document.getElementById('pm-goals').innerText = p.goals || 0;
       document.getElementById('pm-assists').innerText = p.assists || 0;
@@ -1058,7 +1212,8 @@
 
       const idx = players.findIndex(p => p.id === id);
       if (idx !== -1) {
-        players[idx] = { id, name, number, pos, goals, assists, yc, rc, saves };
+        const isCaptain = (name === 'CJ' || name === 'Jionni');
+        players[idx] = { id, name, number, pos, isCaptain, goals, assists, yc, rc, saves };
       }
 
       await supabaseClient
@@ -1149,21 +1304,21 @@
 
       goalsList.innerHTML = byGoals.map(p => `
         <li class="flex justify-between items-center text-sm p-2 bg-slate-900/40 rounded">
-          <span class="text-white"><strong class="text-surf-red">#${p.number}</strong> ${p.name}</span>
+          <span class="text-white"><strong class="text-surf-red">#${p.number}</strong> ${p.name} ${p.isCaptain ? '(C)' : ''}</span>
           <span class="font-black text-surf-red">${p.goals || 0}</span>
         </li>
       `).join('');
 
       assistsList.innerHTML = byAssists.map(p => `
         <li class="flex justify-between items-center text-sm p-2 bg-slate-900/40 rounded">
-          <span class="text-white"><strong class="text-blue-400">#${p.number}</strong> ${p.name}</span>
+          <span class="text-white"><strong class="text-blue-400">#${p.number}</strong> ${p.name} ${p.isCaptain ? '(C)' : ''}</span>
           <span class="font-black text-blue-400">${p.assists || 0}</span>
         </li>
       `).join('');
 
       savesList.innerHTML = bySaves.length > 0 ? bySaves.map(p => `
         <li class="flex justify-between items-center text-sm p-2 bg-slate-900/40 rounded">
-          <span class="text-white"><strong class="text-purple-400">#${p.number}</strong> ${p.name}</span>
+          <span class="text-white"><strong class="text-purple-400">#${p.number}</strong> ${p.name} ${p.isCaptain ? '(C)' : ''}</span>
           <span class="font-black text-purple-400">${p.saves}</span>
         </li>
       `) : `<p class="text-xs text-slate-500">No goalie saves logged yet.</p>`;
@@ -1172,14 +1327,35 @@
     function renderSchedule() {
       const grid = document.getElementById('schedule-cards-grid');
       grid.innerHTML = schedule.map(item => `
-        <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex justify-between items-center">
-          <div>
-            <span class="text-xs font-bold ${item.type === 'Tournament' ? 'text-surf-red' : 'text-slate-400'} uppercase">${item.type || 'Game'}</span>
-            <h3 class="text-base font-bold text-white mt-1">${item.title}</h3>
-            <p class="text-xs text-surf-red mt-1"><i data-lucide="clock" class="inline w-3 h-3 mr-1"></i>${item.time || 'TBD'}</p>
-            <p class="text-xs text-slate-400"><i data-lucide="map-pin" class="inline w-3 h-3 mr-1"></i>${item.location || 'TBD'}</p>
+        <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex flex-col justify-between space-y-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="text-xs font-bold ${item.type === 'Tournament' ? 'text-surf-red' : 'text-slate-400'} uppercase">${item.type || 'Game'}</span>
+              <h3 class="text-base font-bold text-white mt-0.5">${item.title}</h3>
+              <p class="text-xs text-surf-red mt-1 flex items-center"><i data-lucide="clock" class="w-3 h-3 mr-1 inline"></i>${item.time || 'TBD'}</p>
+              <p class="text-xs text-slate-400 flex items-center mt-0.5"><i data-lucide="map-pin" class="w-3 h-3 mr-1 inline"></i>${item.location || 'TBD'}</p>
+            </div>
+            ${item.mapUrl ? `<a href="${item.mapUrl}" target="_blank" class="bg-slate-900 border border-surf-border hover:border-surf-red text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0"><i data-lucide="external-link" class="w-3 h-3"></i></a>` : ''}
           </div>
-          ${item.mapUrl ? `<a href="${item.mapUrl}" target="_blank" class="bg-slate-900 border border-surf-border hover:border-surf-red text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0"><i data-lucide="external-link" class="w-3 h-3"></i></a>` : ''}
+
+          <!-- MATCHDAY RECOMMENDATION BADGES -->
+          <div class="pt-3 border-t border-surf-border/60 grid grid-cols-3 gap-1.5 text-[10px]">
+            <div class="bg-slate-900/80 border border-surf-border p-1.5 rounded flex flex-col items-center text-center">
+              <i data-lucide="footprints" class="w-3.5 h-3.5 text-emerald-400 mb-1"></i>
+              <span class="text-slate-400 font-semibold">Studs</span>
+              <span class="text-white font-bold truncate max-w-full">${item.studs}</span>
+            </div>
+            <div class="bg-slate-900/80 border border-surf-border p-1.5 rounded flex flex-col items-center text-center">
+              <i data-lucide="shirt" class="w-3.5 h-3.5 text-blue-400 mb-1"></i>
+              <span class="text-slate-400 font-semibold">Layers</span>
+              <span class="text-white font-bold truncate max-w-full">${item.clothes}</span>
+            </div>
+            <div class="bg-slate-900/80 border border-surf-border p-1.5 rounded flex flex-col items-center text-center">
+              <i data-lucide="droplet" class="w-3.5 h-3.5 text-surf-red mb-1"></i>
+              <span class="text-slate-400 font-semibold">Hydration</span>
+              <span class="text-white font-bold truncate max-w-full">${item.hydration}</span>
+            </div>
+          </div>
         </div>
       `).join('');
     }
@@ -1220,7 +1396,17 @@
       }
 
       await supabaseClient.from('games').insert([{ date, opponent, ourScore, opponentScore, result }]);
-      await supabaseClient.from('players').upsert([players[pIdx]]);
+      await supabaseClient.from('players').upsert([{ 
+        id: players[pIdx].id, 
+        name: players[pIdx].name, 
+        number: players[pIdx].number, 
+        pos: players[pIdx].pos, 
+        goals: players[pIdx].goals, 
+        assists: players[pIdx].assists, 
+        yc: players[pIdx].yc, 
+        rc: players[pIdx].rc, 
+        saves: players[pIdx].saves 
+      }]);
 
       renderAll();
 
