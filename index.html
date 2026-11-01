@@ -32,7 +32,7 @@
     }
   </script>
 </head>
-<body class="h-full text-slate-100 font-sans flex flex-col bg-slate-950">
+<body class="h-full text-slate-100 font-sans flex flex-col bg-slate-950 pb-20 md:pb-0">
 
   <!-- TOP HEADER -->
   <header class="bg-surf-dark border-b border-surf-border sticky top-0 z-40">
@@ -62,6 +62,10 @@
 
       <!-- Action Buttons & Lang Toggle -->
       <div class="flex items-center space-x-2 shrink-0">
+        <button onclick="toggleModal('scorekeeper-modal', true)" title="Live Sideline Scorekeeper Mode" class="bg-slate-900 border border-surf-border hover:border-emerald-500 text-emerald-400 px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center space-x-1">
+          <i data-lucide="radio" class="w-3.5 h-3.5 animate-pulse"></i>
+          <span class="hidden sm:inline">Live Score</span>
+        </button>
         <button onclick="toggleLanguage()" class="bg-slate-900 border border-surf-border hover:border-surf-red text-slate-300 hover:text-white px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center space-x-1">
           <i data-lucide="globe" class="w-3.5 h-3.5 text-surf-red"></i>
           <span id="lang-indicator">ES</span>
@@ -73,13 +77,13 @@
       </div>
     </div>
 
-    <!-- Mobile Dropdown Navigation Bar with Friendly Onboarding Guidance -->
-    <div class="flex md:hidden border-t border-surf-border px-4 py-2.5 bg-slate-900/90 items-center justify-between">
-      <div class="flex items-center space-x-2">
-        <span class="text-[10px] font-bold text-amber-400 animate-pulse flex items-center">👆 Switch Tabs:</span>
+    <!-- Mobile Top Dropdown & Guidance Bar -->
+    <div class="flex md:hidden border-t border-surf-border px-4 py-2 bg-slate-900/95 items-center justify-between">
+      <div class="flex items-center space-x-1.5">
+        <span class="text-[10px] font-bold text-amber-400 animate-pulse">👈 Swipe Screen or Select:</span>
         <span class="text-xs font-bold text-white uppercase tracking-wider" id="mobile-current-tab-label">Overview</span>
       </div>
-      <select onchange="switchTab(this.value)" id="mobile-tab-select" class="bg-slate-950 border border-surf-red/60 rounded-lg px-3 py-1.5 text-xs text-white font-bold focus:outline-none focus:border-surf-red shadow-sm">
+      <select onchange="switchTab(this.value)" id="mobile-tab-select" class="bg-slate-950 border border-surf-red/60 rounded-lg px-2.5 py-1 text-xs text-white font-bold focus:outline-none focus:border-surf-red shadow">
         <option value="overview">Overview</option>
         <option value="roster">Roster</option>
         <option value="tactics">Tactics Board</option>
@@ -91,11 +95,35 @@
     </div>
   </header>
 
+  <!-- MOBILE BOTTOM NAVIGATION BAR FOR FIRST-TIME USERS -->
+  <div class="fixed bottom-0 inset-x-0 bg-surf-dark border-t border-surf-border z-40 md:hidden flex justify-around py-2 px-1 shadow-2xl">
+    <button onclick="switchTab('overview')" id="bnav-overview" class="bnav-btn flex flex-col items-center text-[10px] text-surf-red font-bold">
+      <i data-lucide="home" class="w-5 h-5 mb-0.5"></i><span>Overview</span>
+    </button>
+    <button onclick="switchTab('roster')" id="bnav-roster" class="bnav-btn flex flex-col items-center text-[10px] text-slate-400">
+      <i data-lucide="users" class="w-5 h-5 mb-0.5"></i><span>Roster</span>
+    </button>
+    <button onclick="switchTab('tactics')" id="bnav-tactics" class="bnav-btn flex flex-col items-center text-[10px] text-slate-400">
+      <i data-lucide="layout" class="w-5 h-5 mb-0.5"></i><span>Tactics</span>
+    </button>
+    <button onclick="switchTab('games')" id="bnav-games" class="bnav-btn flex flex-col items-center text-[10px] text-slate-400">
+      <i data-lucide="trophy" class="w-5 h-5 mb-0.5"></i><span>Games</span>
+    </button>
+    <button onclick="switchTab('schedule')" id="bnav-schedule" class="bnav-btn flex flex-col items-center text-[10px] text-slate-400">
+      <i data-lucide="calendar" class="w-5 h-5 mb-0.5"></i><span>Schedule</span>
+    </button>
+  </div>
+
   <!-- MAIN CONTENT CONTAINER -->
   <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
     <!-- OVERVIEW TAB -->
     <section id="sec-overview" class="space-y-6">
+
+      <!-- HOLIDAY & CHRISTMAS COUNTDOWN BANNER -->
+      <div id="holiday-countdown-banner" class="bg-gradient-to-r from-emerald-600/30 via-surf-card to-surf-red/20 border border-emerald-500/40 rounded-xl p-4 flex items-center justify-between shadow-lg text-xs sm:text-sm text-white font-medium">
+        Loading holiday countdown...
+      </div>
 
       <!-- MATCH COUNTDOWN & WEATHER WIDGET ROW -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -273,7 +301,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="roster-grid"></div>
     </section>
 
-    <!-- TACTICS & FORMATION BUILDER TAB -->
+    <!-- TACTICS & FORMATION BUILDER TAB (WITH SMOOTH TRANSITION EFFECTS) -->
     <section id="sec-tactics" class="hidden space-y-6">
       <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
         <div>
@@ -462,6 +490,22 @@
 
   </main>
 
+  <!-- LIVE SCOREKEEPER MODE MODAL -->
+  <div id="scorekeeper-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-surf-dark border border-surf-border rounded-xl max-w-sm w-full p-6 shadow-2xl relative text-center space-y-4">
+      <button onclick="toggleModal('scorekeeper-modal', false)" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+      <div class="w-12 h-12 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto border border-emerald-500/40">
+        <i data-lucide="radio" class="w-6 h-6 animate-pulse"></i>
+      </div>
+      <h3 class="text-lg font-bold text-white">Sideline Scorekeeper</h3>
+      <p class="text-xs text-slate-400">Enter secure coach token to enable live score updating.</p>
+      <input type="password" id="scorekeeper-token" placeholder="Enter Token (e.g. surf2026)" class="w-full bg-slate-900 border border-surf-border rounded-lg px-3 py-2 text-xs text-white text-center focus:outline-none focus:border-emerald-500" />
+      <button onclick="verifyScorekeeperToken()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 rounded-lg text-xs transition-all">Unlock Live Score Mode</button>
+    </div>
+  </div>
+
   <!-- ADD ANNOUNCEMENT / BIRTHDAY MODAL -->
   <div id="announcement-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-surf-dark border border-surf-border rounded-xl max-w-md w-full p-6 shadow-2xl relative">
@@ -555,7 +599,7 @@
     </div>
   </div>
 
-  <!-- ADD / RECORD STATS MODAL (UPDATED FOR UNLIMITED PLAYERS) -->
+  <!-- ADD / RECORD STATS MODAL (UNLIMITED PLAYERS) -->
   <div id="admin-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-surf-dark border border-surf-border rounded-xl max-w-xl w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
       <button onclick="toggleModal('admin-modal', false)" class="absolute top-4 right-4 text-slate-400 hover:text-white">
@@ -594,9 +638,7 @@
         <hr class="border-surf-border my-4" />
 
         <!-- DYNAMIC PLAYER STATS ROWS CONTAINER -->
-        <div id="player-stats-rows-container" class="space-y-3">
-          <!-- Populated dynamically via JS -->
-        </div>
+        <div id="player-stats-rows-container" class="space-y-3"></div>
 
         <!-- BUTTON TO ADD ANOTHER PLAYER -->
         <button type="button" onclick="addPlayerStatRow()" class="w-full py-2.5 bg-slate-900 border border-dashed border-surf-border hover:border-surf-red text-slate-300 hover:text-white rounded-lg text-xs font-bold transition-all flex items-center justify-center space-x-1.5 shadow-sm">
@@ -1068,10 +1110,33 @@ END:VCALENDAR`;
     let drawingPaths = [];
     let currentPath = null;
 
+    // MOBILE SWIPE GESTURE HANDLERS
+    let touchstartX = 0;
+    let touchendX = 0;
+    const tabsList = ['overview', 'roster', 'tactics', 'checklist', 'games', 'leaderboards', 'schedule'];
+
+    function handleGesture() {
+      const mobileSelect = document.getElementById('mobile-tab-select');
+      if (!mobileSelect) return;
+      const currentVal = mobileSelect.value;
+      let currentIndex = tabsList.indexOf(currentVal);
+      
+      if (touchendX < touchstartX - 60 && currentIndex < tabsList.length - 1) {
+        switchTab(tabsList[currentIndex + 1]);
+      }
+      if (touchendX > touchstartX + 60 && currentIndex > 0) {
+        switchTab(tabsList[currentIndex - 1]);
+      }
+    }
+
+    document.addEventListener('touchstart', e => { touchstartX = e.changedTouches[0].screenX; });
+    document.addEventListener('touchend', e => { touchendX = e.changedTouches[0].screenX; handleGesture(); });
+
     document.addEventListener('DOMContentLoaded', () => {
       lucide.createIcons();
       loadDataFromDatabase();
       initCountdown();
+      initHolidayCountdown();
       fetchWeather();
     });
 
@@ -1118,6 +1183,27 @@ END:VCALENDAR`;
       setInterval(updateTimer, 1000);
     }
 
+    function initHolidayCountdown() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const christmas = new Date(year, 11, 25);
+      if (now > christmas) christmas.setFullYear(year + 1);
+
+      const diffTime = christmas - now;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+      const banner = document.getElementById('holiday-countdown-banner');
+      if (!banner) return;
+
+      if (diffDays >= 1 && diffDays <= 3) {
+        banner.innerHTML = `🎄 <strong>Merry Christmas!</strong> Wishing all AZ Surf players and families a wonderful holiday season! 🎁`;
+      } else if (diffDays === 0) {
+        banner.innerHTML = `🎅 <strong>Merry Christmas Day!</strong> Enjoy the holiday with friends and family! 🌟`;
+      } else {
+        banner.innerHTML = `🎁 Countdown to Christmas: <strong>${diffDays} days left</strong> until December 25th!`;
+      }
+    }
+
     async function loadDataFromDatabase() {
       const { data: dbPlayers } = await supabaseClient.from('players').select('*');
       const { data: dbGames } = await supabaseClient.from('games').select('*');
@@ -1158,6 +1244,12 @@ END:VCALENDAR`;
           btn.classList.remove('text-surf-red', 'bg-surf-border/50');
           btn.classList.add('text-slate-400');
         }
+
+        const bbtn = document.getElementById(`bnav-${tab}`);
+        if(bbtn) {
+          bbtn.classList.remove('text-surf-red', 'font-bold');
+          bbtn.classList.add('text-slate-400');
+        }
       });
 
       const targetSec = document.getElementById(`sec-${tabName}`);
@@ -1167,6 +1259,12 @@ END:VCALENDAR`;
       if(activeBtn) {
         activeBtn.classList.add('text-surf-red', 'bg-surf-border/50');
         activeBtn.classList.remove('text-slate-400');
+      }
+
+      const activeBBtn = document.getElementById(`bnav-${tabName}`);
+      if(activeBBtn) {
+        activeBBtn.classList.add('text-surf-red', 'font-bold');
+        activeBBtn.classList.remove('text-slate-400');
       }
 
       const mobileSelect = document.getElementById('mobile-tab-select');
@@ -1187,7 +1285,6 @@ END:VCALENDAR`;
       if (show) {
         modal.classList.remove('hidden');
         if (modalId === 'admin-modal') {
-          // Initialize with 1 default row if container is empty
           const container = document.getElementById('player-stats-rows-container');
           if (container && container.children.length === 0) {
             addPlayerStatRow();
@@ -1198,7 +1295,17 @@ END:VCALENDAR`;
       }
     }
 
-    // DYNAMIC UNLIMITED PLAYER STAT ROWS
+    function verifyScorekeeperToken() {
+      const token = document.getElementById('scorekeeper-token').value;
+      if (token === 'surf2026') {
+        alert("🔒 Secure token verified! Sideline Scorekeeper Mode unlocked.");
+        toggleModal('scorekeeper-modal', false);
+        toggleModal('admin-modal', true);
+      } else {
+        alert("❌ Invalid secure token. Please ask head coach for access.");
+      }
+    }
+
     function addPlayerStatRow(selectedId = '', stats = { goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 }) {
       playFeedback();
       const container = document.getElementById('player-stats-rows-container');
@@ -1560,7 +1667,8 @@ END:VCALENDAR`;
         const player = players.find(p => p.id === assignedPlayerId);
 
         const slotDiv = document.createElement('div');
-        slotDiv.className = 'absolute -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center cursor-pointer group pointer-events-auto';
+        // ADDED SMOOTH TRANSITION EFFECTS FOR PITCH SWAPPING
+        slotDiv.className = 'absolute -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center cursor-pointer group pointer-events-auto transition-all duration-300 ease-in-out transform';
         slotDiv.style.top = slot.top;
         slotDiv.style.left = slot.left;
 
