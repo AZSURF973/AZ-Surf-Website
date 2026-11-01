@@ -10,6 +10,8 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <!-- Supabase JS Client -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -43,38 +45,44 @@
         </div>
         <div>
           <h1 class="text-lg font-bold tracking-tight text-white leading-tight">AZ SURF</h1>
-          <p class="text-xs font-semibold text-surf-red">U13 BOYS CLUB SOCCER</p>
+          <p class="text-xs font-semibold text-surf-red" data-i18n="sub_title">U13 BOYS CLUB SOCCER</p>
         </div>
         <img src="https://i.postimg.cc/50GKGhH2/images.png" alt="MLS Next Logo" class="w-10 h-10 object-contain ml-3 shrink-0" />
       </div>
 
       <!-- Navigation Tabs -->
       <nav class="hidden md:flex space-x-1">
-        <button onclick="switchTab('overview')" id="tab-overview" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-surf-red bg-surf-border/50">Overview</button>
-        <button onclick="switchTab('roster')" id="tab-roster" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all">Roster</button>
-        <button onclick="switchTab('tactics')" id="tab-tactics" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all">Tactics Board</button>
-        <button onclick="switchTab('checklist')" id="tab-checklist" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all">Gear Checklist</button>
-        <button onclick="switchTab('games')" id="tab-games" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all">Game Log</button>
-        <button onclick="switchTab('leaderboards')" id="tab-leaderboards" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all">Leaderboards</button>
-        <button onclick="switchTab('schedule')" id="tab-schedule" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all">Schedule</button>
+        <button onclick="switchTab('overview')" id="tab-overview" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-surf-red bg-surf-border/50" data-i18n="nav_overview">Overview</button>
+        <button onclick="switchTab('roster')" id="tab-roster" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_roster">Roster</button>
+        <button onclick="switchTab('tactics')" id="tab-tactics" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_tactics">Tactics Board</button>
+        <button onclick="switchTab('checklist')" id="tab-checklist" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_checklist">Gear Checklist</button>
+        <button onclick="switchTab('games')" id="tab-games" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_games">Game Log</button>
+        <button onclick="switchTab('leaderboards')" id="tab-leaderboards" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_leaders">Leaderboards</button>
+        <button onclick="switchTab('schedule')" id="tab-schedule" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_schedule">Schedule</button>
       </nav>
 
-      <!-- Action Button -->
-      <button onclick="toggleModal('admin-modal', true)" class="flex items-center space-x-2 bg-surf-red text-white px-4 py-2 rounded-lg font-bold text-sm hover:bg-surf-redHover transition-all shadow-md shadow-surf-red/10 hover:shadow-surf-red/30 shrink-0">
-        <i data-lucide="plus-circle" class="w-4 h-4"></i>
-        <span>Add Stats</span>
-      </button>
+      <!-- Action Buttons & Lang Toggle -->
+      <div class="flex items-center space-x-2 shrink-0">
+        <button onclick="toggleLanguage()" class="bg-slate-900 border border-surf-border hover:border-surf-red text-slate-300 hover:text-white px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center space-x-1">
+          <i data-lucide="globe" class="w-3.5 h-3.5 text-surf-red"></i>
+          <span id="lang-indicator">ES</span>
+        </button>
+        <button onclick="toggleModal('admin-modal', true)" class="flex items-center space-x-2 bg-surf-red text-white px-4 py-2 rounded-lg font-bold text-sm hover:bg-surf-redHover transition-all shadow-md shadow-surf-red/10 hover:shadow-surf-red/30">
+          <i data-lucide="plus-circle" class="w-4 h-4"></i>
+          <span data-i18n="btn_add_stats">Add Stats</span>
+        </button>
+      </div>
     </div>
 
     <!-- Mobile Nav Bar -->
     <div class="flex md:hidden border-t border-surf-border justify-around py-2 bg-surf-black overflow-x-auto">
-      <button onclick="switchTab('overview')" class="text-xs px-2 py-1 font-medium text-surf-red shrink-0">Overview</button>
-      <button onclick="switchTab('roster')" class="text-xs px-2 py-1 font-medium text-slate-400 shrink-0">Roster</button>
-      <button onclick="switchTab('tactics')" class="text-xs px-2 py-1 font-medium text-slate-400 shrink-0">Tactics</button>
-      <button onclick="switchTab('checklist')" class="text-xs px-2 py-1 font-medium text-slate-400 shrink-0">Gear</button>
-      <button onclick="switchTab('games')" class="text-xs px-2 py-1 font-medium text-slate-400 shrink-0">Games</button>
-      <button onclick="switchTab('leaderboards')" class="text-xs px-2 py-1 font-medium text-slate-400 shrink-0">Leaders</button>
-      <button onclick="switchTab('schedule')" class="text-xs px-2 py-1 font-medium text-slate-400 shrink-0">Schedule</button>
+      <button onclick="switchTab('overview')" class="text-xs px-2 py-1 font-medium text-surf-red shrink-0" data-i18n="nav_overview">Overview</button>
+      <button onclick="switchTab('roster')" class="text-xs px-2 py-1 font-medium text-slate-400 shrink-0" data-i18n="nav_roster">Roster</button>
+      <button onclick="switchTab('tactics')" class="text-xs px-2 py-1 font-medium text-slate-400 shrink-0" data-i18n="nav_tactics">Tactics</button>
+      <button onclick="switchTab('checklist')" class="text-xs px-2 py-1 font-medium text-slate-400 shrink-0" data-i18n="nav_checklist">Gear</button>
+      <button onclick="switchTab('games')" class="text-xs px-2 py-1 font-medium text-slate-400 shrink-0" data-i18n="nav_games">Games</button>
+      <button onclick="switchTab('leaderboards')" class="text-xs px-2 py-1 font-medium text-slate-400 shrink-0" data-i18n="nav_leaders">Leaders</button>
+      <button onclick="switchTab('schedule')" class="text-xs px-2 py-1 font-medium text-slate-400 shrink-0" data-i18n="nav_schedule">Schedule</button>
     </div>
   </header>
 
@@ -107,7 +115,7 @@
               <i data-lucide="cloud-sun" class="w-5 h-5"></i>
             </div>
             <div>
-              <span class="text-[10px] font-bold text-blue-400 uppercase tracking-wide">Field Weather (Peoria, AZ)</span>
+              <span class="text-[10px] font-bold text-blue-400 uppercase tracking-wide" data-i18n="lbl_weather">Field Weather (Peoria, AZ)</span>
               <h4 id="weather-widget" class="font-bold text-white text-base">Fetching weather...</h4>
             </div>
           </div>
@@ -119,11 +127,11 @@
       <div class="flex justify-between items-center pt-2">
         <h2 class="font-bold text-lg text-white flex items-center space-x-2">
           <i data-lucide="bell" class="w-5 h-5 text-surf-red"></i>
-          <span>Team Spotlight & Announcements</span>
+          <span data-i18n="hdr_spotlight">Team Spotlight & Announcements</span>
         </h2>
         <button onclick="toggleModal('announcement-modal', true)" class="bg-slate-900 border border-surf-border hover:border-surf-red text-slate-300 hover:text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center space-x-1.5">
           <i data-lucide="plus" class="w-3.5 h-3.5 text-surf-red"></i>
-          <span>Post Announcement / Birthday</span>
+          <span data-i18n="btn_post_ann">Post Announcement / Birthday</span>
         </button>
       </div>
 
@@ -136,7 +144,7 @@
             <i data-lucide="trophy" class="w-6 h-6"></i>
           </div>
           <div>
-            <p class="text-xs font-medium text-slate-400 uppercase tracking-wide">Season Record</p>
+            <p class="text-xs font-medium text-slate-400 uppercase tracking-wide" data-i18n="stat_record">Season Record</p>
             <h3 id="stat-record" class="text-2xl font-black text-white">0 - 0 - 0</h3>
           </div>
         </div>
@@ -146,7 +154,7 @@
             <i data-lucide="target" class="w-6 h-6"></i>
           </div>
           <div>
-            <p class="text-xs font-medium text-slate-400 uppercase tracking-wide">Goals Scored</p>
+            <p class="text-xs font-medium text-slate-400 uppercase tracking-wide" data-i18n="stat_goals">Goals Scored</p>
             <h3 id="stat-total-goals" class="text-2xl font-black text-white">0</h3>
           </div>
         </div>
@@ -156,7 +164,7 @@
             <i data-lucide="footprints" class="w-6 h-6"></i>
           </div>
           <div>
-            <p class="text-xs font-medium text-slate-400 uppercase tracking-wide">Total Assists</p>
+            <p class="text-xs font-medium text-slate-400 uppercase tracking-wide" data-i18n="stat_assists">Total Assists</p>
             <h3 id="stat-total-assists" class="text-2xl font-black text-white">0</h3>
           </div>
         </div>
@@ -166,7 +174,7 @@
             <i data-lucide="shield" class="w-6 h-6"></i>
           </div>
           <div>
-            <p class="text-xs font-medium text-slate-400 uppercase tracking-wide">Total Saves</p>
+            <p class="text-xs font-medium text-slate-400 uppercase tracking-wide" data-i18n="stat_saves">Total Saves</p>
             <h3 id="stat-total-saves" class="text-2xl font-black text-white">0</h3>
           </div>
         </div>
@@ -177,11 +185,11 @@
         <div class="flex justify-between items-center mb-4">
           <h2 class="font-bold text-lg text-white flex items-center space-x-2">
             <i data-lucide="flag" class="w-5 h-5 text-surf-red"></i>
-            <span>Team Season Milestones</span>
+            <span data-i18n="hdr_milestones">Team Season Milestones</span>
           </h2>
           <button onclick="toggleModal('milestone-modal', true)" class="bg-slate-900 border border-surf-border hover:border-surf-red text-slate-300 hover:text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center space-x-1">
             <i data-lucide="plus" class="w-3.5 h-3.5 text-surf-red"></i>
-            <span>Add Milestone</span>
+            <span data-i18n="btn_add_ms">Add Milestone</span>
           </button>
         </div>
         <div id="milestones-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
@@ -191,10 +199,10 @@
         <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-4 gap-2">
           <h2 class="font-bold text-lg text-white flex items-center space-x-2">
             <i data-lucide="pie-chart" class="w-5 h-5 text-surf-red"></i>
-            <span>Team Performance Analytics</span>
+            <span data-i18n="hdr_analytics">Team Performance Analytics</span>
           </h2>
           <div class="flex items-center space-x-2">
-            <span class="text-xs text-slate-400 font-semibold mr-1">Form:</span>
+            <span class="text-xs text-slate-400 font-semibold mr-1" data-i18n="lbl_form">Form:</span>
             <div id="form-guide-container" class="flex space-x-1">
               <span class="text-xs text-slate-500">No games</span>
             </div>
@@ -203,8 +211,8 @@
 
         <div class="space-y-2 mb-6">
           <div class="flex justify-between text-xs font-semibold">
-            <span class="text-slate-300">Win Rate: <strong id="win-rate-pct" class="text-emerald-400">0%</strong></span>
-            <span class="text-slate-400"><span id="goals-per-game">0.0</span> Goals / Game</span>
+            <span class="text-slate-300"><span data-i18n="lbl_winrate">Win Rate</span>: <strong id="win-rate-pct" class="text-emerald-400">0%</strong></span>
+            <span class="text-slate-400"><span id="goals-per-game">0.0</span> <span data-i18n="lbl_gpg">Goals / Game</span></span>
           </div>
           <div class="w-full bg-slate-900 rounded-full h-3 overflow-hidden flex border border-surf-border">
             <div id="bar-wins" class="bg-emerald-500 h-full transition-all duration-500" style="width: 0%"></div>
@@ -219,15 +227,15 @@
             <span id="metric-win-pct" class="text-xl font-black text-emerald-400">0%</span>
           </div>
           <div class="bg-slate-900/50 border border-surf-border p-3 rounded-lg">
-            <span class="text-[10px] text-slate-400 font-bold uppercase block">Goal Diff</span>
+            <span class="text-[10px] text-slate-400 font-bold uppercase block" data-i18n="met_gd">Goal Diff</span>
             <span id="metric-gd" class="text-xl font-black text-white">+0</span>
           </div>
           <div class="bg-slate-900/50 border border-surf-border p-3 rounded-lg">
-            <span class="text-[10px] text-slate-400 font-bold uppercase block">Avg Goals Allowed</span>
+            <span class="text-[10px] text-slate-400 font-bold uppercase block" data-i18n="met_gaa">Avg Goals Allowed</span>
             <span id="metric-gaa" class="text-xl font-black text-rose-400">0.0</span>
           </div>
           <div class="bg-slate-900/50 border border-surf-border p-3 rounded-lg">
-            <span class="text-[10px] text-slate-400 font-bold uppercase block">Total Matches</span>
+            <span class="text-[10px] text-slate-400 font-bold uppercase block" data-i18n="met_total">Total Matches</span>
             <span id="metric-total-games" class="text-xl font-black text-surf-red">0</span>
           </div>
         </div>
@@ -238,8 +246,8 @@
     <section id="sec-roster" class="hidden space-y-6">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h2 class="text-xl font-bold text-white">AZ Surf U13 Squad Roster</h2>
-          <p class="text-sm text-slate-400">Click any player to view detailed breakdown grid & edit details</p>
+          <h2 class="text-xl font-bold text-white" data-i18n="roster_title">AZ Surf U13 Squad Roster</h2>
+          <p class="text-sm text-slate-400" data-i18n="roster_subtitle">Click any player to view detailed breakdown grid & edit details</p>
         </div>
 
         <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
@@ -260,26 +268,34 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="roster-grid"></div>
     </section>
 
-    <!-- TACTICS & FORMATION BUILDER TAB -->
+    <!-- TACTICS & FORMATION BUILDER TAB (WITH ADVANCED DRAWING TOOLS) -->
     <section id="sec-tactics" class="hidden space-y-6">
       <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
         <div>
           <h2 class="text-xl font-bold text-white flex items-center space-x-2">
             <i data-lucide="layout" class="text-surf-red w-6 h-6"></i>
-            <span>Interactive Pitch Formation Builder</span>
+            <span data-i18n="tactics_title">Interactive Pitch Formation & Drawing Board</span>
           </h2>
-          <p class="text-sm text-slate-400">Drag players OR tap a player from the bench and tap a pitch slot!</p>
+          <p class="text-sm text-slate-400" data-i18n="tactics_subtitle">Drag players OR select a drawing tool to sketch runs and passing lanes!</p>
         </div>
 
-        <div class="flex items-center space-x-2">
+        <div class="flex flex-wrap items-center gap-2">
+          <!-- Drawing Tools Selector -->
+          <div class="bg-slate-900 border border-surf-border rounded-lg p-1 flex items-center space-x-1">
+            <button onclick="setDrawMode('select')" id="tool-select" class="px-2.5 py-1 rounded text-xs font-bold bg-surf-red text-white transition-all">Players</button>
+            <button onclick="setDrawMode('pen')" id="tool-pen" class="px-2.5 py-1 rounded text-xs font-bold text-slate-300 hover:text-white transition-all">✏️ Pen</button>
+            <button onclick="setDrawMode('arrow')" id="tool-arrow" class="px-2.5 py-1 rounded text-xs font-bold text-slate-300 hover:text-white transition-all">↗️ Arrow</button>
+            <button onclick="clearCanvas()" class="px-2 py-1 rounded text-xs font-bold text-rose-400 hover:bg-rose-500/20 transition-all">Clear Lines</button>
+          </div>
+
           <select id="formation-select" onchange="changeFormation(this.value)" class="bg-slate-900 border border-surf-border rounded-lg px-3 py-1.5 text-xs text-white font-bold focus:outline-none focus:border-surf-red">
-            <option value="4-3-3">Formation: 4-3-3</option>
-            <option value="4-2-3-1">Formation: 4-2-3-1</option>
-            <option value="4-4-2">Formation: 4-4-2</option>
-            <option value="3-4-3">Formation: 3-4-3</option>
+            <option value="4-3-3">4-3-3</option>
+            <option value="4-2-3-1">4-2-3-1</option>
+            <option value="4-4-2">4-4-2</option>
+            <option value="3-4-3">3-4-3</option>
           </select>
-          <button onclick="saveTacticsToSupabase()" class="bg-surf-red hover:bg-surf-redHover text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all shadow">Save Lineup</button>
-          <button onclick="clearPitch()" class="bg-slate-900 border border-surf-border hover:border-surf-red text-slate-300 px-3 py-1.5 rounded-lg text-xs font-bold transition-all">Clear</button>
+          <button onclick="saveTacticsToSupabase()" class="bg-surf-red hover:bg-surf-redHover text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all shadow" data-i18n="btn_save_lineup">Save Lineup</button>
+          <button onclick="clearPitch()" class="bg-slate-900 border border-surf-border hover:border-surf-red text-slate-300 px-3 py-1.5 rounded-lg text-xs font-bold transition-all" data-i18n="btn_clear">Clear</button>
         </div>
       </div>
 
@@ -290,15 +306,18 @@
           <div class="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-20 border-b-2 border-x-2 border-emerald-500/30 rounded-b-xl"></div>
           <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-48 h-20 border-t-2 border-x-2 border-emerald-500/30 rounded-t-xl"></div>
 
-          <div id="pitch-slots-container" class="relative w-full h-[500px] z-10"></div>
+          <!-- Drawing Canvas Overlay -->
+          <canvas id="pitch-drawing-canvas" class="absolute inset-0 z-20 pointer-events-none w-full h-full"></canvas>
+
+          <div id="pitch-slots-container" class="relative w-full h-[500px] z-30 pointer-events-auto"></div>
         </div>
 
         <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex flex-col">
           <h3 class="font-bold text-white text-base mb-1 flex items-center justify-between">
-            <span>Available Roster</span>
+            <span data-i18n="bench_title">Available Roster</span>
             <span class="text-xs font-normal text-amber-400" id="tap-mode-indicator">Tap player to select</span>
           </h3>
-          <p class="text-xs text-slate-400 mb-4">Drag or Tap to place on pitch</p>
+          <p class="text-xs text-slate-400 mb-4" data-i18n="bench_subtitle">Drag or Tap to place on pitch</p>
 
           <div id="bench-container" class="space-y-2 flex-grow overflow-y-auto max-h-[440px] pr-1"></div>
         </div>
@@ -307,7 +326,7 @@
       <div class="flex justify-center pt-2">
         <button onclick="openPlaybookModal()" class="flex items-center space-x-2 bg-slate-900 border border-surf-border hover:border-surf-red text-slate-300 hover:text-white px-5 py-2.5 rounded-xl font-bold text-xs transition-all shadow-lg">
           <i data-lucide="history" class="w-4 h-4 text-surf-red"></i>
-          <span>See Past Submitted Lineups</span>
+          <span data-i18n="btn_past_lineups">See Past Submitted Lineups</span>
         </button>
       </div>
     </section>
@@ -320,8 +339,8 @@
             <i data-lucide="check-square" class="w-6 h-6"></i>
           </div>
           <div>
-            <h2 class="text-xl font-bold text-white">Matchday Equipment Checklist</h2>
-            <p class="text-xs text-slate-400">Tick off mandatory gear before heading out to the pitch.</p>
+            <h2 class="text-xl font-bold text-white" data-i18n="chk_title">Matchday Equipment Checklist</h2>
+            <p class="text-xs text-slate-400" data-i18n="chk_subtitle">Tick off mandatory gear before heading out to the pitch.</p>
           </div>
         </div>
 
@@ -345,15 +364,7 @@
           <label class="flex items-center justify-between p-3.5 bg-slate-900/60 border border-surf-border rounded-lg cursor-pointer hover:border-surf-red/40 transition-all">
             <div class="flex items-center space-x-3">
               <input type="checkbox" class="w-4 h-4 rounded bg-slate-950 border-surf-border text-surf-red focus:ring-surf-red" />
-              <span class="text-sm font-semibold text-surf-red">Bring Both Kits</span>
-            </div>
-            <span class="text-[10px] text-surf-red bg-surf-red/10 px-2 py-1 rounded font-bold">Mandatory</span>
-          </label>
-
-          <label class="flex items-center justify-between p-3.5 bg-slate-900/60 border border-surf-border rounded-lg cursor-pointer hover:border-surf-red/40 transition-all">
-            <div class="flex items-center space-x-3">
-              <input type="checkbox" class="w-4 h-4 rounded bg-slate-950 border-surf-border text-surf-red focus:ring-surf-red" />
-              <span class="text-sm font-semibold text-slate-200">Shin Guards</span>
+              <span class="text-sm font-semibold text-surf-red">Shin Guards</span>
             </div>
             <span class="text-[10px] text-slate-400 bg-slate-950 px-2 py-1 rounded">Required</span>
           </label>
@@ -373,8 +384,8 @@
     <section id="sec-games" class="hidden space-y-6">
       <div class="flex justify-between items-center">
         <div>
-          <h2 class="text-xl font-bold text-white">Match History & Box Scores</h2>
-          <p class="text-sm text-slate-400">Season game logs, results, and game management</p>
+          <h2 class="text-xl font-bold text-white" data-i18n="games_title">Match History & Box Scores</h2>
+          <p class="text-sm text-slate-400" data-i18n="games_subtitle">Season game logs, results, and game management</p>
         </div>
       </div>
 
@@ -383,11 +394,11 @@
           <table class="w-full text-left text-sm text-slate-300">
             <thead class="bg-slate-900 text-slate-400 uppercase text-xs font-semibold">
               <tr>
-                <th class="p-4">Date</th>
-                <th class="p-4">Opponent</th>
-                <th class="p-4 text-center">Result</th>
-                <th class="p-4 text-center">Score</th>
-                <th class="p-4 text-right">Actions</th>
+                <th class="p-4" data-i18n="tbl_date">Date</th>
+                <th class="p-4" data-i18n="tbl_opp">Opponent</th>
+                <th class="p-4 text-center" data-i18n="tbl_res">Result</th>
+                <th class="p-4 text-center" data-i18n="tbl_score">Score</th>
+                <th class="p-4 text-right" data-i18n="tbl_act">Actions</th>
               </tr>
             </thead>
             <tbody id="games-table-body" class="divide-y divide-surf-border"></tbody>
@@ -400,15 +411,15 @@
     <section id="sec-leaderboards" class="hidden space-y-6">
       <div class="flex justify-between items-center">
         <div>
-          <h2 class="text-xl font-bold text-white">Player Stat Leaderboards</h2>
-          <p class="text-sm text-slate-400">Top rankings across key stats</p>
+          <h2 class="text-xl font-bold text-white" data-i18n="leader_title">Player Stat Leaderboards</h2>
+          <p class="text-sm text-slate-400" data-i18n="leader_subtitle">Top rankings across key stats</p>
         </div>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div class="bg-surf-card border border-surf-border rounded-xl p-5">
           <h3 class="font-bold text-base text-surf-red mb-3 flex items-center justify-between">
-            <span>Goals Scored</span>
+            <span data-i18n="lead_goals">Goals Scored</span>
             <i data-lucide="target" class="w-4 h-4"></i>
           </h3>
           <ul id="leaderboard-goals" class="space-y-2"></ul>
@@ -416,7 +427,7 @@
 
         <div class="bg-surf-card border border-surf-border rounded-xl p-5">
           <h3 class="font-bold text-base text-blue-400 mb-3 flex items-center justify-between">
-            <span>Assists</span>
+            <span data-i18n="lead_assists">Assists</span>
             <i data-lucide="footprints" class="w-4 h-4"></i>
           </h3>
           <ul id="leaderboard-assists" class="space-y-2"></ul>
@@ -424,7 +435,7 @@
 
         <div class="bg-surf-card border border-surf-border rounded-xl p-5">
           <h3 class="font-bold text-base text-purple-400 mb-3 flex items-center justify-between">
-            <span>Goalie Saves</span>
+            <span data-i18n="lead_saves">Goalie Saves</span>
             <i data-lucide="shield" class="w-4 h-4"></i>
           </h3>
           <ul id="leaderboard-saves" class="space-y-2"></ul>
@@ -432,12 +443,12 @@
       </div>
     </section>
 
-    <!-- SCHEDULE TAB -->
+    <!-- SCHEDULE TAB (WITH .ICS CALENDAR EXPORT) -->
     <section id="sec-schedule" class="hidden space-y-6">
       <div class="flex justify-between items-center">
         <div>
-          <h2 class="text-xl font-bold text-white">Surf Upcoming Games</h2>
-          <p class="text-sm text-slate-400">Official team fixtures, tournaments, and field guidance</p>
+          <h2 class="text-xl font-bold text-white" data-i18n="sched_title">Surf Upcoming Games</h2>
+          <p class="text-sm text-slate-400" data-i18n="sched_subtitle">Official team fixtures, tournaments, and calendar export</p>
         </div>
       </div>
 
@@ -482,7 +493,7 @@
     </div>
   </div>
 
-  <!-- ADD TEAM MILESTONE MODAL -->
+  <!-- ADD TEAM MILESTONE MODAL (TRIGGERS CONFETTI ON SAVE) -->
   <div id="milestone-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-surf-dark border border-surf-border rounded-xl max-w-md w-full p-6 shadow-2xl relative">
       <button onclick="toggleModal('milestone-modal', false)" class="absolute top-4 right-4 text-slate-400 hover:text-white">
@@ -794,7 +805,146 @@
     let milestones = [];
     let savedPlaybooks = [];
 
-    // SCHEDULE WITH ISO TIMESTAMP PARSING FOR AUTOMATED COUNTDOWNS
+    // MULTILINGUAL DICTIONARY (EN / ES)
+    let currentLang = 'en';
+    const translations = {
+      en: {
+        sub_title: "U13 BOYS CLUB SOCCER",
+        nav_overview: "Overview",
+        nav_roster: "Roster",
+        nav_tactics: "Tactics Board",
+        nav_checklist: "Gear Checklist",
+        nav_games: "Game Log",
+        nav_leaders: "Leaderboards",
+        nav_schedule: "Schedule",
+        btn_add_stats: "Add Stats",
+        lbl_weather: "Field Weather (Peoria, AZ)",
+        hdr_spotlight: "Team Spotlight & Announcements",
+        btn_post_ann: "Post Announcement / Birthday",
+        stat_record: "Season Record",
+        stat_goals: "Goals Scored",
+        stat_assists: "Total Assists",
+        stat_saves: "Total Saves",
+        hdr_milestones: "Team Season Milestones",
+        btn_add_ms: "Add Milestone",
+        hdr_analytics: "Team Performance Analytics",
+        lbl_form: "Form:",
+        lbl_winrate: "Win Rate",
+        lbl_gpg: "Goals / Game",
+        met_gd: "Goal Diff",
+        met_gaa: "Avg Goals Allowed",
+        met_total: "Total Matches",
+        roster_title: "AZ Surf U13 Squad Roster",
+        roster_subtitle: "Click any player to view detailed breakdown grid & edit details",
+        tactics_title: "Interactive Pitch Formation & Drawing Board",
+        tactics_subtitle: "Drag players OR select a drawing tool to sketch runs and passing lanes!",
+        btn_save_lineup: "Save Lineup",
+        btn_clear: "Clear",
+        bench_title: "Available Roster",
+        bench_subtitle: "Drag or Tap to place on pitch",
+        btn_past_lineups: "See Past Submitted Lineups",
+        chk_title: "Matchday Equipment Checklist",
+        chk_subtitle: "Tick off mandatory gear before heading out to the pitch.",
+        games_title: "Match History & Box Scores",
+        games_subtitle: "Season game logs, results, and game management",
+        tbl_date: "Date",
+        tbl_opp: "Opponent",
+        tbl_res: "Result",
+        tbl_score: "Score",
+        tbl_act: "Actions",
+        leader_title: "Player Stat Leaderboards",
+        leader_subtitle: "Top rankings across key stats",
+        lead_goals: "Goals Scored",
+        lead_assists: "Assists",
+        lead_saves: "Goalie Saves",
+        sched_title: "Surf Upcoming Games",
+        sched_subtitle: "Official team fixtures, tournaments, and calendar export"
+      },
+      es: {
+        sub_title: "FÚTBOL CLUB SUB-13 VARONIL",
+        nav_overview: "Resumen",
+        nav_roster: "Plantilla",
+        nav_tactics: "Pizarra Táctica",
+        nav_checklist: "Equipo",
+        nav_games: "Partidos",
+        nav_leaders: "Líderes",
+        nav_schedule: "Calendario",
+        btn_add_stats: "Agregar Estadísticas",
+        lbl_weather: "Clima en el Campo (Peoria, AZ)",
+        hdr_spotlight: "Destacados y Anuncios del Equipo",
+        btn_post_ann: "Publicar Anuncio / Cumpleaños",
+        stat_record: "Récord de Temporada",
+        stat_goals: "Goles Anotados",
+        stat_assists: "Asistencias Totales",
+        stat_saves: "Atajadas Totales",
+        hdr_milestones: "Hitos de Temporada",
+        btn_add_ms: "Agregar Hito",
+        hdr_analytics: "Analítica de Rendimiento",
+        lbl_form: "Forma:",
+        lbl_winrate: "Porcentaje de Victorias",
+        lbl_gpg: "Goles / Partido",
+        met_gd: "Dif. de Goles",
+        met_gaa: "Prom. Goles Permitidos",
+        met_total: "Partidos Totales",
+        roster_title: "Plantilla AZ Surf Sub-13",
+        roster_subtitle: "Haz clic en cualquier jugador para ver detalles y editar",
+        tactics_title: "Formación Interactiva y Pizarra de Dibujo",
+        tactics_subtitle: "¡Arrastra jugadores o selecciona una herramienta de dibujo para trazar jugadas!",
+        btn_save_lineup: "Guardar Alineación",
+        btn_clear: "Limpiar",
+        bench_title: "Jugadores Disponibles",
+        bench_subtitle: "Arrastra o toca para colocar en la cancha",
+        btn_past_lineups: "Ver Alineaciones Anteriores",
+        chk_title: "Lista de Verificación de Equipo",
+        chk_subtitle: "Marca el equipo obligatorio antes de salir a la cancha.",
+        games_title: "Historial de Partidos y Marcadores",
+        games_subtitle: "Registros de temporada, resultados y gestión",
+        tbl_date: "Fecha",
+        tbl_opp: "Rival",
+        tbl_res: "Resultado",
+        tbl_score: "Marcador",
+        tbl_act: "Acciones",
+        leader_title: "Tablas de Líderes Estadísticos",
+        leader_subtitle: "Mejores clasificaciones en estadísticas clave",
+        lead_goals: "Goles Anotados",
+        lead_assists: "Asistencias",
+        lead_saves: "Atajadas de Portero",
+        sched_title: "Próximos Juegos Surf",
+        sched_subtitle: "Calendario oficial de partidos, torneos y exportación de calendario"
+      }
+    };
+
+    function toggleLanguage() {
+      currentLang = currentLang === 'en' ? 'es' : 'en';
+      document.getElementById('lang-indicator').innerText = currentLang === 'en' ? 'ES' : 'EN';
+      
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[currentLang][key]) {
+          el.innerText = translations[currentLang][key];
+        }
+      });
+    }
+
+    // AUDIO & HAPTIC FEEDBACK
+    function playFeedback() {
+      if (navigator.vibrate) navigator.vibrate(30);
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(520, ctx.currentTime);
+        gain.gain.setValueAtTime(0.05, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.08);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.08);
+      } catch(e) {}
+    }
+
+    // SCHEDULE WITH .ICS CALENDAR EXPORT
     const schedule = [
       { 
         title: 'Kick for the Cure Tournament', 
@@ -808,7 +958,7 @@
         hydration: 'Extra Hydration Pack'
       },
       { 
-        title: 'November 14th Game', 
+        title: 'November 14th Game vs RSL AZ', 
         type: 'Game', 
         dateStr: '2026-11-14T11:00:00',
         time: '11:00 AM', 
@@ -819,7 +969,7 @@
         hydration: '2 Water Bottles'
       },
       { 
-        title: 'November 21st Game', 
+        title: 'November 21st Game vs Phoenix Rising', 
         type: 'Game', 
         dateStr: '2026-11-21T14:30:00',
         time: '2:30 PM', 
@@ -841,6 +991,34 @@
         hydration: 'Hydration Pack'
       }
     ];
+
+    function exportIcs(item) {
+      playFeedback();
+      const startDate = new Date(item.dateStr);
+      const endDate = new Date(startDate.getTime() + 2 * 60 * 60 * 1000); // +2 hours
+      
+      const formatDate = (d) => d.toISOString().replace(/-|:|\.\d+/g, '');
+      
+      const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//AZ Surf U13 Boys Dashboard//EN
+BEGIN:VEVENT
+SUMMARY:${item.title}
+DESCRIPTION:AZ Surf U13 Boys Match/Tournament. Location: ${item.location}
+LOCATION:${item.location}
+DTSTART:${formatDate(startDate)}
+DTEND:${formatDate(endDate)}
+END:VEVENT
+END:VCALENDAR`;
+
+      const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.setAttribute('download', `${item.title.replace(/\s+/g, '_')}.ics`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
 
     const FORMATIONS = {
       '4-3-3': [
@@ -901,6 +1079,12 @@
     let currentFormationKey = '4-3-3';
     let selectedBenchPlayerId = null;
 
+    // DRAWING STATE FOR TACTICS PITCH
+    let drawMode = 'select'; // 'select', 'pen', 'arrow'
+    let isDrawing = false;
+    let drawingPaths = [];
+    let currentPath = null;
+
     document.addEventListener('DOMContentLoaded', () => {
       lucide.createIcons();
       loadDataFromDatabase();
@@ -908,7 +1092,6 @@
       fetchWeather();
     });
 
-    // LIVE WEATHER WIDGET (Peoria, AZ)
     async function fetchWeather() {
       try {
         const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=33.715&longitude=-112.155&current=temperature_2m,weather_code&temperature_unit=fahrenheit');
@@ -920,12 +1103,9 @@
       }
     }
 
-    // DYNAMIC MATCH COUNTDOWN (AUTOMATICALLY FINDS THE NEXT UPCOMING GAME)
     function initCountdown() {
       function updateTimer() {
         const now = new Date().getTime();
-        
-        // Find upcoming fixture where date is greater than right now
         const upcomingGames = schedule
           .map(item => ({ ...item, timestamp: new Date(item.dateStr).getTime() }))
           .filter(item => item.timestamp > now)
@@ -943,7 +1123,6 @@
         document.getElementById('countdown-location').innerText = nextMatch.location || 'AZ Field';
 
         const distance = nextMatch.timestamp - now;
-
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -986,6 +1165,7 @@
     }
 
     function switchTab(tabName) {
+      playFeedback();
       ['overview', 'roster', 'tactics', 'checklist', 'games', 'leaderboards', 'schedule'].forEach(tab => {
         const sec = document.getElementById(`sec-${tab}`);
         if(sec) sec.classList.add('hidden');
@@ -1008,10 +1188,12 @@
 
       if (tabName === 'tactics') {
         renderTacticsBoard();
+        initTacticsCanvas();
       }
     }
 
     function toggleModal(modalId, show) {
+      playFeedback();
       const modal = document.getElementById(modalId);
       if (show) {
         modal.classList.remove('hidden');
@@ -1073,6 +1255,14 @@
         toggleModal('milestone-modal', false);
         document.getElementById('milestone-form').reset();
         renderMilestones();
+        
+        // TRIGGER CONFETTI CELEBRATION!
+        confetti({
+          particleCount: 120,
+          spread: 80,
+          origin: { y: 0.6 }
+        });
+
         alert("New milestone added successfully!");
       }
     }
@@ -1129,6 +1319,7 @@
     }
 
     function openPlaybookModal() {
+      playFeedback();
       const list = document.getElementById('playbook-list');
       if (!savedPlaybooks || savedPlaybooks.length === 0) {
         list.innerHTML = `<p class="text-xs text-slate-500 py-4 text-center">No saved lineups found in Supabase.</p>`;
@@ -1147,6 +1338,7 @@
     }
 
     function loadSavedLineup(id) {
+      playFeedback();
       const pb = savedPlaybooks.find(x => x.id === id);
       if (!pb) return;
       currentFormationKey = pb.formation_key;
@@ -1160,17 +1352,20 @@
     }
 
     function changeFormation(key) {
+      playFeedback();
       currentFormationKey = key;
       renderTacticsBoard();
     }
 
     function clearPitch() {
+      playFeedback();
       pitchAssignments = {};
       selectedBenchPlayerId = null;
       renderTacticsBoard();
     }
 
     async function saveTacticsToSupabase() {
+      playFeedback();
       const title = prompt("Enter a name for this lineup setup:", "Matchday Lineup");
       if (!title) return;
 
@@ -1186,6 +1381,109 @@
         alert("Tactics saved successfully to Supabase playbook!");
         if (data && data.length > 0) savedPlaybooks.unshift(data[0]);
       }
+    }
+
+    // TACTICS BOARD & DRAWING LOGIC
+    function setDrawMode(mode) {
+      playFeedback();
+      drawMode = mode;
+      ['select', 'pen', 'arrow'].forEach(m => {
+        const btn = document.getElementById(`tool-${m}`);
+        if(btn) {
+          if (m === mode) {
+            btn.className = 'px-2.5 py-1 rounded text-xs font-bold bg-surf-red text-white transition-all';
+          } else {
+            btn.className = 'px-2.5 py-1 rounded text-xs font-bold text-slate-300 hover:text-white transition-all';
+          }
+        }
+      });
+
+      const canvas = document.getElementById('pitch-drawing-canvas');
+      if (canvas) {
+        canvas.style.pointerEvents = mode === 'select' ? 'none' : 'auto';
+      }
+    }
+
+    function clearCanvas() {
+      playFeedback();
+      drawingPaths = [];
+      const canvas = document.getElementById('pitch-drawing-canvas');
+      if (canvas) {
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+    }
+
+    function initTacticsCanvas() {
+      const canvas = document.getElementById('pitch-drawing-canvas');
+      if (!canvas) return;
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+      const ctx = canvas.getContext('2d');
+
+      canvas.onmousedown = (e) => {
+        if (drawMode === 'select') return;
+        isDrawing = true;
+        const rect = canvas.getBoundingClientRect();
+        currentPath = { type: drawMode, startX: e.clientX - rect.left, startY: e.clientY - rect.top, endX: e.clientX - rect.left, endY: e.clientY - rect.top, points: [{x: e.clientX - rect.left, y: e.clientY - rect.top}] };
+      };
+
+      canvas.onmousemove = (e) => {
+        if (!isDrawing || drawMode === 'select') return;
+        const rect = canvas.getBoundingClientRect();
+        currentPath.endX = e.clientX - rect.left;
+        currentPath.endY = e.clientY - rect.top;
+        if (drawMode === 'pen') {
+          currentPath.points.push({x: e.clientX - rect.left, y: e.clientY - rect.top});
+        }
+        redrawCanvas();
+      };
+
+      canvas.onmouseup = () => {
+        if (!isDrawing) return;
+        isDrawing = false;
+        if (currentPath) drawingPaths.push(currentPath);
+        currentPath = null;
+      };
+    }
+
+    function redrawCanvas() {
+      const canvas = document.getElementById('pitch-drawing-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const allToDraw = [...drawingPaths];
+      if (currentPath) allToDraw.push(currentPath);
+
+      allToDraw.forEach(path => {
+        ctx.strokeStyle = '#FACC15'; // Yellow tactical lines
+        ctx.fillStyle = '#FACC15';
+        ctx.lineWidth = 3;
+
+        if (path.type === 'pen' && path.points) {
+          ctx.beginPath();
+          ctx.moveTo(path.points[0].x, path.points[0].y);
+          for (let i = 1; i < path.points.length; i++) {
+            ctx.lineTo(path.points[i].x, path.points[i].y);
+          }
+          ctx.stroke();
+        } else if (path.type === 'arrow') {
+          ctx.beginPath();
+          ctx.moveTo(path.startX, path.startY);
+          ctx.lineTo(path.endX, path.endY);
+          ctx.stroke();
+
+          // Draw arrowhead
+          const angle = Math.atan2(path.endY - path.startY, path.endX - path.startX);
+          ctx.beginPath();
+          ctx.moveTo(path.endX, path.endY);
+          ctx.lineTo(path.endX - 10 * Math.cos(angle - Math.PI / 6), path.endY - 10 * Math.sin(angle - Math.PI / 6));
+          ctx.lineTo(path.endX - 10 * Math.cos(angle + Math.PI / 6), path.endY - 10 * Math.sin(angle + Math.PI / 6));
+          ctx.fill();
+        }
+      });
     }
 
     function renderTacticsBoard() {
@@ -1214,6 +1512,7 @@
         slotDiv.ondrop = (e) => handleDropOnSlot(e, idx);
 
         slotDiv.onclick = () => {
+          playFeedback();
           if (selectedBenchPlayerId) {
             Object.keys(pitchAssignments).forEach(key => {
               if (pitchAssignments[key] === selectedBenchPlayerId) delete pitchAssignments[key];
@@ -1283,6 +1582,7 @@
     }
 
     function selectBenchPlayer(playerId) {
+      playFeedback();
       if (selectedBenchPlayerId === playerId) {
         selectedBenchPlayerId = null;
       } else {
@@ -1299,6 +1599,7 @@
       e.preventDefault();
       const playerId = parseInt(e.dataTransfer.getData('text/plain'));
       if (playerId) {
+        playFeedback();
         Object.keys(pitchAssignments).forEach(key => {
           if (pitchAssignments[key] === playerId) delete pitchAssignments[key];
         });
@@ -1419,6 +1720,7 @@
     }
 
     function openPlayerModal(playerId) {
+      playFeedback();
       const p = players.find(x => x.id === playerId);
       if (!p) return;
 
@@ -1515,6 +1817,7 @@
     }
 
     function openGameEditModal(gameId) {
+      playFeedback();
       const g = games.find(x => x.id === gameId);
       if (!g) return;
       document.getElementById('edit-g-id').value = g.id;
@@ -1600,7 +1903,12 @@
               <p class="text-xs text-surf-red mt-1 flex items-center"><i data-lucide="clock" class="w-3 h-3 mr-1 inline"></i>${item.time || 'TBD'}</p>
               <p class="text-xs text-slate-400 flex items-center mt-0.5"><i data-lucide="map-pin" class="w-3 h-3 mr-1 inline"></i>${item.location || 'TBD'}</p>
             </div>
-            ${item.mapUrl ? `<a href="${item.mapUrl}" target="_blank" class="bg-slate-900 border border-surf-border hover:border-surf-red text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0"><i data-lucide="external-link" class="w-3 h-3"></i></a>` : ''}
+            <div class="flex items-center space-x-1.5">
+              <button onclick='exportIcs(${JSON.stringify(item)})' title="Add to Calendar (.ics)" class="bg-slate-900 border border-surf-border hover:border-surf-red text-xs text-amber-400 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0">
+                <i data-lucide="calendar-plus" class="w-3.5 h-3.5"></i>
+              </button>
+              ${item.mapUrl ? `<a href="${item.mapUrl}" target="_blank" class="bg-slate-900 border border-surf-border hover:border-surf-red text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0"><i data-lucide="external-link" class="w-3.5 h-3.5"></i></a>` : ''}
+            </div>
           </div>
 
           <div class="pt-3 border-t border-surf-border/60 grid grid-cols-3 gap-1.5 text-[10px]">
@@ -1626,6 +1934,7 @@
 
     async function handleFormSubmit(e) {
       e.preventDefault();
+      playFeedback();
 
       const btn = document.getElementById('save-btn');
       btn.innerText = "Saving...";
