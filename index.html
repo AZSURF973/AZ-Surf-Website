@@ -862,7 +862,7 @@
 
     let players = [
       { id: 1, name: 'CJ', number: 10, pos: 'Midfield', isCaptain: true, goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
-      { id: 2, name: 'Jionni', number: 7, pos: 'Forward', isCaptain: true, goals: 0, assists: 0, yc: 0, retros: 0, saves: 0 },
+      { id: 2, name: 'Jionni', number: 7, pos: 'Forward', isCaptain: true, goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
       { id: 3, name: 'Alex', number: 1, pos: 'Goalkeeper', isCaptain: false, goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
       { id: 4, name: 'Liam', number: 4, pos: 'Defender', isCaptain: false, goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
       { id: 5, name: 'Ethan', number: 9, pos: 'Forward', isCaptain: false, goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
@@ -877,15 +877,16 @@
     let savedPlaybooks = [];
     let injuries = [];
 
-    // SQUAD BIRTHDAYS LIST (Fixed months to standard JS zero-index: Jan=0, Feb=1, Mar=2, May=4, Jul=6, Oct=9, Nov=10)
+    // SQUAD BIRTHDAYS LIST (CJ Added: March 21 -> month: 2, day: 21)
     const playerBirthdays = [
-      { name: 'Xander', month: 10, day: 18 },  // Nov 18
       { name: 'Christian', month: 1, day: 10 }, // Feb 10
       { name: 'Xaiden', month: 2, day: 10 },    // Mar 10
+      { name: 'CJ', month: 2, day: 21 },        // Mar 21
       { name: 'Jack', month: 4, day: 27 },      // May 27
       { name: 'Noah', month: 6, day: 5 },       // July 5
       { name: 'Jionni', month: 6, day: 31 },    // Jul 31
-      { name: 'Max', month: 9, day: 8 }         // Oct 8
+      { name: 'Max', month: 9, day: 8 },        // Oct 8
+      { name: 'Xander', month: 10, day: 18 }    // Nov 18
     ];
 
     // MULTILINGUAL DICTIONARY (EN / ES)
