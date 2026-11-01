@@ -56,6 +56,7 @@
         <button onclick="switchTab('tactics')" id="tab-tactics" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_tactics">Tactics Board</button>
         <button onclick="switchTab('checklist')" id="tab-checklist" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_checklist">Gear</button>
         <button onclick="switchTab('games')" id="tab-games" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_games">Game Log</button>
+        <button onclick="switchTab('injury')" id="tab-injury" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all">Recovery</button>
         <button onclick="switchTab('leaderboards')" id="tab-leaderboards" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_leaders">Leaders</button>
         <button onclick="switchTab('schedule')" id="tab-schedule" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_schedule">Schedule</button>
       </nav>
@@ -85,6 +86,7 @@
         <option value="tactics">Tactics Board</option>
         <option value="checklist">Gear Checklist</option>
         <option value="games">Game Log</option>
+        <option value="injury">Recovery</option>
         <option value="leaderboards">Leaderboards</option>
         <option value="schedule">Schedule</option>
       </select>
@@ -105,6 +107,9 @@
     <button onclick="switchTab('games')" id="bnav-games" class="bnav-btn flex flex-col items-center text-[10px] text-slate-400">
       <i data-lucide="trophy" class="w-5 h-5 mb-0.5"></i><span>Games</span>
     </button>
+    <button onclick="switchTab('injury')" id="bnav-injury" class="bnav-btn flex flex-col items-center text-[10px] text-slate-400">
+      <i data-lucide="activity" class="w-5 h-5 mb-0.5"></i><span>Recovery</span>
+    </button>
     <button onclick="switchTab('schedule')" id="bnav-schedule" class="bnav-btn flex flex-col items-center text-[10px] text-slate-400">
       <i data-lucide="calendar" class="w-5 h-5 mb-0.5"></i><span>Schedule</span>
     </button>
@@ -116,8 +121,10 @@
     <!-- OVERVIEW TAB -->
     <section id="sec-overview" class="space-y-6">
 
-      <!-- HOLIDAY & CHRISTMAS COUNTDOWN BANNER (HIDDEN UNTIL 5 DAYS BEFORE CHRISTMAS) -->
+      <!-- HOLIDAY & BIRTHDAY COUNTDOWN BANNER -->
       <div id="holiday-countdown-banner" class="hidden bg-gradient-to-r from-emerald-600/30 via-surf-card to-surf-red/20 border border-emerald-500/40 rounded-xl p-4 items-center justify-between shadow-lg text-xs sm:text-sm text-white font-medium">
+      </div>
+      <div id="birthday-countdown-banner" class="hidden bg-gradient-to-r from-purple-600/30 via-surf-card to-blue-500/20 border border-purple-500/40 rounded-xl p-4 items-center justify-between shadow-lg text-xs sm:text-sm text-white font-medium">
       </div>
 
       <!-- MATCH COUNTDOWN & WEATHER WIDGET ROW -->
@@ -435,6 +442,24 @@
       </div>
     </section>
 
+    <!-- PLAYER RECOVERY & INJURY STATUS TAB -->
+    <section id="sec-injury" class="hidden space-y-6">
+      <div class="flex justify-between items-center">
+        <div>
+          <h2 class="text-xl font-bold text-white">Player Recovery & Injury Status</h2>
+          <p class="text-sm text-slate-400">Track player recovery timelines and injury updates</p>
+        </div>
+        <button onclick="toggleModal('injury-modal', true)" class="bg-surf-red hover:bg-surf-redHover text-white px-3.5 py-2 rounded-lg text-xs font-bold transition-all shadow flex items-center space-x-1.5">
+          <i data-lucide="plus-circle" class="w-4 h-4"></i>
+          <span>Report Injury / Status</span>
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="injury-cards-grid">
+        <p class="text-xs text-slate-500 col-span-full">Loading recovery logs...</p>
+      </div>
+    </section>
+
     <!-- LEADERBOARDS TAB -->
     <section id="sec-leaderboards" class="hidden space-y-6">
       <div class="flex justify-between items-center">
@@ -554,6 +579,47 @@
         <div class="pt-3 flex justify-end space-x-2">
           <button type="button" onclick="toggleModal('milestone-modal', false)" class="px-3 py-1.5 text-xs text-slate-400 hover:text-white border border-surf-border rounded">Cancel</button>
           <button type="submit" class="px-4 py-1.5 text-xs bg-surf-red text-white font-bold rounded hover:bg-surf-redHover">Save Milestone</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- SUBMIT INJURY MODAL -->
+  <div id="injury-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-surf-dark border border-surf-border rounded-xl max-w-md w-full p-6 shadow-2xl relative">
+      <button onclick="toggleModal('injury-modal', false)" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+
+      <h3 class="text-lg font-bold text-white mb-1">Report Injury / Status</h3>
+      <p class="text-xs text-slate-400 mb-4">Log a player's injury type, recovery status, and expected return date.</p>
+
+      <form id="injury-form" onsubmit="handleInjurySubmit(event)" class="space-y-3">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Player Name</label>
+          <select id="inj-player" required class="w-full bg-slate-900 border border-surf-border rounded px-3 py-2 text-xs text-white focus:outline-none focus:border-surf-red font-bold">
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Injury / Condition Type</label>
+          <input type="text" id="inj-type" required placeholder="e.g. Ankle Sprain, Mild Concussion" class="w-full bg-slate-900 border border-surf-border rounded px-3 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Status</label>
+          <select id="inj-status" class="w-full bg-slate-900 border border-surf-border rounded px-3 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red">
+            <option value="Out">🔴 Out / Resting</option>
+            <option value="Day-to-Day">🟡 Day-to-Day / Limited</option>
+            <option value="Full Recovery">🟢 Cleared / Full Recovery</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Expected Return Date</label>
+          <input type="date" id="inj-returndate" required class="w-full bg-slate-900 border border-surf-border rounded px-3 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red" />
+        </div>
+
+        <div class="pt-3 flex justify-end space-x-2">
+          <button type="button" onclick="toggleModal('injury-modal', false)" class="px-3 py-1.5 text-xs text-slate-400 hover:text-white border border-surf-border rounded">Cancel</button>
+          <button type="submit" id="injury-save-btn" class="px-4 py-1.5 text-xs bg-surf-red text-white font-bold rounded hover:bg-surf-redHover">Save Recovery Log</button>
         </div>
       </form>
     </div>
@@ -809,6 +875,17 @@
     let announcements = [];
     let milestones = [];
     let savedPlaybooks = [];
+    let injuries = [];
+
+    // SQUAD BIRTHDAYS LIST
+    const playerBirthdays = [
+      { name: 'Xander', month: 10, day: 18 },  // Nov 18 (Month 10 index or standard JS: Nov is 10)
+      { name: 'Christian', month: 1, day: 10 }, // Feb 10
+      { name: 'Xaiden', month: 2, day: 10 },    // Mar 10
+      { name: 'Jack', month: 4, day: 27 },      // May 27
+      { name: 'Jionni', month: 6, day: 31 },    // Jul 31
+      { name: 'Max', month: 9, day: 8 }         // Oct 8
+    ];
 
     // MULTILINGUAL DICTIONARY (EN / ES)
     let currentLang = 'en';
@@ -947,6 +1024,15 @@
         osc.start();
         osc.stop(ctx.currentTime + 0.08);
       } catch(e) {}
+    }
+
+    // CONFETTI CELEBRATION HELPER
+    function triggerConfetti() {
+      confetti({
+        particleCount: 120,
+        spread: 80,
+        origin: { y: 0.6 }
+      });
     }
 
     // SCHEDULE WITH .ICS CALENDAR EXPORT
@@ -1092,7 +1178,7 @@ END:VCALENDAR`;
     // MOBILE SWIPE GESTURE HANDLERS
     let touchstartX = 0;
     let touchendX = 0;
-    const tabsList = ['overview', 'roster', 'tactics', 'checklist', 'games', 'leaderboards', 'schedule'];
+    const tabsList = ['overview', 'roster', 'tactics', 'checklist', 'games', 'injury', 'leaderboards', 'schedule'];
 
     function handleGesture() {
       const mobileSelect = document.getElementById('mobile-tab-select');
@@ -1116,6 +1202,7 @@ END:VCALENDAR`;
       loadDataFromDatabase();
       initCountdown();
       initHolidayCountdown();
+      initBirthdayCountdowns();
       fetchWeather();
     });
 
@@ -1175,7 +1262,6 @@ END:VCALENDAR`;
       const banner = document.getElementById('holiday-countdown-banner');
       if (!banner) return;
 
-      // Only show banner if 5 days or fewer away from Christmas
       if (diffDays <= 5 && diffDays >= 0) {
         banner.classList.remove('hidden');
         banner.classList.add('flex');
@@ -1193,12 +1279,50 @@ END:VCALENDAR`;
       }
     }
 
+    // SQUAD BIRTHDAY COUNTDOWN BANNER LOGIC (5-10 days before)
+    function initBirthdayCountdowns() {
+      const now = new Date();
+      const currentYear = now.getFullYear();
+      const banner = document.getElementById('birthday-countdown-banner');
+      if (!banner) return;
+
+      let activeBday = null;
+
+      for (let b of playerBirthdays) {
+        let bdayDate = new Date(currentYear, b.month, b.day);
+        if (bdayDate < now) {
+          bdayDate.setFullYear(currentYear + 1);
+        }
+        const diffTime = bdayDate - now;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        if (diffDays >= 0 && diffDays <= 10) {
+          activeBday = { name: b.name, days: diffDays };
+          break;
+        }
+      }
+
+      if (activeBday) {
+        banner.classList.remove('hidden');
+        banner.classList.add('flex');
+        if (activeBday.days === 0) {
+          banner.innerHTML = `🎉 <strong>Happy Birthday ${activeBday.name}!</strong> Have an amazing day from everyone at AZ Surf U13! 🎂`;
+        } else {
+          banner.innerHTML = `🎈 Birthday Countdown: Only <strong>${activeBday.days} days left</strong> until <strong>${activeBday.name}'s</strong> birthday! 🥳`;
+        }
+      } else {
+        banner.classList.add('hidden');
+        banner.classList.remove('flex');
+      }
+    }
+
     async function loadDataFromDatabase() {
       const { data: dbPlayers } = await supabaseClient.from('players').select('*');
       const { data: dbGames } = await supabaseClient.from('games').select('*');
       const { data: dbAnnouncements } = await supabaseClient.from('announcements').select('*');
       const { data: dbMilestones } = await supabaseClient.from('team_milestones').select('*');
       const { data: dbPlaybook } = await supabaseClient.from('playbook').select('*').order('created_at', { ascending: false });
+      const { data: dbInjuries } = await supabaseClient.from('injuries').select('*');
 
       if (dbPlayers && dbPlayers.length > 0) {
         players = dbPlayers.map(p => ({
@@ -1209,6 +1333,7 @@ END:VCALENDAR`;
       if (dbGames) games = dbGames;
       if (dbAnnouncements) announcements = dbAnnouncements;
       if (dbMilestones) milestones = dbMilestones;
+      if (dbInjuries) injuries = dbInjuries;
       if (dbPlaybook) {
         savedPlaybooks = dbPlaybook;
         if (dbPlaybook.length > 0) {
@@ -1219,12 +1344,19 @@ END:VCALENDAR`;
         }
       }
 
+      populateInjuryPlayerDropdown();
       renderAll();
+    }
+
+    function populateInjuryPlayerDropdown() {
+      const select = document.getElementById('inj-player');
+      if (!select) return;
+      select.innerHTML = players.map(p => `<option value="${p.name}">#${p.number} - ${p.name}</option>`).join('');
     }
 
     function switchTab(tabName) {
       playFeedback();
-      ['overview', 'roster', 'tactics', 'checklist', 'games', 'leaderboards', 'schedule'].forEach(tab => {
+      ['overview', 'roster', 'tactics', 'checklist', 'games', 'injury', 'leaderboards', 'schedule'].forEach(tab => {
         const sec = document.getElementById(`sec-${tab}`);
         if(sec) sec.classList.add('hidden');
         
@@ -1342,6 +1474,7 @@ END:VCALENDAR`;
       renderOverview();
       renderRoster();
       renderGames();
+      renderInjury();
       renderLeaderboards();
       renderSchedule();
       renderTacticsBoard();
@@ -1384,15 +1517,60 @@ END:VCALENDAR`;
         toggleModal('milestone-modal', false);
         document.getElementById('milestone-form').reset();
         renderMilestones();
-        
-        confetti({
-          particleCount: 120,
-          spread: 80,
-          origin: { y: 0.6 }
-        });
-
+        triggerConfetti();
         alert("New milestone added successfully!");
       }
+    }
+
+    async function handleInjurySubmit(e) {
+      e.preventDefault();
+      const player_name = document.getElementById('inj-player').value;
+      const injury_type = document.getElementById('inj-type').value;
+      const status = document.getElementById('inj-status').value;
+      const return_date = document.getElementById('inj-returndate').value;
+
+      const { data, error } = await supabaseClient.from('injuries').insert([{ player_name, injury_type, status, return_date }]).select();
+
+      if (error) {
+        alert("Error saving recovery status: " + error.message);
+      } else {
+        if (data && data.length > 0) injuries.push(data[0]);
+        toggleModal('injury-modal', false);
+        document.getElementById('injury-form').reset();
+        renderInjury();
+        alert("Recovery log saved successfully!");
+      }
+    }
+
+    function renderInjury() {
+      const grid = document.getElementById('injury-cards-grid');
+      if (!grid) return;
+      if (injuries.length === 0) {
+        grid.innerHTML = `<p class="text-xs text-slate-500 col-span-full py-4">No active injuries reported. Full squad healthy!</p>`;
+        return;
+      }
+
+      grid.innerHTML = injuries.map(i => {
+        let statusColor = 'bg-rose-500/20 text-rose-400 border-rose-500/30';
+        if (i.status === 'Day-to-Day') statusColor = 'bg-amber-500/20 text-amber-400 border-amber-500/30';
+        if (i.status === 'Full Recovery') statusColor = 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30';
+
+        return `
+          <div class="bg-surf-card border border-surf-border rounded-xl p-4 flex flex-col justify-between space-y-3">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="font-bold text-white text-base">${i.player_name}</h3>
+                <p class="text-xs text-slate-400 mt-0.5">Issue: <span class="text-slate-200 font-semibold">${i.injury_type}</span></p>
+              </div>
+              <span class="text-[10px] font-bold px-2 py-1 rounded border ${statusColor}">${i.status}</span>
+            </div>
+            <div class="pt-2 border-t border-surf-border/60 flex justify-between items-center text-xs text-slate-400">
+              <span>Expected Return:</span>
+              <span class="font-mono font-bold text-white">${i.return_date || 'TBD'}</span>
+            </div>
+          </div>
+        `;
+      }).join('');
     }
 
     function renderAnnouncements() {
@@ -1978,7 +2156,10 @@ END:VCALENDAR`;
       const opponentScore = parseInt(document.getElementById('edit-g-oppscore').value);
 
       let result = "DRAW";
-      if (ourScore > opponentScore) result = "WIN";
+      if (ourScore > opponentScore) {
+        result = "WIN";
+        triggerConfetti();
+      }
       if (ourScore < opponentScore) result = "LOSS";
 
       const idx = games.findIndex(g => g.id === id);
@@ -2087,7 +2268,10 @@ END:VCALENDAR`;
       const opponentScore = parseInt(document.getElementById('form-their-score').value);
       
       let result = "DRAW";
-      if (ourScore > opponentScore) result = "WIN";
+      if (ourScore > opponentScore) {
+        result = "WIN";
+        triggerConfetti();
+      }
       if (ourScore < opponentScore) result = "LOSS";
 
       // 1. SAVE GAME LOG
