@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AZ Surf U13 Boys - MLS Next Team Dashboard</title>
+  <title>AZ Surf U13 Boys - Team Dashboard</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
@@ -38,7 +38,7 @@
   <header class="bg-surf-dark border-b border-surf-border sticky top-0 z-40">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       
-      <!-- Dual Logos -->
+      <!-- Dual Logos / Title -->
       <div class="flex items-center space-x-3">
         <div class="w-12 h-12 rounded-full border border-surf-border bg-surf-dark p-2 flex items-center justify-center shadow-lg shadow-surf-red/20 overflow-hidden shrink-0">
           <img src="https://i.postimg.cc/J7fdQWVK/images.jpg" alt="Surf Crest" class="w-10 h-10 object-contain" style="mix-blend-mode: screen;" />
@@ -47,18 +47,17 @@
           <h1 class="text-lg font-bold tracking-tight text-white leading-tight">AZ SURF</h1>
           <p class="text-xs font-semibold text-surf-red" data-i18n="sub_title">U13 BOYS CLUB SOCCER</p>
         </div>
-        <img src="https://i.postimg.cc/50GKGhH2/images.png" alt="MLS Next Logo" class="w-10 h-10 object-contain ml-3 shrink-0" />
       </div>
 
-      <!-- Navigation Tabs -->
+      <!-- Desktop Navigation Tabs -->
       <nav class="hidden md:flex space-x-1">
-        <button onclick="switchTab('overview')" id="tab-overview" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-surf-red bg-surf-border/50" data-i18n="nav_overview">Overview</button>
-        <button onclick="switchTab('roster')" id="tab-roster" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_roster">Roster</button>
-        <button onclick="switchTab('tactics')" id="tab-tactics" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_tactics">Tactics Board</button>
-        <button onclick="switchTab('checklist')" id="tab-checklist" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_checklist">Gear Checklist</button>
-        <button onclick="switchTab('games')" id="tab-games" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_games">Game Log</button>
-        <button onclick="switchTab('leaderboards')" id="tab-leaderboards" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_leaders">Leaderboards</button>
-        <button onclick="switchTab('schedule')" id="tab-schedule" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_schedule">Schedule</button>
+        <button onclick="switchTab('overview')" id="tab-overview" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium transition-all text-surf-red bg-surf-border/50" data-i18n="nav_overview">Overview</button>
+        <button onclick="switchTab('roster')" id="tab-roster" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_roster">Roster</button>
+        <button onclick="switchTab('tactics')" id="tab-tactics" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_tactics">Tactics Board</button>
+        <button onclick="switchTab('checklist')" id="tab-checklist" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_checklist">Gear</button>
+        <button onclick="switchTab('games')" id="tab-games" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_games">Game Log</button>
+        <button onclick="switchTab('leaderboards')" id="tab-leaderboards" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_leaders">Leaders</button>
+        <button onclick="switchTab('schedule')" id="tab-schedule" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_schedule">Schedule</button>
       </nav>
 
       <!-- Action Buttons & Lang Toggle -->
@@ -67,22 +66,25 @@
           <i data-lucide="globe" class="w-3.5 h-3.5 text-surf-red"></i>
           <span id="lang-indicator">ES</span>
         </button>
-        <button onclick="toggleModal('admin-modal', true)" class="flex items-center space-x-2 bg-surf-red text-white px-4 py-2 rounded-lg font-bold text-sm hover:bg-surf-redHover transition-all shadow-md shadow-surf-red/10 hover:shadow-surf-red/30">
+        <button onclick="toggleModal('admin-modal', true)" class="flex items-center space-x-1.5 bg-surf-red text-white px-3 py-2 rounded-lg font-bold text-xs hover:bg-surf-redHover transition-all shadow-md shadow-surf-red/10">
           <i data-lucide="plus-circle" class="w-4 h-4"></i>
-          <span data-i18n="btn_add_stats">Add Stats</span>
+          <span data-i18n="btn_add_stats">Stats</span>
         </button>
       </div>
     </div>
 
-    <!-- Mobile Nav Bar -->
-    <div class="flex md:hidden border-t border-surf-border justify-around py-2 bg-surf-black overflow-x-auto">
-      <button onclick="switchTab('overview')" class="text-xs px-2 py-1 font-medium text-surf-red shrink-0" data-i18n="nav_overview">Overview</button>
-      <button onclick="switchTab('roster')" class="text-xs px-2 py-1 font-medium text-slate-400 shrink-0" data-i18n="nav_roster">Roster</button>
-      <button onclick="switchTab('tactics')" class="text-xs px-2 py-1 font-medium text-slate-400 shrink-0" data-i18n="nav_tactics">Tactics</button>
-      <button onclick="switchTab('checklist')" class="text-xs px-2 py-1 font-medium text-slate-400 shrink-0" data-i18n="nav_checklist">Gear</button>
-      <button onclick="switchTab('games')" class="text-xs px-2 py-1 font-medium text-slate-400 shrink-0" data-i18n="nav_games">Games</button>
-      <button onclick="switchTab('leaderboards')" class="text-xs px-2 py-1 font-medium text-slate-400 shrink-0" data-i18n="nav_leaders">Leaders</button>
-      <button onclick="switchTab('schedule')" class="text-xs px-2 py-1 font-medium text-slate-400 shrink-0" data-i18n="nav_schedule">Schedule</button>
+    <!-- Mobile Dropdown Navigation Bar -->
+    <div class="flex md:hidden border-t border-surf-border px-4 py-2 bg-surf-black items-center justify-between">
+      <span class="text-xs font-bold text-surf-red uppercase tracking-wider" id="mobile-current-tab-label">Overview</span>
+      <select onchange="switchTab(this.value)" id="mobile-tab-select" class="bg-slate-900 border border-surf-border rounded-lg px-3 py-1.5 text-xs text-white font-bold focus:outline-none focus:border-surf-red">
+        <option value="overview">Overview</option>
+        <option value="roster">Roster</option>
+        <option value="tactics">Tactics Board</option>
+        <option value="checklist">Gear Checklist</option>
+        <option value="games">Game Log</option>
+        <option value="leaderboards">Leaderboards</option>
+        <option value="schedule">Schedule</option>
+      </select>
     </div>
   </header>
 
@@ -268,7 +270,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="roster-grid"></div>
     </section>
 
-    <!-- TACTICS & FORMATION BUILDER TAB (WITH ADVANCED DRAWING TOOLS) -->
+    <!-- TACTICS & FORMATION BUILDER TAB -->
     <section id="sec-tactics" class="hidden space-y-6">
       <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
         <div>
@@ -307,9 +309,9 @@
           <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-48 h-20 border-t-2 border-x-2 border-emerald-500/30 rounded-t-xl"></div>
 
           <!-- Drawing Canvas Overlay -->
-          <canvas id="pitch-drawing-canvas" class="absolute inset-0 z-20 pointer-events-none w-full h-full"></canvas>
+          <canvas id="pitch-drawing-canvas" class="absolute inset-0 z-20 w-full h-full cursor-crosshair"></canvas>
 
-          <div id="pitch-slots-container" class="relative w-full h-[500px] z-30 pointer-events-auto"></div>
+          <div id="pitch-slots-container" class="relative w-full h-[500px] z-30 pointer-events-none"></div>
         </div>
 
         <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex flex-col">
@@ -443,7 +445,7 @@
       </div>
     </section>
 
-    <!-- SCHEDULE TAB (WITH .ICS CALENDAR EXPORT) -->
+    <!-- SCHEDULE TAB -->
     <section id="sec-schedule" class="hidden space-y-6">
       <div class="flex justify-between items-center">
         <div>
@@ -493,7 +495,7 @@
     </div>
   </div>
 
-  <!-- ADD TEAM MILESTONE MODAL (TRIGGERS CONFETTI ON SAVE) -->
+  <!-- ADD TEAM MILESTONE MODAL -->
   <div id="milestone-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-surf-dark border border-surf-border rounded-xl max-w-md w-full p-6 shadow-2xl relative">
       <button onclick="toggleModal('milestone-modal', false)" class="absolute top-4 right-4 text-slate-400 hover:text-white">
@@ -550,7 +552,7 @@
     </div>
   </div>
 
-  <!-- ADD / RECORD STATS MODAL -->
+  <!-- ADD / RECORD STATS MODAL (UPDATED FOR DUAL PLAYER STATS) -->
   <div id="admin-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-surf-dark border border-surf-border rounded-xl max-w-xl w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
       <button onclick="toggleModal('admin-modal', false)" class="absolute top-4 right-4 text-slate-400 hover:text-white">
@@ -561,7 +563,7 @@
         <i data-lucide="plus-circle" class="text-surf-red w-5 h-5"></i>
         <span>Add Game Stats</span>
       </h3>
-      <p class="text-xs text-slate-400 mb-6">Enter new match results and player performance metrics.</p>
+      <p class="text-xs text-slate-400 mb-6">Enter new match results and performance metrics for up to two players.</p>
 
       <form id="stats-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
         <div class="grid grid-cols-2 gap-4">
@@ -588,34 +590,68 @@
 
         <hr class="border-surf-border my-4" />
 
-        <h4 class="text-sm font-bold text-surf-red mb-2">Record Player Performance</h4>
-        
-        <div class="grid grid-cols-1 gap-3">
+        <!-- PLAYER 1 PERFORMANCE -->
+        <div class="bg-slate-900/40 p-3 rounded-lg border border-surf-border space-y-3">
+          <h4 class="text-xs font-bold text-surf-red uppercase">Player 1 Performance</h4>
           <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Select Player</label>
-            <select id="form-player-select" class="w-full bg-slate-900 border border-surf-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-surf-red"></select>
+            <label class="block text-[10px] font-semibold text-slate-300 mb-1">Select Player 1</label>
+            <select id="form-player-select-1" class="w-full bg-slate-900 border border-surf-border rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red"></select>
           </div>
 
           <div class="grid grid-cols-5 gap-2">
             <div>
-              <label class="block text-[10px] font-semibold text-slate-400 mb-1 text-center">Goals</label>
-              <input type="number" id="form-player-goals" min="0" value="0" class="w-full bg-slate-900 border border-surf-border rounded-lg px-2 py-1.5 text-center text-sm text-white" />
+              <label class="block text-[9px] font-semibold text-slate-400 mb-1 text-center">Goals</label>
+              <input type="number" id="form-p1-goals" min="0" value="0" class="w-full bg-slate-900 border border-surf-border rounded-lg px-1 py-1 text-center text-xs text-white" />
             </div>
             <div>
-              <label class="block text-[10px] font-semibold text-slate-400 mb-1 text-center">Assists</label>
-              <input type="number" id="form-player-assists" min="0" value="0" class="w-full bg-slate-900 border border-surf-border rounded-lg px-2 py-1.5 text-center text-sm text-white" />
+              <label class="block text-[9px] font-semibold text-slate-400 mb-1 text-center">Assists</label>
+              <input type="number" id="form-p1-assists" min="0" value="0" class="w-full bg-slate-900 border border-surf-border rounded-lg px-1 py-1 text-center text-xs text-white" />
             </div>
             <div>
-              <label class="block text-[10px] font-semibold text-slate-400 mb-1 text-center">Yellow C.</label>
-              <input type="number" id="form-player-yc" min="0" value="0" class="w-full bg-slate-900 border border-surf-border rounded-lg px-2 py-1.5 text-center text-sm text-white" />
+              <label class="block text-[9px] font-semibold text-slate-400 mb-1 text-center">Yellow C.</label>
+              <input type="number" id="form-p1-yc" min="0" value="0" class="w-full bg-slate-900 border border-surf-border rounded-lg px-1 py-1 text-center text-xs text-white" />
             </div>
             <div>
-              <label class="block text-[10px] font-semibold text-slate-400 mb-1 text-center">Red C.</label>
-              <input type="number" id="form-player-rc" min="0" value="0" class="w-full bg-slate-900 border border-surf-border rounded-lg px-2 py-1.5 text-center text-sm text-white" />
+              <label class="block text-[9px] font-semibold text-slate-400 mb-1 text-center">Red C.</label>
+              <input type="number" id="form-p1-rc" min="0" value="0" class="w-full bg-slate-900 border border-surf-border rounded-lg px-1 py-1 text-center text-xs text-white" />
             </div>
             <div>
-              <label class="block text-[10px] font-semibold text-slate-400 mb-1 text-center">Saves</label>
-              <input type="number" id="form-player-saves" min="0" value="0" class="w-full bg-slate-900 border border-surf-border rounded-lg px-2 py-1.5 text-center text-sm text-white" />
+              <label class="block text-[9px] font-semibold text-slate-400 mb-1 text-center">Saves</label>
+              <input type="number" id="form-p1-saves" min="0" value="0" class="w-full bg-slate-900 border border-surf-border rounded-lg px-1 py-1 text-center text-xs text-white" />
+            </div>
+          </div>
+        </div>
+
+        <!-- PLAYER 2 PERFORMANCE (OPTIONAL) -->
+        <div class="bg-slate-900/40 p-3 rounded-lg border border-surf-border space-y-3">
+          <h4 class="text-xs font-bold text-blue-400 uppercase">Player 2 Performance (Optional)</h4>
+          <div>
+            <label class="block text-[10px] font-semibold text-slate-300 mb-1">Select Player 2</label>
+            <select id="form-player-select-2" class="w-full bg-slate-900 border border-surf-border rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red">
+              <option value="">-- None / Skip --</option>
+            </select>
+          </div>
+
+          <div class="grid grid-cols-5 gap-2">
+            <div>
+              <label class="block text-[9px] font-semibold text-slate-400 mb-1 text-center">Goals</label>
+              <input type="number" id="form-p2-goals" min="0" value="0" class="w-full bg-slate-900 border border-surf-border rounded-lg px-1 py-1 text-center text-xs text-white" />
+            </div>
+            <div>
+              <label class="block text-[9px] font-semibold text-slate-400 mb-1 text-center">Assists</label>
+              <input type="number" id="form-p2-assists" min="0" value="0" class="w-full bg-slate-900 border border-surf-border rounded-lg px-1 py-1 text-center text-xs text-white" />
+            </div>
+            <div>
+              <label class="block text-[9px] font-semibold text-slate-400 mb-1 text-center">Yellow C.</label>
+              <input type="number" id="form-p2-yc" min="0" value="0" class="w-full bg-slate-900 border border-surf-border rounded-lg px-1 py-1 text-center text-xs text-white" />
+            </div>
+            <div>
+              <label class="block text-[9px] font-semibold text-slate-400 mb-1 text-center">Red C.</label>
+              <input type="number" id="form-p2-rc" min="0" value="0" class="w-full bg-slate-900 border border-surf-border rounded-lg px-1 py-1 text-center text-xs text-white" />
+            </div>
+            <div>
+              <label class="block text-[9px] font-semibold text-slate-400 mb-1 text-center">Saves</label>
+              <input type="number" id="form-p2-saves" min="0" value="0" class="w-full bg-slate-900 border border-surf-border rounded-lg px-1 py-1 text-center text-xs text-white" />
             </div>
           </div>
         </div>
@@ -813,11 +849,11 @@
         nav_overview: "Overview",
         nav_roster: "Roster",
         nav_tactics: "Tactics Board",
-        nav_checklist: "Gear Checklist",
+        nav_checklist: "Gear",
         nav_games: "Game Log",
-        nav_leaders: "Leaderboards",
+        nav_leaders: "Leaders",
         nav_schedule: "Schedule",
-        btn_add_stats: "Add Stats",
+        btn_add_stats: "Stats",
         lbl_weather: "Field Weather (Peoria, AZ)",
         hdr_spotlight: "Team Spotlight & Announcements",
         btn_post_ann: "Post Announcement / Birthday",
@@ -869,7 +905,7 @@
         nav_games: "Partidos",
         nav_leaders: "Líderes",
         nav_schedule: "Calendario",
-        btn_add_stats: "Agregar Estadísticas",
+        btn_add_stats: "Estadísticas",
         lbl_weather: "Clima en el Campo (Peoria, AZ)",
         hdr_spotlight: "Destacados y Anuncios del Equipo",
         btn_post_ann: "Publicar Anuncio / Cumpleaños",
@@ -995,7 +1031,7 @@
     function exportIcs(item) {
       playFeedback();
       const startDate = new Date(item.dateStr);
-      const endDate = new Date(startDate.getTime() + 2 * 60 * 60 * 1000); // +2 hours
+      const endDate = new Date(startDate.getTime() + 2 * 60 * 60 * 1000);
       
       const formatDate = (d) => d.toISOString().replace(/-|:|\.\d+/g, '');
       
@@ -1079,8 +1115,7 @@ END:VCALENDAR`;
     let currentFormationKey = '4-3-3';
     let selectedBenchPlayerId = null;
 
-    // DRAWING STATE FOR TACTICS PITCH
-    let drawMode = 'select'; // 'select', 'pen', 'arrow'
+    let drawMode = 'select';
     let isDrawing = false;
     let drawingPaths = [];
     let currentPath = null;
@@ -1186,6 +1221,12 @@ END:VCALENDAR`;
         activeBtn.classList.remove('text-slate-400');
       }
 
+      const mobileSelect = document.getElementById('mobile-tab-select');
+      if (mobileSelect) mobileSelect.value = tabName;
+
+      const mobileLabel = document.getElementById('mobile-current-tab-label');
+      if (mobileLabel) mobileLabel.innerText = tabName.charAt(0).toUpperCase() + tabName.slice(1);
+
       if (tabName === 'tactics') {
         renderTacticsBoard();
         initTacticsCanvas();
@@ -1197,16 +1238,21 @@ END:VCALENDAR`;
       const modal = document.getElementById(modalId);
       if (show) {
         modal.classList.remove('hidden');
-        if (modalId === 'admin-modal') populatePlayerDropdown();
+        if (modalId === 'admin-modal') populatePlayerDropdowns();
       } else {
         modal.classList.add('hidden');
       }
     }
 
-    function populatePlayerDropdown() {
-      const select = document.getElementById('form-player-select');
+    function populatePlayerDropdowns() {
+      const select1 = document.getElementById('form-player-select-1');
+      const select2 = document.getElementById('form-player-select-2');
       const sorted = [...players].sort((a,b) => a.number - b.number);
-      select.innerHTML = sorted.map(p => `<option value="${p.id}">#${p.number} - ${p.name} ${p.isCaptain ? '(C)' : ''}</option>`).join('');
+      
+      const optionsHtml = sorted.map(p => `<option value="${p.id}">#${p.number} - ${p.name} ${p.isCaptain ? '(C)' : ''}</option>`).join('');
+      
+      if (select1) select1.innerHTML = optionsHtml;
+      if (select2) select2.innerHTML = `<option value="">-- None / Skip --</option>` + optionsHtml;
     }
 
     function renderAll() {
@@ -1256,7 +1302,6 @@ END:VCALENDAR`;
         document.getElementById('milestone-form').reset();
         renderMilestones();
         
-        // TRIGGER CONFETTI CELEBRATION!
         confetti({
           particleCount: 120,
           spread: 80,
@@ -1399,8 +1444,15 @@ END:VCALENDAR`;
       });
 
       const canvas = document.getElementById('pitch-drawing-canvas');
-      if (canvas) {
-        canvas.style.pointerEvents = mode === 'select' ? 'none' : 'auto';
+      const slotsContainer = document.getElementById('pitch-slots-container');
+      if (canvas && slotsContainer) {
+        if (mode === 'select') {
+          canvas.style.pointerEvents = 'none';
+          slotsContainer.style.pointerEvents = 'auto';
+        } else {
+          canvas.style.pointerEvents = 'auto';
+          slotsContainer.style.pointerEvents = 'none';
+        }
       }
     }
 
@@ -1417,7 +1469,6 @@ END:VCALENDAR`;
     function initTacticsCanvas() {
       const canvas = document.getElementById('pitch-drawing-canvas');
       if (!canvas) return;
-      const rect = canvas.getBoundingClientRect();
       canvas.width = canvas.offsetWidth;
       canvas.height = canvas.offsetHeight;
       const ctx = canvas.getContext('2d');
@@ -1446,6 +1497,14 @@ END:VCALENDAR`;
         if (currentPath) drawingPaths.push(currentPath);
         currentPath = null;
       };
+
+      canvas.onmouseleave = () => {
+        if (isDrawing) {
+          isDrawing = false;
+          if (currentPath) drawingPaths.push(currentPath);
+          currentPath = null;
+        }
+      };
     }
 
     function redrawCanvas() {
@@ -1458,7 +1517,7 @@ END:VCALENDAR`;
       if (currentPath) allToDraw.push(currentPath);
 
       allToDraw.forEach(path => {
-        ctx.strokeStyle = '#FACC15'; // Yellow tactical lines
+        ctx.strokeStyle = '#FACC15';
         ctx.fillStyle = '#FACC15';
         ctx.lineWidth = 3;
 
@@ -1475,7 +1534,6 @@ END:VCALENDAR`;
           ctx.lineTo(path.endX, path.endY);
           ctx.stroke();
 
-          // Draw arrowhead
           const angle = Math.atan2(path.endY - path.startY, path.endX - path.startX);
           ctx.beginPath();
           ctx.moveTo(path.endX, path.endY);
@@ -1504,7 +1562,7 @@ END:VCALENDAR`;
         const player = players.find(p => p.id === assignedPlayerId);
 
         const slotDiv = document.createElement('div');
-        slotDiv.className = 'absolute -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center cursor-pointer group';
+        slotDiv.className = 'absolute -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center cursor-pointer group pointer-events-auto';
         slotDiv.style.top = slot.top;
         slotDiv.style.left = slot.left;
 
@@ -1945,41 +2003,75 @@ END:VCALENDAR`;
       const ourScore = parseInt(document.getElementById('form-our-score').value);
       const opponentScore = parseInt(document.getElementById('form-their-score').value);
       
-      const playerId = parseInt(document.getElementById('form-player-select').value);
-      const goals = parseInt(document.getElementById('form-player-goals').value) || 0;
-      const assists = parseInt(document.getElementById('form-player-assists').value) || 0;
-      const yc = parseInt(document.getElementById('form-player-yc').value) || 0;
-      const rc = parseInt(document.getElementById('form-player-rc').value) || 0;
-      const saves = parseInt(document.getElementById('form-player-saves').value) || 0;
-
       let result = "DRAW";
       if (ourScore > opponentScore) result = "WIN";
       if (ourScore < opponentScore) result = "LOSS";
 
+      // 1. SAVE GAME LOG
       const newGame = { id: Date.now(), date, opponent, ourScore, opponentScore, result };
       games.push(newGame);
+      await supabaseClient.from('games').insert([{ date, opponent, ourScore, opponentScore, result }]);
 
-      const pIdx = players.findIndex(p => p.id === playerId);
-      if (pIdx !== -1) {
-        players[pIdx].goals = (players[pIdx].goals || 0) + goals;
-        players[pIdx].assists = (players[pIdx].assists || 0) + assists;
-        players[pIdx].yc = (players[pIdx].yc || 0) + yc;
-        players[pIdx].rc = (players[pIdx].rc || 0) + rc;
-        players[pIdx].saves = (players[pIdx].saves || 0) + saves;
+      // 2. PROCESS PLAYER 1 STATS
+      const p1Id = parseInt(document.getElementById('form-player-select-1').value);
+      const p1Goals = parseInt(document.getElementById('form-p1-goals').value) || 0;
+      const p1Assists = parseInt(document.getElementById('form-p1-assists').value) || 0;
+      const p1Yc = parseInt(document.getElementById('form-p1-yc').value) || 0;
+      const p1Rc = parseInt(document.getElementById('form-p1-rc').value) || 0;
+      const p1Saves = parseInt(document.getElementById('form-p1-saves').value) || 0;
+
+      const p1Idx = players.findIndex(p => p.id === p1Id);
+      if (p1Idx !== -1) {
+        players[p1Idx].goals = (players[p1Idx].goals || 0) + p1Goals;
+        players[p1Idx].assists = (players[p1Idx].assists || 0) + p1Assists;
+        players[p1Idx].yc = (players[p1Idx].yc || 0) + p1Yc;
+        players[p1Idx].rc = (players[p1Idx].rc || 0) + p1Rc;
+        players[p1Idx].saves = (players[p1Idx].saves || 0) + p1Saves;
+
+        await supabaseClient.from('players').upsert([{ 
+          id: players[p1Idx].id, 
+          name: players[p1Idx].name, 
+          number: players[p1Idx].number, 
+          pos: players[p1Idx].pos, 
+          goals: players[p1Idx].goals, 
+          assists: players[p1Idx].assists, 
+          yc: players[p1Idx].yc, 
+          rc: players[p1Idx].rc, 
+          saves: players[p1Idx].saves 
+        }]);
       }
 
-      await supabaseClient.from('games').insert([{ date, opponent, ourScore, opponentScore, result }]);
-      await supabaseClient.from('players').upsert([{ 
-        id: players[pIdx].id, 
-        name: players[pIdx].name, 
-        number: players[pIdx].number, 
-        pos: players[pIdx].pos, 
-        goals: players[pIdx].goals, 
-        assists: players[pIdx].assists, 
-        yc: players[pIdx].yc, 
-        rc: players[pIdx].rc, 
-        saves: players[pIdx].saves 
-      }]);
+      // 3. PROCESS PLAYER 2 STATS (IF SELECTED)
+      const p2SelectVal = document.getElementById('form-player-select-2').value;
+      if (p2SelectVal) {
+        const p2Id = parseInt(p2SelectVal);
+        const p2Goals = parseInt(document.getElementById('form-p2-goals').value) || 0;
+        const p2Assists = parseInt(document.getElementById('form-p2-assists').value) || 0;
+        const p2Yc = parseInt(document.getElementById('form-p2-yc').value) || 0;
+        const p2Rc = parseInt(document.getElementById('form-p2-rc').value) || 0;
+        const p2Saves = parseInt(document.getElementById('form-p2-saves').value) || 0;
+
+        const p2Idx = players.findIndex(p => p.id === p2Id);
+        if (p2Idx !== -1) {
+          players[p2Idx].goals = (players[p2Idx].goals || 0) + p2Goals;
+          players[p2Idx].assists = (players[p2Idx].assists || 0) + p2Assists;
+          players[p2Idx].yc = (players[p2Idx].yc || 0) + p2Yc;
+          players[p2Idx].rc = (players[p2Idx].rc || 0) + p2Rc;
+          players[p2Idx].saves = (players[p2Idx].saves || 0) + p2Saves;
+
+          await supabaseClient.from('players').upsert([{ 
+            id: players[p2Idx].id, 
+            name: players[p2Idx].name, 
+            number: players[p2Idx].number, 
+            pos: players[p2Idx].pos, 
+            goals: players[p2Idx].goals, 
+            assists: players[p2Idx].assists, 
+            yc: players[p2Idx].yc, 
+            rc: players[p2Idx].rc, 
+            saves: players[p2Idx].saves 
+          }]);
+        }
+      }
 
       renderAll();
 
