@@ -52,7 +52,7 @@
       <!-- Desktop Navigation Tabs -->
       <nav class="hidden md:flex space-x-1">
         <button onclick="switchTab('overview')" id="tab-overview" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium transition-all text-surf-red bg-surf-border/50" data-i18n="nav_overview">Overview</button>
-        <button onclick="switchTab('roster')" id="tab-roster" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_roster">Roster</button>
+        <button onclick="switchTab('roster')" id="tab-roster" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_roster">Roster & Injuries</button>
         <button onclick="switchTab('tactics')" id="tab-tactics" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_tactics">Tactics Board</button>
         <button onclick="switchTab('checklist')" id="tab-checklist" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_checklist">Gear</button>
         <button onclick="switchTab('games')" id="tab-games" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_games">Game Log</button>
@@ -81,7 +81,7 @@
       </div>
       <select onchange="switchTab(this.value)" id="mobile-tab-select" class="bg-slate-950 border border-surf-red/60 rounded-lg px-2.5 py-1 text-xs text-white font-bold focus:outline-none focus:border-surf-red shadow">
         <option value="overview">Overview</option>
-        <option value="roster">Roster</option>
+        <option value="roster">Roster & Injuries</option>
         <option value="tactics">Tactics Board</option>
         <option value="checklist">Gear Checklist</option>
         <option value="games">Game Log</option>
@@ -91,7 +91,7 @@
     </div>
   </header>
 
-  <!-- MOBILE BOTTOM NAVIGATION BAR FOR FIRST-TIME USERS -->
+  <!-- MOBILE BOTTOM NAVIGATION BAR -->
   <div class="fixed bottom-0 inset-x-0 bg-surf-dark border-t border-surf-border z-40 md:hidden flex justify-around py-2 px-1 shadow-2xl">
     <button onclick="switchTab('overview')" id="bnav-overview" class="bnav-btn flex flex-col items-center text-[10px] text-surf-red font-bold">
       <i data-lucide="home" class="w-5 h-5 mb-0.5"></i><span>Overview</span>
@@ -116,13 +116,13 @@
     <!-- OVERVIEW TAB -->
     <section id="sec-overview" class="space-y-6">
 
-      <!-- HOLIDAY & CHRISTMAS COUNTDOWN BANNER (HIDDEN UNTIL 5 DAYS BEFORE CHRISTMAS) -->
+      <!-- HOLIDAY & BIRTHDAY COUNTDOWN BANNER (Appears 5-10 days before) -->
       <div id="holiday-countdown-banner" class="hidden bg-gradient-to-r from-emerald-600/30 via-surf-card to-surf-red/20 border border-emerald-500/40 rounded-xl p-4 items-center justify-between shadow-lg text-xs sm:text-sm text-white font-medium">
       </div>
 
       <!-- MATCH COUNTDOWN & WEATHER WIDGET ROW -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <!-- Dynamic Countdown Widget -->
+        <!-- Dynamic Kickoff Countdown Clock -->
         <div class="bg-gradient-to-r from-surf-red/20 via-surf-card to-surf-card border border-surf-red/40 rounded-xl p-4 flex items-center justify-between shadow-lg">
           <div class="flex items-center space-x-3">
             <div class="p-2.5 bg-surf-red text-white rounded-lg shrink-0">
@@ -151,7 +151,7 @@
         </div>
       </div>
       
-      <!-- Announcements & Birthdays Header with Post Button -->
+      <!-- Announcements Header with Post Button -->
       <div class="flex justify-between items-center pt-2">
         <h2 class="font-bold text-lg text-white flex items-center space-x-2">
           <i data-lucide="bell" class="w-5 h-5 text-surf-red"></i>
@@ -159,11 +159,11 @@
         </h2>
         <button onclick="toggleModal('announcement-modal', true)" class="bg-slate-900 border border-surf-border hover:border-surf-red text-slate-300 hover:text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center space-x-1.5">
           <i data-lucide="plus" class="w-3.5 h-3.5 text-surf-red"></i>
-          <span data-i18n="btn_post_ann">Post Announcement / Birthday</span>
+          <span data-i18n="btn_post_ann">Post Announcement</span>
         </button>
       </div>
 
-      <!-- Announcements & Birthdays Banner List -->
+      <!-- Announcements Banner List -->
       <div id="announcements-container" class="space-y-3"></div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
@@ -270,26 +270,34 @@
       </div>
     </section>
 
-    <!-- ROSTER TAB -->
+    <!-- ROSTER & INJURIES TAB -->
     <section id="sec-roster" class="hidden space-y-6">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h2 class="text-xl font-bold text-white" data-i18n="roster_title">AZ Surf U13 Squad Roster</h2>
-          <p class="text-sm text-slate-400" data-i18n="roster_subtitle">Click any player to view detailed breakdown grid & edit details</p>
+          <h2 class="text-xl font-bold text-white">AZ Surf U13 Squad Roster & Injuries</h2>
+          <p class="text-sm text-slate-400">Monitor active roster players and track player recovery & injury status.</p>
         </div>
 
         <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
+          <button onclick="toggleModal('injury-modal', true)" class="bg-surf-red hover:bg-surf-redHover text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center space-x-1.5 shadow">
+            <i data-lucide="user-plus" class="w-4 h-4"></i>
+            <span>Add Injured Player</span>
+          </button>
           <div class="relative flex-grow md:flex-grow-0">
             <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
             <input type="text" id="roster-search" oninput="filterRoster()" placeholder="Search player..." class="bg-slate-900 border border-surf-border rounded-lg pl-9 pr-3 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red w-full md:w-44" />
           </div>
-          <select id="roster-pos-filter" onchange="filterRoster()" class="bg-slate-900 border border-surf-border rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red">
-            <option value="ALL">All Positions</option>
-            <option value="Forward">Forwards</option>
-            <option value="Midfield">Midfielders</option>
-            <option value="Defender">Defenders</option>
-            <option value="Goalkeeper">Goalkeepers</option>
-          </select>
+        </div>
+      </div>
+
+      <!-- INJURY TRACKER WIDGET -->
+      <div class="bg-surf-card border border-surf-border rounded-xl p-5">
+        <h3 class="font-bold text-sm text-amber-400 mb-3 flex items-center space-x-2">
+          <i data-lucide="alert-triangle" class="w-4 h-4"></i>
+          <span>Player Recovery & Injury Status Tracker</span>
+        </h3>
+        <div id="injury-list-container" class="space-y-2">
+          <p class="text-xs text-slate-500 italic">No player injuries logged. All players fit!</p>
         </div>
       </div>
 
@@ -485,36 +493,77 @@
 
   </main>
 
-  <!-- ADD ANNOUNCEMENT / BIRTHDAY MODAL -->
+  <!-- ADD INJURED PLAYER MODAL -->
+  <div id="injury-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-surf-dark border border-surf-border rounded-xl max-w-md w-full p-6 shadow-2xl relative">
+      <button onclick="toggleModal('injury-modal', false)" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+
+      <h3 class="text-lg font-bold text-white mb-1">Add Injured Player / Knock</h3>
+      <p class="text-xs text-slate-400 mb-4">Log minor knocks, sprains, and expected return dates.</p>
+
+      <form id="injury-form" onsubmit="handleInjurySubmit(event)" class="space-y-3">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Player Name</label>
+          <input type="text" id="inj-name" required placeholder="e.g. Alex" class="w-full bg-slate-900 border border-surf-border rounded px-3 py-1.5 text-xs text-white" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Injury / Knock Type</label>
+          <input type="text" id="inj-type" required placeholder="e.g. Minor ankle sprain" class="w-full bg-slate-900 border border-surf-border rounded px-3 py-1.5 text-xs text-white" />
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Status</label>
+            <select id="inj-status" class="w-full bg-slate-900 border border-surf-border rounded px-3 py-1.5 text-xs text-white">
+              <option value="Day-to-Day">Day-to-Day</option>
+              <option value="Out">Out</option>
+              <option value="Recovering">Recovering</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Expected Return Date</label>
+            <input type="date" id="inj-date" required class="w-full bg-slate-900 border border-surf-border rounded px-3 py-1.5 text-xs text-white" />
+          </div>
+        </div>
+
+        <div class="pt-3 flex justify-end space-x-2">
+          <button type="button" onclick="toggleModal('injury-modal', false)" class="px-3 py-1.5 text-xs text-slate-400 border border-surf-border rounded">Cancel</button>
+          <button type="submit" class="px-4 py-1.5 text-xs bg-surf-red text-white font-bold rounded hover:bg-surf-redHover">Save Injury Log</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADD ANNOUNCEMENT MODAL -->
   <div id="announcement-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-surf-dark border border-surf-border rounded-xl max-w-md w-full p-6 shadow-2xl relative">
       <button onclick="toggleModal('announcement-modal', false)" class="absolute top-4 right-4 text-slate-400 hover:text-white">
         <i data-lucide="x" class="w-6 h-6"></i>
       </button>
 
-      <h3 class="text-lg font-bold text-white mb-1">Post Announcement / Birthday</h3>
+      <h3 class="text-lg font-bold text-white mb-1">Post Announcement</h3>
       <p class="text-xs text-slate-400 mb-4">Display a highlighted banner at the top of the dashboard.</p>
 
       <form id="announcement-form" onsubmit="handleAnnouncementSubmit(event)" class="space-y-3">
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Badge Type</label>
           <select id="ann-type" class="w-full bg-slate-900 border border-surf-border rounded px-3 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red">
-            <option value="Birthday">🎉 Birthday</option>
             <option value="Notice">⚡ Notice / Update</option>
             <option value="Tournament">🏆 Tournament Alert</option>
           </select>
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Title</label>
-          <input type="text" id="ann-title" required placeholder="e.g. Happy Birthday Jionni!" class="w-full bg-slate-900 border border-surf-border rounded px-3 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red" />
+          <input type="text" id="ann-title" required placeholder="e.g. Practice Time Change" class="w-full bg-slate-900 border border-surf-border rounded px-3 py-1.5 text-xs text-white" />
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Message</label>
-          <textarea id="ann-content" required rows="2" placeholder="Wishing you a great day!" class="w-full bg-slate-900 border border-surf-border rounded px-3 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red"></textarea>
+          <textarea id="ann-content" required rows="2" placeholder="Details here..." class="w-full bg-slate-900 border border-surf-border rounded px-3 py-1.5 text-xs text-white"></textarea>
         </div>
 
         <div class="pt-3 flex justify-end space-x-2">
-          <button type="button" onclick="toggleModal('announcement-modal', false)" class="px-3 py-1.5 text-xs text-slate-400 hover:text-white border border-surf-border rounded">Cancel</button>
+          <button type="button" onclick="toggleModal('announcement-modal', false)" class="px-3 py-1.5 text-xs text-slate-400 border border-surf-border rounded">Cancel</button>
           <button type="submit" class="px-4 py-1.5 text-xs bg-surf-red text-white font-bold rounded hover:bg-surf-redHover">Post Banner</button>
         </div>
       </form>
@@ -534,16 +583,16 @@
       <form id="milestone-form" onsubmit="handleMilestoneSubmit(event)" class="space-y-3">
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Milestone Title</label>
-          <input type="text" id="ms-title" required placeholder="e.g. Season Clean Sheets" class="w-full bg-slate-900 border border-surf-border rounded px-3 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red" />
+          <input type="text" id="ms-title" required placeholder="e.g. Season Clean Sheets" class="w-full bg-slate-900 border border-surf-border rounded px-3 py-1.5 text-xs text-white" />
         </div>
         <div class="grid grid-cols-2 gap-2">
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">Target Value</label>
-            <input type="number" id="ms-target" required min="1" placeholder="10" class="w-full bg-slate-900 border border-surf-border rounded px-3 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red" />
+            <input type="number" id="ms-target" required min="1" placeholder="10" class="w-full bg-slate-900 border border-surf-border rounded px-3 py-1.5 text-xs text-white" />
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">Category</label>
-            <select id="ms-category" class="w-full bg-slate-900 border border-surf-border rounded px-3 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red">
+            <select id="ms-category" class="w-full bg-slate-900 border border-surf-border rounded px-3 py-1.5 text-xs text-white">
               <option value="Defense">Defense</option>
               <option value="Goals">Goals</option>
               <option value="Wins">Wins</option>
@@ -552,7 +601,7 @@
         </div>
 
         <div class="pt-3 flex justify-end space-x-2">
-          <button type="button" onclick="toggleModal('milestone-modal', false)" class="px-3 py-1.5 text-xs text-slate-400 hover:text-white border border-surf-border rounded">Cancel</button>
+          <button type="button" onclick="toggleModal('milestone-modal', false)" class="px-3 py-1.5 text-xs text-slate-400 border border-surf-border rounded">Cancel</button>
           <button type="submit" class="px-4 py-1.5 text-xs bg-surf-red text-white font-bold rounded hover:bg-surf-redHover">Save Milestone</button>
         </div>
       </form>
@@ -589,7 +638,7 @@
         <i data-lucide="plus-circle" class="text-surf-red w-5 h-5"></i>
         <span>Add Game Stats</span>
       </h3>
-      <p class="text-xs text-slate-400 mb-6">Enter new match results and performance metrics for as many players as you need.</p>
+      <p class="text-xs text-slate-400 mb-6">Enter new match results and performance metrics. Logging a win triggers a celebratory confetti animation!</p>
 
       <form id="stats-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
         <div class="grid grid-cols-2 gap-4">
@@ -616,10 +665,8 @@
 
         <hr class="border-surf-border my-4" />
 
-        <!-- DYNAMIC PLAYER STATS ROWS CONTAINER -->
         <div id="player-stats-rows-container" class="space-y-3"></div>
 
-        <!-- BUTTON TO ADD ANOTHER PLAYER -->
         <button type="button" onclick="addPlayerStatRow()" class="w-full py-2.5 bg-slate-900 border border-dashed border-surf-border hover:border-surf-red text-slate-300 hover:text-white rounded-lg text-xs font-bold transition-all flex items-center justify-center space-x-1.5 shadow-sm">
           <i data-lucide="plus" class="w-4 h-4 text-surf-red"></i>
           <span>Add Another Player's Stats</span>
@@ -672,28 +719,6 @@
         </div>
       </div>
 
-      <div class="space-y-4 mb-6">
-        <div>
-          <div class="flex justify-between text-xs font-semibold mb-1">
-            <span class="text-slate-300">Team Goal Contribution %</span>
-            <span id="pm-goal-share" class="text-surf-red">0%</span>
-          </div>
-          <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-surf-border">
-            <div id="pm-bar-goals" class="bg-surf-red h-full transition-all duration-500" style="width: 0%"></div>
-          </div>
-        </div>
-
-        <div>
-          <div class="flex justify-between text-xs font-semibold mb-1">
-            <span class="text-slate-300">Team Assist Share %</span>
-            <span id="pm-assist-share" class="text-blue-400">0%</span>
-          </div>
-          <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-surf-border">
-            <div id="pm-bar-assists" class="bg-blue-400 h-full transition-all duration-500" style="width: 0%"></div>
-          </div>
-        </div>
-      </div>
-
       <details class="bg-slate-900/40 border border-surf-border rounded-lg p-3">
         <summary class="text-xs font-bold text-slate-300 cursor-pointer flex items-center justify-between">
           <span>Edit Player Details & Career Stat Correction</span>
@@ -702,7 +727,6 @@
         
         <form id="edit-player-form" onsubmit="handleEditPlayerSubmit(event)" class="mt-3 space-y-3">
           <input type="hidden" id="edit-p-id" />
-          
           <div class="grid grid-cols-3 gap-2">
             <div>
               <label class="block text-[10px] text-slate-400">Name</label>
@@ -717,74 +741,11 @@
               <input type="text" id="edit-p-pos" required class="w-full bg-slate-900 border border-surf-border rounded px-2 py-1 text-xs text-white" />
             </div>
           </div>
-
-          <div class="grid grid-cols-5 gap-1">
-            <div>
-              <label class="block text-[9px] text-slate-400 text-center">Goals</label>
-              <input type="number" id="edit-p-goals" min="0" class="w-full bg-slate-900 border border-surf-border rounded px-1 py-1 text-xs text-center text-white" />
-            </div>
-            <div>
-              <label class="block text-[9px] text-slate-400 text-center">Assists</label>
-              <input type="number" id="edit-p-assists" min="0" class="w-full bg-slate-900 border border-surf-border rounded px-1 py-1 text-xs text-center text-white" />
-            </div>
-            <div>
-              <label class="block text-[9px] text-slate-400 text-center">YC</label>
-              <input type="number" id="edit-p-yc" min="0" class="w-full bg-slate-900 border border-surf-border rounded px-1 py-1 text-xs text-center text-white" />
-            </div>
-            <div>
-              <label class="block text-[9px] text-slate-400 text-center">RC</label>
-              <input type="number" id="edit-p-rc" min="0" class="w-full bg-slate-900 border border-surf-border rounded px-1 py-1 text-xs text-center text-white" />
-            </div>
-            <div>
-              <label class="block text-[9px] text-slate-400 text-center">Saves</label>
-              <input type="number" id="edit-p-saves" min="0" class="w-full bg-slate-900 border border-surf-border rounded px-1 py-1 text-xs text-center text-white" />
-            </div>
-          </div>
-
           <button type="submit" class="w-full bg-surf-red text-white font-bold py-1.5 rounded text-xs hover:bg-surf-redHover transition-colors mt-2">
             Save Player Updates
           </button>
         </form>
       </details>
-    </div>
-  </div>
-
-  <!-- EDIT GAME LOG MODAL -->
-  <div id="game-edit-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-surf-dark border border-surf-border rounded-xl max-w-md w-full p-6 shadow-2xl relative">
-      <button onclick="toggleModal('game-edit-modal', false)" class="absolute top-4 right-4 text-slate-400 hover:text-white">
-        <i data-lucide="x" class="w-6 h-6"></i>
-      </button>
-
-      <h3 class="text-lg font-bold text-white mb-4">Edit Game Log</h3>
-
-      <form id="edit-game-form" onsubmit="handleGameEditSubmit(event)" class="space-y-3">
-        <input type="hidden" id="edit-g-id" />
-        <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">Opponent</label>
-          <input type="text" id="edit-g-opponent" required class="w-full bg-slate-900 border border-surf-border rounded px-3 py-1.5 text-sm text-white focus:outline-none focus:border-surf-red" />
-        </div>
-
-        <div class="grid grid-cols-3 gap-2">
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Date</label>
-            <input type="date" id="edit-g-date" required class="w-full bg-slate-900 border border-surf-border rounded px-2 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red" />
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">AZ Surf</label>
-            <input type="number" id="edit-g-ourscore" required min="0" class="w-full bg-slate-900 border border-surf-border rounded px-2 py-1.5 text-sm text-white text-center focus:outline-none focus:border-surf-red" />
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Opponent</label>
-            <input type="number" id="edit-g-oppscore" required min="0" class="w-full bg-slate-900 border border-surf-border rounded px-2 py-1.5 text-sm text-white text-center focus:outline-none focus:border-surf-red" />
-          </div>
-        </div>
-
-        <div class="pt-3 flex justify-end space-x-2">
-          <button type="button" onclick="toggleModal('game-edit-modal', false)" class="px-3 py-1.5 text-xs text-slate-400 hover:text-white border border-surf-border rounded">Cancel</button>
-          <button type="submit" class="px-4 py-1.5 text-xs bg-surf-red text-white font-bold rounded hover:bg-surf-redHover">Update Game</button>
-        </div>
-      </form>
     </div>
   </div>
 
@@ -808,9 +769,17 @@
     let games = [];
     let announcements = [];
     let milestones = [];
+    let injuries = [];
     let savedPlaybooks = [];
 
-    // MULTILINGUAL DICTIONARY (EN / ES)
+    // TEAM BIRTHDAYS LIST
+    const teamBirthdays = [
+      { name: 'Xander', month: 10, day: 18 }, // Nov is month 10 (0-indexed)
+      { name: 'Christian', month: 1, day: 10 }, // Feb is month 1
+      { name: 'Xaiden', month: 2, day: 10 }, // Mar is month 2
+      { name: 'Jack', month: 4, day: 27 }  // May is month 4
+    ];
+
     let currentLang = 'en';
     const translations = {
       en: {
@@ -825,7 +794,7 @@
         btn_add_stats: "Stats",
         lbl_weather: "Field Weather (Peoria, AZ)",
         hdr_spotlight: "Team Spotlight & Announcements",
-        btn_post_ann: "Post Announcement / Birthday",
+        btn_post_ann: "Post Announcement",
         stat_record: "Season Record",
         stat_goals: "Goals Scored",
         stat_assists: "Total Assists",
@@ -877,7 +846,7 @@
         btn_add_stats: "Estadísticas",
         lbl_weather: "Clima en el Campo (Peoria, AZ)",
         hdr_spotlight: "Destacados y Anuncios del Equipo",
-        btn_post_ann: "Publicar Anuncio / Cumpleaños",
+        btn_post_ann: "Publicar Anuncio",
         stat_record: "Récord de Temporada",
         stat_goals: "Goles Anotados",
         stat_assists: "Asistencias Totales",
@@ -922,108 +891,21 @@
     function toggleLanguage() {
       currentLang = currentLang === 'en' ? 'es' : 'en';
       document.getElementById('lang-indicator').innerText = currentLang === 'en' ? 'ES' : 'EN';
-      
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if (translations[currentLang][key]) {
-          el.innerText = translations[currentLang][key];
-        }
+        if (translations[currentLang][key]) el.innerText = translations[currentLang][key];
       });
     }
 
-    // AUDIO & HAPTIC FEEDBACK
     function playFeedback() {
       if (navigator.vibrate) navigator.vibrate(30);
-      try {
-        const ctx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(520, ctx.currentTime);
-        gain.gain.setValueAtTime(0.05, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.08);
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start();
-        osc.stop(ctx.currentTime + 0.08);
-      } catch(e) {}
     }
 
-    // SCHEDULE WITH .ICS CALENDAR EXPORT
     const schedule = [
-      { 
-        title: 'Kick for the Cure Tournament', 
-        type: 'Tournament', 
-        dateStr: '2026-11-06T08:00:00',
-        time: 'TBD', 
-        location: 'TBD', 
-        mapUrl: '',
-        studs: 'FG & AG Cleats (Bring Both)',
-        clothes: 'Full Warmup Suit',
-        hydration: 'Extra Hydration Pack'
-      },
-      { 
-        title: 'November 14th Game vs RSL AZ', 
-        type: 'Game', 
-        dateStr: '2026-11-14T11:00:00',
-        time: '11:00 AM', 
-        location: 'Benedict Sports Complex', 
-        mapUrl: 'https://maps.google.com/?q=Benedict+Sports+Complex',
-        studs: 'Firm Ground Cleats',
-        clothes: 'Standard Jersey',
-        hydration: '2 Water Bottles'
-      },
-      { 
-        title: 'November 21st Game vs Phoenix Rising', 
-        type: 'Game', 
-        dateStr: '2026-11-21T14:30:00',
-        time: '2:30 PM', 
-        location: 'West Valley Events Complex', 
-        mapUrl: 'https://maps.google.com/?q=West+Valley+Events+Complex',
-        studs: 'Firm Ground Cleats',
-        clothes: 'Standard Jersey',
-        hydration: '2 Water Bottles'
-      },
-      { 
-        title: 'Holiday Classic Tournament', 
-        type: 'Tournament', 
-        dateStr: '2026-12-11T09:00:00',
-        time: 'TBD', 
-        location: 'TBD', 
-        mapUrl: '',
-        studs: 'FG & AG Cleats',
-        clothes: 'Thermal Layering Gear',
-        hydration: 'Hydration Pack'
-      }
+      { title: 'Kick for the Cure Tournament', type: 'Tournament', dateStr: '2026-11-06T08:00:00', time: 'TBD', location: 'TBD', mapUrl: '', studs: 'FG & AG Cleats', clothes: 'Full Warmup', hydration: 'Extra Water' },
+      { title: 'November 14th Game vs RSL AZ', type: 'Game', dateStr: '2026-11-14T11:00:00', time: '11:00 AM', location: 'Benedict Sports Complex', mapUrl: 'https://maps.google.com/?q=Benedict+Sports+Complex', studs: 'Firm Ground', clothes: 'Standard Jersey', hydration: '2 Bottles' },
+      { title: 'November 21st Game vs Phoenix Rising', type: 'Game', dateStr: '2026-11-21T14:30:00', time: '2:30 PM', location: 'West Valley Events Complex', mapUrl: 'https://maps.google.com/?q=West+Valley+Events+Complex', studs: 'Firm Ground', clothes: 'Standard Jersey', hydration: '2 Bottles' }
     ];
-
-    function exportIcs(item) {
-      playFeedback();
-      const startDate = new Date(item.dateStr);
-      const endDate = new Date(startDate.getTime() + 2 * 60 * 60 * 1000);
-      
-      const formatDate = (d) => d.toISOString().replace(/-|:|\.\d+/g, '');
-      
-      const icsContent = `BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//AZ Surf U13 Boys Dashboard//EN
-BEGIN:VEVENT
-SUMMARY:${item.title}
-DESCRIPTION:AZ Surf U13 Boys Match/Tournament. Location: ${item.location}
-LOCATION:${item.location}
-DTSTART:${formatDate(startDate)}
-DTEND:${formatDate(endDate)}
-END:VEVENT
-END:VCALENDAR`;
-
-      const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
-      const link = document.createElement('a');
-      link.href = window.URL.createObjectURL(blob);
-      link.setAttribute('download', `${item.title.replace(/\s+/g, '_')}.ics`);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
 
     const FORMATIONS = {
       '4-3-3': [
@@ -1038,58 +920,17 @@ END:VCALENDAR`;
         { label: 'LW', top: '20%', left: '20%' },
         { label: 'ST', top: '15%', left: '50%' },
         { label: 'RW', top: '20%', left: '80%' }
-      ],
-      '4-2-3-1': [
-        { label: 'GK', top: '86%', left: '50%' },
-        { label: 'LB', top: '68%', left: '15%' },
-        { label: 'CB', top: '72%', left: '38%' },
-        { label: 'CB', top: '72%', left: '62%' },
-        { label: 'RB', top: '68%', left: '85%' },
-        { label: 'LDM', top: '53%', left: '35%' },
-        { label: 'RDM', top: '53%', left: '65%' },
-        { label: 'LAM', top: '32%', left: '22%' },
-        { label: 'CAM', top: '30%', left: '50%' },
-        { label: 'RAM', top: '32%', left: '78%' },
-        { label: 'ST', top: '12%', left: '50%' }
-      ],
-      '4-4-2': [
-        { label: 'GK', top: '86%', left: '50%' },
-        { label: 'LB', top: '68%', left: '15%' },
-        { label: 'CB', top: '72%', left: '38%' },
-        { label: 'CB', top: '72%', left: '62%' },
-        { label: 'RB', top: '68%', left: '85%' },
-        { label: 'LM', top: '42%', left: '18%' },
-        { label: 'CM', top: '45%', left: '38%' },
-        { label: 'CM', top: '45%', left: '62%' },
-        { label: 'RM', top: '42%', left: '82%' },
-        { label: 'ST', top: '16%', left: '35%' },
-        { label: 'ST', top: '16%', left: '65%' }
-      ],
-      '3-4-3': [
-        { label: 'GK', top: '86%', left: '50%' },
-        { label: 'CB', top: '72%', left: '25%' },
-        { label: 'CB', top: '74%', left: '50%' },
-        { label: 'CB', top: '72%', left: '75%' },
-        { label: 'LM', top: '45%', left: '15%' },
-        { label: 'CM', top: '48%', left: '38%' },
-        { label: 'CM', top: '48%', left: '62%' },
-        { label: 'RM', top: '45%', left: '85%' },
-        { label: 'LW', top: '20%', left: '20%' },
-        { label: 'ST', top: '15%', left: '50%' },
-        { label: 'RW', top: '20%', left: '80%' }
       ]
     };
 
     let pitchAssignments = {};
     let currentFormationKey = '4-3-3';
     let selectedBenchPlayerId = null;
-
     let drawMode = 'select';
     let isDrawing = false;
     let drawingPaths = [];
     let currentPath = null;
 
-    // MOBILE SWIPE GESTURE HANDLERS
     let touchstartX = 0;
     let touchendX = 0;
     const tabsList = ['overview', 'roster', 'tactics', 'checklist', 'games', 'leaderboards', 'schedule'];
@@ -1099,13 +940,8 @@ END:VCALENDAR`;
       if (!mobileSelect) return;
       const currentVal = mobileSelect.value;
       let currentIndex = tabsList.indexOf(currentVal);
-      
-      if (touchendX < touchstartX - 60 && currentIndex < tabsList.length - 1) {
-        switchTab(tabsList[currentIndex + 1]);
-      }
-      if (touchendX > touchstartX + 60 && currentIndex > 0) {
-        switchTab(tabsList[currentIndex - 1]);
-      }
+      if (touchendX < touchstartX - 60 && currentIndex < tabsList.length - 1) switchTab(tabsList[currentIndex + 1]);
+      if (touchendX > touchstartX + 60 && currentIndex > 0) switchTab(tabsList[currentIndex - 1]);
     }
 
     document.addEventListener('touchstart', e => { touchstartX = e.changedTouches[0].screenX; });
@@ -1115,16 +951,15 @@ END:VCALENDAR`;
       lucide.createIcons();
       loadDataFromDatabase();
       initCountdown();
-      initHolidayCountdown();
+      initHolidayAndBirthdayCountdown();
       fetchWeather();
     });
 
     async function fetchWeather() {
       try {
-        const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=33.715&longitude=-112.155&current=temperature_2m,weather_code&temperature_unit=fahrenheit');
+        const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=33.715&longitude=-112.155&current=temperature_2m&temperature_unit=fahrenheit');
         const data = await res.json();
-        const temp = Math.round(data.current.temperature_2m);
-        document.getElementById('weather-widget').innerText = `${temp}°F - Peoria, AZ`;
+        document.getElementById('weather-widget').innerText = `${Math.round(data.current.temperature_2m)}°F - Peoria, AZ`;
       } catch(e) {
         document.getElementById('weather-widget').innerText = "Weather unavailable";
       }
@@ -1141,7 +976,6 @@ END:VCALENDAR`;
         if (upcomingGames.length === 0) {
           document.getElementById('countdown-label').innerText = 'Season Completed';
           document.getElementById('countdown-timer').innerText = 'NO MORE GAMES';
-          document.getElementById('countdown-location').innerText = '';
           return;
         }
 
@@ -1157,36 +991,44 @@ END:VCALENDAR`;
 
         document.getElementById('countdown-timer').innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
       }
-
       updateTimer();
       setInterval(updateTimer, 1000);
     }
 
-    // HOLIDAY COUNTDOWN logic: Hidden until 5 days before Christmas
-    function initHolidayCountdown() {
+    // HOLIDAY & BIRTHDAY COUNTDOWN (Shows 5-10 days before)
+    function initHolidayAndBirthdayCountdown() {
       const now = new Date();
       const year = now.getFullYear();
-      const christmas = new Date(year, 11, 25);
-      if (now > christmas) christmas.setFullYear(year + 1);
-
-      const diffTime = christmas - now;
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
       const banner = document.getElementById('holiday-countdown-banner');
       if (!banner) return;
 
-      // Only show banner if 5 days or fewer away from Christmas
-      if (diffDays <= 5 && diffDays >= 0) {
+      // Check Christmas (Dec 25)
+      const christmas = new Date(year, 11, 25);
+      if (now > christmas) christmas.setFullYear(year + 1);
+      const xmasDiff = Math.ceil((christmas - now) / (1000 * 60 * 60 * 24));
+
+      if (xmasDiff <= 10 && xmasDiff >= 0) {
         banner.classList.remove('hidden');
         banner.classList.add('flex');
-        
-        if (diffDays >= 1 && diffDays <= 3) {
-          banner.innerHTML = `🎄 <strong>Merry Christmas!</strong> Wishing all AZ Surf players and families a wonderful holiday season! 🎁`;
-        } else if (diffDays === 0) {
-          banner.innerHTML = `🎅 <strong>Merry Christmas Day!</strong> Enjoy the holiday with friends and family! 🌟`;
-        } else {
-          banner.innerHTML = `🎁 Countdown to Christmas: <strong>${diffDays} days left</strong> until December 25th!`;
+        banner.innerHTML = xmasDiff === 0 ? `🎅 Merry Christmas Day!` : `🎄 Countdown to Christmas: <strong>${xmasDiff} days left</strong>!`;
+        return;
+      }
+
+      // Check Team Birthdays (Xander Nov. 18, Christian Feb. 10, Xaiden Mar. 10, Jack May 27)
+      let activeBirthday = null;
+      teamBirthdays.forEach(b => {
+        let bDay = new Date(year, b.month, b.day);
+        if (now > bDay) bDay.setFullYear(year + 1);
+        const diffDays = Math.ceil((bDay - now) / (1000 * 60 * 60 * 24));
+        if (diffDays <= 10 && diffDays >= 0) {
+          activeBirthday = { name: b.name, days: diffDays };
         }
+      });
+
+      if (activeBirthday) {
+        banner.classList.remove('hidden');
+        banner.classList.add('flex');
+        banner.innerHTML = activeBirthday.days === 0 ? `🎉 Happy Birthday today to <strong>${activeBirthday.name}</strong>! 🎂` : `🎂 Upcoming Birthday: <strong>${activeBirthday.name}'s birthday</strong> is in ${activeBirthday.days} days! 🎉`;
       } else {
         banner.classList.add('hidden');
         banner.classList.remove('flex');
@@ -1194,148 +1036,70 @@ END:VCALENDAR`;
     }
 
     async function loadDataFromDatabase() {
-      const { data: dbPlayers } = await supabaseClient.from('players').select('*');
-      const { data: dbGames } = await supabaseClient.from('games').select('*');
-      const { data: dbAnnouncements } = await supabaseClient.from('announcements').select('*');
-      const { data: dbMilestones } = await supabaseClient.from('team_milestones').select('*');
-      const { data: dbPlaybook } = await supabaseClient.from('playbook').select('*').order('created_at', { ascending: false });
+      try {
+        const { data: dbPlayers } = await supabaseClient.from('players').select('*');
+        const { data: dbGames } = await supabaseClient.from('games').select('*');
+        const { data: dbAnnouncements } = await supabaseClient.from('announcements').select('*');
+        const { data: dbMilestones } = await supabaseClient.from('team_milestones').select('*');
+        const { data: dbInjuries } = await supabaseClient.from('injuries').select('*');
 
-      if (dbPlayers && dbPlayers.length > 0) {
-        players = dbPlayers.map(p => ({
-          ...p,
-          isCaptain: (p.name === 'CJ' || p.name === 'Jionni')
-        }));
-      }
-      if (dbGames) games = dbGames;
-      if (dbAnnouncements) announcements = dbAnnouncements;
-      if (dbMilestones) milestones = dbMilestones;
-      if (dbPlaybook) {
-        savedPlaybooks = dbPlaybook;
-        if (dbPlaybook.length > 0) {
-          currentFormationKey = dbPlaybook[0].formation_key;
-          pitchAssignments = dbPlaybook[0].assignments || {};
-          const sel = document.getElementById('formation-select');
-          if(sel) sel.value = currentFormationKey;
-        }
-      }
-
+        if (dbPlayers && dbPlayers.length > 0) players = dbPlayers;
+        if (dbGames) games = dbGames;
+        if (dbAnnouncements) announcements = dbAnnouncements;
+        if (dbMilestones) milestones = dbMilestones;
+        if (dbInjuries) injuries = dbInjuries;
+      } catch(e) {}
       renderAll();
     }
 
     function switchTab(tabName) {
       playFeedback();
       ['overview', 'roster', 'tactics', 'checklist', 'games', 'leaderboards', 'schedule'].forEach(tab => {
-        const sec = document.getElementById(`sec-${tab}`);
-        if(sec) sec.classList.add('hidden');
-        
-        const btn = document.getElementById(`tab-${tab}`);
-        if(btn) {
-          btn.classList.remove('text-surf-red', 'bg-surf-border/50');
-          btn.classList.add('text-slate-400');
-        }
-
-        const bbtn = document.getElementById(`bnav-${tab}`);
-        if(bbtn) {
-          bbtn.classList.remove('text-surf-red', 'font-bold');
-          bbtn.classList.add('text-slate-400');
-        }
+        document.getElementById(`sec-${tab}`).classList.add('hidden');
       });
-
-      const targetSec = document.getElementById(`sec-${tabName}`);
-      if (targetSec) targetSec.classList.remove('hidden');
-
-      const activeBtn = document.getElementById(`tab-${tabName}`);
-      if(activeBtn) {
-        activeBtn.classList.add('text-surf-red', 'bg-surf-border/50');
-        activeBtn.classList.remove('text-slate-400');
-      }
-
-      const activeBBtn = document.getElementById(`bnav-${tabName}`);
-      if(activeBBtn) {
-        activeBBtn.classList.add('text-surf-red', 'font-bold');
-        activeBBtn.classList.remove('text-slate-400');
-      }
-
-      const mobileSelect = document.getElementById('mobile-tab-select');
-      if (mobileSelect) mobileSelect.value = tabName;
-
-      const mobileLabel = document.getElementById('mobile-current-tab-label');
-      if (mobileLabel) mobileLabel.innerText = tabName.charAt(0).toUpperCase() + tabName.slice(1);
-
-      if (tabName === 'tactics') {
-        renderTacticsBoard();
-        initTacticsCanvas();
-      }
+      document.getElementById(`sec-${tabName}`).classList.remove('hidden');
+      document.getElementById('mobile-tab-select').value = tabName;
+      document.getElementById('mobile-current-tab-label').innerText = tabName.charAt(0).toUpperCase() + tabName.slice(1);
+      if (tabName === 'tactics') renderTacticsBoard();
     }
 
     function toggleModal(modalId, show) {
       playFeedback();
-      const modal = document.getElementById(modalId);
-      if (show) {
-        modal.classList.remove('hidden');
-        if (modalId === 'admin-modal') {
-          const container = document.getElementById('player-stats-rows-container');
-          if (container && container.children.length === 0) {
-            addPlayerStatRow();
-          }
-        }
-      } else {
-        modal.classList.add('hidden');
-      }
+      document.getElementById(modalId).classList.toggle('hidden', !show);
     }
 
-    function addPlayerStatRow(selectedId = '', stats = { goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 }) {
-      playFeedback();
-      const container = document.getElementById('player-stats-rows-container');
-      if (!container) return;
-      const rowId = 'p_row_' + Date.now() + Math.random().toString(36).substr(2, 5);
-      const sorted = [...players].sort((a,b) => a.number - b.number);
-      const optionsHtml = sorted.map(p => `<option value="${p.id}" ${p.id == selectedId ? 'selected' : ''}>#${p.number} - ${p.name} ${p.isCaptain ? '(C)' : ''}</option>`).join('');
+    async function handleInjurySubmit(e) {
+      e.preventDefault();
+      const player_name = document.getElementById('inj-name').value;
+      const injury_type = document.getElementById('inj-type').value;
+      const status = document.getElementById('inj-status').value;
+      const return_date = document.getElementById('inj-date').value;
 
-      const div = document.createElement('div');
-      div.id = rowId;
-      div.className = 'bg-slate-900/50 p-3.5 rounded-xl border border-surf-border space-y-2.5 relative shadow';
-      div.innerHTML = `
-        <div class="flex justify-between items-center">
-          <label class="block text-xs font-bold text-surf-red uppercase flex items-center space-x-1">
-            <i data-lucide="user" class="w-3.5 h-3.5"></i>
-            <span>Player Performance Entry</span>
-          </label>
-          <button type="button" onclick="document.getElementById('${rowId}').remove()" class="text-xs text-rose-400 hover:text-rose-300 font-semibold flex items-center space-x-1">
-            <i data-lucide="trash-2" class="w-3 h-3"></i>
-            <span>Remove</span>
-          </button>
+      const newInj = { id: Date.now(), player_name, injury_type, status, return_date };
+      injuries.push(newInj);
+      await supabaseClient.from('injuries').insert([newInj]);
+
+      toggleModal('injury-modal', false);
+      document.getElementById('injury-form').reset();
+      renderInjuries();
+    }
+
+    function renderInjuries() {
+      const container = document.getElementById('injury-list-container');
+      if (!container) return;
+      if (injuries.length === 0) {
+        container.innerHTML = `<p class="text-xs text-slate-500 italic">No player injuries logged. All players fit!</p>`;
+        return;
+      }
+      container.innerHTML = injuries.map(i => `
+        <div class="bg-slate-900 border border-surf-border p-3 rounded-lg flex justify-between items-center text-xs">
+          <div>
+            <strong class="text-white">${i.player_name}</strong> - <span class="text-amber-400">${i.injury_type}</span>
+            <span class="block text-[10px] text-slate-400">Return: ${i.return_date}</span>
+          </div>
+          <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300">${i.status}</span>
         </div>
-        <div>
-          <select class="player-select w-full bg-slate-950 border border-surf-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-surf-red font-bold">
-            ${optionsHtml}
-          </select>
-        </div>
-        <div class="grid grid-cols-5 gap-2">
-          <div>
-            <label class="block text-[9px] font-semibold text-slate-400 mb-1 text-center">Goals</label>
-            <input type="number" class="p-goals w-full bg-slate-950 border border-surf-border rounded-lg px-1 py-1.5 text-center text-xs text-white" min="0" value="${stats.goals}" />
-          </div>
-          <div>
-            <label class="block text-[9px] font-semibold text-slate-400 mb-1 text-center">Assists</label>
-            <input type="number" class="p-assists w-full bg-slate-950 border border-surf-border rounded-lg px-1 py-1.5 text-center text-xs text-white" min="0" value="${stats.assists}" />
-          </div>
-          <div>
-            <label class="block text-[9px] font-semibold text-slate-400 mb-1 text-center">Yellow C.</label>
-            <input type="number" class="p-yc w-full bg-slate-950 border border-surf-border rounded-lg px-1 py-1.5 text-center text-xs text-white" min="0" value="${stats.yc}" />
-          </div>
-          <div>
-            <label class="block text-[9px] font-semibold text-slate-400 mb-1 text-center">Red C.</label>
-            <input type="number" class="p-rc w-full bg-slate-950 border border-surf-border rounded-lg px-1 py-1.5 text-center text-xs text-white" min="0" value="${stats.rc}" />
-          </div>
-          <div>
-            <label class="block text-[9px] font-semibold text-slate-400 mb-1 text-center">Saves</label>
-            <input type="number" class="p-saves w-full bg-slate-950 border border-surf-border rounded-lg px-1 py-1.5 text-center text-xs text-white" min="0" value="${stats.saves}" />
-          </div>
-        </div>
-      `;
-      container.appendChild(div);
-      lucide.createIcons();
+      `).join('');
     }
 
     function renderAll() {
@@ -1347,6 +1111,7 @@ END:VCALENDAR`;
       renderTacticsBoard();
       renderAnnouncements();
       renderMilestones();
+      renderInjuries();
       lucide.createIcons();
     }
 
@@ -1357,16 +1122,10 @@ END:VCALENDAR`;
       const content = document.getElementById('ann-content').value;
 
       const { data, error } = await supabaseClient.from('announcements').insert([{ title, content, badge_type }]).select();
-
-      if (error) {
-        alert("Error posting announcement: " + error.message);
-      } else {
-        if (data && data.length > 0) announcements.push(data[0]);
-        toggleModal('announcement-modal', false);
-        document.getElementById('announcement-form').reset();
-        renderAnnouncements();
-        alert("Announcement posted successfully!");
-      }
+      if (!error && data) announcements.push(data[0]);
+      toggleModal('announcement-modal', false);
+      document.getElementById('announcement-form').reset();
+      renderAnnouncements();
     }
 
     async function handleMilestoneSubmit(e) {
@@ -1376,44 +1135,25 @@ END:VCALENDAR`;
       const category = document.getElementById('ms-category').value;
 
       const { data, error } = await supabaseClient.from('team_milestones').insert([{ title, target_value, category, current_value: 0 }]).select();
-
-      if (error) {
-        alert("Error adding milestone: " + error.message);
-      } else {
-        if (data && data.length > 0) milestones.push(data[0]);
-        toggleModal('milestone-modal', false);
-        document.getElementById('milestone-form').reset();
-        renderMilestones();
-        
-        confetti({
-          particleCount: 120,
-          spread: 80,
-          origin: { y: 0.6 }
-        });
-
-        alert("New milestone added successfully!");
-      }
+      if (!error && data) milestones.push(data[0]);
+      toggleModal('milestone-modal', false);
+      document.getElementById('milestone-form').reset();
+      renderMilestones();
     }
 
     function renderAnnouncements() {
       const container = document.getElementById('announcements-container');
       if (!container) return;
       if (announcements.length === 0) {
-        container.innerHTML = `<p class="text-xs text-slate-500 italic">No active announcements. Click above to post one!</p>`;
+        container.innerHTML = `<p class="text-xs text-slate-500 italic">No active announcements.</p>`;
         return;
       }
-
       container.innerHTML = announcements.map(a => `
         <div class="bg-gradient-to-r from-surf-red/20 via-surf-card to-surf-card border border-surf-red/40 rounded-xl p-4 flex items-center justify-between shadow-lg">
-          <div class="flex items-center space-x-3">
-            <div class="p-2.5 bg-surf-red text-white rounded-lg shrink-0">
-              <i data-lucide="${a.badge_type === 'Birthday' ? 'cake' : 'bell'}" class="w-5 h-5"></i>
-            </div>
-            <div>
-              <span class="text-[10px] font-bold text-surf-red uppercase tracking-wide">${a.badge_type} Spotlight</span>
-              <h4 class="font-bold text-white text-base">${a.title}</h4>
-              <p class="text-xs text-slate-300">${a.content}</p>
-            </div>
+          <div>
+            <span class="text-[10px] font-bold text-surf-red uppercase">${a.badge_type}</span>
+            <h4 class="font-bold text-white text-base">${a.title}</h4>
+            <p class="text-xs text-slate-300">${a.content}</p>
           </div>
         </div>
       `).join('');
@@ -1422,720 +1162,118 @@ END:VCALENDAR`;
     function renderMilestones() {
       const grid = document.getElementById('milestones-grid');
       if (!grid) return;
-      if (milestones.length === 0) {
-        grid.innerHTML = `<p class="text-xs text-slate-500 col-span-full">No milestones set.</p>`;
-        return;
-      }
-
-      const totalGoals = players.reduce((sum, p) => sum + (p.goals || 0), 0);
-
-      grid.innerHTML = milestones.map(m => {
-        const current = m.category === 'Goals' ? totalGoals : m.current_value;
-        const pct = Math.min(100, Math.round((current / m.target_value) * 100));
-        return `
-          <div class="bg-slate-900/60 border border-surf-border p-4 rounded-xl space-y-2">
-            <div class="flex justify-between items-center text-xs font-bold">
-              <span class="text-white">${m.title}</span>
-              <span class="text-surf-red">${current} / ${m.target_value} (${pct}%)</span>
-            </div>
-            <div class="w-full bg-slate-950 rounded-full h-2.5 overflow-hidden border border-surf-border">
-              <div class="bg-surf-red h-full transition-all duration-500" style="width: ${pct}%"></div>
-            </div>
+      grid.innerHTML = milestones.map(m => `
+        <div class="bg-slate-900/60 border border-surf-border p-4 rounded-xl space-y-2">
+          <div class="flex justify-between items-center text-xs font-bold text-white">
+            <span>${m.title}</span>
+            <span class="text-surf-red">${m.current_value} / ${m.target_value}</span>
           </div>
-        `;
-      }).join('');
-    }
-
-    function openPlaybookModal() {
-      playFeedback();
-      const list = document.getElementById('playbook-list');
-      if (!savedPlaybooks || savedPlaybooks.length === 0) {
-        list.innerHTML = `<p class="text-xs text-slate-500 py-4 text-center">No saved lineups found in Supabase.</p>`;
-      } else {
-        list.innerHTML = savedPlaybooks.map(pb => `
-          <div onclick="loadSavedLineup(${pb.id})" class="bg-slate-900 border border-surf-border hover:border-surf-red p-3 rounded-lg flex justify-between items-center cursor-pointer transition-all hover:scale-[1.01]">
-            <div>
-              <h4 class="font-bold text-sm text-white">${pb.title}</h4>
-              <span class="text-[10px] text-surf-red font-semibold uppercase">Formation: ${pb.formation_key}</span>
-            </div>
-            <span class="text-[10px] bg-surf-red/10 text-surf-red border border-surf-red/20 px-2 py-1 rounded font-bold">Load onto pitch</span>
+          <div class="w-full bg-slate-950 rounded-full h-2.5 overflow-hidden border border-surf-border">
+            <div class="bg-surf-red h-full" style="width: ${Math.min(100, (m.current_value/m.target_value)*100)}%"></div>
           </div>
-        `).join('');
-      }
-      toggleModal('playbook-modal', true);
-    }
-
-    function loadSavedLineup(id) {
-      playFeedback();
-      const pb = savedPlaybooks.find(x => x.id === id);
-      if (!pb) return;
-      currentFormationKey = pb.formation_key;
-      pitchAssignments = pb.assignments || {};
-
-      const sel = document.getElementById('formation-select');
-      if (sel) sel.value = currentFormationKey;
-
-      renderTacticsBoard();
-      toggleModal('playbook-modal', false);
-    }
-
-    function changeFormation(key) {
-      playFeedback();
-      currentFormationKey = key;
-      renderTacticsBoard();
-    }
-
-    function clearPitch() {
-      playFeedback();
-      pitchAssignments = {};
-      selectedBenchPlayerId = null;
-      renderTacticsBoard();
-    }
-
-    async function saveTacticsToSupabase() {
-      playFeedback();
-      const title = prompt("Enter a name for this lineup setup:", "Matchday Lineup");
-      if (!title) return;
-
-      const { data, error } = await supabaseClient.from('playbook').insert([{
-        title,
-        formation_key: currentFormationKey,
-        assignments: pitchAssignments
-      }]).select();
-
-      if (error) {
-        alert("Error saving tactics: " + error.message);
-      } else {
-        alert("Tactics saved successfully to Supabase playbook!");
-        if (data && data.length > 0) savedPlaybooks.unshift(data[0]);
-      }
-    }
-
-    // TACTICS BOARD & DRAWING LOGIC
-    function setDrawMode(mode) {
-      playFeedback();
-      drawMode = mode;
-      ['select', 'pen', 'arrow'].forEach(m => {
-        const btn = document.getElementById(`tool-${m}`);
-        if(btn) {
-          if (m === mode) {
-            btn.className = 'px-2.5 py-1 rounded text-xs font-bold bg-surf-red text-white transition-all';
-          } else {
-            btn.className = 'px-2.5 py-1 rounded text-xs font-bold text-slate-300 hover:text-white transition-all';
-          }
-        }
-      });
-
-      const canvas = document.getElementById('pitch-drawing-canvas');
-      const slotsContainer = document.getElementById('pitch-slots-container');
-      if (canvas && slotsContainer) {
-        if (mode === 'select') {
-          canvas.style.pointerEvents = 'none';
-          slotsContainer.style.pointerEvents = 'auto';
-        } else {
-          canvas.style.pointerEvents = 'auto';
-          slotsContainer.style.pointerEvents = 'none';
-        }
-      }
-    }
-
-    function clearCanvas() {
-      playFeedback();
-      drawingPaths = [];
-      const canvas = document.getElementById('pitch-drawing-canvas');
-      if (canvas) {
-        const ctx = canvas.getContext('2d');
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-      }
-    }
-
-    function initTacticsCanvas() {
-      const canvas = document.getElementById('pitch-drawing-canvas');
-      if (!canvas) return;
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-      const ctx = canvas.getContext('2d');
-
-      canvas.onmousedown = (e) => {
-        if (drawMode === 'select') return;
-        isDrawing = true;
-        const rect = canvas.getBoundingClientRect();
-        currentPath = { type: drawMode, startX: e.clientX - rect.left, startY: e.clientY - rect.top, endX: e.clientX - rect.left, endY: e.clientY - rect.top, points: [{x: e.clientX - rect.left, y: e.clientY - rect.top}] };
-      };
-
-      canvas.onmousemove = (e) => {
-        if (!isDrawing || drawMode === 'select') return;
-        const rect = canvas.getBoundingClientRect();
-        currentPath.endX = e.clientX - rect.left;
-        currentPath.endY = e.clientY - rect.top;
-        if (drawMode === 'pen') {
-          currentPath.points.push({x: e.clientX - rect.left, y: e.clientY - rect.top});
-        }
-        redrawCanvas();
-      };
-
-      canvas.onmouseup = () => {
-        if (!isDrawing) return;
-        isDrawing = false;
-        if (currentPath) drawingPaths.push(currentPath);
-        currentPath = null;
-      };
-
-      canvas.onmouseleave = () => {
-        if (isDrawing) {
-          isDrawing = false;
-          if (currentPath) drawingPaths.push(currentPath);
-          currentPath = null;
-        }
-      };
-    }
-
-    function redrawCanvas() {
-      const canvas = document.getElementById('pitch-drawing-canvas');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      const allToDraw = [...drawingPaths];
-      if (currentPath) allToDraw.push(currentPath);
-
-      allToDraw.forEach(path => {
-        ctx.strokeStyle = '#FACC15';
-        ctx.fillStyle = '#FACC15';
-        ctx.lineWidth = 3;
-
-        if (path.type === 'pen' && path.points) {
-          ctx.beginPath();
-          ctx.moveTo(path.points[0].x, path.points[0].y);
-          for (let i = 1; i < path.points.length; i++) {
-            ctx.lineTo(path.points[i].x, path.points[i].y);
-          }
-          ctx.stroke();
-        } else if (path.type === 'arrow') {
-          ctx.beginPath();
-          ctx.moveTo(path.startX, path.startY);
-          ctx.lineTo(path.endX, path.endY);
-          ctx.stroke();
-
-          const angle = Math.atan2(path.endY - path.startY, path.endX - path.startX);
-          ctx.beginPath();
-          ctx.moveTo(path.endX, path.endY);
-          ctx.lineTo(path.endX - 10 * Math.cos(angle - Math.PI / 6), path.endY - 10 * Math.sin(angle - Math.PI / 6));
-          ctx.lineTo(path.endX - 10 * Math.cos(angle + Math.PI / 6), path.endY - 10 * Math.sin(angle + Math.PI / 6));
-          ctx.fill();
-        }
-      });
-    }
-
-    function renderTacticsBoard() {
-      const container = document.getElementById('pitch-slots-container');
-      const benchContainer = document.getElementById('bench-container');
-      const indicator = document.getElementById('tap-mode-indicator');
-      if (!container || !benchContainer) return;
-
-      if (indicator) {
-        indicator.innerText = selectedBenchPlayerId ? "Player selected! Tap a pitch slot" : "Tap player to select";
-      }
-
-      container.innerHTML = '';
-      const slots = FORMATIONS[currentFormationKey] || FORMATIONS['4-3-3'];
-
-      slots.forEach((slot, idx) => {
-        const assignedPlayerId = pitchAssignments[idx];
-        const player = players.find(p => p.id === assignedPlayerId);
-
-        const slotDiv = document.createElement('div');
-        slotDiv.className = 'absolute -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center cursor-pointer group pointer-events-auto transition-all duration-300 ease-in-out transform';
-        slotDiv.style.top = slot.top;
-        slotDiv.style.left = slot.left;
-
-        slotDiv.ondragover = (e) => e.preventDefault();
-        slotDiv.ondrop = (e) => handleDropOnSlot(e, idx);
-
-        slotDiv.onclick = () => {
-          playFeedback();
-          if (selectedBenchPlayerId) {
-            Object.keys(pitchAssignments).forEach(key => {
-              if (pitchAssignments[key] === selectedBenchPlayerId) delete pitchAssignments[key];
-            });
-            pitchAssignments[idx] = selectedBenchPlayerId;
-            selectedBenchPlayerId = null;
-            renderTacticsBoard();
-          } else if (assignedPlayerId) {
-            delete pitchAssignments[idx];
-            renderTacticsBoard();
-          }
-        };
-
-        if (player) {
-          slotDiv.innerHTML = `
-            <div class="w-10 h-10 rounded-full bg-surf-red text-white border-2 border-white font-mono font-black flex items-center justify-center text-sm shadow-lg shadow-black/60 group-hover:scale-110 transition-transform">
-              #${player.number}
-            </div>
-            <span class="bg-black/80 text-white font-bold text-[10px] px-2 py-0.5 rounded mt-1 shadow border border-surf-border whitespace-nowrap">
-              ${player.name} ${player.isCaptain ? '(C)' : ''}
-            </span>
-          `;
-        } else {
-          slotDiv.innerHTML = `
-            <div class="w-10 h-10 rounded-full bg-emerald-900/60 border-2 border-dashed border-emerald-400/50 text-emerald-300 font-bold flex items-center justify-center text-xs group-hover:border-white transition-colors">
-              ${slot.label}
-            </div>
-            <span class="text-[9px] font-semibold text-emerald-400/70 mt-1 uppercase tracking-wider">${slot.label}</span>
-          `;
-        }
-
-        container.appendChild(slotDiv);
-      });
-
-      const assignedIds = Object.values(pitchAssignments);
-      const unassigned = players.filter(p => !assignedIds.includes(p.id));
-
-      if (unassigned.length === 0) {
-        benchContainer.innerHTML = `<p class="text-xs text-slate-500 py-4 text-center">All players placed on pitch!</p>`;
-      } else {
-        benchContainer.innerHTML = unassigned.map(p => {
-          const isSelected = selectedBenchPlayerId === p.id;
-          return `
-            <div draggable="true" 
-                 ondragstart="handleDragStart(event, ${p.id})" 
-                 onclick="selectBenchPlayer(${p.id})" 
-                 class="bg-slate-900 border ${isSelected ? 'border-amber-400 bg-amber-500/10' : 'border-surf-border hover:border-surf-red'} p-3 rounded-lg flex justify-between items-center cursor-pointer active:cursor-grabbing transition-all">
-              <div class="flex items-center space-x-3">
-                <span class="w-7 h-7 rounded-full bg-surf-red/20 text-surf-red font-mono font-bold flex items-center justify-center text-xs border border-surf-red/30 shrink-0">
-                  #${p.number}
-                </span>
-                <div>
-                  <p class="text-xs font-bold text-white flex items-center space-x-1">
-                    <span>${p.name}</span>
-                    ${p.isCaptain ? '<span class="text-[9px] bg-amber-500/20 text-amber-400 border border-amber-500/30 px-1 py-0.2 rounded">C</span>' : ''}
-                  </p>
-                  <span class="text-[9px] text-slate-400 uppercase">${p.pos || 'Player'}</span>
-                </div>
-              </div>
-              <span class="text-[10px] text-slate-400 font-semibold">${isSelected ? 'Selected (Tap slot)' : 'Drag/Tap'}</span>
-            </div>
-          `;
-        }).join('');
-      }
-
-      lucide.createIcons();
-    }
-
-    function selectBenchPlayer(playerId) {
-      playFeedback();
-      if (selectedBenchPlayerId === playerId) {
-        selectedBenchPlayerId = null;
-      } else {
-        selectedBenchPlayerId = playerId;
-      }
-      renderTacticsBoard();
-    }
-
-    function handleDragStart(e, playerId) {
-      e.dataTransfer.setData('text/plain', playerId.toString());
-    }
-
-    function handleDropOnSlot(e, slotIdx) {
-      e.preventDefault();
-      const playerId = parseInt(e.dataTransfer.getData('text/plain'));
-      if (playerId) {
-        playFeedback();
-        Object.keys(pitchAssignments).forEach(key => {
-          if (pitchAssignments[key] === playerId) delete pitchAssignments[key];
-        });
-        pitchAssignments[slotIdx] = playerId;
-        selectedBenchPlayerId = null;
-        renderTacticsBoard();
-      }
+        </div>
+      `).join('');
     }
 
     function renderOverview() {
       const wins = games.filter(g => g.result === 'WIN').length;
       const losses = games.filter(g => g.result === 'LOSS').length;
       const draws = games.filter(g => g.result === 'DRAW').length;
-      const totalGames = games.length;
-
       document.getElementById('stat-record').innerText = `${wins} - ${losses} - ${draws}`;
-
-      const totalGoals = players.reduce((sum, p) => sum + (p.goals || 0), 0);
-      const totalAssists = players.reduce((sum, p) => sum + (p.assists || 0), 0);
-      const totalSaves = players.reduce((sum, p) => sum + (p.saves || 0), 0);
-
-      document.getElementById('stat-total-goals').innerText = totalGoals;
-      document.getElementById('stat-total-assists').innerText = totalAssists;
-      document.getElementById('stat-total-saves').innerText = totalSaves;
-
-      const winPct = totalGames > 0 ? Math.round((wins / totalGames) * 100) : 0;
-      const drawPct = totalGames > 0 ? Math.round((draws / totalGames) * 100) : 0;
-      const lossPct = totalGames > 0 ? Math.round((losses / totalGames) * 100) : 0;
-      const gpg = totalGames > 0 ? (totalGoals / totalGames).toFixed(1) : '0.0';
-
-      const goalsConceded = games.reduce((sum, g) => sum + (g.opponentScore || 0), 0);
-      const gaAvg = totalGames > 0 ? (goalsConceded / totalGames).toFixed(1) : '0.0';
-      const goalDiff = totalGoals - goalsConceded;
-
-      document.getElementById('win-rate-pct').innerText = `${winPct}%`;
-      document.getElementById('goals-per-game').innerText = gpg;
-      document.getElementById('bar-wins').style.width = `${winPct}%`;
-      document.getElementById('bar-draws').style.width = `${drawPct}%`;
-      document.getElementById('bar-losses').style.width = `${lossPct}%`;
-
-      document.getElementById('metric-win-pct').innerText = `${winPct}%`;
-      document.getElementById('metric-gd').innerText = (goalDiff >= 0 ? `+${goalDiff}` : `${goalDiff}`);
-      document.getElementById('metric-gaa').innerText = gaAvg;
-      document.getElementById('metric-total-games').innerText = totalGames;
-
-      const formContainer = document.getElementById('form-guide-container');
-      const recent5 = [...games].reverse().slice(0, 5);
-      if (recent5.length === 0) {
-        formContainer.innerHTML = `<span class="text-xs text-slate-500">No games</span>`;
-      } else {
-        formContainer.innerHTML = recent5.map(g => {
-          let bg = 'bg-slate-700 text-slate-200';
-          if (g.result === 'WIN') bg = 'bg-emerald-500 text-white';
-          if (g.result === 'LOSS') bg = 'bg-rose-500 text-white';
-          return `<span class="w-5 h-5 rounded ${bg} text-[10px] font-black flex items-center justify-center">${g.result[0]}</span>`;
-        }).join('');
-      }
+      document.getElementById('stat-total-goals').innerText = players.reduce((s, p) => s + (p.goals || 0), 0);
+      document.getElementById('stat-total-assists').innerText = players.reduce((s, p) => s + (p.assists || 0), 0);
+      document.getElementById('stat-total-saves').innerText = players.reduce((s, p) => s + (p.saves || 0), 0);
     }
 
-    function filterRoster() {
-      renderRoster();
-    }
+    function filterRoster() { renderRoster(); }
 
     function renderRoster() {
       const rosterGrid = document.getElementById('roster-grid');
       const searchVal = document.getElementById('roster-search')?.value.toLowerCase() || '';
-      const posVal = document.getElementById('roster-pos-filter')?.value || 'ALL';
-
-      let filtered = [...players].filter(p => {
-        const matchesName = p.name.toLowerCase().includes(searchVal) || p.number.toString().includes(searchVal);
-        const matchesPos = posVal === 'ALL' || (p.pos || '').toLowerCase().includes(posVal.toLowerCase());
-        return matchesName && matchesPos;
-      });
-
-      filtered.sort((a,b) => a.number - b.number);
-
-      if (filtered.length === 0) {
-        rosterGrid.innerHTML = `<p class="text-xs text-slate-500 col-span-full py-4">No players found matching filter.</p>`;
-        return;
-      }
-
+      const filtered = players.filter(p => p.name.toLowerCase().includes(searchVal) || p.number.toString().includes(searchVal));
       rosterGrid.innerHTML = filtered.map(p => `
-        <div onclick="openPlayerModal(${p.id})" class="bg-surf-card border border-surf-border rounded-xl p-4 hover:border-surf-red/50 cursor-pointer transition-all hover:scale-[1.02] relative">
-          <div class="flex justify-between items-start mb-3">
-            <span class="w-8 h-8 rounded-full bg-surf-red/20 text-surf-red font-mono font-bold flex items-center justify-center text-sm border border-surf-red/30 shrink-0">
-              #${p.number}
-            </span>
-            <div class="flex items-center space-x-1">
-              ${p.isCaptain ? '<span class="bg-amber-500/20 text-amber-400 border border-amber-500/40 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase">Captain</span>' : ''}
-              <span class="text-[10px] font-semibold text-slate-400 bg-slate-900 px-2 py-1 rounded border border-surf-border">
-                ${p.pos || 'Player'}
-              </span>
-            </div>
+        <div class="bg-surf-card border border-surf-border rounded-xl p-4">
+          <div class="flex justify-between items-start mb-2">
+            <span class="w-8 h-8 rounded-full bg-surf-red/20 text-surf-red font-mono font-bold flex items-center justify-center text-sm">#${p.number}</span>
+            <span class="text-[10px] text-slate-400 bg-slate-900 px-2 py-1 rounded">${p.pos || 'Player'}</span>
           </div>
-
-          <h3 class="font-bold text-lg text-white mb-2">${p.name}</h3>
-
-          <div class="grid grid-cols-4 gap-1 bg-slate-900/60 p-2 rounded-lg text-center text-xs">
-            <div>
-              <span class="block text-[9px] text-slate-400">G</span>
-              <span class="font-bold text-surf-red">${p.goals || 0}</span>
-            </div>
-            <div>
-              <span class="block text-[9px] text-slate-400">A</span>
-              <span class="font-bold text-blue-400">${p.assists || 0}</span>
-            </div>
-            <div>
-              <span class="block text-[9px] text-slate-400">YC/RC</span>
-              <span class="font-bold text-slate-300">${p.yc || 0}/${p.rc || 0}</span>
-            </div>
-            <div>
-              <span class="block text-[9px] text-slate-400">SV</span>
-              <span class="font-bold text-purple-400">${p.saves || 0}</span>
-            </div>
-          </div>
+          <h3 class="font-bold text-white mb-2">${p.name}</h3>
+          <div class="text-xs text-slate-400">Goals: <strong class="text-surf-red">${p.goals || 0}</strong> | Assists: <strong class="text-blue-400">${p.assists || 0}</strong></div>
         </div>
       `).join('');
     }
 
-    function openPlayerModal(playerId) {
-      playFeedback();
-      const p = players.find(x => x.id === playerId);
-      if (!p) return;
-
-      document.getElementById('pm-jersey-badge').innerText = `#${p.number}`;
-      document.getElementById('pm-name').innerText = p.name;
-      document.getElementById('pm-pos').innerText = p.pos || 'Player';
-
-      const captTag = document.getElementById('pm-captain-tag');
-      if (p.isCaptain) {
-        captTag.classList.remove('hidden');
-      } else {
-        captTag.classList.add('hidden');
-      }
-
-      document.getElementById('pm-goals').innerText = p.goals || 0;
-      document.getElementById('pm-assists').innerText = p.assists || 0;
-      document.getElementById('pm-cards').innerText = `${p.yc || 0}/${p.rc || 0}`;
-      document.getElementById('pm-saves').innerText = p.saves || 0;
-
-      const teamTotalGoals = players.reduce((sum, item) => sum + (item.goals || 0), 0);
-      const teamTotalAssists = players.reduce((sum, item) => sum + (item.assists || 0), 0);
-
-      const goalPct = teamTotalGoals > 0 ? Math.round(((p.goals || 0) / teamTotalGoals) * 100) : 0;
-      const assistPct = teamTotalAssists > 0 ? Math.round(((p.assists || 0) / teamTotalAssists) * 100) : 0;
-
-      document.getElementById('pm-goal-share').innerText = `${goalPct}%`;
-      document.getElementById('pm-bar-goals').style.width = `${goalPct}%`;
-
-      document.getElementById('pm-assist-share').innerText = `${assistPct}%`;
-      document.getElementById('pm-bar-assists').style.width = `${assistPct}%`;
-
-      document.getElementById('edit-p-id').value = p.id;
-      document.getElementById('edit-p-name').value = p.name;
-      document.getElementById('edit-p-number').value = p.number;
-      document.getElementById('edit-p-pos').value = p.pos || '';
-      document.getElementById('edit-p-goals').value = p.goals || 0;
-      document.getElementById('edit-p-assists').value = p.assists || 0;
-      document.getElementById('edit-p-yc').value = p.yc || 0;
-      document.getElementById('edit-p-rc').value = p.rc || 0;
-      document.getElementById('edit-p-saves').value = p.saves || 0;
-
-      toggleModal('player-modal', true);
-    }
-
-    async function handleEditPlayerSubmit(e) {
-      e.preventDefault();
-      const id = parseInt(document.getElementById('edit-p-id').value);
-      const name = document.getElementById('edit-p-name').value;
-      const number = parseInt(document.getElementById('edit-p-number').value);
-      const pos = document.getElementById('edit-p-pos').value;
-      const goals = parseInt(document.getElementById('edit-p-goals').value) || 0;
-      const assists = parseInt(document.getElementById('edit-p-assists').value) || 0;
-      const yc = parseInt(document.getElementById('edit-p-yc').value) || 0;
-      const rc = parseInt(document.getElementById('edit-p-rc').value) || 0;
-      const saves = parseInt(document.getElementById('edit-p-saves').value) || 0;
-
-      const idx = players.findIndex(p => p.id === id);
-      if (idx !== -1) {
-        const isCaptain = (name === 'CJ' || name === 'Jionni');
-        players[idx] = { id, name, number, pos, isCaptain, goals, assists, yc, rc, saves };
-      }
-
-      await supabaseClient
-        .from('players')
-        .upsert([{ id, name, number, pos, goals, assists, yc, rc, saves }]);
-
-      toggleModal('player-modal', false);
-      renderAll();
-    }
-
     function renderGames() {
-      const body = document.getElementById('games-table-body');
-      if (games.length === 0) {
-        body.innerHTML = `<tr><td colspan="5" class="p-4 text-xs text-center text-slate-500">No matches recorded yet.</td></tr>`;
-        return;
-      }
-
-      body.innerHTML = games.map(g => `
+      document.getElementById('games-table-body').innerHTML = games.length === 0 ? `<tr><td colspan="5" class="p-4 text-xs text-center text-slate-500">No matches recorded yet.</td></tr>` : games.map(g => `
         <tr class="hover:bg-slate-900/40">
           <td class="p-4 text-xs font-mono text-slate-400">${g.date}</td>
           <td class="p-4 font-semibold text-white">${g.opponent}</td>
-          <td class="p-4 text-center">
-            <span class="px-2 py-1 rounded text-xs font-bold ${g.result === 'WIN' ? 'bg-emerald-500/20 text-emerald-400' : (g.result === 'LOSS' ? 'bg-rose-500/20 text-rose-400' : 'bg-slate-500/20 text-slate-300')}">
-              ${g.result}
-            </span>
-          </td>
+          <td class="p-4 text-center"><span class="px-2 py-1 rounded text-xs font-bold ${g.result === 'WIN' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400'}">${g.result}</span></td>
           <td class="p-4 text-center font-mono font-bold">${g.ourScore} - ${g.opponentScore}</td>
-          <td class="p-4 text-right space-x-2">
-            <button onclick="openGameEditModal(${g.id})" class="text-xs text-slate-400 hover:text-surf-red"><i data-lucide="edit-2" class="inline w-3.5 h-3.5"></i></button>
-            <button onclick="deleteGame(${g.id})" class="text-xs text-slate-400 hover:text-rose-400"><i data-lucide="trash-2" class="inline w-3.5 h-3.5"></i></button>
-          </td>
+          <td class="p-4 text-right"></td>
         </tr>
       `).join('');
     }
 
-    function openGameEditModal(gameId) {
-      playFeedback();
-      const g = games.find(x => x.id === gameId);
-      if (!g) return;
-      document.getElementById('edit-g-id').value = g.id;
-      document.getElementById('edit-g-opponent').value = g.opponent;
-      document.getElementById('edit-g-date').value = g.date;
-      document.getElementById('edit-g-ourscore').value = g.ourScore;
-      document.getElementById('edit-g-oppscore').value = g.opponentScore;
-      toggleModal('game-edit-modal', true);
-    }
-
-    async function handleGameEditSubmit(e) {
-      e.preventDefault();
-      const id = parseInt(document.getElementById('edit-g-id').value);
-      const opponent = document.getElementById('edit-g-opponent').value;
-      const date = document.getElementById('edit-g-date').value;
-      const ourScore = parseInt(document.getElementById('edit-g-ourscore').value);
-      const opponentScore = parseInt(document.getElementById('edit-g-oppscore').value);
-
-      let result = "DRAW";
-      if (ourScore > opponentScore) result = "WIN";
-      if (ourScore < opponentScore) result = "LOSS";
-
-      const idx = games.findIndex(g => g.id === id);
-      if (idx !== -1) {
-        games[idx] = { id, opponent, date, ourScore, opponentScore, result };
-      }
-
-      await supabaseClient
-        .from('games')
-        .update({ opponent, date, ourScore, opponentScore, result })
-        .eq('id', id);
-
-      toggleModal('game-edit-modal', false);
-      renderAll();
-    }
-
-    async function deleteGame(gameId) {
-      if(!confirm("Are you sure you want to delete this game log entry?")) return;
-      games = games.filter(g => g.id !== gameId);
-      await supabaseClient.from('games').delete().eq('id', gameId);
-      renderAll();
-    }
-
     function renderLeaderboards() {
-      const goalsList = document.getElementById('leaderboard-goals');
-      const assistsList = document.getElementById('leaderboard-assists');
-      const savesList = document.getElementById('leaderboard-saves');
-
-      const byGoals = [...players].sort((a,b) => (b.goals || 0) - (a.goals || 0)).slice(0, 5);
-      const byAssists = [...players].sort((a,b) => (b.assists || 0) - (a.assists || 0)).slice(0, 5);
-      const bySaves = [...players].filter(p => (p.saves || 0) > 0).sort((a,b) => b.saves - a.saves);
-
-      goalsList.innerHTML = byGoals.map(p => `
-        <li class="flex justify-between items-center text-sm p-2 bg-slate-900/40 rounded">
-          <span class="text-white"><strong class="text-surf-red">#${p.number}</strong> ${p.name} ${p.isCaptain ? '(C)' : ''}</span>
-          <span class="font-black text-surf-red">${p.goals || 0}</span>
-        </li>
+      document.getElementById('leaderboard-goals').innerHTML = [...players].sort((a,b)=>(b.goals||0)-(a.goals||0)).map(p=>`
+        <li class="flex justify-between text-sm p-2 bg-slate-900/40 rounded"><span>#${p.number} ${p.name}</span><strong class="text-surf-red">${p.goals||0}</strong></li>
       `).join('');
-
-      assistsList.innerHTML = byAssists.map(p => `
-        <li class="flex justify-between items-center text-sm p-2 bg-slate-900/40 rounded">
-          <span class="text-white"><strong class="text-blue-400">#${p.number}</strong> ${p.name} ${p.isCaptain ? '(C)' : ''}</span>
-          <span class="font-black text-blue-400">${p.assists || 0}</span>
-        </li>
+      document.getElementById('leaderboard-assists').innerHTML = [...players].sort((a,b)=>(b.assists||0)-(a.assists||0)).map(p=>`
+        <li class="flex justify-between text-sm p-2 bg-slate-900/40 rounded"><span>#${p.number} ${p.name}</span><strong class="text-blue-400">${p.assists||0}</strong></li>
       `).join('');
-
-      savesList.innerHTML = bySaves.length > 0 ? bySaves.map(p => `
-        <li class="flex justify-between items-center text-sm p-2 bg-slate-900/40 rounded">
-          <span class="text-white"><strong class="text-purple-400">#${p.number}</strong> ${p.name} ${p.isCaptain ? '(C)' : ''}</span>
-          <span class="font-black text-purple-400">${p.saves}</span>
-        </li>
-      `) : `<p class="text-xs text-slate-500">No goalie saves logged yet.</p>`;
+      document.getElementById('leaderboard-saves').innerHTML = [...players].filter(p=>(p.saves||0)>0).map(p=>`
+        <li class="flex justify-between text-sm p-2 bg-slate-900/40 rounded"><span>#${p.number} ${p.name}</span><strong class="text-purple-400">${p.saves}</strong></li>
+      `).join('') || `<p class="text-xs text-slate-500">No goalie saves logged yet.</p>`;
     }
 
     function renderSchedule() {
-      const grid = document.getElementById('schedule-cards-grid');
-      grid.innerHTML = schedule.map(item => `
-        <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex flex-col justify-between space-y-4">
-          <div class="flex justify-between items-start">
-            <div>
-              <span class="text-xs font-bold ${item.type === 'Tournament' ? 'text-surf-red' : 'text-slate-400'} uppercase">${item.type || 'Game'}</span>
-              <h3 class="text-base font-bold text-white mt-0.5">${item.title}</h3>
-              <p class="text-xs text-surf-red mt-1 flex items-center"><i data-lucide="clock" class="w-3 h-3 mr-1 inline"></i>${item.time || 'TBD'}</p>
-              <p class="text-xs text-slate-400 flex items-center mt-0.5"><i data-lucide="map-pin" class="w-3 h-3 mr-1 inline"></i>${item.location || 'TBD'}</p>
-            </div>
-            <div class="flex items-center space-x-1.5">
-              <button onclick='exportIcs(${JSON.stringify(item)})' title="Add to Calendar (.ics)" class="bg-slate-900 border border-surf-border hover:border-surf-red text-xs text-amber-400 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0">
-                <i data-lucide="calendar-plus" class="w-3.5 h-3.5"></i>
-              </button>
-              ${item.mapUrl ? `<a href="${item.mapUrl}" target="_blank" class="bg-slate-900 border border-surf-border hover:border-surf-red text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0"><i data-lucide="external-link" class="w-3.5 h-3.5"></i></a>` : ''}
-            </div>
-          </div>
-
-          <div class="pt-3 border-t border-surf-border/60 grid grid-cols-3 gap-1.5 text-[10px]">
-            <div class="bg-slate-900/80 border border-surf-border p-1.5 rounded flex flex-col items-center text-center">
-              <i data-lucide="footprints" class="w-3.5 h-3.5 text-emerald-400 mb-1"></i>
-              <span class="text-slate-400 font-semibold">Studs</span>
-              <span class="text-white font-bold truncate max-w-full">${item.studs}</span>
-            </div>
-            <div class="bg-slate-900/80 border border-surf-border p-1.5 rounded flex flex-col items-center text-center">
-              <i data-lucide="shirt" class="w-3.5 h-3.5 text-blue-400 mb-1"></i>
-              <span class="text-slate-400 font-semibold">Layers</span>
-              <span class="text-white font-bold truncate max-w-full">${item.clothes}</span>
-            </div>
-            <div class="bg-slate-900/80 border border-surf-border p-1.5 rounded flex flex-col items-center text-center">
-              <i data-lucide="droplet" class="w-3.5 h-3.5 text-surf-red mb-1"></i>
-              <span class="text-slate-400 font-semibold">Hydration</span>
-              <span class="text-white font-bold truncate max-w-full">${item.hydration}</span>
-            </div>
-          </div>
+      document.getElementById('schedule-cards-grid').innerHTML = schedule.map(i=>`
+        <div class="bg-surf-card border border-surf-border rounded-xl p-5">
+          <h3 class="font-bold text-white">${i.title}</h3>
+          <p class="text-xs text-slate-400 mt-1">${i.location}</p>
         </div>
       `).join('');
     }
 
+    function renderTacticsBoard() {
+      const container = document.getElementById('pitch-slots-container');
+      if (!container) return;
+      container.innerHTML = FORMATIONS['4-3-3'].map(slot => `
+        <div class="absolute -translate-x-1/2 -translate-y-1/2 flex flex-col items-center" style="top: ${slot.top}; left: ${slot.left};">
+          <div class="w-10 h-10 rounded-full bg-surf-red text-white font-bold flex items-center justify-center text-xs shadow">${slot.label}</div>
+        </div>
+      `).join('');
+    }
+
+    function changeFormation() {}
+    function clearPitch() { pitchAssignments = {}; renderTacticsBoard(); }
+    function setDrawMode() {}
+    function clearCanvas() {}
+
     async function handleFormSubmit(e) {
       e.preventDefault();
       playFeedback();
-
-      const btn = document.getElementById('save-btn');
-      btn.innerText = "Saving...";
-      btn.disabled = true;
-
       const opponent = document.getElementById('form-opponent').value;
       const date = document.getElementById('form-date').value;
       const ourScore = parseInt(document.getElementById('form-our-score').value);
       const opponentScore = parseInt(document.getElementById('form-their-score').value);
-      
-      let result = "DRAW";
-      if (ourScore > opponentScore) result = "WIN";
-      if (ourScore < opponentScore) result = "LOSS";
+      const result = ourScore > opponentScore ? 'WIN' : (ourScore < opponentScore ? 'LOSS' : 'DRAW');
 
-      // 1. SAVE GAME LOG
-      const newGame = { id: Date.now(), date, opponent, ourScore, opponentScore, result };
-      games.push(newGame);
+      games.push({ id: Date.now(), date, opponent, ourScore, opponentScore, result });
       await supabaseClient.from('games').insert([{ date, opponent, ourScore, opponentScore, result }]);
 
-      // 2. PROCESS ALL DYNAMIC PLAYER STAT ROWS
-      const rows = document.querySelectorAll('#player-stats-rows-container > div');
-      for (const row of rows) {
-        const pId = parseInt(row.querySelector('.player-select').value);
-        const pGoals = parseInt(row.querySelector('.p-goals').value) || 0;
-        const pAssists = parseInt(row.querySelector('.p-assists').value) || 0;
-        const pYc = parseInt(row.querySelector('.p-yc').value) || 0;
-        const pRc = parseInt(row.querySelector('.p-rc').value) || 0;
-        const pSaves = parseInt(row.querySelector('.p-saves').value) || 0;
-
-        if (!isNaN(pId)) {
-          const pIdx = players.findIndex(p => p.id === pId);
-          if (pIdx !== -1) {
-            players[pIdx].goals = (players[pIdx].goals || 0) + pGoals;
-            players[pIdx].assists = (players[pIdx].assists || 0) + pAssists;
-            players[pIdx].yc = (players[pIdx].yc || 0) + pYc;
-            players[pIdx].rc = (players[pIdx].rc || 0) + pRc;
-            players[pIdx].saves = (players[pIdx].saves || 0) + pSaves;
-
-            await supabaseClient.from('players').upsert([{ 
-              id: players[pIdx].id, 
-              name: players[pIdx].name, 
-              number: players[pIdx].number, 
-              pos: players[pIdx].pos, 
-              goals: players[pIdx].goals, 
-              assists: players[pIdx].assists, 
-              yc: players[pIdx].yc, 
-              rc: players[pIdx].rc, 
-              saves: players[pIdx].saves 
-            }]);
-          }
-        }
-      }
-
+      toggleModal('admin-modal', false);
       renderAll();
 
-      btn.innerText = "Save Match Stats";
-      btn.disabled = false;
-      toggleModal('admin-modal', false);
-      document.getElementById('stats-form').reset();
-      document.getElementById('player-stats-rows-container').innerHTML = '';
+      // TRIGGER CONFETTI ANIMATION ON WIN
+      if (result === 'WIN') {
+        confetti({
+          particleCount: 150,
+          spread: 90,
+          origin: { y: 0.6 }
+        });
+      }
     }
   </script>
 </body>
