@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-slate-950">
+<html lang="en" class="bg-slate-950 min-h-screen">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -32,7 +32,7 @@
     }
   </script>
 </head>
-<body class="h-full text-slate-100 font-sans flex flex-col bg-slate-950 pb-28 md:pb-0">
+<body class="min-h-screen text-slate-100 font-sans flex flex-col bg-slate-950 pb-32 md:pb-12">
 
   <!-- TOP HEADER -->
   <header class="bg-surf-dark border-b border-surf-border sticky top-0 z-40">
@@ -376,7 +376,7 @@
         </div>
       </div>
 
-      <div id="games-cards-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      <div id="games-cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
     </section>
 
     <!-- PLAYER RECOVERY & INJURY STATUS TAB -->
@@ -2067,13 +2067,13 @@ END:VCALENDAR`;
       renderAll();
     }
 
-    // RESPONSIVE CARD-BASED GAME LOG FOR IPHONE & DESKTOP
+    // POLISHED GAME LOG CARDS
     function renderGames() {
       const container = document.getElementById('games-cards-container');
       if (!container) return;
 
       if (games.length === 0) {
-        container.innerHTML = `<p class="text-xs text-slate-500 col-span-full py-6 text-center">No matches recorded yet.</p>`;
+        container.innerHTML = `<p class="text-xs text-slate-500 col-span-full py-8 text-center bg-surf-card border border-surf-border rounded-xl">No matches recorded yet.</p>`;
         return;
       }
 
@@ -2083,25 +2083,25 @@ END:VCALENDAR`;
         if (g.result === 'LOSS') resultColor = 'bg-rose-500/20 text-rose-400 border-rose-500/30';
 
         return `
-          <div class="bg-surf-card border border-surf-border rounded-xl p-4 flex flex-col justify-between space-y-3 shadow-md">
+          <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex flex-col justify-between space-y-4 shadow-xl hover:border-surf-red/40 transition-all">
             <div class="flex justify-between items-start">
               <div>
-                <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wide">${g.date}</span>
-                <h3 class="font-bold text-white text-base mt-0.5">${g.opponent}</h3>
+                <span class="text-xs font-mono text-slate-400 uppercase tracking-wide">${g.date}</span>
+                <h3 class="font-bold text-white text-lg mt-0.5">${g.opponent}</h3>
               </div>
-              <span class="text-xs font-extrabold px-2.5 py-1 rounded-lg border ${resultColor}">${g.result}</span>
+              <span class="text-xs font-black px-3 py-1.5 rounded-lg border ${resultColor}">${g.result}</span>
             </div>
 
-            <div class="bg-slate-900/60 border border-surf-border/80 rounded-lg p-3 flex items-center justify-between">
-              <span class="text-xs font-semibold text-slate-300">Final Score</span>
-              <span class="text-base font-mono font-black text-white tracking-wider">AZ Surf <span class="text-surf-red">${g.ourScore}</span> - <span class="text-slate-400">${g.opponentScore}</span> ${g.opponent}</span>
+            <div class="bg-slate-900/80 border border-surf-border rounded-xl p-4 flex items-center justify-between">
+              <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Final Score</span>
+              <span class="text-base sm:text-lg font-mono font-black text-white tracking-wide">AZ Surf <span class="text-surf-red">${g.ourScore}</span> - <span class="text-slate-400">${g.opponentScore}</span> ${g.opponent}</span>
             </div>
 
-            <div class="pt-2 border-t border-surf-border/60 flex justify-end space-x-2">
-              <button onclick="openGameEditModal(${g.id})" class="px-2.5 py-1 bg-slate-900 border border-surf-border hover:border-surf-red text-xs text-slate-300 hover:text-white rounded-lg font-semibold flex items-center space-x-1">
+            <div class="pt-3 border-t border-surf-border flex justify-end space-x-2">
+              <button onclick="openGameEditModal(${g.id})" class="px-3 py-1.5 bg-slate-900 border border-surf-border hover:border-surf-red text-xs text-slate-300 hover:text-white rounded-lg font-semibold flex items-center space-x-1.5 transition-all">
                 <i data-lucide="edit-2" class="w-3.5 h-3.5 text-surf-red"></i><span>Edit</span>
               </button>
-              <button onclick="deleteGame(${g.id})" class="px-2.5 py-1 bg-slate-900 border border-surf-border hover:border-rose-500 text-xs text-slate-300 hover:text-rose-400 rounded-lg font-semibold flex items-center space-x-1">
+              <button onclick="deleteGame(${g.id})" class="px-3 py-1.5 bg-slate-900 border border-surf-border hover:border-rose-500 text-xs text-slate-300 hover:text-rose-400 rounded-lg font-semibold flex items-center space-x-1.5 transition-all">
                 <i data-lucide="trash-2" class="w-3.5 h-3.5"></i><span>Delete</span>
               </button>
             </div>
@@ -2204,7 +2204,7 @@ END:VCALENDAR`;
     function renderSchedule() {
       const grid = document.getElementById('schedule-cards-grid');
       grid.innerHTML = schedule.map(item => `
-        <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex flex-col justify-between space-y-4">
+        <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex flex-col justify-between space-y-4 shadow-lg">
           <div class="flex justify-between items-start">
             <div>
               <span class="text-xs font-bold ${item.type === 'Tournament' ? 'text-surf-red' : 'text-slate-400'} uppercase">${item.type || 'Game'}</span>
