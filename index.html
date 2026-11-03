@@ -32,7 +32,7 @@
     }
   </script>
 </head>
-<body class="h-full text-slate-100 font-sans flex flex-col bg-slate-950 pb-20 md:pb-0">
+<body class="h-full text-slate-100 font-sans flex flex-col bg-slate-950 pb-28 md:pb-0">
 
   <!-- TOP HEADER -->
   <header class="bg-surf-dark border-b border-surf-border sticky top-0 z-40">
@@ -54,7 +54,6 @@
         <button onclick="switchTab('overview')" id="tab-overview" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium transition-all text-surf-red bg-surf-border/50" data-i18n="nav_overview">Overview</button>
         <button onclick="switchTab('roster')" id="tab-roster" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_roster">Roster</button>
         <button onclick="switchTab('tactics')" id="tab-tactics" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_tactics">Tactics Board</button>
-        <button onclick="switchTab('checklist')" id="tab-checklist" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_checklist">Gear</button>
         <button onclick="switchTab('games')" id="tab-games" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_games">Game Log</button>
         <button onclick="switchTab('injury')" id="tab-injury" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all">Recovery</button>
         <button onclick="switchTab('leaderboards')" id="tab-leaderboards" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_leaders">Leaders</button>
@@ -77,14 +76,13 @@
     <!-- Mobile Top Dropdown & Guidance Bar -->
     <div class="flex md:hidden border-t border-surf-border px-4 py-2 bg-slate-900/95 items-center justify-between">
       <div class="flex items-center space-x-1.5">
-        <span class="text-[10px] font-bold text-amber-400 animate-pulse">👈 Swipe Screen or Select:</span>
+        <span class="text-[10px] font-bold text-amber-400 animate-pulse">👈 Select Tab:</span>
         <span class="text-xs font-bold text-white uppercase tracking-wider" id="mobile-current-tab-label">Overview</span>
       </div>
       <select onchange="switchTab(this.value)" id="mobile-tab-select" class="bg-slate-950 border border-surf-red/60 rounded-lg px-2.5 py-1 text-xs text-white font-bold focus:outline-none focus:border-surf-red shadow">
         <option value="overview">Overview</option>
         <option value="roster">Roster</option>
         <option value="tactics">Tactics Board</option>
-        <option value="checklist">Gear Checklist</option>
         <option value="games">Game Log</option>
         <option value="injury">Recovery</option>
         <option value="leaderboards">Leaderboards</option>
@@ -93,8 +91,8 @@
     </div>
   </header>
 
-  <!-- MOBILE BOTTOM NAVIGATION BAR FOR FIRST-TIME USERS -->
-  <div class="fixed bottom-0 inset-x-0 bg-surf-dark border-t border-surf-border z-40 md:hidden flex justify-around py-2 px-1 shadow-2xl">
+  <!-- MOBILE BOTTOM NAVIGATION BAR -->
+  <div class="fixed bottom-0 inset-x-0 bg-surf-dark border-t border-surf-border z-40 md:hidden flex justify-around py-2.5 px-1 shadow-2xl">
     <button onclick="switchTab('overview')" id="bnav-overview" class="bnav-btn flex flex-col items-center text-[10px] text-surf-red font-bold">
       <i data-lucide="home" class="w-5 h-5 mb-0.5"></i><span>Overview</span>
     </button>
@@ -110,13 +108,16 @@
     <button onclick="switchTab('injury')" id="bnav-injury" class="bnav-btn flex flex-col items-center text-[10px] text-slate-400">
       <i data-lucide="activity" class="w-5 h-5 mb-0.5"></i><span>Recovery</span>
     </button>
+    <button onclick="switchTab('leaderboards')" id="bnav-leaderboards" class="bnav-btn flex flex-col items-center text-[10px] text-slate-400">
+      <i data-lucide="award" class="w-5 h-5 mb-0.5"></i><span>Leaders</span>
+    </button>
     <button onclick="switchTab('schedule')" id="bnav-schedule" class="bnav-btn flex flex-col items-center text-[10px] text-slate-400">
       <i data-lucide="calendar" class="w-5 h-5 mb-0.5"></i><span>Schedule</span>
     </button>
   </div>
 
   <!-- MAIN CONTENT CONTAINER -->
-  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
 
     <!-- OVERVIEW TAB -->
     <section id="sec-overview" class="space-y-6">
@@ -173,44 +174,44 @@
       <!-- Announcements & Birthdays Banner List -->
       <div id="announcements-container" class="space-y-3"></div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-        <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex items-center space-x-4 hover:border-surf-red/40 transition-all shadow-sm">
-          <div class="p-3 bg-surf-red/10 text-surf-red rounded-lg shrink-0">
-            <i data-lucide="trophy" class="w-6 h-6"></i>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-surf-card border border-surf-border rounded-xl p-4 sm:p-5 flex items-center space-x-3 sm:space-x-4 hover:border-surf-red/40 transition-all shadow-sm">
+          <div class="p-2.5 sm:p-3 bg-surf-red/10 text-surf-red rounded-lg shrink-0">
+            <i data-lucide="trophy" class="w-5 h-5 sm:w-6 sm:h-6"></i>
           </div>
           <div>
-            <p class="text-xs font-medium text-slate-400 uppercase tracking-wide" data-i18n="stat_record">Season Record</p>
-            <h3 id="stat-record" class="text-2xl font-black text-white">0 - 0 - 0</h3>
+            <p class="text-[10px] sm:text-xs font-medium text-slate-400 uppercase tracking-wide" data-i18n="stat_record">Season Record</p>
+            <h3 id="stat-record" class="text-xl sm:text-2xl font-black text-white">0 - 0 - 0</h3>
           </div>
         </div>
 
-        <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex items-center space-x-4 hover:border-emerald-500/40 transition-all shadow-sm">
-          <div class="p-3 bg-emerald-500/10 text-emerald-400 rounded-lg shrink-0">
-            <i data-lucide="target" class="w-6 h-6"></i>
+        <div class="bg-surf-card border border-surf-border rounded-xl p-4 sm:p-5 flex items-center space-x-3 sm:space-x-4 hover:border-emerald-500/40 transition-all shadow-sm">
+          <div class="p-2.5 sm:p-3 bg-emerald-500/10 text-emerald-400 rounded-lg shrink-0">
+            <i data-lucide="target" class="w-5 h-5 sm:w-6 sm:h-6"></i>
           </div>
           <div>
-            <p class="text-xs font-medium text-slate-400 uppercase tracking-wide" data-i18n="stat_goals">Goals Scored</p>
-            <h3 id="stat-total-goals" class="text-2xl font-black text-white">0</h3>
+            <p class="text-[10px] sm:text-xs font-medium text-slate-400 uppercase tracking-wide" data-i18n="stat_goals">Goals Scored</p>
+            <h3 id="stat-total-goals" class="text-xl sm:text-2xl font-black text-white">0</h3>
           </div>
         </div>
 
-        <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex items-center space-x-4 hover:border-blue-500/40 transition-all shadow-sm">
-          <div class="p-3 bg-blue-500/10 text-blue-400 rounded-lg shrink-0">
-            <i data-lucide="footprints" class="w-6 h-6"></i>
+        <div class="bg-surf-card border border-surf-border rounded-xl p-4 sm:p-5 flex items-center space-x-3 sm:space-x-4 hover:border-blue-500/40 transition-all shadow-sm">
+          <div class="p-2.5 sm:p-3 bg-blue-500/10 text-blue-400 rounded-lg shrink-0">
+            <i data-lucide="footprints" class="w-5 h-5 sm:w-6 sm:h-6"></i>
           </div>
           <div>
-            <p class="text-xs font-medium text-slate-400 uppercase tracking-wide" data-i18n="stat_assists">Total Assists</p>
-            <h3 id="stat-total-assists" class="text-2xl font-black text-white">0</h3>
+            <p class="text-[10px] sm:text-xs font-medium text-slate-400 uppercase tracking-wide" data-i18n="stat_assists">Total Assists</p>
+            <h3 id="stat-total-assists" class="text-xl sm:text-2xl font-black text-white">0</h3>
           </div>
         </div>
 
-        <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex items-center space-x-4 hover:border-purple-500/40 transition-all shadow-sm">
-          <div class="p-3 bg-purple-500/10 text-purple-400 rounded-lg shrink-0">
-            <i data-lucide="shield" class="w-6 h-6"></i>
+        <div class="bg-surf-card border border-surf-border rounded-xl p-4 sm:p-5 flex items-center space-x-3 sm:space-x-4 hover:border-purple-500/40 transition-all shadow-sm">
+          <div class="p-2.5 sm:p-3 bg-purple-500/10 text-purple-400 rounded-lg shrink-0">
+            <i data-lucide="shield" class="w-5 h-5 sm:w-6 sm:h-6"></i>
           </div>
           <div>
-            <p class="text-xs font-medium text-slate-400 uppercase tracking-wide" data-i18n="stat_saves">Total Saves</p>
-            <h3 id="stat-total-saves" class="text-2xl font-black text-white">0</h3>
+            <p class="text-[10px] sm:text-xs font-medium text-slate-400 uppercase tracking-wide" data-i18n="stat_saves">Total Saves</p>
+            <h3 id="stat-total-saves" class="text-xl sm:text-2xl font-black text-white">0</h3>
           </div>
         </div>
       </div>
@@ -227,7 +228,7 @@
             <span data-i18n="btn_add_ms">Add Milestone</span>
           </button>
         </div>
-        <div id="milestones-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+        <div id="milestones-grid" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
       </div>
 
       <div class="bg-surf-card border border-surf-border rounded-xl p-6">
@@ -335,16 +336,16 @@
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div class="lg:col-span-2 bg-emerald-950/60 border-2 border-emerald-600/40 rounded-2xl p-4 relative min-h-[520px] flex flex-col justify-between overflow-hidden shadow-2xl">
+        <div class="lg:col-span-2 bg-emerald-950/60 border-2 border-emerald-600/40 rounded-2xl p-4 relative min-h-[460px] sm:min-h-[520px] flex flex-col justify-between overflow-hidden shadow-2xl">
           <div class="absolute inset-x-0 top-1/2 h-0.5 bg-emerald-500/30"></div>
           <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-28 border-2 border-emerald-500/30 rounded-full"></div>
           <div class="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-20 border-b-2 border-x-2 border-emerald-500/30 rounded-b-xl"></div>
           <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-48 h-20 border-t-2 border-x-2 border-emerald-500/30 rounded-t-xl"></div>
 
           <!-- Drawing Canvas Overlay -->
-          <canvas id="pitch-drawing-canvas" class="absolute inset-0 z-20 w-full h-full cursor-crosshair"></canvas>
+          <canvas id="pitch-drawing-canvas" class="absolute inset-0 z-20 w-full h-full cursor-crosshair touch-none"></canvas>
 
-          <div id="pitch-slots-container" class="relative w-full h-[500px] z-30 pointer-events-none"></div>
+          <div id="pitch-slots-container" class="relative w-full h-[440px] sm:h-[500px] z-30 pointer-events-none"></div>
         </div>
 
         <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex flex-col">
@@ -366,55 +367,6 @@
       </div>
     </section>
 
-    <!-- GEAR CHECKLIST TAB -->
-    <section id="sec-checklist" class="hidden space-y-6">
-      <div class="max-w-2xl mx-auto bg-surf-card border border-surf-border rounded-xl p-6 shadow-xl">
-        <div class="flex items-center space-x-3 mb-4">
-          <div class="p-3 bg-surf-red/10 text-surf-red rounded-xl">
-            <i data-lucide="check-square" class="w-6 h-6"></i>
-          </div>
-          <div>
-            <h2 class="text-xl font-bold text-white" data-i18n="chk_title">Matchday Equipment Checklist</h2>
-            <p class="text-xs text-slate-400" data-i18n="chk_subtitle">Tick off mandatory gear before heading out to the pitch.</p>
-          </div>
-        </div>
-
-        <div class="space-y-3">
-          <label class="flex items-center justify-between p-3.5 bg-slate-900/60 border border-surf-border rounded-lg cursor-pointer hover:border-surf-red/40 transition-all">
-            <div class="flex items-center space-x-3">
-              <input type="checkbox" class="w-4 h-4 rounded bg-slate-950 border-surf-border text-surf-red focus:ring-surf-red" />
-              <span class="text-sm font-semibold text-amber-400">Home Yellow Kit</span>
-            </div>
-            <span class="text-[10px] text-slate-400 bg-slate-950 px-2 py-1 rounded">Primary Jersey</span>
-          </label>
-
-          <label class="flex items-center justify-between p-3.5 bg-slate-900/60 border border-surf-border rounded-lg cursor-pointer hover:border-surf-red/40 transition-all">
-            <div class="flex items-center space-x-3">
-              <input type="checkbox" class="w-4 h-4 rounded bg-slate-950 border-surf-border text-surf-red focus:ring-surf-red" />
-              <span class="text-sm font-semibold text-slate-200">Away Black Kit</span>
-            </div>
-            <span class="text-[10px] text-slate-400 bg-slate-950 px-2 py-1 rounded">Alternate Jersey</span>
-          </label>
-
-          <label class="flex items-center justify-between p-3.5 bg-slate-900/60 border border-surf-border rounded-lg cursor-pointer hover:border-surf-red/40 transition-all">
-            <div class="flex items-center space-x-3">
-              <input type="checkbox" class="w-4 h-4 rounded bg-slate-950 border-surf-border text-surf-red focus:ring-surf-red" />
-              <span class="text-sm font-semibold text-surf-red">Shin Guards</span>
-            </div>
-            <span class="text-[10px] text-slate-400 bg-slate-950 px-2 py-1 rounded">Required</span>
-          </label>
-
-          <label class="flex items-center justify-between p-3.5 bg-slate-900/60 border border-surf-border rounded-lg cursor-pointer hover:border-surf-red/40 transition-all">
-            <div class="flex items-center space-x-3">
-              <input type="checkbox" class="w-4 h-4 rounded bg-slate-950 border-surf-border text-surf-red focus:ring-surf-red" />
-              <span class="text-sm font-semibold text-blue-400">Hydration (Water Bottle / Electrolytes)</span>
-            </div>
-            <span class="text-[10px] text-slate-400 bg-slate-950 px-2 py-1 rounded">Min 32 oz</span>
-          </label>
-        </div>
-      </div>
-    </section>
-
     <!-- GAME LOG TAB -->
     <section id="sec-games" class="hidden space-y-6">
       <div class="flex justify-between items-center">
@@ -424,22 +376,7 @@
         </div>
       </div>
 
-      <div class="bg-surf-card border border-surf-border rounded-xl overflow-hidden">
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-sm text-slate-300">
-            <thead class="bg-slate-900 text-slate-400 uppercase text-xs font-semibold">
-              <tr>
-                <th class="p-4" data-i18n="tbl_date">Date</th>
-                <th class="p-4" data-i18n="tbl_opp">Opponent</th>
-                <th class="p-4 text-center" data-i18n="tbl_res">Result</th>
-                <th class="p-4 text-center" data-i18n="tbl_score">Score</th>
-                <th class="p-4 text-right" data-i18n="tbl_act">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="games-table-body" class="divide-y divide-surf-border"></tbody>
-          </table>
-        </div>
-      </div>
+      <div id="games-cards-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
     </section>
 
     <!-- PLAYER RECOVERY & INJURY STATUS TAB -->
@@ -470,28 +407,28 @@
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div class="bg-surf-card border border-surf-border rounded-xl p-5">
-          <h3 class="font-bold text-base text-surf-red mb-3 flex items-center justify-between">
+        <div class="bg-surf-card border border-surf-border rounded-xl p-5 shadow-lg">
+          <h3 class="font-bold text-base text-surf-red mb-4 flex items-center justify-between border-b border-surf-border pb-2">
             <span data-i18n="lead_goals">Goals Scored</span>
             <i data-lucide="target" class="w-4 h-4"></i>
           </h3>
-          <ul id="leaderboard-goals" class="space-y-2"></ul>
+          <ul id="leaderboard-goals" class="space-y-2.5"></ul>
         </div>
 
-        <div class="bg-surf-card border border-surf-border rounded-xl p-5">
-          <h3 class="font-bold text-base text-blue-400 mb-3 flex items-center justify-between">
+        <div class="bg-surf-card border border-surf-border rounded-xl p-5 shadow-lg">
+          <h3 class="font-bold text-base text-blue-400 mb-4 flex items-center justify-between border-b border-surf-border pb-2">
             <span data-i18n="lead_assists">Assists</span>
             <i data-lucide="footprints" class="w-4 h-4"></i>
           </h3>
-          <ul id="leaderboard-assists" class="space-y-2"></ul>
+          <ul id="leaderboard-assists" class="space-y-2.5"></ul>
         </div>
 
-        <div class="bg-surf-card border border-surf-border rounded-xl p-5">
-          <h3 class="font-bold text-base text-purple-400 mb-3 flex items-center justify-between">
+        <div class="bg-surf-card border border-surf-border rounded-xl p-5 shadow-lg">
+          <h3 class="font-bold text-base text-purple-400 mb-4 flex items-center justify-between border-b border-surf-border pb-2">
             <span data-i18n="lead_saves">Goalie Saves</span>
             <i data-lucide="shield" class="w-4 h-4"></i>
           </h3>
-          <ul id="leaderboard-saves" class="space-y-2"></ul>
+          <ul id="leaderboard-saves" class="space-y-2.5"></ul>
         </div>
       </div>
     </section>
@@ -877,16 +814,16 @@
     let savedPlaybooks = [];
     let injuries = [];
 
-    // SQUAD BIRTHDAYS LIST (CJ Added: March 21 -> month: 2, day: 21)
+    // SQUAD BIRTHDAYS LIST
     const playerBirthdays = [
-      { name: 'Christian', month: 1, day: 10 }, // Feb 10
-      { name: 'Xaiden', month: 2, day: 10 },    // Mar 10
-      { name: 'CJ', month: 2, day: 21 },        // Mar 21
-      { name: 'Jack', month: 4, day: 27 },      // May 27
-      { name: 'Noah', month: 6, day: 5 },       // July 5
-      { name: 'Jionni', month: 6, day: 31 },    // Jul 31
-      { name: 'Max', month: 9, day: 8 },        // Oct 8
-      { name: 'Xander', month: 10, day: 18 }    // Nov 18
+      { name: 'Christian', month: 1, day: 10 },
+      { name: 'Xaiden', month: 2, day: 10 },
+      { name: 'CJ', month: 2, day: 21 },
+      { name: 'Jack', month: 4, day: 27 },
+      { name: 'Noah', month: 6, day: 5 },
+      { name: 'Jionni', month: 6, day: 31 },
+      { name: 'Max', month: 9, day: 8 },
+      { name: 'Xander', month: 10, day: 18 }
     ];
 
     // MULTILINGUAL DICTIONARY (EN / ES)
@@ -897,7 +834,6 @@
         nav_overview: "Overview",
         nav_roster: "Roster",
         nav_tactics: "Tactics Board",
-        nav_checklist: "Gear",
         nav_games: "Game Log",
         nav_leaders: "Leaders",
         nav_schedule: "Schedule",
@@ -927,15 +863,8 @@
         bench_title: "Available Roster",
         bench_subtitle: "Drag or Tap to place on pitch",
         btn_past_lineups: "See Past Submitted Lineups",
-        chk_title: "Matchday Equipment Checklist",
-        chk_subtitle: "Tick off mandatory gear before heading out to the pitch.",
         games_title: "Match History & Box Scores",
         games_subtitle: "Season game logs, results, and game management",
-        tbl_date: "Date",
-        tbl_opp: "Opponent",
-        tbl_res: "Result",
-        tbl_score: "Score",
-        tbl_act: "Actions",
         leader_title: "Player Stat Leaderboards",
         leader_subtitle: "Top rankings across key stats",
         lead_goals: "Goals Scored",
@@ -949,7 +878,6 @@
         nav_overview: "Resumen",
         nav_roster: "Plantilla",
         nav_tactics: "Pizarra Táctica",
-        nav_checklist: "Equipo",
         nav_games: "Partidos",
         nav_leaders: "Líderes",
         nav_schedule: "Calendario",
@@ -979,15 +907,8 @@
         bench_title: "Jugadores Disponibles",
         bench_subtitle: "Arrastra o toca para colocar en la cancha",
         btn_past_lineups: "Ver Alineaciones Anteriores",
-        chk_title: "Lista de Verificación de Equipo",
-        chk_subtitle: "Marca el equipo obligatorio antes de salir a la cancha.",
         games_title: "Historial de Partidos y Marcadores",
         games_subtitle: "Registros de temporada, resultados y gestión",
-        tbl_date: "Fecha",
-        tbl_opp: "Rival",
-        tbl_res: "Resultado",
-        tbl_score: "Marcador",
-        tbl_act: "Acciones",
         leader_title: "Tablas de Líderes Estadísticos",
         leader_subtitle: "Mejores clasificaciones en estadísticas clave",
         lead_goals: "Goles Anotados",
@@ -1199,28 +1120,6 @@ END:VCALENDAR`;
     let drawingPaths = [];
     let currentPath = null;
 
-    // MOBILE SWIPE GESTURE HANDLERS
-    let touchstartX = 0;
-    let touchendX = 0;
-    const tabsList = ['overview', 'roster', 'tactics', 'checklist', 'games', 'injury', 'leaderboards', 'schedule'];
-
-    function handleGesture() {
-      const mobileSelect = document.getElementById('mobile-tab-select');
-      if (!mobileSelect) return;
-      const currentVal = mobileSelect.value;
-      let currentIndex = tabsList.indexOf(currentVal);
-      
-      if (touchendX < touchstartX - 60 && currentIndex < tabsList.length - 1) {
-        switchTab(tabsList[currentIndex + 1]);
-      }
-      if (touchendX > touchstartX + 60 && currentIndex > 0) {
-        switchTab(tabsList[currentIndex - 1]);
-      }
-    }
-
-    document.addEventListener('touchstart', e => { touchstartX = e.changedTouches[0].screenX; });
-    document.addEventListener('touchend', e => { touchendX = e.changedTouches[0].screenX; handleGesture(); });
-
     document.addEventListener('DOMContentLoaded', () => {
       lucide.createIcons();
       loadDataFromDatabase();
@@ -1273,7 +1172,6 @@ END:VCALENDAR`;
       setInterval(updateTimer, 1000);
     }
 
-    // HOLIDAY COUNTDOWN logic: Hidden until 5 days before Christmas
     function initHolidayCountdown() {
       const now = new Date();
       const year = now.getFullYear();
@@ -1303,7 +1201,6 @@ END:VCALENDAR`;
       }
     }
 
-    // SQUAD BIRTHDAY COUNTDOWN BANNER LOGIC (5-10 days before)
     function initBirthdayCountdowns() {
       const now = new Date();
       const currentYear = now.getFullYear();
@@ -1380,7 +1277,7 @@ END:VCALENDAR`;
 
     function switchTab(tabName) {
       playFeedback();
-      ['overview', 'roster', 'tactics', 'checklist', 'games', 'injury', 'leaderboards', 'schedule'].forEach(tab => {
+      ['overview', 'roster', 'tactics', 'games', 'injury', 'leaderboards', 'schedule'].forEach(tab => {
         const sec = document.getElementById(`sec-${tab}`);
         if(sec) sec.classList.add('hidden');
         
@@ -1634,13 +1531,24 @@ END:VCALENDAR`;
       grid.innerHTML = milestones.map(m => {
         const current = m.category === 'Goals' ? totalGoals : m.current_value;
         const pct = Math.min(100, Math.round((current / m.target_value) * 100));
-        return `
-          <div class="bg-slate-900/60 border border-surf-border p-4 rounded-xl space-y-2">
-            <div class="flex justify-between items-center text-xs font-bold">
-              <span class="text-white">${m.title}</span>
-              <span class="text-surf-red">${current} / ${m.target_value} (${pct}%)</span>
+        
+        if (pct === 0) {
+          // Compact smaller view when no progress yet
+          return `
+            <div class="bg-slate-900/40 border border-surf-border px-3 py-2.5 rounded-lg flex justify-between items-center text-xs">
+              <span class="text-white font-semibold truncate pr-2">🏆 ${m.title}</span>
+              <span class="text-slate-400 shrink-0 font-mono">0 / ${m.target_value}</span>
             </div>
-            <div class="w-full bg-slate-950 rounded-full h-2.5 overflow-hidden border border-surf-border">
+          `;
+        }
+
+        return `
+          <div class="bg-slate-900/60 border border-surf-border p-3.5 rounded-xl space-y-1.5 shadow-sm">
+            <div class="flex justify-between items-center text-xs font-bold">
+              <span class="text-white">🏆 ${m.title}</span>
+              <span class="text-surf-red font-mono">${current} / ${m.target_value} (${pct}%)</span>
+            </div>
+            <div class="w-full bg-slate-950 rounded-full h-2 overflow-hidden border border-surf-border">
               <div class="bg-surf-red h-full transition-all duration-500" style="width: ${pct}%"></div>
             </div>
           </div>
@@ -1696,8 +1604,13 @@ END:VCALENDAR`;
 
     async function saveTacticsToSupabase() {
       playFeedback();
-      const title = prompt("Enter a name for this lineup setup:", "Matchday Lineup");
-      if (!title) return;
+      
+      let title = "";
+      while (!title || title.trim() === "") {
+        title = prompt("Enter a name for this lineup setup (Required):", "Matchday Lineup");
+        if (title === null) return; // User cancelled
+      }
+      title = title.trim();
 
       const { data, error } = await supabaseClient.from('playbook').insert([{
         title,
@@ -1713,7 +1626,7 @@ END:VCALENDAR`;
       }
     }
 
-    // TACTICS BOARD & DRAWING LOGIC
+    // TACTICS BOARD & TOUCH DRAWING LOGIC FOR IPHONE & DESKTOP
     function setDrawMode(mode) {
       playFeedback();
       drawMode = mode;
@@ -1758,37 +1671,57 @@ END:VCALENDAR`;
       canvas.height = canvas.offsetHeight;
       const ctx = canvas.getContext('2d');
 
-      canvas.onmousedown = (e) => {
+      const startDrawing = (clientX, clientY) => {
         if (drawMode === 'select') return;
         isDrawing = true;
         const rect = canvas.getBoundingClientRect();
-        currentPath = { type: drawMode, startX: e.clientX - rect.left, startY: e.clientY - rect.top, endX: e.clientX - rect.left, endY: e.clientY - rect.top, points: [{x: e.clientX - rect.left, y: e.clientY - rect.top}] };
+        const x = clientX - rect.left;
+        const y = clientY - rect.top;
+        currentPath = { type: drawMode, startX: x, startY: y, endX: x, endY: y, points: [{x, y}] };
       };
 
-      canvas.onmousemove = (e) => {
+      const moveDrawing = (clientX, clientY) => {
         if (!isDrawing || drawMode === 'select') return;
         const rect = canvas.getBoundingClientRect();
-        currentPath.endX = e.clientX - rect.left;
-        currentPath.endY = e.clientY - rect.top;
+        const x = clientX - rect.left;
+        const y = clientY - rect.top;
+        currentPath.endX = x;
+        currentPath.endY = y;
         if (drawMode === 'pen') {
-          currentPath.points.push({x: e.clientX - rect.left, y: e.clientY - rect.top});
+          currentPath.points.push({x, y});
         }
         redrawCanvas();
       };
 
-      canvas.onmouseup = () => {
+      const endDrawing = () => {
         if (!isDrawing) return;
         isDrawing = false;
         if (currentPath) drawingPaths.push(currentPath);
         currentPath = null;
       };
 
-      canvas.onmouseleave = () => {
-        if (isDrawing) {
-          isDrawing = false;
-          if (currentPath) drawingPaths.push(currentPath);
-          currentPath = null;
+      // Mouse Events
+      canvas.onmousedown = (e) => startDrawing(e.clientX, e.clientY);
+      canvas.onmousemove = (e) => moveDrawing(e.clientX, e.clientY);
+      canvas.onmouseup = endDrawing;
+      canvas.onmouseleave = endDrawing;
+
+      // Touch Events for iPhone / Mobile
+      canvas.ontouchstart = (e) => {
+        if (e.touches.length === 1) {
+          startDrawing(e.touches[0].clientX, e.touches[0].clientY);
+          e.preventDefault();
         }
+      };
+      canvas.ontouchmove = (e) => {
+        if (e.touches.length === 1) {
+          moveDrawing(e.touches[0].clientX, e.touches[0].clientY);
+          e.preventDefault();
+        }
+      };
+      canvas.ontouchend = (e) => {
+        endDrawing();
+        e.preventDefault();
       };
     }
 
@@ -1836,7 +1769,7 @@ END:VCALENDAR`;
       if (!container || !benchContainer) return;
 
       if (indicator) {
-        indicator.innerText = selectedBenchPlayerId ? "Player selected! Tap a pitch slot" : "Tap player to select";
+        indicator.innerText = selectedBenchPlayerId ? "Player selected! Tap pitch slot" : "Tap player to select";
       }
 
       container.innerHTML = '';
@@ -1871,19 +1804,19 @@ END:VCALENDAR`;
 
         if (player) {
           slotDiv.innerHTML = `
-            <div class="w-10 h-10 rounded-full bg-surf-red text-white border-2 border-white font-mono font-black flex items-center justify-center text-sm shadow-lg shadow-black/60 group-hover:scale-110 transition-transform">
+            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-surf-red text-white border-2 border-white font-mono font-black flex items-center justify-center text-xs sm:text-sm shadow-lg shadow-black/60 group-hover:scale-110 transition-transform">
               #${player.number}
             </div>
-            <span class="bg-black/80 text-white font-bold text-[10px] px-2 py-0.5 rounded mt-1 shadow border border-surf-border whitespace-nowrap">
+            <span class="bg-black/80 text-white font-bold text-[9px] sm:text-[10px] px-1.5 py-0.5 rounded mt-0.5 sm:mt-1 shadow border border-surf-border whitespace-nowrap">
               ${player.name} ${player.isCaptain ? '(C)' : ''}
             </span>
           `;
         } else {
           slotDiv.innerHTML = `
-            <div class="w-10 h-10 rounded-full bg-emerald-900/60 border-2 border-dashed border-emerald-400/50 text-emerald-300 font-bold flex items-center justify-center text-xs group-hover:border-white transition-colors">
+            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-emerald-900/60 border-2 border-dashed border-emerald-400/50 text-emerald-300 font-bold flex items-center justify-center text-[11px] sm:text-xs group-hover:border-white transition-colors">
               ${slot.label}
             </div>
-            <span class="text-[9px] font-semibold text-emerald-400/70 mt-1 uppercase tracking-wider">${slot.label}</span>
+            <span class="text-[8px] sm:text-[9px] font-semibold text-emerald-400/70 mt-0.5 sm:mt-1 uppercase tracking-wider">${slot.label}</span>
           `;
         }
 
@@ -1902,9 +1835,9 @@ END:VCALENDAR`;
             <div draggable="true" 
                  ondragstart="handleDragStart(event, ${p.id})" 
                  onclick="selectBenchPlayer(${p.id})" 
-                 class="bg-slate-900 border ${isSelected ? 'border-amber-400 bg-amber-500/10' : 'border-surf-border hover:border-surf-red'} p-3 rounded-lg flex justify-between items-center cursor-pointer active:cursor-grabbing transition-all">
-              <div class="flex items-center space-x-3">
-                <span class="w-7 h-7 rounded-full bg-surf-red/20 text-surf-red font-mono font-bold flex items-center justify-center text-xs border border-surf-red/30 shrink-0">
+                 class="bg-slate-900 border ${isSelected ? 'border-amber-400 bg-amber-500/10' : 'border-surf-border hover:border-surf-red'} p-2.5 sm:p-3 rounded-lg flex justify-between items-center cursor-pointer active:cursor-grabbing transition-all">
+              <div class="flex items-center space-x-2.5 sm:space-x-3">
+                <span class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-surf-red/20 text-surf-red font-mono font-bold flex items-center justify-center text-[11px] sm:text-xs border border-surf-red/30 shrink-0">
                   #${p.number}
                 </span>
                 <div>
@@ -1915,7 +1848,7 @@ END:VCALENDAR`;
                   <span class="text-[9px] text-slate-400 uppercase">${p.pos || 'Player'}</span>
                 </div>
               </div>
-              <span class="text-[10px] text-slate-400 font-semibold">${isSelected ? 'Selected (Tap slot)' : 'Drag/Tap'}</span>
+              <span class="text-[9px] sm:text-[10px] text-slate-400 font-semibold">${isSelected ? 'Selected (Tap slot)' : 'Tap/Drag'}</span>
             </div>
           `;
         }).join('');
@@ -2134,29 +2067,47 @@ END:VCALENDAR`;
       renderAll();
     }
 
+    // RESPONSIVE CARD-BASED GAME LOG FOR IPHONE & DESKTOP
     function renderGames() {
-      const body = document.getElementById('games-table-body');
+      const container = document.getElementById('games-cards-container');
+      if (!container) return;
+
       if (games.length === 0) {
-        body.innerHTML = `<tr><td colspan="5" class="p-4 text-xs text-center text-slate-500">No matches recorded yet.</td></tr>`;
+        container.innerHTML = `<p class="text-xs text-slate-500 col-span-full py-6 text-center">No matches recorded yet.</p>`;
         return;
       }
 
-      body.innerHTML = games.map(g => `
-        <tr class="hover:bg-slate-900/40">
-          <td class="p-4 text-xs font-mono text-slate-400">${g.date}</td>
-          <td class="p-4 font-semibold text-white">${g.opponent}</td>
-          <td class="p-4 text-center">
-            <span class="px-2 py-1 rounded text-xs font-bold ${g.result === 'WIN' ? 'bg-emerald-500/20 text-emerald-400' : (g.result === 'LOSS' ? 'bg-rose-500/20 text-rose-400' : 'bg-slate-500/20 text-slate-300')}">
-              ${g.result}
-            </span>
-          </td>
-          <td class="p-4 text-center font-mono font-bold">${g.ourScore} - ${g.opponentScore}</td>
-          <td class="p-4 text-right space-x-2">
-            <button onclick="openGameEditModal(${g.id})" class="text-xs text-slate-400 hover:text-surf-red"><i data-lucide="edit-2" class="inline w-3.5 h-3.5"></i></button>
-            <button onclick="deleteGame(${g.id})" class="text-xs text-slate-400 hover:text-rose-400"><i data-lucide="trash-2" class="inline w-3.5 h-3.5"></i></button>
-          </td>
-        </tr>
-      `).join('');
+      container.innerHTML = games.map(g => {
+        let resultColor = 'bg-slate-500/20 text-slate-300 border-slate-500/30';
+        if (g.result === 'WIN') resultColor = 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30';
+        if (g.result === 'LOSS') resultColor = 'bg-rose-500/20 text-rose-400 border-rose-500/30';
+
+        return `
+          <div class="bg-surf-card border border-surf-border rounded-xl p-4 flex flex-col justify-between space-y-3 shadow-md">
+            <div class="flex justify-between items-start">
+              <div>
+                <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wide">${g.date}</span>
+                <h3 class="font-bold text-white text-base mt-0.5">${g.opponent}</h3>
+              </div>
+              <span class="text-xs font-extrabold px-2.5 py-1 rounded-lg border ${resultColor}">${g.result}</span>
+            </div>
+
+            <div class="bg-slate-900/60 border border-surf-border/80 rounded-lg p-3 flex items-center justify-between">
+              <span class="text-xs font-semibold text-slate-300">Final Score</span>
+              <span class="text-base font-mono font-black text-white tracking-wider">AZ Surf <span class="text-surf-red">${g.ourScore}</span> - <span class="text-slate-400">${g.opponentScore}</span> ${g.opponent}</span>
+            </div>
+
+            <div class="pt-2 border-t border-surf-border/60 flex justify-end space-x-2">
+              <button onclick="openGameEditModal(${g.id})" class="px-2.5 py-1 bg-slate-900 border border-surf-border hover:border-surf-red text-xs text-slate-300 hover:text-white rounded-lg font-semibold flex items-center space-x-1">
+                <i data-lucide="edit-2" class="w-3.5 h-3.5 text-surf-red"></i><span>Edit</span>
+              </button>
+              <button onclick="deleteGame(${g.id})" class="px-2.5 py-1 bg-slate-900 border border-surf-border hover:border-rose-500 text-xs text-slate-300 hover:text-rose-400 rounded-lg font-semibold flex items-center space-x-1">
+                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i><span>Delete</span>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
     }
 
     function openGameEditModal(gameId) {
@@ -2207,6 +2158,7 @@ END:VCALENDAR`;
       renderAll();
     }
 
+    // FUN & EASY PODIUM LEADERBOARDS
     function renderLeaderboards() {
       const goalsList = document.getElementById('leaderboard-goals');
       const assistsList = document.getElementById('leaderboard-assists');
@@ -2216,26 +2168,37 @@ END:VCALENDAR`;
       const byAssists = [...players].sort((a,b) => (b.assists || 0) - (a.assists || 0)).slice(0, 5);
       const bySaves = [...players].filter(p => (p.saves || 0) > 0).sort((a,b) => b.saves - a.saves);
 
-      goalsList.innerHTML = byGoals.map(p => `
-        <li class="flex justify-between items-center text-sm p-2 bg-slate-900/40 rounded">
-          <span class="text-white"><strong class="text-surf-red">#${p.number}</strong> ${p.name} ${p.isCaptain ? '(C)' : ''}</span>
-          <span class="font-black text-surf-red">${p.goals || 0}</span>
+      const medals = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
+
+      goalsList.innerHTML = byGoals.map((p, idx) => `
+        <li class="flex justify-between items-center text-xs sm:text-sm p-3 bg-slate-900/60 border border-surf-border rounded-xl">
+          <div class="flex items-center space-x-2.5">
+            <span class="text-base">${medals[idx] || ''}</span>
+            <span class="text-white font-bold"><strong class="text-surf-red font-mono">#${p.number}</strong> ${p.name} ${p.isCaptain ? '(C)' : ''}</span>
+          </div>
+          <span class="font-black text-surf-red text-base font-mono">${p.goals || 0}</span>
         </li>
       `).join('');
 
-      assistsList.innerHTML = byAssists.map(p => `
-        <li class="flex justify-between items-center text-sm p-2 bg-slate-900/40 rounded">
-          <span class="text-white"><strong class="text-blue-400">#${p.number}</strong> ${p.name} ${p.isCaptain ? '(C)' : ''}</span>
-          <span class="font-black text-blue-400">${p.assists || 0}</span>
+      assistsList.innerHTML = byAssists.map((p, idx) => `
+        <li class="flex justify-between items-center text-xs sm:text-sm p-3 bg-slate-900/60 border border-surf-border rounded-xl">
+          <div class="flex items-center space-x-2.5">
+            <span class="text-base">${medals[idx] || ''}</span>
+            <span class="text-white font-bold"><strong class="text-blue-400 font-mono">#${p.number}</strong> ${p.name} ${p.isCaptain ? '(C)' : ''}</span>
+          </div>
+          <span class="font-black text-blue-400 text-base font-mono">${p.assists || 0}</span>
         </li>
       `).join('');
 
-      savesList.innerHTML = bySaves.length > 0 ? bySaves.map(p => `
-        <li class="flex justify-between items-center text-sm p-2 bg-slate-900/40 rounded">
-          <span class="text-white"><strong class="text-purple-400">#${p.number}</strong> ${p.name} ${p.isCaptain ? '(C)' : ''}</span>
-          <span class="font-black text-purple-400">${p.saves}</span>
+      savesList.innerHTML = bySaves.length > 0 ? bySaves.map((p, idx) => `
+        <li class="flex justify-between items-center text-xs sm:text-sm p-3 bg-slate-900/60 border border-surf-border rounded-xl">
+          <div class="flex items-center space-x-2.5">
+            <span class="text-base">${medals[idx] || ''}</span>
+            <span class="text-white font-bold"><strong class="text-purple-400 font-mono">#${p.number}</strong> ${p.name} ${p.isCaptain ? '(C)' : ''}</span>
+          </div>
+          <span class="font-black text-purple-400 text-base font-mono">${p.saves}</span>
         </li>
-      `) : `<p class="text-xs text-slate-500">No goalie saves logged yet.</p>`;
+      `).join('') : `<p class="text-xs text-slate-500 py-6 text-center">No goalie saves logged yet.</p>`;
     }
 
     function renderSchedule() {
