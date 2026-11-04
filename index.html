@@ -474,6 +474,10 @@
           <label class="block text-xs font-semibold text-slate-300 mb-1">Message</label>
           <textarea id="ann-content" required rows="2" placeholder="Wishing you a great day!" class="w-full bg-slate-900 border border-surf-border rounded px-3 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red"></textarea>
         </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Expiration Date (Auto-Hide)</label>
+          <input type="date" id="ann-expires" required class="w-full bg-slate-900 border border-surf-border rounded px-3 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red" />
+        </div>
 
         <div class="pt-3 flex justify-end space-x-2">
           <button type="button" onclick="toggleModal('announcement-modal', false)" class="px-3 py-1.5 text-xs text-slate-400 hover:text-white border border-surf-border rounded">Cancel</button>
@@ -1409,8 +1413,12 @@ END:VCALENDAR`;
       const badge_type = document.getElementById('ann-type').value;
       const title = document.getElementById('ann-title').value;
       const content = document.getElementById('ann-content').value;
+      const expires_at = document.getElementById('ann-expires').value;
 
-      const { data, error } = await supabaseClient.from('announcements').insert([{ title, content, badge_type }]).select();
+      const { data, error } = await supabaseClient
+        .from('announcements')
+        .insert([{ title, content, badge_type, expires_at }])
+        .select();
 
       if (error) {
         alert("Error posting announcement: " + error.message);
@@ -1497,12 +1505,21 @@ END:VCALENDAR`;
     function renderAnnouncements() {
       const container = document.getElementById('announcements-container');
       if (!container) return;
-      if (announcements.length === 0) {
+
+      const todayStr = new Date().toISOString().split('T')[0];
+
+      // Automatically filter out expired announcements
+      const activeAnnouncements = announcements.filter(a => {
+        if (!a.expires_at) return true;
+        return a.expires_at >= todayStr;
+      });
+
+      if (activeAnnouncements.length === 0) {
         container.innerHTML = `<p class="text-xs text-slate-500 italic">No active announcements. Click above to post one!</p>`;
         return;
       }
 
-      container.innerHTML = announcements.map(a => `
+      container.innerHTML = activeAnnouncements.map(a => `
         <div class="bg-gradient-to-r from-surf-red/20 via-surf-card to-surf-card border border-surf-red/40 rounded-xl p-4 flex items-center justify-between shadow-lg">
           <div class="flex items-center space-x-3">
             <div class="p-2.5 bg-surf-red text-white rounded-lg shrink-0">
@@ -1514,8 +1531,11 @@ END:VCALENDAR`;
               <p class="text-xs text-slate-300">${a.content}</p>
             </div>
           </div>
+          <span class="text-[10px] text-slate-400 font-mono">Expires: ${a.expires_at || 'Never'}</span>
         </div>
       `).join('');
+      
+      lucide.createIcons();
     }
 
     function renderMilestones() {
@@ -1533,7 +1553,6 @@ END:VCALENDAR`;
         const pct = Math.min(100, Math.round((current / m.target_value) * 100));
         
         if (pct === 0) {
-          // Compact smaller view when no progress yet
           return `
             <div class="bg-slate-900/40 border border-surf-border px-3 py-2.5 rounded-lg flex justify-between items-center text-xs">
               <span class="text-white font-semibold truncate pr-2">🏆 ${m.title}</span>
@@ -1608,7 +1627,7 @@ END:VCALENDAR`;
       let title = "";
       while (!title || title.trim() === "") {
         title = prompt("Enter a name for this lineup setup (Required):", "Matchday Lineup");
-        if (title === null) return; // User cancelled
+        if (title === null) return;
       }
       title = title.trim();
 
@@ -1626,7 +1645,6 @@ END:VCALENDAR`;
       }
     }
 
-    // TACTICS BOARD & TOUCH DRAWING LOGIC FOR IPHONE & DESKTOP
     function setDrawMode(mode) {
       playFeedback();
       drawMode = mode;
@@ -1700,13 +1718,11 @@ END:VCALENDAR`;
         currentPath = null;
       };
 
-      // Mouse Events
       canvas.onmousedown = (e) => startDrawing(e.clientX, e.clientY);
       canvas.onmousemove = (e) => moveDrawing(e.clientX, e.clientY);
       canvas.onmouseup = endDrawing;
       canvas.onmouseleave = endDrawing;
 
-      // Touch Events for iPhone / Mobile
       canvas.ontouchstart = (e) => {
         if (e.touches.length === 1) {
           startDrawing(e.touches[0].clientX, e.touches[0].clientY);
@@ -2067,7 +2083,6 @@ END:VCALENDAR`;
       renderAll();
     }
 
-    // WEBKIT & SAFARI OPTIMIZED GAME LOG CARDS
     function renderGames() {
       const container = document.getElementById('games-cards-container');
       if (!container) return;
@@ -2182,7 +2197,6 @@ END:VCALENDAR`;
       renderAll();
     }
 
-    // FUN & EASY PODIUM LEADERBOARDS
     function renderLeaderboards() {
       const goalsList = document.getElementById('leaderboard-goals');
       const assistsList = document.getElementById('leaderboard-assists');
@@ -2285,12 +2299,10 @@ END:VCALENDAR`;
       }
       if (ourScore < opponentScore) result = "LOSS";
 
-      // 1. SAVE GAME LOG
       const newGame = { id: Date.now(), date, opponent, ourScore, opponentScore, result };
       games.push(newGame);
       await supabaseClient.from('games').insert([{ date, opponent, ourScore, opponentScore, result }]);
 
-      // 2. PROCESS ALL DYNAMIC PLAYER STAT ROWS
       const rows = document.querySelectorAll('#player-stats-rows-container > div');
       for (const row of rows) {
         const pId = parseInt(row.querySelector('.player-select').value);
