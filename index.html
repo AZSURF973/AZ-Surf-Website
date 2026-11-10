@@ -122,10 +122,10 @@
     <!-- OVERVIEW TAB -->
     <section id="sec-overview" class="space-y-6">
 
-      <!-- HOLIDAY & BIRTHDAY COUNTDOWN BANNERS -->
-      <div id="holiday-countdown-banner" class="hidden bg-gradient-to-r from-emerald-600/30 via-surf-card to-surf-red/20 border border-emerald-500/40 rounded-xl p-4 items-center justify-between shadow-lg text-xs sm:text-sm text-white font-medium">
+      <!-- HOLIDAY & BIRTHDAY COUNTDOWN BANNERS (RESPONSIVE IPHONE-FRIENDLY LAYOUT) -->
+      <div id="holiday-countdown-banner" class="hidden bg-gradient-to-r from-emerald-600/30 via-surf-card to-surf-red/20 border border-emerald-500/40 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 shadow-lg text-xs sm:text-sm text-white font-medium">
       </div>
-      <div id="birthday-countdown-banner" class="hidden bg-gradient-to-r from-purple-600/30 via-surf-card to-blue-500/20 border border-purple-500/40 rounded-xl p-4 items-center justify-between shadow-lg text-xs sm:text-sm text-white font-medium">
+      <div id="birthday-countdown-banner" class="hidden bg-gradient-to-r from-purple-600/30 via-surf-card to-blue-500/20 border border-purple-500/40 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 shadow-lg text-xs sm:text-sm text-white font-medium">
       </div>
 
       <!-- MATCH COUNTDOWN & WEATHER WIDGET ROW -->
@@ -962,8 +962,19 @@
       });
     }
 
-    // SCHEDULE WITH .ICS CALENDAR EXPORT
+    // SCHEDULE WITH .ICS CALENDAR EXPORT (UPDATED WITH FRIDAY SCRIMMAGE)
     const schedule = [
+      { 
+        title: 'Scrimmage vs TBD', 
+        type: 'Scrimmage', 
+        dateStr: '2026-11-13T18:00:00',
+        time: '6:00 PM', 
+        location: 'Deem Hills Park', 
+        mapUrl: 'https://maps.google.com/?q=Deem+Hills+Park',
+        studs: 'Firm Ground Cleats',
+        clothes: 'Yellow Kit',
+        hydration: '2 Water Bottles'
+      },
       { 
         title: 'Kick for the Cure: Game 1 vs Brazas FC 13-14 Boys Gold', 
         type: 'Tournament', 
@@ -1255,7 +1266,8 @@ END:VCALENDAR`;
           isCaptain: (p.name === 'CJ' || p.name === 'Jionni')
         }));
       }
-      if (dbGames) games = dbGames;
+      // Clear out past games automatically or keep empty as requested
+      games = dbGames ? dbGames.filter(g => new Date(g.date) >= new Date()) : [];
       if (dbAnnouncements) announcements = dbAnnouncements;
       if (dbMilestones) milestones = dbMilestones;
       if (dbInjuries) injuries = dbInjuries;
@@ -1508,7 +1520,6 @@ END:VCALENDAR`;
 
       const todayStr = new Date().toISOString().split('T')[0];
 
-      // Automatically filter out expired announcements
       const activeAnnouncements = announcements.filter(a => {
         if (!a.expires_at) return true;
         return a.expires_at >= todayStr;
