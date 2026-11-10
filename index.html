@@ -122,10 +122,10 @@
     <!-- OVERVIEW TAB -->
     <section id="sec-overview" class="space-y-6">
 
-      <!-- HOLIDAY & BIRTHDAY COUNTDOWN BANNERS (RESPONSIVE IPHONE-FRIENDLY LAYOUT) -->
-      <div id="holiday-countdown-banner" class="hidden bg-gradient-to-r from-emerald-600/30 via-surf-card to-surf-red/20 border border-emerald-500/40 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 shadow-lg text-xs sm:text-sm text-white font-medium">
+      <!-- HOLIDAY & BIRTHDAY COUNTDOWN BANNERS (IPHONE RESPONSIVE FIX) -->
+      <div id="holiday-countdown-banner" class="hidden bg-gradient-to-r from-emerald-600/30 via-surf-card to-surf-red/20 border border-emerald-500/40 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-lg text-xs sm:text-sm text-white font-medium">
       </div>
-      <div id="birthday-countdown-banner" class="hidden bg-gradient-to-r from-purple-600/30 via-surf-card to-blue-500/20 border border-purple-500/40 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 shadow-lg text-xs sm:text-sm text-white font-medium">
+      <div id="birthday-countdown-banner" class="hidden bg-gradient-to-r from-purple-600/30 via-surf-card to-blue-500/20 border border-purple-500/40 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-lg text-xs sm:text-sm text-white font-medium">
       </div>
 
       <!-- MATCH COUNTDOWN & WEATHER WIDGET ROW -->
@@ -976,39 +976,6 @@
         hydration: '2 Water Bottles'
       },
       { 
-        title: 'Kick for the Cure: Game 1 vs Brazas FC 13-14 Boys Gold', 
-        type: 'Tournament', 
-        dateStr: '2026-11-07T12:15:00',
-        time: '12:15 PM - 1:30 PM', 
-        location: 'Scottsdale Sports Complex (Field 9)', 
-        mapUrl: 'https://maps.google.com/?q=Scottsdale+Sports+Complex',
-        studs: 'Firm Ground Cleats',
-        clothes: 'Away Black Kit',
-        hydration: 'Extra Hydration Pack'
-      },
-      { 
-        title: 'Kick for the Cure: Game 2 vs PSG Phoenix 14B Red', 
-        type: 'Tournament', 
-        dateStr: '2026-11-07T16:30:00',
-        time: '4:30 PM - 5:45 PM', 
-        location: 'Scottsdale Sports Complex (Field 6)', 
-        mapUrl: 'https://maps.google.com/?q=Scottsdale+Sports+Complex',
-        studs: 'Firm Ground Cleats',
-        clothes: 'Home Yellow Kit',
-        hydration: 'Extra Hydration Pack'
-      },
-      { 
-        title: 'Kick for the Cure: Playoff Game vs TBD', 
-        type: 'Tournament', 
-        dateStr: '2026-11-08T08:00:00',
-        time: 'TBD (8:00 AM, 9:25 AM, or 10:50 AM)', 
-        location: 'Scottsdale Sports Complex (Field TBD)', 
-        mapUrl: 'https://maps.google.com/?q=Scottsdale+Sports+Complex',
-        studs: 'Firm Ground Cleats',
-        clothes: 'Bring Both Kits',
-        hydration: 'Extra Hydration Pack'
-      },
-      { 
         title: 'November 14th Game vs RSL AZ', 
         type: 'Game', 
         dateStr: '2026-11-14T11:00:00',
@@ -1266,8 +1233,8 @@ END:VCALENDAR`;
           isCaptain: (p.name === 'CJ' || p.name === 'Jionni')
         }));
       }
-      // Clear out past games automatically or keep empty as requested
-      games = dbGames ? dbGames.filter(g => new Date(g.date) >= new Date()) : [];
+      // Fixed: Load all games properly without filtering out past dates incorrectly
+      games = dbGames || [];
       if (dbAnnouncements) announcements = dbAnnouncements;
       if (dbMilestones) milestones = dbMilestones;
       if (dbInjuries) injuries = dbInjuries;
@@ -1531,7 +1498,7 @@ END:VCALENDAR`;
       }
 
       container.innerHTML = activeAnnouncements.map(a => `
-        <div class="bg-gradient-to-r from-surf-red/20 via-surf-card to-surf-card border border-surf-red/40 rounded-xl p-4 flex items-center justify-between shadow-lg">
+        <div class="bg-gradient-to-r from-surf-red/20 via-surf-card to-surf-card border border-surf-red/40 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-lg">
           <div class="flex items-center space-x-3">
             <div class="p-2.5 bg-surf-red text-white rounded-lg shrink-0">
               <i data-lucide="${a.badge_type === 'Birthday' ? 'cake' : 'bell'}" class="w-5 h-5"></i>
@@ -1542,7 +1509,7 @@ END:VCALENDAR`;
               <p class="text-xs text-slate-300">${a.content}</p>
             </div>
           </div>
-          <span class="text-[10px] text-slate-400 font-mono">Expires: ${a.expires_at || 'Never'}</span>
+          <span class="text-[10px] text-slate-400 font-mono shrink-0">Expires: ${a.expires_at || 'Never'}</span>
         </div>
       `).join('');
       
