@@ -122,7 +122,7 @@
     <!-- OVERVIEW TAB -->
     <section id="sec-overview" class="space-y-6">
 
-      <!-- HOLIDAY & BIRTHDAY COUNTDOWN BANNERS (RESPONSIVE IPHONE-FRIENDLY LAYOUT) -->
+      <!-- HOLIDAY & BIRTHDAY COUNTDOWN BANNERS -->
       <div id="holiday-countdown-banner" class="hidden bg-gradient-to-r from-emerald-600/30 via-surf-card to-surf-red/20 border border-emerald-500/40 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-lg text-xs sm:text-sm text-white font-medium">
       </div>
       <div id="birthday-countdown-banner" class="hidden bg-gradient-to-r from-purple-600/30 via-surf-card to-blue-500/20 border border-purple-500/40 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-lg text-xs sm:text-sm text-white font-medium">
@@ -333,6 +333,22 @@
           <button onclick="saveTacticsToSupabase()" class="bg-surf-red hover:bg-surf-redHover text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all shadow" data-i18n="btn_save_lineup">Save Lineup</button>
           <button onclick="clearPitch()" class="bg-slate-900 border border-surf-border hover:border-surf-red text-slate-300 px-3 py-1.5 rounded-lg text-xs font-bold transition-all" data-i18n="btn_clear">Clear</button>
         </div>
+      </div>
+
+      <!-- TACTICAL RECOVERY PANEL INTEGRATION -->
+      <div id="tactics-recovery-notes" class="bg-slate-900/80 border border-surf-border rounded-xl p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+        <div class="flex items-center space-x-3">
+          <div class="p-2 bg-emerald-500/20 text-emerald-400 rounded-lg border border-emerald-500/30 shrink-0">
+            <i data-lucide="activity" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h4 class="text-xs font-bold text-emerald-400 uppercase tracking-wide">Tactical Squad Availability</h4>
+            <p class="text-xs text-slate-300" id="tactics-recovery-text">Loading player readiness data...</p>
+          </div>
+        </div>
+        <button onclick="switchTab('injury')" class="bg-slate-950 border border-surf-border hover:border-emerald-500 text-xs font-semibold px-3 py-1.5 rounded text-slate-300 hover:text-white transition-all shrink-0">
+          Manage Recovery Log
+        </button>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -550,7 +566,7 @@
           <select id="inj-status" class="w-full bg-slate-900 border border-surf-border rounded px-3 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red">
             <option value="Out">🔴 Out / Resting</option>
             <option value="Day-to-Day">🟡 Day-to-Day / Limited</option>
-            <option value="Full Recovery">🟢 Cleared / Full Recovery</option>
+            <option value="Full Recovery">🟢 Cleared / Ready to Play</option>
           </select>
         </div>
         <div>
@@ -962,7 +978,7 @@
       });
     }
 
-    // SCHEDULE WITH .ICS CALENDAR EXPORT
+    // SCHEDULE WITH .ICS CALENDAR EXPORT & CUSTOM NOTES
     const schedule = [
       { 
         title: 'Scrimmage vs West Valley Surf U13B', 
@@ -973,7 +989,8 @@
         mapUrl: 'https://maps.google.com/?q=Deem+Hills+Park',
         studs: 'Firm Ground Cleats',
         clothes: 'Yellow Kit',
-        hydration: '2 Water Bottles'
+        hydration: '2 Water Bottles',
+        notes: 'Park in the south lot near Field 2. Arrive 30 mins early for warmups!'
       },
       { 
         title: 'November 14th Game vs RSL AZ', 
@@ -984,7 +1001,8 @@
         mapUrl: 'https://maps.google.com/?q=Benedict+Sports+Complex',
         studs: 'Firm Ground Cleats',
         clothes: 'Standard Jersey',
-        hydration: '2 Water Bottles'
+        hydration: '2 Water Bottles',
+        notes: 'Field 4 (North Side). Bring both white and dark jerseys just in case.'
       },
       { 
         title: 'November 21st Game vs Phoenix Rising', 
@@ -995,7 +1013,8 @@
         mapUrl: 'https://maps.google.com/?q=West+Valley+Events+Complex',
         studs: 'Firm Ground Cleats',
         clothes: 'Standard Jersey',
-        hydration: '2 Water Bottles'
+        hydration: '2 Water Bottles',
+        notes: 'Parking fee required at gate ($5 cash/card).'
       },
       { 
         title: 'Holiday Classic Tournament', 
@@ -1006,7 +1025,8 @@
         mapUrl: '',
         studs: 'FG & AG Cleats',
         clothes: 'Thermal Layering Gear',
-        hydration: 'Hydration Pack'
+        hydration: 'Hydration Pack',
+        notes: '3-game minimum guarantee. Full schedule will be emailed 1 week prior.'
       }
     ];
 
@@ -1022,7 +1042,7 @@ VERSION:2.0
 PRODID:-//AZ Surf U13 Boys Dashboard//EN
 BEGIN:VEVENT
 SUMMARY:${item.title}
-DESCRIPTION:AZ Surf U13 Boys Match/Tournament. Location: ${item.location}
+DESCRIPTION:AZ Surf U13 Boys Match/Tournament. Location: ${item.location}. Notes: ${item.notes || ''}
 LOCATION:${item.location}
 DTSTART:${formatDate(startDate)}
 DTEND:${formatDate(endDate)}
@@ -1233,11 +1253,23 @@ END:VCALENDAR`;
           isCaptain: (p.name === 'CJ' || p.name === 'Jionni')
         }));
       }
-      // Fixed: Load all games properly without filtering out past dates incorrectly
+
       games = dbGames || [];
       if (dbAnnouncements) announcements = dbAnnouncements;
       if (dbMilestones) milestones = dbMilestones;
       if (dbInjuries) injuries = dbInjuries;
+
+      // AUTOMATIC INJURY STATUS UPDATE CHECK FOR PAST RETURN DATES
+      const todayStr = new Date().toISOString().split('T')[0];
+      if (injuries && injuries.length > 0) {
+        for (let inj of injuries) {
+          if (inj.return_date && inj.return_date <= todayStr && inj.status !== 'Full Recovery') {
+            inj.status = 'Full Recovery';
+            await supabaseClient.from('injuries').update({ status: 'Full Recovery' }).eq('id', inj.id);
+          }
+        }
+      }
+
       if (dbPlaybook) {
         savedPlaybooks = dbPlaybook;
         if (dbPlaybook.length > 0) {
@@ -1249,7 +1281,34 @@ END:VCALENDAR`;
       }
 
       populateInjuryPlayerDropdown();
+      checkAndAutoDeleteMilestones();
       renderAll();
+    }
+
+    // MILESTONE AUTO-DELETE CHECKER
+    async function checkAndAutoDeleteMilestones() {
+      if (!milestones || milestones.length === 0) return;
+      const totalGoals = players.reduce((sum, p) => sum + (p.goals || 0), 0);
+      const totalWins = games.filter(g => g.result === 'WIN').length;
+
+      const completedIds = [];
+
+      milestones = milestones.filter(m => {
+        let current = m.current_value;
+        if (m.category === 'Goals') current = totalGoals;
+        if (m.category === 'Wins') current = totalWins;
+
+        if (current >= m.target_value) {
+          completedIds.push(m.id);
+          return false; // Remove from local array
+        }
+        return true;
+      });
+
+      // Delete completed from Supabase
+      for (let id of completedIds) {
+        await supabaseClient.from('team_milestones').delete().eq('id', id);
+      }
     }
 
     function populateInjuryPlayerDropdown() {
@@ -1301,6 +1360,20 @@ END:VCALENDAR`;
       if (tabName === 'tactics') {
         renderTacticsBoard();
         initTacticsCanvas();
+        updateTacticsRecoverySummary();
+      }
+    }
+
+    function updateTacticsRecoverySummary() {
+      const summaryText = document.getElementById('tactics-recovery-text');
+      if (!summaryText) return;
+
+      const activeInjuries = injuries.filter(i => i.status !== 'Full Recovery');
+      if (activeInjuries.length === 0) {
+        summaryText.innerText = 'All players fully fit and available for selection.';
+      } else {
+        const names = activeInjuries.map(i => `${i.player_name} (${i.status})`).join(', ');
+        summaryText.innerText = `Injured/Limited: ${names}`;
       }
     }
 
@@ -1320,13 +1393,16 @@ END:VCALENDAR`;
       }
     }
 
+    // BLANK DEFAULT PLAYER SELECTION FIX IN ADD STATS
     function addPlayerStatRow(selectedId = '', stats = { goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 }) {
       playFeedback();
       const container = document.getElementById('player-stats-rows-container');
       if (!container) return;
       const rowId = 'p_row_' + Date.now() + Math.random().toString(36).substr(2, 5);
       const sorted = [...players].sort((a,b) => a.number - b.number);
-      const optionsHtml = sorted.map(p => `<option value="${p.id}" ${p.id == selectedId ? 'selected' : ''}>#${p.number} - ${p.name} ${p.isCaptain ? '(C)' : ''}</option>`).join('');
+      
+      const defaultOption = `<option value="" ${selectedId === '' ? 'selected' : ''}>-- Select Player --</option>`;
+      const optionsHtml = defaultOption + sorted.map(p => `<option value="${p.id}" ${p.id == selectedId ? 'selected' : ''}>#${p.number} - ${p.name} ${p.isCaptain ? '(C)' : ''}</option>`).join('');
 
       const div = document.createElement('div');
       div.id = rowId;
@@ -1375,6 +1451,7 @@ END:VCALENDAR`;
     }
 
     function renderAll() {
+      checkAndAutoDeleteMilestones();
       renderOverview();
       renderRoster();
       renderGames();
@@ -1461,7 +1538,7 @@ END:VCALENDAR`;
       grid.innerHTML = injuries.map(i => {
         let statusColor = 'bg-rose-500/20 text-rose-400 border-rose-500/30';
         if (i.status === 'Day-to-Day') statusColor = 'bg-amber-500/20 text-amber-400 border-amber-500/30';
-        if (i.status === 'Full Recovery') statusColor = 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30';
+        if (i.status === 'Full Recovery' || i.status.includes('Cleared')) statusColor = 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30';
 
         return `
           <div class="bg-surf-card border border-surf-border rounded-xl p-4 flex flex-col justify-between space-y-3">
@@ -1520,24 +1597,19 @@ END:VCALENDAR`;
       const grid = document.getElementById('milestones-grid');
       if (!grid) return;
       if (milestones.length === 0) {
-        grid.innerHTML = `<p class="text-xs text-slate-500 col-span-full">No milestones set.</p>`;
+        grid.innerHTML = `<p class="text-xs text-slate-500 col-span-full">No active milestones.</p>`;
         return;
       }
 
       const totalGoals = players.reduce((sum, p) => sum + (p.goals || 0), 0);
+      const totalWins = games.filter(g => g.result === 'WIN').length;
 
       grid.innerHTML = milestones.map(m => {
-        const current = m.category === 'Goals' ? totalGoals : m.current_value;
+        let current = m.current_value;
+        if (m.category === 'Goals') current = totalGoals;
+        if (m.category === 'Wins') current = totalWins;
+
         const pct = Math.min(100, Math.round((current / m.target_value) * 100));
-        
-        if (pct === 0) {
-          return `
-            <div class="bg-slate-900/40 border border-surf-border px-3 py-2.5 rounded-lg flex justify-between items-center text-xs">
-              <span class="text-white font-semibold truncate pr-2">🏆 ${m.title}</span>
-              <span class="text-slate-400 shrink-0 font-mono">0 / ${m.target_value}</span>
-            </div>
-          `;
-        }
 
         return `
           <div class="bg-slate-900/60 border border-surf-border p-3.5 rounded-xl space-y-1.5 shadow-sm">
@@ -1952,14 +2024,14 @@ END:VCALENDAR`;
       }
 
       rosterGrid.innerHTML = filtered.map(p => `
-        <div onclick="openPlayerModal(${p.id})" class="bg-surf-card border border-surf-border rounded-xl p-4 hover:border-surf-red/50 cursor-pointer transition-all hover:scale-[1.02] relative">
+        <div onclick="openPlayerModal(${p.id})" class="bg-surf-card border border-surf-border rounded-xl p-4 hover:border-surf-red/50 cursor-pointer transition-all hover:scale-[1.02] relative shadow-md">
           <div class="flex justify-between items-start mb-3">
-            <span class="w-8 h-8 rounded-full bg-surf-red/20 text-surf-red font-mono font-bold flex items-center justify-center text-sm border border-surf-red/30 shrink-0">
+            <span class="w-9 h-9 rounded-full bg-surf-red/20 text-surf-red font-mono font-black flex items-center justify-center text-base border border-surf-red/40 shrink-0">
               #${p.number}
             </span>
             <div class="flex items-center space-x-1">
               ${p.isCaptain ? '<span class="bg-amber-500/20 text-amber-400 border border-amber-500/40 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase">Captain</span>' : ''}
-              <span class="text-[10px] font-semibold text-slate-400 bg-slate-900 px-2 py-1 rounded border border-surf-border">
+              <span class="text-[10px] font-semibold text-slate-300 bg-slate-900 px-2 py-1 rounded border border-surf-border">
                 ${p.pos || 'Player'}
               </span>
             </div>
@@ -2175,6 +2247,7 @@ END:VCALENDAR`;
       renderAll();
     }
 
+    // LEADERBOARD STYLING UPGRADE FOR TOP 3 PODIUM RANKINGS
     function renderLeaderboards() {
       const goalsList = document.getElementById('leaderboard-goals');
       const assistsList = document.getElementById('leaderboard-assists');
@@ -2186,37 +2259,35 @@ END:VCALENDAR`;
 
       const medals = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
 
-      goalsList.innerHTML = byGoals.map((p, idx) => `
-        <li class="flex justify-between items-center text-xs sm:text-sm p-3 bg-slate-900/60 border border-surf-border rounded-xl">
-          <div class="flex items-center space-x-2.5">
-            <span class="text-base">${medals[idx] || ''}</span>
-            <span class="text-white font-bold"><strong class="text-surf-red font-mono">#${p.number}</strong> ${p.name} ${p.isCaptain ? '(C)' : ''}</span>
-          </div>
-          <span class="font-black text-surf-red text-base font-mono">${p.goals || 0}</span>
-        </li>
-      `).join('');
+      const generateListHtml = (list, colorClass) => {
+        return list.map((p, idx) => {
+          const isPodium = idx < 3;
+          const nameSizeClass = isPodium ? 'text-sm sm:text-base font-extrabold text-white' : 'text-xs text-slate-300 font-semibold';
+          const numSizeClass = isPodium ? 'text-lg font-black' : 'text-sm font-bold';
+          const bgStyle = isPodium ? 'bg-slate-900 border-surf-border/90 shadow-md scale-[1.01]' : 'bg-slate-900/40 border-surf-border/50';
 
-      assistsList.innerHTML = byAssists.map((p, idx) => `
-        <li class="flex justify-between items-center text-xs sm:text-sm p-3 bg-slate-900/60 border border-surf-border rounded-xl">
-          <div class="flex items-center space-x-2.5">
-            <span class="text-base">${medals[idx] || ''}</span>
-            <span class="text-white font-bold"><strong class="text-blue-400 font-mono">#${p.number}</strong> ${p.name} ${p.isCaptain ? '(C)' : ''}</span>
-          </div>
-          <span class="font-black text-blue-400 text-base font-mono">${p.assists || 0}</span>
-        </li>
-      `).join('');
+          return `
+            <li class="flex justify-between items-center p-3 rounded-xl border transition-all ${bgStyle}">
+              <div class="flex items-center space-x-3">
+                <span class="${isPodium ? 'text-xl' : 'text-sm'}">${medals[idx] || ''}</span>
+                <div>
+                  <span class="${nameSizeClass}">
+                    <strong class="${colorClass} font-mono">#${p.number}</strong> ${p.name} ${p.isCaptain ? '(C)' : ''}
+                  </span>
+                </div>
+              </div>
+              <span class="${numSizeClass} ${colorClass} font-mono">${p.goals || p.assists || p.saves || 0}</span>
+            </li>
+          `;
+        }).join('');
+      };
 
-      savesList.innerHTML = bySaves.length > 0 ? bySaves.map((p, idx) => `
-        <li class="flex justify-between items-center text-xs sm:text-sm p-3 bg-slate-900/60 border border-surf-border rounded-xl">
-          <div class="flex items-center space-x-2.5">
-            <span class="text-base">${medals[idx] || ''}</span>
-            <span class="text-white font-bold"><strong class="text-purple-400 font-mono">#${p.number}</strong> ${p.name} ${p.isCaptain ? '(C)' : ''}</span>
-          </div>
-          <span class="font-black text-purple-400 text-base font-mono">${p.saves}</span>
-        </li>
-      `).join('') : `<p class="text-xs text-slate-500 py-6 text-center">No goalie saves logged yet.</p>`;
+      goalsList.innerHTML = generateListHtml(byGoals, 'text-surf-red');
+      assistsList.innerHTML = generateListHtml(byAssists, 'text-blue-400');
+      savesList.innerHTML = bySaves.length > 0 ? generateListHtml(bySaves, 'text-purple-400') : `<p class="text-xs text-slate-500 py-6 text-center">No goalie saves logged yet.</p>`;
     }
 
+    // SCHEDULE RENDER WITH CUSTOM NOTES SECTION
     function renderSchedule() {
       const grid = document.getElementById('schedule-cards-grid');
       grid.innerHTML = schedule.map(item => `
@@ -2235,6 +2306,13 @@ END:VCALENDAR`;
               ${item.mapUrl ? `<a href="${item.mapUrl}" target="_blank" class="bg-slate-900 border border-surf-border hover:border-surf-red text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0"><i data-lucide="external-link" class="w-3.5 h-3.5"></i></a>` : ''}
             </div>
           </div>
+
+          ${item.notes ? `
+            <div class="bg-amber-500/10 border border-amber-500/30 rounded-lg p-2.5 flex items-start space-x-2">
+              <i data-lucide="info" class="w-4 h-4 text-amber-400 shrink-0 mt-0.5"></i>
+              <p class="text-xs text-amber-200 font-medium leading-relaxed"><strong>Match Note:</strong> ${item.notes}</p>
+            </div>
+          ` : ''}
 
           <div class="pt-3 border-t border-surf-border/60 grid grid-cols-3 gap-1.5 text-[10px]">
             <div class="bg-slate-900/80 border border-surf-border p-1.5 rounded flex flex-col items-center text-center">
@@ -2255,6 +2333,7 @@ END:VCALENDAR`;
           </div>
         </div>
       `).join('');
+      lucide.createIcons();
     }
 
     async function handleFormSubmit(e) {
@@ -2283,34 +2362,36 @@ END:VCALENDAR`;
 
       const rows = document.querySelectorAll('#player-stats-rows-container > div');
       for (const row of rows) {
-        const pId = parseInt(row.querySelector('.player-select').value);
+        const selectEl = row.querySelector('.player-select');
+        const pId = parseInt(selectEl.value);
+        
+        if (isNaN(pId)) continue; // Skip blank default selection
+
         const pGoals = parseInt(row.querySelector('.p-goals').value) || 0;
         const pAssists = parseInt(row.querySelector('.p-assists').value) || 0;
         const pYc = parseInt(row.querySelector('.p-yc').value) || 0;
         const pRc = parseInt(row.querySelector('.p-rc').value) || 0;
         const pSaves = parseInt(row.querySelector('.p-saves').value) || 0;
 
-        if (!isNaN(pId)) {
-          const pIdx = players.findIndex(p => p.id === pId);
-          if (pIdx !== -1) {
-            players[pIdx].goals = (players[pIdx].goals || 0) + pGoals;
-            players[pIdx].assists = (players[pIdx].assists || 0) + pAssists;
-            players[pIdx].yc = (players[pIdx].yc || 0) + pYc;
-            players[pIdx].rc = (players[pIdx].rc || 0) + pRc;
-            players[pIdx].saves = (players[pIdx].saves || 0) + pSaves;
+        const pIdx = players.findIndex(p => p.id === pId);
+        if (pIdx !== -1) {
+          players[pIdx].goals = (players[pIdx].goals || 0) + pGoals;
+          players[pIdx].assists = (players[pIdx].assists || 0) + pAssists;
+          players[pIdx].yc = (players[pIdx].yc || 0) + pYc;
+          players[pIdx].rc = (players[pIdx].rc || 0) + pRc;
+          players[pIdx].saves = (players[pIdx].saves || 0) + pSaves;
 
-            await supabaseClient.from('players').upsert([{ 
-              id: players[pIdx].id, 
-              name: players[pIdx].name, 
-              number: players[pIdx].number, 
-              pos: players[pIdx].pos, 
-              goals: players[pIdx].goals, 
-              assists: players[pIdx].assists, 
-              yc: players[pIdx].yc, 
-              rc: players[pIdx].rc, 
-              saves: players[pIdx].saves 
-            }]);
-          }
+          await supabaseClient.from('players').upsert([{ 
+            id: players[pIdx].id, 
+            name: players[pIdx].name, 
+            number: players[pIdx].number, 
+            pos: players[pIdx].pos, 
+            goals: players[pIdx].goals, 
+            assists: players[pIdx].assists, 
+            yc: players[pIdx].yc, 
+            rc: players[pIdx].rc, 
+            saves: players[pIdx].saves 
+          }]);
         }
       }
 
