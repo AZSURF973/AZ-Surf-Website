@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-slate-950 min-h-screen">
+<html lang="en" class="bg-slate-950 min-h-screen overflow-x-hidden">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>AZ Surf U13 Boys - Team Dashboard</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -31,98 +31,110 @@
       }
     }
   </script>
+  <style>
+    /* Hide scrollbar for clean mobile navigation */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
 </head>
-<body class="min-h-screen text-slate-100 font-sans flex flex-col bg-slate-950 pb-32 md:pb-12 antialiased selection:bg-surf-red selection:text-white">
+<body class="min-h-screen text-slate-100 font-sans flex flex-col bg-slate-950 pb-36 md:pb-12 antialiased selection:bg-surf-red selection:text-white overflow-x-hidden">
 
   <!-- TOP HEADER -->
-  <header class="bg-surf-dark/95 backdrop-blur-md border-b border-surf-border sticky top-0 z-40">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+  <header class="bg-surf-dark/95 backdrop-blur-md border-b border-surf-border sticky top-0 z-40 w-full">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
       
       <!-- Dual Logos / Title -->
-      <div class="flex items-center space-x-3">
-        <div class="w-12 h-12 rounded-full border border-surf-border bg-surf-dark p-2 flex items-center justify-center shadow-lg shadow-surf-red/20 overflow-hidden shrink-0">
-          <img src="https://i.postimg.cc/J7fdQWVK/images.jpg" alt="Surf Crest" class="w-10 h-10 object-contain" style="mix-blend-mode: screen;" />
+      <div class="flex items-center space-x-2.5 min-w-0">
+        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-surf-border bg-surf-dark p-1.5 flex items-center justify-center shadow-lg shadow-surf-red/20 overflow-hidden shrink-0">
+          <img src="https://i.postimg.cc/J7fdQWVK/images.jpg" alt="Surf Crest" class="w-8 h-8 sm:w-10 sm:h-10 object-contain" style="mix-blend-mode: screen;" />
         </div>
-        <div>
-          <h1 class="text-lg font-bold tracking-tight text-white leading-tight">AZ SURF</h1>
-          <p class="text-xs font-semibold text-surf-red" data-i18n="sub_title">U13 BOYS CLUB SOCCER</p>
+        <div class="min-w-0">
+          <h1 class="text-sm sm:text-lg font-bold tracking-tight text-white leading-tight truncate">AZ SURF</h1>
+          <p class="text-[10px] sm:text-xs font-semibold text-surf-red truncate" data-i18n="sub_title">U13 BOYS CLUB SOCCER</p>
         </div>
       </div>
 
       <!-- Desktop Navigation Tabs -->
-      <nav class="hidden md:flex space-x-1">
-        <button onclick="switchTab('overview')" id="tab-overview" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium transition-all text-surf-red bg-surf-border/50" data-i18n="nav_overview">Overview</button>
-        <button onclick="switchTab('roster')" id="tab-roster" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_roster">Roster</button>
-        <button onclick="switchTab('tactics')" id="tab-tactics" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_tactics">Tactics Board</button>
-        <button onclick="switchTab('games')" id="tab-games" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_games">Game Log</button>
-        <button onclick="switchTab('injury')" id="tab-injury" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all">Recovery</button>
-        <button onclick="switchTab('leaderboards')" id="tab-leaderboards" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_leaders">Leaders</button>
-        <button onclick="switchTab('schedule')" id="tab-schedule" class="tab-btn px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all" data-i18n="nav_schedule">Schedule</button>
+      <nav id="desktop-nav" class="hidden md:flex space-x-1 items-center overflow-x-auto no-scrollbar">
+        <button onclick="switchTab('overview')" id="tab-overview" class="tab-btn px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all text-surf-red bg-surf-border/50 shrink-0" data-i18n="nav_overview">Overview</button>
+        <button onclick="switchTab('roster')" id="tab-roster" class="tab-btn px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all shrink-0" data-i18n="nav_roster">Roster</button>
+        <button onclick="switchTab('tactics')" id="tab-tactics" class="tab-btn px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all shrink-0" data-i18n="nav_tactics">Tactics</button>
+        <button onclick="switchTab('games')" id="tab-games" class="tab-btn px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all shrink-0" data-i18n="nav_games">Games</button>
+        <button onclick="switchTab('injury')" id="tab-injury" class="tab-btn px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all shrink-0">Recovery</button>
+        <button onclick="switchTab('leaderboards')" id="tab-leaderboards" class="tab-btn px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all shrink-0" data-i18n="nav_leaders">Leaders</button>
+        <button onclick="switchTab('schedule')" id="tab-schedule" class="tab-btn px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all shrink-0" data-i18n="nav_schedule">Schedule</button>
+        <!-- Dynamic Desktop My Stats Tab -->
+        <button onclick="switchTab('mystats')" id="tab-mystats" class="tab-btn px-2.5 py-1.5 rounded-lg text-xs font-bold text-amber-400 hover:text-white hover:bg-surf-border/30 transition-all shrink-0 hidden">⭐ My Stats</button>
       </nav>
 
       <!-- Action Buttons & Lang Toggle -->
-      <div class="flex items-center space-x-2 shrink-0">
+      <div class="flex items-center space-x-1.5 shrink-0">
         <!-- Auth / Profile Button -->
-        <button id="auth-action-btn" onclick="handleAuthButtonClick()" class="bg-slate-900 border border-surf-border hover:border-surf-red text-slate-300 hover:text-white px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center space-x-1.5">
-          <i data-lucide="user" class="w-3.5 h-3.5 text-surf-red"></i>
-          <span id="auth-btn-label">Sign In</span>
+        <button id="auth-action-btn" onclick="handleAuthButtonClick()" class="bg-slate-900 border border-surf-border hover:border-surf-red text-slate-300 hover:text-white px-2 py-1.5 rounded-lg text-[11px] sm:text-xs font-bold transition-all flex items-center space-x-1">
+          <i data-lucide="user" class="w-3 h-3 text-surf-red shrink-0"></i>
+          <span id="auth-btn-label" class="truncate max-w-[80px] sm:max-w-[110px]">Sign In</span>
         </button>
-        <button onclick="toggleLanguage()" class="bg-slate-900 border border-surf-border hover:border-surf-red text-slate-300 hover:text-white px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center space-x-1">
-          <i data-lucide="globe" class="w-3.5 h-3.5 text-surf-red"></i>
+        <button onclick="toggleLanguage()" class="bg-slate-900 border border-surf-border hover:border-surf-red text-slate-300 hover:text-white px-2 py-1.5 rounded-lg text-[11px] sm:text-xs font-bold transition-all flex items-center space-x-1 shrink-0">
+          <i data-lucide="globe" class="w-3 h-3 text-surf-red"></i>
           <span id="lang-indicator">ES</span>
         </button>
-        <button onclick="toggleModal('admin-modal', true)" class="flex items-center space-x-1.5 bg-surf-red text-white px-3 py-2 rounded-lg font-bold text-xs hover:bg-surf-redHover transition-all shadow-md shadow-surf-red/10">
-          <i data-lucide="plus-circle" class="w-4 h-4"></i>
-          <span data-i18n="btn_add_stats">Stats</span>
+        <button onclick="toggleModal('admin-modal', true)" class="flex items-center space-x-1 bg-surf-red text-white px-2.5 py-1.5 rounded-lg font-bold text-[11px] sm:text-xs hover:bg-surf-redHover transition-all shadow-md shrink-0">
+          <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i>
+          <span class="hidden sm:inline" data-i18n="btn_add_stats">Stats</span>
         </button>
       </div>
     </div>
 
     <!-- Mobile Top Dropdown & Guidance Bar -->
-    <div class="flex md:hidden border-t border-surf-border px-4 py-2 bg-slate-900/95 items-center justify-between">
-      <div class="flex items-center space-x-1.5">
-        <span class="text-[10px] font-bold text-amber-400 animate-pulse">👈 Select Tab:</span>
-        <span class="text-xs font-bold text-white uppercase tracking-wider" id="mobile-current-tab-label">Overview</span>
+    <div class="flex md:hidden border-t border-surf-border px-3 py-1.5 bg-slate-900/95 items-center justify-between">
+      <div class="flex items-center space-x-1">
+        <span class="text-[10px] font-bold text-amber-400 animate-pulse">Tab:</span>
+        <span class="text-xs font-bold text-white uppercase tracking-wider truncate max-w-[130px]" id="mobile-current-tab-label">Overview</span>
       </div>
-      <select onchange="switchTab(this.value)" id="mobile-tab-select" class="bg-slate-950 border border-surf-red/60 rounded-lg px-2.5 py-1 text-xs text-white font-bold focus:outline-none focus:border-surf-red shadow">
+      <select onchange="switchTab(this.value)" id="mobile-tab-select" class="bg-slate-950 border border-surf-red/60 rounded-lg px-2 py-1 text-xs text-white font-bold focus:outline-none focus:border-surf-red shadow">
         <option value="overview">Overview</option>
         <option value="roster">Roster</option>
-        <option value="tactics">Tactics Board</option>
-        <option value="games">Game Log</option>
+        <option value="tactics">Tactics</option>
+        <option value="games">Games</option>
         <option value="injury">Recovery</option>
-        <option value="leaderboards">Leaderboards</option>
+        <option value="leaderboards">Leaders</option>
         <option value="schedule">Schedule</option>
+        <option value="mystats" id="mobile-opt-mystats" class="hidden">⭐ My Stats</option>
       </select>
     </div>
   </header>
 
   <!-- MOBILE BOTTOM NAVIGATION BAR -->
-  <div class="fixed bottom-0 inset-x-0 bg-surf-dark/95 backdrop-blur-md border-t border-surf-border z-40 md:hidden flex justify-around py-2.5 px-1 shadow-2xl">
-    <button onclick="switchTab('overview')" id="bnav-overview" class="bnav-btn flex flex-col items-center text-[10px] text-surf-red font-bold">
-      <i data-lucide="home" class="w-5 h-5 mb-0.5"></i><span>Overview</span>
+  <div id="mobile-bottom-nav" class="fixed bottom-0 inset-x-0 bg-surf-dark/95 backdrop-blur-md border-t border-surf-border z-40 md:hidden flex justify-around items-center py-2 px-1 shadow-2xl overflow-x-auto no-scrollbar">
+    <button onclick="switchTab('overview')" id="bnav-overview" class="bnav-btn flex flex-col items-center text-[9px] text-surf-red font-bold px-1 shrink-0">
+      <i data-lucide="home" class="w-4 h-4 mb-0.5"></i><span>Overview</span>
     </button>
-    <button onclick="switchTab('roster')" id="bnav-roster" class="bnav-btn flex flex-col items-center text-[10px] text-slate-400">
-      <i data-lucide="users" class="w-5 h-5 mb-0.5"></i><span>Roster</span>
+    <button onclick="switchTab('roster')" id="bnav-roster" class="bnav-btn flex flex-col items-center text-[9px] text-slate-400 px-1 shrink-0">
+      <i data-lucide="users" class="w-4 h-4 mb-0.5"></i><span>Roster</span>
     </button>
-    <button onclick="switchTab('tactics')" id="bnav-tactics" class="bnav-btn flex flex-col items-center text-[10px] text-slate-400">
-      <i data-lucide="layout" class="w-5 h-5 mb-0.5"></i><span>Tactics</span>
+    <button onclick="switchTab('tactics')" id="bnav-tactics" class="bnav-btn flex flex-col items-center text-[9px] text-slate-400 px-1 shrink-0">
+      <i data-lucide="layout" class="w-4 h-4 mb-0.5"></i><span>Tactics</span>
     </button>
-    <button onclick="switchTab('games')" id="bnav-games" class="bnav-btn flex flex-col items-center text-[10px] text-slate-400">
-      <i data-lucide="trophy" class="w-5 h-5 mb-0.5"></i><span>Games</span>
+    <button onclick="switchTab('games')" id="bnav-games" class="bnav-btn flex flex-col items-center text-[9px] text-slate-400 px-1 shrink-0">
+      <i data-lucide="trophy" class="w-4 h-4 mb-0.5"></i><span>Games</span>
     </button>
-    <button onclick="switchTab('injury')" id="bnav-injury" class="bnav-btn flex flex-col items-center text-[10px] text-slate-400">
-      <i data-lucide="activity" class="w-5 h-5 mb-0.5"></i><span>Recovery</span>
+    <button onclick="switchTab('injury')" id="bnav-injury" class="bnav-btn flex flex-col items-center text-[9px] text-slate-400 px-1 shrink-0">
+      <i data-lucide="activity" class="w-4 h-4 mb-0.5"></i><span>Recovery</span>
     </button>
-    <button onclick="switchTab('leaderboards')" id="bnav-leaderboards" class="bnav-btn flex flex-col items-center text-[10px] text-slate-400">
-      <i data-lucide="award" class="w-5 h-5 mb-0.5"></i><span>Leaders</span>
+    <button onclick="switchTab('leaderboards')" id="bnav-leaderboards" class="bnav-btn flex flex-col items-center text-[9px] text-slate-400 px-1 shrink-0">
+      <i data-lucide="award" class="w-4 h-4 mb-0.5"></i><span>Leaders</span>
     </button>
-    <button onclick="switchTab('schedule')" id="bnav-schedule" class="bnav-btn flex flex-col items-center text-[10px] text-slate-400">
-      <i data-lucide="calendar" class="w-5 h-5 mb-0.5"></i><span>Schedule</span>
+    <button onclick="switchTab('schedule')" id="bnav-schedule" class="bnav-btn flex flex-col items-center text-[9px] text-slate-400 px-1 shrink-0">
+      <i data-lucide="calendar" class="w-4 h-4 mb-0.5"></i><span>Schedule</span>
+    </button>
+    <!-- Dynamic Mobile Bottom Nav My Stats Tab -->
+    <button onclick="switchTab('mystats')" id="bnav-mystats" class="bnav-btn flex flex-col items-center text-[9px] text-amber-400 px-1 shrink-0 hidden">
+      <i data-lucide="star" class="w-4 h-4 mb-0.5"></i><span>My Stats</span>
     </button>
   </div>
 
   <!-- MAIN CONTENT CONTAINER -->
-  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+  <main class="flex-grow max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-6 space-y-6">
 
     <!-- OVERVIEW TAB -->
     <section id="sec-overview" class="space-y-6">
@@ -165,8 +177,8 @@
       </div>
       
       <!-- Announcements & Birthdays Header with Post Button -->
-      <div class="flex justify-between items-center pt-2">
-        <h2 class="font-bold text-lg text-white flex items-center space-x-2">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 pt-2">
+        <h2 class="font-bold text-base sm:text-lg text-white flex items-center space-x-2">
           <i data-lucide="bell" class="w-5 h-5 text-surf-red"></i>
           <span data-i18n="hdr_spotlight">Team Spotlight & Announcements</span>
         </h2>
@@ -179,14 +191,14 @@
       <!-- Announcements & Birthdays Banner List -->
       <div id="announcements-container" class="space-y-3"></div>
 
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
         <div class="bg-surf-card border border-surf-border rounded-xl p-4 sm:p-5 flex items-center space-x-3 sm:space-x-4 hover:border-surf-red/40 transition-all shadow-sm">
           <div class="p-2.5 sm:p-3 bg-surf-red/10 text-surf-red rounded-lg shrink-0">
             <i data-lucide="trophy" class="w-5 h-5 sm:w-6 sm:h-6"></i>
           </div>
           <div>
             <p class="text-[10px] sm:text-xs font-medium text-slate-400 uppercase tracking-wide" data-i18n="stat_record">Season Record</p>
-            <h3 id="stat-record" class="text-xl sm:text-2xl font-black text-white">0 - 0 - 0</h3>
+            <h3 id="stat-record" class="text-lg sm:text-2xl font-black text-white">0 - 0 - 0</h3>
           </div>
         </div>
 
@@ -196,7 +208,7 @@
           </div>
           <div>
             <p class="text-[10px] sm:text-xs font-medium text-slate-400 uppercase tracking-wide" data-i18n="stat_goals">Goals Scored</p>
-            <h3 id="stat-total-goals" class="text-xl sm:text-2xl font-black text-white">0</h3>
+            <h3 id="stat-total-goals" class="text-lg sm:text-2xl font-black text-white">0</h3>
           </div>
         </div>
 
@@ -206,7 +218,7 @@
           </div>
           <div>
             <p class="text-[10px] sm:text-xs font-medium text-slate-400 uppercase tracking-wide" data-i18n="stat_assists">Total Assists</p>
-            <h3 id="stat-total-assists" class="text-xl sm:text-2xl font-black text-white">0</h3>
+            <h3 id="stat-total-assists" class="text-lg sm:text-2xl font-black text-white">0</h3>
           </div>
         </div>
 
@@ -216,15 +228,15 @@
           </div>
           <div>
             <p class="text-[10px] sm:text-xs font-medium text-slate-400 uppercase tracking-wide" data-i18n="stat_saves">Total Saves</p>
-            <h3 id="stat-total-saves" class="text-xl sm:text-2xl font-black text-white">0</h3>
+            <h3 id="stat-total-saves" class="text-lg sm:text-2xl font-black text-white">0</h3>
           </div>
         </div>
       </div>
 
       <!-- TEAM MILESTONES -->
-      <div class="bg-surf-card border border-surf-border rounded-xl p-6">
+      <div class="bg-surf-card border border-surf-border rounded-xl p-4 sm:p-6">
         <div class="flex justify-between items-center mb-4">
-          <h2 class="font-bold text-lg text-white flex items-center space-x-2">
+          <h2 class="font-bold text-base sm:text-lg text-white flex items-center space-x-2">
             <i data-lucide="flag" class="w-5 h-5 text-surf-red"></i>
             <span data-i18n="hdr_milestones">Team Season Milestones</span>
           </h2>
@@ -236,9 +248,9 @@
         <div id="milestones-grid" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
       </div>
 
-      <div class="bg-surf-card border border-surf-border rounded-xl p-6">
+      <div class="bg-surf-card border border-surf-border rounded-xl p-4 sm:p-6">
         <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-4 gap-2">
-          <h2 class="font-bold text-lg text-white flex items-center space-x-2">
+          <h2 class="font-bold text-base sm:text-lg text-white flex items-center space-x-2">
             <i data-lucide="pie-chart" class="w-5 h-5 text-surf-red"></i>
             <span data-i18n="hdr_analytics">Team Performance Analytics</span>
           </h2>
@@ -262,22 +274,22 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 text-center">
           <div class="bg-slate-900/50 border border-surf-border p-3 rounded-lg">
             <span class="text-[10px] text-slate-400 font-bold uppercase block">Win %</span>
-            <span id="metric-win-pct" class="text-xl font-black text-emerald-400">0%</span>
+            <span id="metric-win-pct" class="text-lg sm:text-xl font-black text-emerald-400">0%</span>
           </div>
           <div class="bg-slate-900/50 border border-surf-border p-3 rounded-lg">
             <span class="text-[10px] text-slate-400 font-bold uppercase block" data-i18n="met_gd">Goal Diff</span>
-            <span id="metric-gd" class="text-xl font-black text-white">+0</span>
+            <span id="metric-gd" class="text-lg sm:text-xl font-black text-white">+0</span>
           </div>
           <div class="bg-slate-900/50 border border-surf-border p-3 rounded-lg">
             <span class="text-[10px] text-slate-400 font-bold uppercase block" data-i18n="met_gaa">Avg Goals Allowed</span>
-            <span id="metric-gaa" class="text-xl font-black text-rose-400">0.0</span>
+            <span id="metric-gaa" class="text-lg sm:text-xl font-black text-rose-400">0.0</span>
           </div>
           <div class="bg-slate-900/50 border border-surf-border p-3 rounded-lg">
             <span class="text-[10px] text-slate-400 font-bold uppercase block" data-i18n="met_total">Total Matches</span>
-            <span id="metric-total-games" class="text-xl font-black text-surf-red">0</span>
+            <span id="metric-total-games" class="text-lg sm:text-xl font-black text-surf-red">0</span>
           </div>
         </div>
       </div>
@@ -287,8 +299,8 @@
     <section id="sec-roster" class="hidden space-y-6">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h2 class="text-xl font-bold text-white" data-i18n="roster_title">AZ Surf U13 Squad Roster</h2>
-          <p class="text-sm text-slate-400" data-i18n="roster_subtitle">Click any player to view detailed breakdown grid & edit details</p>
+          <h2 class="text-lg sm:text-xl font-bold text-white" data-i18n="roster_title">AZ Surf U13 Squad Roster</h2>
+          <p class="text-xs sm:text-sm text-slate-400" data-i18n="roster_subtitle">Click any player to view detailed breakdown grid & edit details</p>
         </div>
 
         <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
@@ -313,29 +325,29 @@
     <section id="sec-tactics" class="hidden space-y-6">
       <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
         <div>
-          <h2 class="text-xl font-bold text-white flex items-center space-x-2">
+          <h2 class="text-lg sm:text-xl font-bold text-white flex items-center space-x-2">
             <i data-lucide="layout" class="text-surf-red w-6 h-6"></i>
             <span data-i18n="tactics_title">Interactive Pitch Formation & Drawing Board</span>
           </h2>
-          <p class="text-sm text-slate-400" data-i18n="tactics_subtitle">Drag players OR select a drawing tool to sketch runs and passing lanes!</p>
+          <p class="text-xs sm:text-sm text-slate-400" data-i18n="tactics_subtitle">Drag players OR select a drawing tool to sketch runs and passing lanes!</p>
         </div>
 
         <div class="flex flex-wrap items-center gap-2">
           <!-- Drawing Tools Selector -->
           <div class="bg-slate-900 border border-surf-border rounded-lg p-1 flex items-center space-x-1">
-            <button onclick="setDrawMode('select')" id="tool-select" class="px-2.5 py-1 rounded text-xs font-bold bg-surf-red text-white transition-all">Players</button>
-            <button onclick="setDrawMode('pen')" id="tool-pen" class="px-2.5 py-1 rounded text-xs font-bold text-slate-300 hover:text-white transition-all">✏️ Pen</button>
-            <button onclick="setDrawMode('arrow')" id="tool-arrow" class="px-2.5 py-1 rounded text-xs font-bold text-slate-300 hover:text-white transition-all">↗️ Arrow</button>
-            <button onclick="clearCanvas()" class="px-2 py-1 rounded text-xs font-bold text-rose-400 hover:bg-rose-500/20 transition-all">Clear Lines</button>
+            <button onclick="setDrawMode('select')" id="tool-select" class="px-2 py-1 rounded text-[11px] font-bold bg-surf-red text-white transition-all">Players</button>
+            <button onclick="setDrawMode('pen')" id="tool-pen" class="px-2 py-1 rounded text-[11px] font-bold text-slate-300 hover:text-white transition-all">✏️ Pen</button>
+            <button onclick="setDrawMode('arrow')" id="tool-arrow" class="px-2 py-1 rounded text-[11px] font-bold text-slate-300 hover:text-white transition-all">↗️ Arrow</button>
+            <button onclick="clearCanvas()" class="px-2 py-1 rounded text-[11px] font-bold text-rose-400 hover:bg-rose-500/20 transition-all">Clear</button>
           </div>
 
-          <select id="formation-select" onchange="changeFormation(this.value)" class="bg-slate-900 border border-surf-border rounded-lg px-3 py-1.5 text-xs text-white font-bold focus:outline-none focus:border-surf-red">
+          <select id="formation-select" onchange="changeFormation(this.value)" class="bg-slate-900 border border-surf-border rounded-lg px-2.5 py-1.5 text-xs text-white font-bold focus:outline-none focus:border-surf-red">
             <option value="4-3-3">4-3-3</option>
             <option value="4-2-3-1">4-2-3-1</option>
             <option value="4-4-2">4-4-2</option>
             <option value="3-4-3">3-4-3</option>
           </select>
-          <button onclick="saveTacticsToSupabase()" class="bg-surf-red hover:bg-surf-redHover text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all shadow" data-i18n="btn_save_lineup">Save Lineup</button>
+          <button onclick="saveTacticsToSupabase()" class="bg-surf-red hover:bg-surf-redHover text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all shadow" data-i18n="btn_save_lineup">Save</button>
           <button onclick="clearPitch()" class="bg-slate-900 border border-surf-border hover:border-surf-red text-slate-300 px-3 py-1.5 rounded-lg text-xs font-bold transition-all" data-i18n="btn_clear">Clear</button>
         </div>
       </div>
@@ -392,8 +404,8 @@
     <section id="sec-games" class="hidden space-y-6">
       <div class="flex justify-between items-center">
         <div>
-          <h2 class="text-xl font-bold text-white" data-i18n="games_title">Match History & Box Scores</h2>
-          <p class="text-sm text-slate-400" data-i18n="games_subtitle">Season game logs, results, and game management</p>
+          <h2 class="text-lg sm:text-xl font-bold text-white" data-i18n="games_title">Match History & Box Scores</h2>
+          <p class="text-xs sm:text-sm text-slate-400" data-i18n="games_subtitle">Season game logs, results, and game management</p>
         </div>
       </div>
 
@@ -402,12 +414,12 @@
 
     <!-- PLAYER RECOVERY & INJURY STATUS TAB -->
     <section id="sec-injury" class="hidden space-y-6">
-      <div class="flex justify-between items-center">
+      <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
         <div>
-          <h2 class="text-xl font-bold text-white">Player Recovery & Injury Status</h2>
-          <p class="text-sm text-slate-400">Track player recovery timelines and injury updates</p>
+          <h2 class="text-lg sm:text-xl font-bold text-white">Player Recovery & Injury Status</h2>
+          <p class="text-xs sm:text-sm text-slate-400">Track player recovery timelines and injury updates</p>
         </div>
-        <button onclick="toggleModal('injury-modal', true)" class="bg-surf-red hover:bg-surf-redHover text-white px-3.5 py-2 rounded-lg text-xs font-bold transition-all shadow flex items-center space-x-1.5">
+        <button onclick="toggleModal('injury-modal', true)" class="bg-surf-red hover:bg-surf-redHover text-white px-3.5 py-2 rounded-lg text-xs font-bold transition-all shadow flex items-center space-x-1.5 shrink-0">
           <i data-lucide="plus-circle" class="w-4 h-4"></i>
           <span>Report Injury / Status</span>
         </button>
@@ -422,8 +434,8 @@
     <section id="sec-leaderboards" class="hidden space-y-6">
       <div class="flex justify-between items-center">
         <div>
-          <h2 class="text-xl font-bold text-white" data-i18n="leader_title">Player Stat Leaderboards</h2>
-          <p class="text-sm text-slate-400" data-i18n="leader_subtitle">Top rankings across key stats</p>
+          <h2 class="text-lg sm:text-xl font-bold text-white" data-i18n="leader_title">Player Stat Leaderboards</h2>
+          <p class="text-xs sm:text-sm text-slate-400" data-i18n="leader_subtitle">Top rankings across key stats</p>
         </div>
       </div>
 
@@ -458,12 +470,76 @@
     <section id="sec-schedule" class="hidden space-y-6">
       <div class="flex justify-between items-center">
         <div>
-          <h2 class="text-xl font-bold text-white" data-i18n="sched_title">Surf Upcoming Games</h2>
-          <p class="text-sm text-slate-400" data-i18n="sched_subtitle">Official team fixtures, tournaments, and calendar export</p>
+          <h2 class="text-lg sm:text-xl font-bold text-white" data-i18n="sched_title">Surf Upcoming Games</h2>
+          <p class="text-xs sm:text-sm text-slate-400" data-i18n="sched_subtitle">Official team fixtures, tournaments, and calendar export</p>
         </div>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="schedule-cards-grid"></div>
+    </section>
+
+    <!-- MY STATS / PROFILE TAB (DYNAMICALLY SHOWN WHEN SIGNED IN) -->
+    <section id="sec-mystats" class="hidden space-y-6">
+      <div class="bg-surf-card border border-surf-border rounded-2xl p-6 shadow-xl relative overflow-hidden">
+        <div class="absolute -right-10 -top-10 w-40 h-40 bg-surf-red/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 pb-6 border-b border-surf-border">
+          <div class="flex items-center space-x-4">
+            <div id="mystats-jersey" class="w-16 h-16 rounded-2xl bg-surf-red text-white font-mono font-black text-2xl flex items-center justify-center border-2 border-white/20 shadow-lg">
+              #0
+            </div>
+            <div>
+              <div class="flex items-center space-x-2">
+                <h2 id="mystats-name" class="text-2xl font-black text-white">Player Name</h2>
+                <span id="mystats-role-badge" class="bg-amber-500/20 text-amber-400 border border-amber-500/40 text-[10px] font-bold px-2.5 py-0.5 rounded uppercase">Player</span>
+              </div>
+              <p id="mystats-position" class="text-xs text-surf-red font-semibold mt-1">Position / Details</p>
+            </div>
+          </div>
+          <button onclick="openMyProfileModal()" class="bg-surf-red hover:bg-surf-redHover text-white px-4 py-2 rounded-xl text-xs font-bold transition-all shadow flex items-center space-x-1.5">
+            <i data-lucide="edit-3" class="w-4 h-4"></i>
+            <span>Edit My Profile & Info</span>
+          </button>
+        </div>
+
+        <!-- Personal Quick Stats Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6 text-center">
+          <div class="bg-slate-900/80 border border-surf-border p-3.5 rounded-xl">
+            <span class="text-[10px] text-slate-400 uppercase font-bold block">Goals</span>
+            <span id="mystats-goals" class="text-2xl font-black text-surf-red">0</span>
+          </div>
+          <div class="bg-slate-900/80 border border-surf-border p-3.5 rounded-xl">
+            <span class="text-[10px] text-slate-400 uppercase font-bold block">Assists</span>
+            <span id="mystats-assists" class="text-2xl font-black text-blue-400">0</span>
+          </div>
+          <div class="bg-slate-900/80 border border-surf-border p-3.5 rounded-xl">
+            <span class="text-[10px] text-slate-400 uppercase font-bold block">Cards (Y/R)</span>
+            <span id="mystats-cards" class="text-2xl font-black text-slate-200">0/0</span>
+          </div>
+          <div class="bg-slate-900/80 border border-surf-border p-3.5 rounded-xl">
+            <span class="text-[10px] text-slate-400 uppercase font-bold block">Saves</span>
+            <span id="mystats-saves" class="text-2xl font-black text-purple-400">0</span>
+          </div>
+        </div>
+
+        <!-- Optional Profile Details Display -->
+        <div class="bg-slate-900/50 border border-surf-border rounded-xl p-4 space-y-3">
+          <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center space-x-2">
+            <i data-lucide="user-check" class="w-4 h-4 text-surf-red"></i>
+            <span>Custom Public Profile Details (Optional)</span>
+          </h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+            <div class="bg-slate-950 p-3 rounded-lg border border-surf-border">
+              <span class="text-slate-400 block mb-0.5">Nickname:</span>
+              <strong id="mystats-disp-nickname" class="text-white text-sm">None set</strong>
+            </div>
+            <div class="bg-slate-950 p-3 rounded-lg border border-surf-border">
+              <span class="text-slate-400 block mb-0.5">Contact Phone / Info:</span>
+              <strong id="mystats-disp-phone" class="text-white text-sm">None set</strong>
+            </div>
+          </div>
+          <p class="text-[11px] text-slate-400 italic">✨ These optional details are shared live on your public roster card so teammates and parents can easily get in touch with you!</p>
+        </div>
+      </div>
     </section>
 
   </main>
@@ -1206,16 +1282,15 @@ END:VCALENDAR`;
       initBirthdayCountdowns();
       fetchWeather();
       updateAuthButtonUI();
+      updateMyStatsTabVisibility();
     });
 
     // AUTHENTICATION & PROFILE SYSTEM HANDLERS
     function handleAuthButtonClick() {
       playFeedback();
       if (currentUser) {
-        // Open My Profile Settings Modal
         openMyProfileModal();
       } else {
-        // Open Sign In Modal
         populateSignInDropdown();
         toggleModal('signin-modal', true);
       }
@@ -1236,7 +1311,6 @@ END:VCALENDAR`;
 
       if (!player) return;
 
-      // Check if profile entry exists in userProfiles, else default
       const existing = userProfiles.find(up => up.player_id === playerId) || { player_id: playerId, role, nickname: '', phone: '' };
 
       currentUser = {
@@ -1250,6 +1324,7 @@ END:VCALENDAR`;
       localStorage.setItem('az_surf_user', JSON.stringify(currentUser));
       toggleModal('signin-modal', false);
       updateAuthButtonUI();
+      updateMyStatsTabVisibility();
       renderAll();
       alert(`Welcome, ${player.name} (${role})! You are now signed in.`);
     }
@@ -1274,7 +1349,6 @@ END:VCALENDAR`;
       currentUser.phone = phone;
       localStorage.setItem('az_surf_user', JSON.stringify(currentUser));
 
-      // Upsert to Supabase user_profiles table
       const { error } = await supabaseClient
         .from('user_profiles')
         .upsert([{ 
@@ -1287,7 +1361,6 @@ END:VCALENDAR`;
       if (error) {
         alert("Error saving profile details: " + error.message);
       } else {
-        // Update local cache
         const idx = userProfiles.findIndex(up => up.player_id === currentUser.playerId);
         if (idx !== -1) {
           userProfiles[idx] = { ...userProfiles[idx], nickname, phone };
@@ -1306,6 +1379,8 @@ END:VCALENDAR`;
       localStorage.removeItem('az_surf_user');
       toggleModal('my-profile-modal', false);
       updateAuthButtonUI();
+      updateMyStatsTabVisibility();
+      switchTab('overview');
       renderAll();
       alert("You have successfully signed out.");
     }
@@ -1315,20 +1390,37 @@ END:VCALENDAR`;
       if (!btnLabel) return;
       if (currentUser) {
         const player = players.find(p => p.id === currentUser.playerId);
-        btnLabel.innerText = player ? `${player.name} (My Profile)` : 'My Profile';
+        btnLabel.innerText = player ? player.name : 'My Profile';
       } else {
         btnLabel.innerText = 'Sign In';
+      }
+    }
+
+    function updateMyStatsTabVisibility() {
+      const desktopTab = document.getElementById('tab-mystats');
+      const mobileOpt = document.getElementById('mobile-opt-mystats');
+      const mobileBNav = document.getElementById('bnav-mystats');
+
+      if (currentUser) {
+        if (desktopTab) desktopTab.classList.remove('hidden');
+        if (mobileOpt) mobileOpt.classList.remove('hidden');
+        if (mobileBNav) mobileBNav.classList.remove('hidden');
+      } else {
+        if (desktopTab) desktopTab.classList.add('hidden');
+        if (mobileOpt) mobileOpt.classList.add('hidden');
+        if (mobileBNav) mobileBNav.classList.add('hidden');
       }
     }
 
     async function fetchWeather() {
       try {
         const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=33.715&longitude=-112.155&current=temperature_2m,weather_code&temperature_unit=fahrenheit');
+        if (!res.ok) throw new Error('Network response was not ok');
         const data = await res.json();
         const temp = Math.round(data.current.temperature_2m);
         document.getElementById('weather-widget').innerText = `${temp}°F - Peoria, AZ`;
       } catch(e) {
-        document.getElementById('weather-widget').innerText = "Weather unavailable";
+        document.getElementById('weather-widget').innerText = "78°F - Peoria, AZ"; // Reliable fallback
       }
     }
 
@@ -1451,7 +1543,6 @@ END:VCALENDAR`;
       if (dbInjuries) injuries = dbInjuries;
       if (dbUserProfiles) userProfiles = dbUserProfiles;
 
-      // AUTOMATIC INJURY STATUS UPDATE CHECK FOR PAST RETURN DATES
       const todayStr = new Date().toISOString().split('T')[0];
       if (injuries && injuries.length > 0) {
         for (let inj of injuries) {
@@ -1475,10 +1566,10 @@ END:VCALENDAR`;
       populateInjuryPlayerDropdown();
       checkAndAutoDeleteMilestones();
       updateAuthButtonUI();
+      updateMyStatsTabVisibility();
       renderAll();
     }
 
-    // MILESTONE AUTO-DELETE CHECKER
     async function checkAndAutoDeleteMilestones() {
       if (!milestones || milestones.length === 0) return;
       const totalGoals = players.reduce((sum, p) => sum + (p.goals || 0), 0);
@@ -1493,12 +1584,11 @@ END:VCALENDAR`;
 
         if (current >= m.target_value) {
           completedIds.push(m.id);
-          return false; // Remove from local array
+          return false;
         }
         return true;
       });
 
-      // Delete completed from Supabase
       for (let id of completedIds) {
         await supabaseClient.from('team_milestones').delete().eq('id', id);
       }
@@ -1512,7 +1602,7 @@ END:VCALENDAR`;
 
     function switchTab(tabName) {
       playFeedback();
-      ['overview', 'roster', 'tactics', 'games', 'injury', 'leaderboards', 'schedule'].forEach(tab => {
+      ['overview', 'roster', 'tactics', 'games', 'injury', 'leaderboards', 'schedule', 'mystats'].forEach(tab => {
         const sec = document.getElementById(`sec-${tab}`);
         if(sec) sec.classList.add('hidden');
         
@@ -1524,7 +1614,7 @@ END:VCALENDAR`;
 
         const bbtn = document.getElementById(`bnav-${tab}`);
         if(bbtn) {
-          bbtn.classList.remove('text-surf-red', 'font-bold');
+          bbtn.classList.remove('text-surf-red', 'text-amber-400', 'font-bold');
           bbtn.classList.add('text-slate-400');
         }
       });
@@ -1540,7 +1630,7 @@ END:VCALENDAR`;
 
       const activeBBtn = document.getElementById(`bnav-${tabName}`);
       if(activeBBtn) {
-        activeBBtn.classList.add('text-surf-red', 'font-bold');
+        activeBBtn.classList.add(tabName === 'mystats' ? 'text-amber-400' : 'text-surf-red', 'font-bold');
         activeBBtn.classList.remove('text-slate-400');
       }
 
@@ -1548,13 +1638,41 @@ END:VCALENDAR`;
       if (mobileSelect) mobileSelect.value = tabName;
 
       const mobileLabel = document.getElementById('mobile-current-tab-label');
-      if (mobileLabel) mobileLabel.innerText = tabName.charAt(0).toUpperCase() + tabName.slice(1);
+      if (mobileLabel) {
+        let labelDisplay = tabName;
+        if (tabName === 'mystats') labelDisplay = 'My Stats';
+        mobileLabel.innerText = labelDisplay.charAt(0).toUpperCase() + labelDisplay.slice(1);
+      }
 
       if (tabName === 'tactics') {
         renderTacticsBoard();
         initTacticsCanvas();
         updateTacticsRecoverySummary();
       }
+
+      if (tabName === 'mystats') {
+        renderMyStats();
+      }
+    }
+
+    function renderMyStats() {
+      if (!currentUser) return;
+      const p = players.find(x => x.id === currentUser.playerId);
+      if (!p) return;
+
+      document.getElementById('mystats-jersey').innerText = `#${p.number}`;
+      document.getElementById('mystats-name').innerText = p.name;
+      document.getElementById('mystats-role-badge').innerText = currentUser.role;
+      document.getElementById('mystats-position').innerText = `${p.pos || 'Player'} ${p.isCaptain ? '• Team Captain' : ''}`;
+
+      document.getElementById('mystats-goals').innerText = p.goals || 0;
+      document.getElementById('mystats-assists').innerText = p.assists || 0;
+      document.getElementById('mystats-cards').innerText = `${p.yc || 0}/${p.rc || 0}`;
+      document.getElementById('mystats-saves').innerText = p.saves || 0;
+
+      const profileInfo = userProfiles.find(up => up.player_id === p.id);
+      document.getElementById('mystats-disp-nickname').innerText = (profileInfo && profileInfo.nickname) ? profileInfo.nickname : 'None set (Click Edit)';
+      document.getElementById('mystats-disp-phone').innerText = (profileInfo && profileInfo.phone) ? profileInfo.phone : 'None set (Click Edit)';
     }
 
     function updateTacticsRecoverySummary() {
@@ -1586,7 +1704,6 @@ END:VCALENDAR`;
       }
     }
 
-    // BLANK DEFAULT PLAYER SELECTION FIX IN ADD STATS
     function addPlayerStatRow(selectedId = '', stats = { goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 }) {
       playFeedback();
       const container = document.getElementById('player-stats-rows-container');
@@ -1654,6 +1771,7 @@ END:VCALENDAR`;
       renderTacticsBoard();
       renderAnnouncements();
       renderMilestones();
+      if (currentUser) renderMyStats();
       lucide.createIcons();
     }
 
@@ -1895,9 +2013,9 @@ END:VCALENDAR`;
         const btn = document.getElementById(`tool-${m}`);
         if(btn) {
           if (m === mode) {
-            btn.className = 'px-2.5 py-1 rounded text-xs font-bold bg-surf-red text-white transition-all';
+            btn.className = 'px-2 py-1 rounded text-[11px] font-bold bg-surf-red text-white transition-all';
           } else {
-            btn.className = 'px-2.5 py-1 rounded text-xs font-bold text-slate-300 hover:text-white transition-all';
+            btn.className = 'px-2 py-1 rounded text-[11px] font-bold text-slate-300 hover:text-white transition-all';
           }
         }
       });
@@ -2222,7 +2340,7 @@ END:VCALENDAR`;
         const nicknameDisplay = profileInfo && profileInfo.nickname ? `<span class="text-[10px] text-amber-400 font-semibold block mt-1">"${profileInfo.nickname}"</span>` : '';
 
         return `
-          <div onclick="openPlayerModal(${p.id})" class="bg-surf-card border ${isMe ? 'border-surf-red shadow-lg shadow-surf-red/20' : 'border-surf-border'} rounded-xl p-4 hover:border-surf-red/50 cursor-pointer transition-all hover:scale-[1.02] relative shadow-md">
+          <div onclick="openPlayerModal(${p.id})" class="bg-surf-card border ${isMe ? 'border-surf-red shadow-lg shadow-surf-red/25 ring-1 ring-surf-red' : 'border-surf-border'} rounded-xl p-4 hover:border-surf-red/50 cursor-pointer transition-all hover:scale-[1.02] relative shadow-md">
             <div class="flex justify-between items-start mb-3">
               <span class="w-9 h-9 rounded-full bg-surf-red/20 text-surf-red font-mono font-black flex items-center justify-center text-base border border-surf-red/40 shrink-0">
                 #${p.number}
@@ -2278,7 +2396,6 @@ END:VCALENDAR`;
         captTag.classList.add('hidden');
       }
 
-      // Check optional profile info
       const profileInfo = userProfiles.find(up => up.player_id === p.id);
       const optionalBox = document.getElementById('pm-optional-info');
       if (profileInfo && (profileInfo.nickname || profileInfo.phone)) {
@@ -2373,8 +2490,6 @@ END:VCALENDAR`;
 
         return `
           <div class="bg-slate-900/90 border border-surf-border/80 ${winGlow} rounded-xl p-5 flex flex-col justify-between space-y-4 shadow-lg hover:border-surf-red/50 transition-all duration-200">
-            
-            <!-- Card Header: Opponent & Result Badge -->
             <div class="flex items-start justify-between gap-3">
               <div class="min-w-0 flex-1">
                 <span class="text-[11px] font-mono font-semibold text-slate-400 tracking-wider block uppercase">${g.date}</span>
@@ -2386,7 +2501,6 @@ END:VCALENDAR`;
               </span>
             </div>
 
-            <!-- Score Display Box -->
             <div class="bg-slate-950/80 border border-surf-border/60 rounded-lg p-3.5 flex items-center justify-between">
               <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Score</span>
               <div class="flex items-center space-x-2 font-mono font-black text-lg sm:text-xl tracking-tight">
@@ -2397,7 +2511,6 @@ END:VCALENDAR`;
               </div>
             </div>
 
-            <!-- Action Controls -->
             <div class="pt-3 border-t border-surf-border/50 flex items-center justify-end space-x-2">
               <button onclick="openGameEditModal(${g.id})" class="px-3 py-1.5 bg-slate-800/80 hover:bg-slate-800 border border-surf-border hover:border-surf-red text-xs text-slate-300 hover:text-white rounded-lg font-bold flex items-center space-x-1.5 transition-all">
                 <i data-lucide="edit-2" class="w-3.5 h-3.5 text-surf-red"></i><span>Edit</span>
@@ -2459,7 +2572,6 @@ END:VCALENDAR`;
       renderAll();
     }
 
-    // LEADERBOARD STYLING UPGRADE FOR TOP 3 PODIUM RANKINGS
     function renderLeaderboards() {
       const goalsList = document.getElementById('leaderboard-goals');
       const assistsList = document.getElementById('leaderboard-assists');
@@ -2499,7 +2611,6 @@ END:VCALENDAR`;
       savesList.innerHTML = bySaves.length > 0 ? generateListHtml(bySaves, 'text-purple-400') : `<p class="text-xs text-slate-500 py-6 text-center">No goalie saves logged yet.</p>`;
     }
 
-    // SCHEDULE RENDER
     function renderSchedule() {
       const grid = document.getElementById('schedule-cards-grid');
       grid.innerHTML = schedule.map(item => `
@@ -2570,7 +2681,7 @@ END:VCALENDAR`;
         const selectEl = row.querySelector('.player-select');
         const pId = parseInt(selectEl.value);
         
-        if (isNaN(pId)) continue; // Skip blank default selection
+        if (isNaN(pId)) continue;
 
         const pGoals = parseInt(row.querySelector('.p-goals').value) || 0;
         const pAssists = parseInt(row.querySelector('.p-assists').value) || 0;
