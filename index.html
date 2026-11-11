@@ -32,7 +32,6 @@
     }
   </script>
   <style>
-    /* Hide scrollbar for clean mobile navigation */
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
@@ -1420,7 +1419,7 @@ END:VCALENDAR`;
         const temp = Math.round(data.current.temperature_2m);
         document.getElementById('weather-widget').innerText = `${temp}°F - Peoria, AZ`;
       } catch(e) {
-        document.getElementById('weather-widget').innerText = "78°F - Peoria, AZ"; // Reliable fallback
+        document.getElementById('weather-widget').innerText = "78°F - Peoria, AZ";
       }
     }
 
