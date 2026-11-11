@@ -978,7 +978,7 @@
       });
     }
 
-    // SCHEDULE WITH .ICS CALENDAR EXPORT & CUSTOM NOTES
+    // SCHEDULE WITH .ICS CALENDAR EXPORT
     const schedule = [
       { 
         title: 'Scrimmage vs West Valley Surf U13B', 
@@ -989,8 +989,7 @@
         mapUrl: 'https://maps.google.com/?q=Deem+Hills+Park',
         studs: 'Firm Ground Cleats',
         clothes: 'Yellow Kit',
-        hydration: '2 Water Bottles',
-        notes: 'Park in the south lot near Field 2. Arrive 30 mins early for warmups!'
+        hydration: '2 Water Bottles'
       },
       { 
         title: 'November 14th Game vs RSL AZ', 
@@ -1001,8 +1000,7 @@
         mapUrl: 'https://maps.google.com/?q=Benedict+Sports+Complex',
         studs: 'Firm Ground Cleats',
         clothes: 'Standard Jersey',
-        hydration: '2 Water Bottles',
-        notes: 'Field 4 (North Side). Bring both white and dark jerseys just in case.'
+        hydration: '2 Water Bottles'
       },
       { 
         title: 'November 21st Game vs Phoenix Rising', 
@@ -1013,8 +1011,7 @@
         mapUrl: 'https://maps.google.com/?q=West+Valley+Events+Complex',
         studs: 'Firm Ground Cleats',
         clothes: 'Standard Jersey',
-        hydration: '2 Water Bottles',
-        notes: 'Parking fee required at gate ($5 cash/card).'
+        hydration: '2 Water Bottles'
       },
       { 
         title: 'Holiday Classic Tournament', 
@@ -1025,8 +1022,7 @@
         mapUrl: '',
         studs: 'FG & AG Cleats',
         clothes: 'Thermal Layering Gear',
-        hydration: 'Hydration Pack',
-        notes: '3-game minimum guarantee. Full schedule will be emailed 1 week prior.'
+        hydration: 'Hydration Pack'
       }
     ];
 
@@ -1042,7 +1038,7 @@ VERSION:2.0
 PRODID:-//AZ Surf U13 Boys Dashboard//EN
 BEGIN:VEVENT
 SUMMARY:${item.title}
-DESCRIPTION:AZ Surf U13 Boys Match/Tournament. Location: ${item.location}. Notes: ${item.notes || ''}
+DESCRIPTION:AZ Surf U13 Boys Match/Tournament. Location: ${item.location}
 LOCATION:${item.location}
 DTSTART:${formatDate(startDate)}
 DTEND:${formatDate(endDate)}
@@ -2287,7 +2283,7 @@ END:VCALENDAR`;
       savesList.innerHTML = bySaves.length > 0 ? generateListHtml(bySaves, 'text-purple-400') : `<p class="text-xs text-slate-500 py-6 text-center">No goalie saves logged yet.</p>`;
     }
 
-    // SCHEDULE RENDER WITH CUSTOM NOTES SECTION
+    // SCHEDULE RENDER
     function renderSchedule() {
       const grid = document.getElementById('schedule-cards-grid');
       grid.innerHTML = schedule.map(item => `
@@ -2306,13 +2302,6 @@ END:VCALENDAR`;
               ${item.mapUrl ? `<a href="${item.mapUrl}" target="_blank" class="bg-slate-900 border border-surf-border hover:border-surf-red text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0"><i data-lucide="external-link" class="w-3.5 h-3.5"></i></a>` : ''}
             </div>
           </div>
-
-          ${item.notes ? `
-            <div class="bg-amber-500/10 border border-amber-500/30 rounded-lg p-2.5 flex items-start space-x-2">
-              <i data-lucide="info" class="w-4 h-4 text-amber-400 shrink-0 mt-0.5"></i>
-              <p class="text-xs text-amber-200 font-medium leading-relaxed"><strong>Match Note:</strong> ${item.notes}</p>
-            </div>
-          ` : ''}
 
           <div class="pt-3 border-t border-surf-border/60 grid grid-cols-3 gap-1.5 text-[10px]">
             <div class="bg-slate-900/80 border border-surf-border p-1.5 rounded flex flex-col items-center text-center">
