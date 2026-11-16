@@ -36,20 +36,25 @@
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 </head>
-<body class="min-h-screen text-slate-100 font-sans flex flex-col bg-slate-950 pb-36 md:pb-12 antialiased selection:bg-surf-red selection:text-white overflow-x-hidden">
+<body class="min-h-screen text-slate-100 font-sans flex flex-col bg-slate-950 pb-28 md:pb-12 antialiased selection:bg-surf-red selection:text-white overflow-x-hidden">
 
   <!-- TOP HEADER -->
   <header class="bg-surf-dark/95 backdrop-blur-md border-b border-surf-border sticky top-0 z-40 w-full">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
       
-      <!-- Dual Logos / Title -->
+      <!-- Left: Mobile Menu Toggle & Dual Logos / Title -->
       <div class="flex items-center space-x-2.5 min-w-0">
-        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-surf-border bg-surf-dark p-1.5 flex items-center justify-center shadow-lg shadow-surf-red/20 overflow-hidden shrink-0">
-          <img src="https://i.postimg.cc/J7fdQWVK/images.jpg" alt="Surf Crest" class="w-8 h-8 sm:w-10 sm:h-10 object-contain" style="mix-blend-mode: screen;" />
+        <!-- Mobile Hamburger Menu Button -->
+        <button onclick="toggleMobileMenu(true)" class="md:hidden p-2 rounded-lg bg-slate-900 border border-surf-border text-slate-300 hover:text-white shrink-0">
+          <i data-lucide="menu" class="w-5 h-5 text-surf-red"></i>
+        </button>
+
+        <div class="w-9 h-9 sm:w-12 sm:h-12 rounded-full border border-surf-border bg-surf-dark p-1.5 flex items-center justify-center shadow-lg shadow-surf-red/20 overflow-hidden shrink-0">
+          <img src="https://i.postimg.cc/J7fdQWVK/images.jpg" alt="Surf Crest" class="w-7 h-7 sm:w-10 sm:h-10 object-contain" style="mix-blend-mode: screen;" />
         </div>
         <div class="min-w-0">
-          <h1 class="text-sm sm:text-lg font-bold tracking-tight text-white leading-tight truncate">AZ SURF</h1>
-          <p class="text-[10px] sm:text-xs font-semibold text-surf-red truncate" data-i18n="sub_title">U13 BOYS CLUB SOCCER</p>
+          <h1 class="text-xs sm:text-lg font-bold tracking-tight text-white leading-tight truncate">AZ SURF</h1>
+          <p class="text-[9px] sm:text-xs font-semibold text-surf-red truncate" data-i18n="sub_title">U13 BOYS CLUB SOCCER</p>
         </div>
       </div>
 
@@ -69,9 +74,9 @@
       <!-- Action Buttons & Lang Toggle -->
       <div class="flex items-center space-x-1.5 shrink-0">
         <!-- Auth / Profile Button -->
-        <button id="auth-action-btn" onclick="handleAuthButtonClick()" class="bg-slate-900 border border-surf-border hover:border-surf-red text-slate-300 hover:text-white px-2 py-1.5 rounded-lg text-[11px] sm:text-xs font-bold transition-all flex items-center space-x-1">
+        <button id="auth-action-btn" onclick="handleAuthButtonClick()" class="bg-slate-900 border border-surf-border hover:border-surf-red text-slate-300 hover:text-white px-2.5 py-1.5 rounded-lg text-[11px] sm:text-xs font-bold transition-all flex items-center space-x-1">
           <i data-lucide="user" class="w-3 h-3 text-surf-red shrink-0"></i>
-          <span id="auth-btn-label" class="truncate max-w-[80px] sm:max-w-[110px]">Sign In</span>
+          <span id="auth-btn-label" class="truncate max-w-[70px] sm:max-w-[100px]">Sign In</span>
         </button>
         <button onclick="toggleLanguage()" class="bg-slate-900 border border-surf-border hover:border-surf-red text-slate-300 hover:text-white px-2 py-1.5 rounded-lg text-[11px] sm:text-xs font-bold transition-all flex items-center space-x-1 shrink-0">
           <i data-lucide="globe" class="w-3 h-3 text-surf-red"></i>
@@ -83,53 +88,59 @@
         </button>
       </div>
     </div>
-
-    <!-- Mobile Top Dropdown & Guidance Bar -->
-    <div class="flex md:hidden border-t border-surf-border px-3 py-1.5 bg-slate-900/95 items-center justify-between">
-      <div class="flex items-center space-x-1">
-        <span class="text-[10px] font-bold text-amber-400 animate-pulse">Tab:</span>
-        <span class="text-xs font-bold text-white uppercase tracking-wider truncate max-w-[130px]" id="mobile-current-tab-label">Overview</span>
-      </div>
-      <select onchange="switchTab(this.value)" id="mobile-tab-select" class="bg-slate-950 border border-surf-red/60 rounded-lg px-2 py-1 text-xs text-white font-bold focus:outline-none focus:border-surf-red shadow">
-        <option value="overview">Overview</option>
-        <option value="roster">Roster</option>
-        <option value="tactics">Tactics</option>
-        <option value="games">Games</option>
-        <option value="injury">Recovery</option>
-        <option value="leaderboards">Leaders</option>
-        <option value="schedule">Schedule</option>
-        <option value="mystats" id="mobile-opt-mystats" class="hidden">⭐ My Stats</option>
-      </select>
-    </div>
   </header>
 
-  <!-- MOBILE BOTTOM NAVIGATION BAR -->
-  <div id="mobile-bottom-nav" class="fixed bottom-0 inset-x-0 bg-surf-dark/95 backdrop-blur-md border-t border-surf-border z-40 md:hidden flex justify-around items-center py-2 px-1 shadow-2xl overflow-x-auto no-scrollbar">
-    <button onclick="switchTab('overview')" id="bnav-overview" class="bnav-btn flex flex-col items-center text-[9px] text-surf-red font-bold px-1 shrink-0">
-      <i data-lucide="home" class="w-4 h-4 mb-0.5"></i><span>Overview</span>
-    </button>
-    <button onclick="switchTab('roster')" id="bnav-roster" class="bnav-btn flex flex-col items-center text-[9px] text-slate-400 px-1 shrink-0">
-      <i data-lucide="users" class="w-4 h-4 mb-0.5"></i><span>Roster</span>
-    </button>
-    <button onclick="switchTab('tactics')" id="bnav-tactics" class="bnav-btn flex flex-col items-center text-[9px] text-slate-400 px-1 shrink-0">
-      <i data-lucide="layout" class="w-4 h-4 mb-0.5"></i><span>Tactics</span>
-    </button>
-    <button onclick="switchTab('games')" id="bnav-games" class="bnav-btn flex flex-col items-center text-[9px] text-slate-400 px-1 shrink-0">
-      <i data-lucide="trophy" class="w-4 h-4 mb-0.5"></i><span>Games</span>
-    </button>
-    <button onclick="switchTab('injury')" id="bnav-injury" class="bnav-btn flex flex-col items-center text-[9px] text-slate-400 px-1 shrink-0">
-      <i data-lucide="activity" class="w-4 h-4 mb-0.5"></i><span>Recovery</span>
-    </button>
-    <button onclick="switchTab('leaderboards')" id="bnav-leaderboards" class="bnav-btn flex flex-col items-center text-[9px] text-slate-400 px-1 shrink-0">
-      <i data-lucide="award" class="w-4 h-4 mb-0.5"></i><span>Leaders</span>
-    </button>
-    <button onclick="switchTab('schedule')" id="bnav-schedule" class="bnav-btn flex flex-col items-center text-[9px] text-slate-400 px-1 shrink-0">
-      <i data-lucide="calendar" class="w-4 h-4 mb-0.5"></i><span>Schedule</span>
-    </button>
-    <!-- Dynamic Mobile Bottom Nav My Stats Tab -->
-    <button onclick="switchTab('mystats')" id="bnav-mystats" class="bnav-btn flex flex-col items-center text-[9px] text-amber-400 px-1 shrink-0 hidden">
-      <i data-lucide="star" class="w-4 h-4 mb-0.5"></i><span>My Stats</span>
-    </button>
+  <!-- MOBILE SLIDE-OUT MENU DRAWER -->
+  <div id="mobile-menu-drawer" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex justify-start">
+    <div class="bg-surf-dark border-r border-surf-border w-72 h-full p-5 flex flex-col justify-between shadow-2xl overflow-y-auto">
+      <div>
+        <div class="flex items-center justify-between mb-6 pb-4 border-b border-surf-border">
+          <div class="flex items-center space-x-2">
+            <div class="w-8 h-8 rounded-full border border-surf-border bg-surf-dark p-1 flex items-center justify-center">
+              <img src="https://i.postimg.cc/J7fdQWVK/images.jpg" alt="Surf Crest" class="w-6 h-6 object-contain" style="mix-blend-mode: screen;" />
+            </div>
+            <div>
+              <h3 class="font-bold text-white text-sm">AZ SURF U13</h3>
+              <span class="text-[10px] text-surf-red font-semibold">Navigation Menu</span>
+            </div>
+          </div>
+          <button onclick="toggleMobileMenu(false)" class="text-slate-400 hover:text-white p-1">
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+        <div class="space-y-1.5">
+          <button onclick="mobileNavClick('overview')" class="w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold text-slate-200 hover:bg-surf-red/20 hover:text-surf-red transition-all flex items-center space-x-3">
+            <i data-lucide="home" class="w-4 h-4 text-surf-red"></i><span>Overview</span>
+          </button>
+          <button onclick="mobileNavClick('roster')" class="w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold text-slate-200 hover:bg-surf-red/20 hover:text-surf-red transition-all flex items-center space-x-3">
+            <i data-lucide="users" class="w-4 h-4 text-surf-red"></i><span>Roster</span>
+          </button>
+          <button onclick="mobileNavClick('tactics')" class="w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold text-slate-200 hover:bg-surf-red/20 hover:text-surf-red transition-all flex items-center space-x-3">
+            <i data-lucide="layout" class="w-4 h-4 text-surf-red"></i><span>Tactics Board</span>
+          </button>
+          <button onclick="mobileNavClick('games')" class="w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold text-slate-200 hover:bg-surf-red/20 hover:text-surf-red transition-all flex items-center space-x-3">
+            <i data-lucide="trophy" class="w-4 h-4 text-surf-red"></i><span>Match History</span>
+          </button>
+          <button onclick="mobileNavClick('injury')" class="w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold text-slate-200 hover:bg-surf-red/20 hover:text-surf-red transition-all flex items-center space-x-3">
+            <i data-lucide="activity" class="w-4 h-4 text-surf-red"></i><span>Recovery Log</span>
+          </button>
+          <button onclick="mobileNavClick('leaderboards')" class="w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold text-slate-200 hover:bg-surf-red/20 hover:text-surf-red transition-all flex items-center space-x-3">
+            <i data-lucide="award" class="w-4 h-4 text-surf-red"></i><span>Stat Leaders</span>
+          </button>
+          <button onclick="mobileNavClick('schedule')" class="w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold text-slate-200 hover:bg-surf-red/20 hover:text-surf-red transition-all flex items-center space-x-3">
+            <i data-lucide="calendar" class="w-4 h-4 text-surf-red"></i><span>Schedule</span>
+          </button>
+          <button onclick="mobileNavClick('mystats')" id="mobile-menu-mystats" class="w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold text-amber-400 hover:bg-amber-500/20 transition-all flex items-center space-x-3 hidden">
+            <i data-lucide="star" class="w-4 h-4 text-amber-400"></i><span>⭐ My Stats Dashboard</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="pt-4 border-t border-surf-border text-center">
+        <p class="text-[10px] text-slate-500">AZ Surf U13 Boys Club Soccer • Peoria, AZ</p>
+      </div>
+    </div>
   </div>
 
   <!-- MAIN CONTENT CONTAINER -->
@@ -154,7 +165,7 @@
             </div>
             <div>
               <span id="countdown-label" class="text-[10px] font-bold text-surf-red uppercase tracking-wide">Next Kickoff Countdown</span>
-              <h4 id="countdown-timer" class="font-mono font-black text-white text-lg">Loading schedule...</h4>
+              <h4 id="countdown-timer" class="font-mono font-black text-white text-base sm:text-lg">Loading schedule...</h4>
             </div>
           </div>
           <span id="countdown-location" class="text-xs text-slate-400 hidden sm:inline font-semibold">Peoria, AZ</span>
@@ -477,7 +488,7 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="schedule-cards-grid"></div>
     </section>
 
-    <!-- MY STATS / PROFILE TAB (DYNAMICALLY SHOWN WHEN SIGNED IN) -->
+    <!-- MY STATS / PROFILE TAB (EXPANDED WITH MORE METRICS) -->
     <section id="sec-mystats" class="hidden space-y-6">
       <div class="bg-surf-card border border-surf-border rounded-2xl p-6 shadow-xl relative overflow-hidden">
         <div class="absolute -right-10 -top-10 w-40 h-40 bg-surf-red/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -500,7 +511,7 @@
           </button>
         </div>
 
-        <!-- Personal Quick Stats Grid -->
+        <!-- Expanded Personal Quick Stats Grid -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6 text-center">
           <div class="bg-slate-900/80 border border-surf-border p-3.5 rounded-xl">
             <span class="text-[10px] text-slate-400 uppercase font-bold block">Goals</span>
@@ -511,12 +522,26 @@
             <span id="mystats-assists" class="text-2xl font-black text-blue-400">0</span>
           </div>
           <div class="bg-slate-900/80 border border-surf-border p-3.5 rounded-xl">
-            <span class="text-[10px] text-slate-400 uppercase font-bold block">Cards (Y/R)</span>
-            <span id="mystats-cards" class="text-2xl font-black text-slate-200">0/0</span>
+            <span class="text-[10px] text-slate-400 uppercase font-bold block">Goalie Saves</span>
+            <span id="mystats-saves" class="text-2xl font-black text-purple-400">0</span>
           </div>
           <div class="bg-slate-900/80 border border-surf-border p-3.5 rounded-xl">
-            <span class="text-[10px] text-slate-400 uppercase font-bold block">Saves</span>
-            <span id="mystats-saves" class="text-2xl font-black text-purple-400">0</span>
+            <span class="text-[10px] text-slate-400 uppercase font-bold block">Cards (Y / R)</span>
+            <span id="mystats-cards" class="text-2xl font-black text-amber-400">0 / 0</span>
+          </div>
+        </div>
+
+        <!-- Advanced Personal Metrics Row -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+          <div class="bg-slate-900/50 border border-surf-border rounded-xl p-4">
+            <span class="text-[10px] text-slate-400 uppercase font-bold block mb-1">Total Goal Contributions (G + A)</span>
+            <span id="mystats-contributions" class="text-xl font-black text-white">0</span>
+            <p class="text-[11px] text-slate-400 mt-1">Combined total of goals scored and assists provided.</p>
+          </div>
+          <div class="bg-slate-900/50 border border-surf-border rounded-xl p-4">
+            <span class="text-[10px] text-slate-400 uppercase font-bold block mb-1">Disciplinary Clean Record</span>
+            <span id="mystats-discipline" class="text-xl font-black text-emerald-400">Perfect 🟢</span>
+            <p class="text-[11px] text-slate-400 mt-1">Based on active yellow and red card counts.</p>
           </div>
         </div>
 
@@ -1133,6 +1158,22 @@
       });
     }
 
+    // MOBILE MENU TOGGLE
+    function toggleMobileMenu(show) {
+      playFeedback();
+      const menu = document.getElementById('mobile-menu-drawer');
+      if (show) {
+        menu.classList.remove('hidden');
+      } else {
+        menu.classList.add('hidden');
+      }
+    }
+
+    function mobileNavClick(tabName) {
+      toggleMobileMenu(false);
+      switchTab(tabName);
+    }
+
     // SCHEDULE WITH .ICS CALENDAR EXPORT
     const schedule = [
       { 
@@ -1397,17 +1438,14 @@ END:VCALENDAR`;
 
     function updateMyStatsTabVisibility() {
       const desktopTab = document.getElementById('tab-mystats');
-      const mobileOpt = document.getElementById('mobile-opt-mystats');
-      const mobileBNav = document.getElementById('bnav-mystats');
+      const mobileMenuTab = document.getElementById('mobile-menu-mystats');
 
       if (currentUser) {
         if (desktopTab) desktopTab.classList.remove('hidden');
-        if (mobileOpt) mobileOpt.classList.remove('hidden');
-        if (mobileBNav) mobileBNav.classList.remove('hidden');
+        if (mobileMenuTab) mobileMenuTab.classList.remove('hidden');
       } else {
         if (desktopTab) desktopTab.classList.add('hidden');
-        if (mobileOpt) mobileOpt.classList.add('hidden');
-        if (mobileBNav) mobileBNav.classList.add('hidden');
+        if (mobileMenuTab) mobileMenuTab.classList.add('hidden');
       }
     }
 
@@ -1610,12 +1648,6 @@ END:VCALENDAR`;
           btn.classList.remove('text-surf-red', 'bg-surf-border/50');
           btn.classList.add('text-slate-400');
         }
-
-        const bbtn = document.getElementById(`bnav-${tab}`);
-        if(bbtn) {
-          bbtn.classList.remove('text-surf-red', 'text-amber-400', 'font-bold');
-          bbtn.classList.add('text-slate-400');
-        }
       });
 
       const targetSec = document.getElementById(`sec-${tabName}`);
@@ -1625,22 +1657,6 @@ END:VCALENDAR`;
       if(activeBtn) {
         activeBtn.classList.add('text-surf-red', 'bg-surf-border/50');
         activeBtn.classList.remove('text-slate-400');
-      }
-
-      const activeBBtn = document.getElementById(`bnav-${tabName}`);
-      if(activeBBtn) {
-        activeBBtn.classList.add(tabName === 'mystats' ? 'text-amber-400' : 'text-surf-red', 'font-bold');
-        activeBBtn.classList.remove('text-slate-400');
-      }
-
-      const mobileSelect = document.getElementById('mobile-tab-select');
-      if (mobileSelect) mobileSelect.value = tabName;
-
-      const mobileLabel = document.getElementById('mobile-current-tab-label');
-      if (mobileLabel) {
-        let labelDisplay = tabName;
-        if (tabName === 'mystats') labelDisplay = 'My Stats';
-        mobileLabel.innerText = labelDisplay.charAt(0).toUpperCase() + labelDisplay.slice(1);
       }
 
       if (tabName === 'tactics') {
@@ -1666,8 +1682,24 @@ END:VCALENDAR`;
 
       document.getElementById('mystats-goals').innerText = p.goals || 0;
       document.getElementById('mystats-assists').innerText = p.assists || 0;
-      document.getElementById('mystats-cards').innerText = `${p.yc || 0}/${p.rc || 0}`;
       document.getElementById('mystats-saves').innerText = p.saves || 0;
+      document.getElementById('mystats-cards').innerText = `${p.yc || 0} / ${p.rc || 0}`;
+
+      const totalContrib = (p.goals || 0) + (p.assists || 0);
+      document.getElementById('mystats-contributions').innerText = totalContrib;
+
+      const disciplineEl = document.getElementById('mystats-discipline');
+      const totalCards = (p.yc || 0) + (p.rc || 0);
+      if (totalCards === 0) {
+        disciplineEl.innerText = "Perfect 🟢";
+        disciplineEl.className = "text-xl font-black text-emerald-400";
+      } else if (totalCards <= 2) {
+        disciplineEl.innerText = "Caution 🟡";
+        disciplineEl.className = "text-xl font-black text-amber-400";
+      } else {
+        disciplineEl.innerText = "Needs Caution 🔴";
+        disciplineEl.className = "text-xl font-black text-rose-400";
+      }
 
       const profileInfo = userProfiles.find(up => up.player_id === p.id);
       document.getElementById('mystats-disp-nickname').innerText = (profileInfo && profileInfo.nickname) ? profileInfo.nickname : 'None set (Click Edit)';
