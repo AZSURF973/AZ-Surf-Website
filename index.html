@@ -538,10 +538,14 @@
         </div>
 
         <!-- Expanded Personal Quick Stats Grid -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6 text-center">
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-6 text-center">
           <div class="bg-slate-900/80 border border-surf-border p-3.5 rounded-xl">
             <span class="text-[10px] text-slate-400 uppercase font-bold block">Goals</span>
             <span id="mystats-goals" class="text-2xl font-black text-surf-red">0</span>
+          </div>
+          <div class="bg-slate-900/80 border border-surf-border p-3.5 rounded-xl">
+            <span class="text-[10px] text-slate-400 uppercase font-bold block">Shots</span>
+            <span id="mystats-shots" class="text-2xl font-black text-emerald-400">0</span>
           </div>
           <div class="bg-slate-900/80 border border-surf-border p-3.5 rounded-xl">
             <span class="text-[10px] text-slate-400 uppercase font-bold block">Assists</span>
@@ -551,9 +555,38 @@
             <span class="text-[10px] text-slate-400 uppercase font-bold block">Goalie Saves</span>
             <span id="mystats-saves" class="text-2xl font-black text-purple-400">0</span>
           </div>
-          <div class="bg-slate-900/80 border border-surf-border p-3.5 rounded-xl">
+          <div class="bg-slate-900/80 border border-surf-border p-3.5 rounded-xl col-span-2 sm:col-span-1">
             <span class="text-[10px] text-slate-400 uppercase font-bold block">Cards (Y / R)</span>
             <span id="mystats-cards" class="text-2xl font-black text-amber-400">0 / 0</span>
+          </div>
+        </div>
+
+        <!-- VISUAL PERFORMANCE CHART SECTION -->
+        <div class="bg-slate-900/60 border border-surf-border rounded-2xl p-5 mb-6">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-sm font-bold text-white flex items-center space-x-2">
+              <i data-lucide="bar-chart-2" class="w-4 h-4 text-surf-red"></i>
+              <span>Personal Performance vs Team Average</span>
+            </h3>
+            <span class="text-[10px] bg-slate-950 border border-surf-border text-slate-400 px-2.5 py-1 rounded">Live SVG Chart</span>
+          </div>
+
+          <!-- SVG Bar Chart -->
+          <div class="w-full overflow-x-auto">
+            <svg id="mystats-svg-chart" viewBox="0 0 500 200" class="w-full h-48 font-sans">
+              <!-- Grid lines -->
+              <line x1="50" y1="20" x2="480" y2="20" stroke="#27272A" stroke-dasharray="4" />
+              <line x1="50" y1="70" x2="480" y2="70" stroke="#27272A" stroke-dasharray="4" />
+              <line x1="50" y1="120" x2="480" y2="120" stroke="#27272A" stroke-dasharray="4" />
+              <line x1="50" y1="170" x2="480" y2="170" stroke="#27272A" />
+
+              <!-- Chart bars rendered dynamically -->
+              <g id="chart-bars-group"></g>
+            </svg>
+          </div>
+          <div class="flex items-center justify-center space-x-6 mt-3 text-[11px] font-semibold">
+            <div class="flex items-center space-x-1.5"><span class="w-3 h-3 bg-surf-red rounded"></span><span class="text-slate-300">My Stats</span></div>
+            <div class="flex items-center space-x-1.5"><span class="w-3 h-3 bg-slate-600 rounded"></span><span class="text-slate-400">Team Average</span></div>
           </div>
         </div>
 
@@ -886,12 +919,12 @@
           <p id="pm-goals" class="text-lg font-black text-surf-red">0</p>
         </div>
         <div>
-          <span class="text-[10px] text-slate-400 uppercase font-semibold">Assists</span>
-          <p id="pm-assists" class="text-lg font-black text-blue-400">0</p>
+          <span class="text-[10px] text-slate-400 uppercase font-semibold">Shots</span>
+          <p id="pm-shots" class="text-lg font-black text-emerald-400">0</p>
         </div>
         <div>
-          <span class="text-[10px] text-slate-400 uppercase font-semibold">Cards (Y/R)</span>
-          <p id="pm-cards" class="text-lg font-black text-slate-300">0/0</p>
+          <span class="text-[10px] text-slate-400 uppercase font-semibold">Assists</span>
+          <p id="pm-assists" class="text-lg font-black text-blue-400">0</p>
         </div>
         <div>
           <span class="text-[10px] text-slate-400 uppercase font-semibold">Saves</span>
@@ -945,10 +978,14 @@
             </div>
           </div>
 
-          <div class="grid grid-cols-5 gap-1">
+          <div class="grid grid-cols-6 gap-1">
             <div>
               <label class="block text-[9px] text-slate-400 text-center">Goals</label>
               <input type="number" id="edit-p-goals" min="0" class="w-full bg-slate-900 border border-surf-border rounded px-1 py-1 text-xs text-center text-white" />
+            </div>
+            <div>
+              <label class="block text-[9px] text-slate-400 text-center">Shots</label>
+              <input type="number" id="edit-p-shots" min="0" class="w-full bg-slate-900 border border-surf-border rounded px-1 py-1 text-xs text-center text-white" />
             </div>
             <div>
               <label class="block text-[9px] text-slate-400 text-center">Assists</label>
@@ -1022,14 +1059,14 @@
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     let players = [
-      { id: 1, name: 'CJ', number: 10, pos: 'Midfield', isCaptain: true, goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
-      { id: 2, name: 'Jionni', number: 7, pos: 'Forward', isCaptain: true, goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
-      { id: 3, name: 'Alex', number: 1, pos: 'Goalkeeper', isCaptain: false, goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
-      { id: 4, name: 'Liam', number: 4, pos: 'Defender', isCaptain: false, goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
-      { id: 5, name: 'Ethan', number: 9, pos: 'Forward', isCaptain: false, goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
-      { id: 6, name: 'Mason', number: 8, pos: 'Midfield', isCaptain: false, goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
-      { id: 7, name: 'Jackson', number: 14, pos: 'Defender', isCaptain: false, goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
-      { id: 8, name: 'Aiden', number: 17, pos: 'Defender', isCaptain: false, goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 }
+      { id: 1, name: 'CJ', number: 10, pos: 'Midfield', isCaptain: true, goals: 0, shots: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
+      { id: 2, name: 'Jionni', number: 7, pos: 'Forward', isCaptain: true, goals: 0, shots: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
+      { id: 3, name: 'Alex', number: 1, pos: 'Goalkeeper', isCaptain: false, goals: 0, shots: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
+      { id: 4, name: 'Liam', number: 4, pos: 'Defender', isCaptain: false, goals: 0, shots: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
+      { id: 5, name: 'Ethan', number: 9, pos: 'Forward', isCaptain: false, goals: 0, shots: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
+      { id: 6, name: 'Mason', number: 8, pos: 'Midfield', isCaptain: false, goals: 0, shots: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
+      { id: 7, name: 'Jackson', number: 14, pos: 'Defender', isCaptain: false, goals: 0, shots: 0, assists: 0, yc: 0, rc: 0, saves: 0 },
+      { id: 8, name: 'Aiden', number: 17, pos: 'Defender', isCaptain: false, goals: 0, shots: 0, assists: 0, yc: 0, rc: 0, saves: 0 }
     ];
 
     let games = [];
@@ -1596,6 +1633,7 @@ END:VCALENDAR`;
       if (dbPlayers && dbPlayers.length > 0) {
         players = dbPlayers.map(p => ({
           ...p,
+          shots: p.shots || 0,
           isCaptain: (p.name === 'CJ' || p.name === 'Jionni')
         }));
       }
@@ -1723,6 +1761,7 @@ END:VCALENDAR`;
       document.getElementById('mystats-position').innerText = `${p.pos || 'Player'} ${p.isCaptain ? '• Team Captain' : ''}`;
 
       document.getElementById('mystats-goals').innerText = p.goals || 0;
+      document.getElementById('mystats-shots').innerText = p.shots || 0;
       document.getElementById('mystats-assists').innerText = p.assists || 0;
       document.getElementById('mystats-saves').innerText = p.saves || 0;
       document.getElementById('mystats-cards').innerText = `${p.yc || 0} / ${p.rc || 0}`;
@@ -1746,6 +1785,55 @@ END:VCALENDAR`;
       const profileInfo = userProfiles.find(up => up.player_id === p.id);
       document.getElementById('mystats-disp-nickname').innerText = (profileInfo && profileInfo.nickname) ? profileInfo.nickname : 'None set (Click Edit)';
       document.getElementById('mystats-disp-phone').innerText = (profileInfo && profileInfo.phone) ? profileInfo.phone : 'None set (Click Edit)';
+
+      // RENDER SVG PERFORMANCE CHART
+      renderMyStatsChart(p);
+    }
+
+    function renderMyStatsChart(p) {
+      const group = document.getElementById('chart-bars-group');
+      if (!group) return;
+
+      const teamAvgGoals = (players.reduce((s, x) => s + (x.goals || 0), 0) / players.length).toFixed(1);
+      const teamAvgShots = (players.reduce((s, x) => s + (x.shots || 0), 0) / players.length).toFixed(1);
+      const teamAvgAssists = (players.reduce((s, x) => s + (x.assists || 0), 0) / players.length).toFixed(1);
+      const teamAvgSaves = (players.reduce((s, x) => s + (x.saves || 0), 0) / players.length).toFixed(1);
+
+      const metrics = [
+        { label: 'Goals', myVal: p.goals || 0, teamVal: parseFloat(teamAvgGoals), max: 10 },
+        { label: 'Shots', myVal: p.shots || 0, teamVal: parseFloat(teamAvgShots), max: 20 },
+        { label: 'Assists', myVal: p.assists || 0, teamVal: parseFloat(teamAvgAssists), max: 10 },
+        { label: 'Saves', myVal: p.saves || 0, teamVal: parseFloat(teamAvgSaves), max: 15 }
+      ];
+
+      let svgHtml = '';
+      const chartWidth = 430;
+      const startX = 60;
+      const colWidth = chartWidth / metrics.length;
+
+      metrics.forEach((m, idx) => {
+        const xCenter = startX + (idx * colWidth) + (colWidth / 2);
+        
+        // Normalize height (max 130px for 170 y-axis baseline)
+        const myHeight = Math.min(130, (m.myVal / m.max) * 130);
+        const teamHeight = Math.min(130, (m.teamVal / m.max) * 130);
+
+        const myY = 170 - myHeight;
+        const teamY = 170 - teamHeight;
+
+        svgHtml += `
+          <!-- Bar Group for ${m.label} -->
+          <rect x="${xCenter - 22}" y="${myY}" width="18" height="${myHeight}" rx="3" fill="#E50000" />
+          <text x="${xCenter - 13}" y="${myY - 6}" fill="#F87171" font-size="10" font-weight="bold" text-anchor="middle">${m.myVal}</text>
+
+          <rect x="${xCenter + 2}" y="${teamY}" width="18" height="${teamHeight}" rx="3" fill="#475569" />
+          <text x="${xCenter + 11}" y="${teamY - 6}" fill="#94A3B8" font-size="10" font-weight="bold" text-anchor="middle">${m.teamVal}</text>
+
+          <text x="${xCenter}" y="190" fill="#E2E8F0" font-size="11" font-weight="bold" text-anchor="middle">${m.label}</text>
+        `;
+      });
+
+      group.innerHTML = svgHtml;
     }
 
     function updateTacticsRecoverySummary() {
@@ -1777,7 +1865,7 @@ END:VCALENDAR`;
       }
     }
 
-    function addPlayerStatRow(selectedId = '', stats = { goals: 0, assists: 0, yc: 0, rc: 0, saves: 0 }) {
+    function addPlayerStatRow(selectedId = '', stats = { goals: 0, shots: 0, assists: 0, yc: 0, rc: 0, saves: 0 }) {
       playFeedback();
       const container = document.getElementById('player-stats-rows-container');
       if (!container) return;
@@ -1806,21 +1894,25 @@ END:VCALENDAR`;
             ${optionsHtml}
           </select>
         </div>
-        <div class="grid grid-cols-5 gap-2">
+        <div class="grid grid-cols-6 gap-1.5">
           <div>
             <label class="block text-[9px] font-semibold text-slate-400 mb-1 text-center">Goals</label>
             <input type="number" class="p-goals w-full bg-slate-950 border border-surf-border rounded-lg px-1 py-1.5 text-center text-xs text-white" min="0" value="${stats.goals}" />
+          </div>
+          <div>
+            <label class="block text-[9px] font-semibold text-slate-400 mb-1 text-center">Shots</label>
+            <input type="number" class="p-shots w-full bg-slate-950 border border-surf-border rounded-lg px-1 py-1.5 text-center text-xs text-white" min="0" value="${stats.shots}" />
           </div>
           <div>
             <label class="block text-[9px] font-semibold text-slate-400 mb-1 text-center">Assists</label>
             <input type="number" class="p-assists w-full bg-slate-950 border border-surf-border rounded-lg px-1 py-1.5 text-center text-xs text-white" min="0" value="${stats.assists}" />
           </div>
           <div>
-            <label class="block text-[9px] font-semibold text-slate-400 mb-1 text-center">Yellow C.</label>
+            <label class="block text-[9px] font-semibold text-slate-400 mb-1 text-center">YC</label>
             <input type="number" class="p-yc w-full bg-slate-950 border border-surf-border rounded-lg px-1 py-1.5 text-center text-xs text-white" min="0" value="${stats.yc}" />
           </div>
           <div>
-            <label class="block text-[9px] font-semibold text-slate-400 mb-1 text-center">Red C.</label>
+            <label class="block text-[9px] font-semibold text-slate-400 mb-1 text-center">RC</label>
             <input type="number" class="p-rc w-full bg-slate-950 border border-surf-border rounded-lg px-1 py-1.5 text-center text-xs text-white" min="0" value="${stats.rc}" />
           </div>
           <div>
@@ -2436,16 +2528,16 @@ END:VCALENDAR`;
                 <span class="font-bold text-surf-red">${p.goals || 0}</span>
               </div>
               <div>
+                <span class="block text-[9px] text-slate-400">Sh</span>
+                <span class="font-bold text-emerald-400">${p.shots || 0}</span>
+              </div>
+              <div>
                 <span class="block text-[9px] text-slate-400">A</span>
                 <span class="font-bold text-blue-400">${p.assists || 0}</span>
               </div>
               <div>
                 <span class="block text-[9px] text-slate-400">YC/RC</span>
                 <span class="font-bold text-slate-300">${p.yc || 0}/${p.rc || 0}</span>
-              </div>
-              <div>
-                <span class="block text-[9px] text-slate-400">SV</span>
-                <span class="font-bold text-purple-400">${p.saves || 0}</span>
               </div>
             </div>
           </div>
@@ -2480,8 +2572,8 @@ END:VCALENDAR`;
       }
 
       document.getElementById('pm-goals').innerText = p.goals || 0;
+      document.getElementById('pm-shots').innerText = p.shots || 0;
       document.getElementById('pm-assists').innerText = p.assists || 0;
-      document.getElementById('pm-cards').innerText = `${p.yc || 0}/${p.rc || 0}`;
       document.getElementById('pm-saves').innerText = p.saves || 0;
 
       const teamTotalGoals = players.reduce((sum, item) => sum + (item.goals || 0), 0);
@@ -2501,6 +2593,7 @@ END:VCALENDAR`;
       document.getElementById('edit-p-number').value = p.number;
       document.getElementById('edit-p-pos').value = p.pos || '';
       document.getElementById('edit-p-goals').value = p.goals || 0;
+      document.getElementById('edit-p-shots').value = p.shots || 0;
       document.getElementById('edit-p-assists').value = p.assists || 0;
       document.getElementById('edit-p-yc').value = p.yc || 0;
       document.getElementById('edit-p-rc').value = p.rc || 0;
@@ -2516,6 +2609,7 @@ END:VCALENDAR`;
       const number = parseInt(document.getElementById('edit-p-number').value);
       const pos = document.getElementById('edit-p-pos').value;
       const goals = parseInt(document.getElementById('edit-p-goals').value) || 0;
+      const shots = parseInt(document.getElementById('edit-p-shots').value) || 0;
       const assists = parseInt(document.getElementById('edit-p-assists').value) || 0;
       const yc = parseInt(document.getElementById('edit-p-yc').value) || 0;
       const rc = parseInt(document.getElementById('edit-p-rc').value) || 0;
@@ -2524,12 +2618,12 @@ END:VCALENDAR`;
       const idx = players.findIndex(p => p.id === id);
       if (idx !== -1) {
         const isCaptain = (name === 'CJ' || name === 'Jionni');
-        players[idx] = { id, name, number, pos, isCaptain, goals, assists, yc, rc, saves };
+        players[idx] = { id, name, number, pos, isCaptain, goals, shots, assists, yc, rc, saves };
       }
 
       await supabaseClient
         .from('players')
-        .upsert([{ id, name, number, pos, goals, assists, yc, rc, saves }]);
+        .upsert([{ id, name, number, pos, goals, shots, assists, yc, rc, saves }]);
 
       toggleModal('player-modal', false);
       renderAll();
@@ -2757,6 +2851,7 @@ END:VCALENDAR`;
         if (isNaN(pId)) continue;
 
         const pGoals = parseInt(row.querySelector('.p-goals').value) || 0;
+        const pShots = parseInt(row.querySelector('.p-shots').value) || 0;
         const pAssists = parseInt(row.querySelector('.p-assists').value) || 0;
         const pYc = parseInt(row.querySelector('.p-yc').value) || 0;
         const pRc = parseInt(row.querySelector('.p-rc').value) || 0;
@@ -2765,6 +2860,7 @@ END:VCALENDAR`;
         const pIdx = players.findIndex(p => p.id === pId);
         if (pIdx !== -1) {
           players[pIdx].goals = (players[pIdx].goals || 0) + pGoals;
+          players[pIdx].shots = (players[pIdx].shots || 0) + pShots;
           players[pIdx].assists = (players[pIdx].assists || 0) + pAssists;
           players[pIdx].yc = (players[pIdx].yc || 0) + pYc;
           players[pIdx].rc = (players[pIdx].rc || 0) + pRc;
@@ -2776,6 +2872,7 @@ END:VCALENDAR`;
             number: players[pIdx].number, 
             pos: players[pIdx].pos, 
             goals: players[pIdx].goals, 
+            shots: players[pIdx].shots, 
             assists: players[pIdx].assists, 
             yc: players[pIdx].yc, 
             rc: players[pIdx].rc, 
