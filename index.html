@@ -38,11 +38,11 @@
 </head>
 <body class="min-h-screen text-slate-100 font-sans flex flex-col bg-slate-950 pb-28 md:pb-12 antialiased selection:bg-surf-red selection:text-white overflow-x-hidden">
 
-  <!-- TOP HEADER -->
+  <!-- TOP HEADER (Top-Left Menu & Logo) -->
   <header class="bg-surf-dark/95 backdrop-blur-md border-b border-surf-border sticky top-0 z-40 w-full">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
       
-      <!-- Left: Mobile Menu Toggle & Dual Logos / Title -->
+      <!-- Top-Left: Mobile Menu Toggle & Dual Logos / Title -->
       <div class="flex items-center space-x-2.5 min-w-0">
         <!-- Mobile Hamburger Menu Button -->
         <button onclick="toggleMobileMenu(true)" class="md:hidden p-2 rounded-lg bg-slate-900 border border-surf-border text-slate-300 hover:text-white shrink-0">
@@ -67,13 +67,11 @@
         <button onclick="switchTab('injury')" id="tab-injury" class="tab-btn px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all shrink-0">Recovery</button>
         <button onclick="switchTab('leaderboards')" id="tab-leaderboards" class="tab-btn px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all shrink-0" data-i18n="nav_leaders">Leaders</button>
         <button onclick="switchTab('schedule')" id="tab-schedule" class="tab-btn px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all shrink-0" data-i18n="nav_schedule">Schedule</button>
-        <!-- Dynamic Desktop My Stats Tab -->
         <button onclick="switchTab('mystats')" id="tab-mystats" class="tab-btn px-2.5 py-1.5 rounded-lg text-xs font-bold text-amber-400 hover:text-white hover:bg-surf-border/30 transition-all shrink-0 hidden">⭐ My Stats</button>
       </nav>
 
       <!-- Action Buttons & Lang Toggle -->
       <div class="flex items-center space-x-1.5 shrink-0">
-        <!-- Auth / Profile Button -->
         <button id="auth-action-btn" onclick="handleAuthButtonClick()" class="bg-slate-900 border border-surf-border hover:border-surf-red text-slate-300 hover:text-white px-2.5 py-1.5 rounded-lg text-[11px] sm:text-xs font-bold transition-all flex items-center space-x-1">
           <i data-lucide="user" class="w-3 h-3 text-surf-red shrink-0"></i>
           <span id="auth-btn-label" class="truncate max-w-[70px] sm:max-w-[100px]">Sign In</span>
@@ -142,6 +140,34 @@
       </div>
     </div>
   </div>
+
+  <!-- FIXED BOTTOM MOBILE NAVIGATION BAR -->
+  <nav class="md:hidden fixed bottom-0 inset-x-0 bg-surf-dark/95 backdrop-blur-md border-t border-surf-border z-40 px-2 py-2 flex justify-around items-center shadow-2xl">
+    <button onclick="switchTab('overview')" id="bm-tab-overview" class="bottom-tab-btn flex flex-col items-center text-surf-red p-1 transition-all">
+      <i data-lucide="home" class="w-5 h-5"></i>
+      <span class="text-[10px] font-bold mt-0.5">Overview</span>
+    </button>
+    <button onclick="switchTab('roster')" id="bm-tab-roster" class="bottom-tab-btn flex flex-col items-center text-slate-400 hover:text-white p-1 transition-all">
+      <i data-lucide="users" class="w-5 h-5"></i>
+      <span class="text-[10px] font-medium mt-0.5">Roster</span>
+    </button>
+    <button onclick="switchTab('tactics')" id="bm-tab-tactics" class="bottom-tab-btn flex flex-col items-center text-slate-400 hover:text-white p-1 transition-all">
+      <i data-lucide="layout" class="w-5 h-5"></i>
+      <span class="text-[10px] font-medium mt-0.5">Tactics</span>
+    </button>
+    <button onclick="switchTab('games')" id="bm-tab-games" class="bottom-tab-btn flex flex-col items-center text-slate-400 hover:text-white p-1 transition-all">
+      <i data-lucide="trophy" class="w-5 h-5"></i>
+      <span class="text-[10px] font-medium mt-0.5">Games</span>
+    </button>
+    <button onclick="switchTab('leaderboards')" id="bm-tab-leaderboards" class="bottom-tab-btn flex flex-col items-center text-slate-400 hover:text-white p-1 transition-all">
+      <i data-lucide="award" class="w-5 h-5"></i>
+      <span class="text-[10px] font-medium mt-0.5">Leaders</span>
+    </button>
+    <button onclick="switchTab('schedule')" id="bm-tab-schedule" class="bottom-tab-btn flex flex-col items-center text-slate-400 hover:text-white p-1 transition-all">
+      <i data-lucide="calendar" class="w-5 h-5"></i>
+      <span class="text-[10px] font-medium mt-0.5">Schedule</span>
+    </button>
+  </nav>
 
   <!-- MAIN CONTENT CONTAINER -->
   <main class="flex-grow max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-6 space-y-6">
@@ -488,7 +514,7 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="schedule-cards-grid"></div>
     </section>
 
-    <!-- MY STATS / PROFILE TAB (EXPANDED WITH MORE METRICS) -->
+    <!-- MY STATS / PROFILE TAB -->
     <section id="sec-mystats" class="hidden space-y-6">
       <div class="bg-surf-card border border-surf-border rounded-2xl p-6 shadow-xl relative overflow-hidden">
         <div class="absolute -right-10 -top-10 w-40 h-40 bg-surf-red/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -1648,6 +1674,14 @@ END:VCALENDAR`;
           btn.classList.remove('text-surf-red', 'bg-surf-border/50');
           btn.classList.add('text-slate-400');
         }
+
+        const bmBtn = document.getElementById(`bm-tab-${tab}`);
+        if(bmBtn) {
+          bmBtn.classList.remove('text-surf-red');
+          bmBtn.classList.add('text-slate-400');
+          const span = bmBtn.querySelector('span');
+          if(span) span.className = 'text-[10px] font-medium mt-0.5';
+        }
       });
 
       const targetSec = document.getElementById(`sec-${tabName}`);
@@ -1657,6 +1691,14 @@ END:VCALENDAR`;
       if(activeBtn) {
         activeBtn.classList.add('text-surf-red', 'bg-surf-border/50');
         activeBtn.classList.remove('text-slate-400');
+      }
+
+      const activeBmBtn = document.getElementById(`bm-tab-${tabName}`);
+      if(activeBmBtn) {
+        activeBmBtn.classList.add('text-surf-red');
+        activeBmBtn.classList.remove('text-slate-400');
+        const span = activeBmBtn.querySelector('span');
+        if(span) span.className = 'text-[10px] font-bold mt-0.5';
       }
 
       if (tabName === 'tactics') {
