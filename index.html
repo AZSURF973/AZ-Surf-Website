@@ -38,19 +38,18 @@
 </head>
 <body class="min-h-screen text-slate-100 font-sans flex flex-col bg-slate-950 pb-28 md:pb-12 antialiased selection:bg-surf-red selection:text-white overflow-x-hidden">
 
-  <!-- TOP HEADER (Top-Left Menu & Logo) -->
+  <!-- TOP HEADER -->
   <header class="bg-surf-dark/95 backdrop-blur-md border-b border-surf-border sticky top-0 z-40 w-full">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
       
-      <!-- Top-Left: Mobile Menu Toggle & Dual Logos / Title -->
+      <!-- Top-Left: Mobile Menu Toggle & Logos -->
       <div class="flex items-center space-x-2.5 min-w-0">
-        <!-- Mobile Hamburger Menu Button -->
         <button onclick="toggleMobileMenu(true)" class="md:hidden p-2 rounded-lg bg-slate-900 border border-surf-border text-slate-300 hover:text-white shrink-0">
           <i data-lucide="menu" class="w-5 h-5 text-surf-red"></i>
         </button>
 
         <div class="w-9 h-9 sm:w-12 sm:h-12 rounded-full border border-surf-border bg-surf-dark p-1.5 flex items-center justify-center shadow-lg shadow-surf-red/20 overflow-hidden shrink-0">
-          <img src="https://i.postimg.cc/J7fdQWVK/images.jpg" alt="Surf Crest" class="w-7 h-7 sm:w-10 sm:h-10 object-contain" style="mix-blend-mode: screen;" />
+          <img src="https://i.postimg.cc/J7fdWVK/images.jpg" alt="Surf Crest" class="w-7 h-7 sm:w-10 sm:h-10 object-contain" style="mix-blend-mode: screen;" />
         </div>
         <div class="min-w-0">
           <h1 class="text-xs sm:text-lg font-bold tracking-tight text-white leading-tight truncate">AZ SURF</h1>
@@ -65,7 +64,7 @@
         <button onclick="switchTab('tactics')" id="tab-tactics" class="tab-btn px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all shrink-0" data-i18n="nav_tactics">Tactics</button>
         <button onclick="switchTab('games')" id="tab-games" class="tab-btn px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all shrink-0" data-i18n="nav_games">Games</button>
         <button onclick="switchTab('injury')" id="tab-injury" class="tab-btn px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all shrink-0">Recovery</button>
-        <button onclick="switchTab('leaderboards')" id="tab-leaderboards" class="tab-btn px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all shrink-0" data-i18n="nav_leaders">Leaders</button>
+        <button onclick="switchTab('leaderboards')" id="tab-leaderboards" class="tab-btn px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all shrink-0" data-i18n="nav_leaders">Leaders / Stats</button>
         <button onclick="switchTab('schedule')" id="tab-schedule" class="tab-btn px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surf-border/30 transition-all shrink-0" data-i18n="nav_schedule">Schedule</button>
         <button onclick="switchTab('mystats')" id="tab-mystats" class="tab-btn px-2.5 py-1.5 rounded-lg text-xs font-bold text-amber-400 hover:text-white hover:bg-surf-border/30 transition-all shrink-0 hidden">⭐ My Stats</button>
       </nav>
@@ -95,7 +94,7 @@
         <div class="flex items-center justify-between mb-6 pb-4 border-b border-surf-border">
           <div class="flex items-center space-x-2">
             <div class="w-8 h-8 rounded-full border border-surf-border bg-surf-dark p-1 flex items-center justify-center">
-              <img src="https://i.postimg.cc/J7fdQWVK/images.jpg" alt="Surf Crest" class="w-6 h-6 object-contain" style="mix-blend-mode: screen;" />
+              <img src="https://i.postimg.cc/J7fdWVK/images.jpg" alt="Surf Crest" class="w-6 h-6 object-contain" style="mix-blend-mode: screen;" />
             </div>
             <div>
               <h3 class="font-bold text-white text-sm">AZ SURF U13</h3>
@@ -124,10 +123,10 @@
             <i data-lucide="activity" class="w-4 h-4 text-surf-red"></i><span>Recovery Log</span>
           </button>
           <button onclick="mobileNavClick('leaderboards')" class="w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold text-slate-200 hover:bg-surf-red/20 hover:text-surf-red transition-all flex items-center space-x-3">
-            <i data-lucide="award" class="w-4 h-4 text-surf-red"></i><span>Stat Leaders</span>
+            <i data-lucide="award" class="w-4 h-4 text-surf-red"></i><span>Leaders / Team Stats</span>
           </button>
           <button onclick="mobileNavClick('schedule')" class="w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold text-slate-200 hover:bg-surf-red/20 hover:text-surf-red transition-all flex items-center space-x-3">
-            <i data-lucide="calendar" class="w-4 h-4 text-surf-red"></i><span>Schedule</span>
+            <i data-lucide="calendar" class="w-4 h-4 text-surf-red"></i><span>Schedule & RSVPs</span>
           </button>
           <button onclick="mobileNavClick('mystats')" id="mobile-menu-mystats" class="w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold text-amber-400 hover:bg-amber-500/20 transition-all flex items-center space-x-3 hidden">
             <i data-lucide="star" class="w-4 h-4 text-amber-400"></i><span>⭐ My Stats Dashboard</span>
@@ -141,31 +140,39 @@
     </div>
   </div>
 
-  <!-- FIXED BOTTOM MOBILE NAVIGATION BAR -->
-  <nav class="md:hidden fixed bottom-0 inset-x-0 bg-surf-dark/95 backdrop-blur-md border-t border-surf-border z-40 px-2 py-2 flex justify-around items-center shadow-2xl">
-    <button onclick="switchTab('overview')" id="bm-tab-overview" class="bottom-tab-btn flex flex-col items-center text-surf-red p-1 transition-all">
-      <i data-lucide="home" class="w-5 h-5"></i>
-      <span class="text-[10px] font-bold mt-0.5">Overview</span>
+  <!-- FIXED BOTTOM MOBILE NAVIGATION BAR (Includes ALL Tabs) -->
+  <nav class="md:hidden fixed bottom-0 inset-x-0 bg-surf-dark/95 backdrop-blur-md border-t border-surf-border z-40 px-1 py-1.5 flex justify-around items-center shadow-2xl overflow-x-auto no-scrollbar">
+    <button onclick="switchTab('overview')" id="bm-tab-overview" class="bottom-tab-btn flex flex-col items-center text-surf-red p-1 transition-all shrink-0">
+      <i data-lucide="home" class="w-4 h-4"></i>
+      <span class="text-[9px] font-bold mt-0.5">Overview</span>
     </button>
-    <button onclick="switchTab('roster')" id="bm-tab-roster" class="bottom-tab-btn flex flex-col items-center text-slate-400 hover:text-white p-1 transition-all">
-      <i data-lucide="users" class="w-5 h-5"></i>
-      <span class="text-[10px] font-medium mt-0.5">Roster</span>
+    <button onclick="switchTab('roster')" id="bm-tab-roster" class="bottom-tab-btn flex flex-col items-center text-slate-400 hover:text-white p-1 transition-all shrink-0">
+      <i data-lucide="users" class="w-4 h-4"></i>
+      <span class="text-[9px] font-medium mt-0.5">Roster</span>
     </button>
-    <button onclick="switchTab('tactics')" id="bm-tab-tactics" class="bottom-tab-btn flex flex-col items-center text-slate-400 hover:text-white p-1 transition-all">
-      <i data-lucide="layout" class="w-5 h-5"></i>
-      <span class="text-[10px] font-medium mt-0.5">Tactics</span>
+    <button onclick="switchTab('tactics')" id="bm-tab-tactics" class="bottom-tab-btn flex flex-col items-center text-slate-400 hover:text-white p-1 transition-all shrink-0">
+      <i data-lucide="layout" class="w-4 h-4"></i>
+      <span class="text-[9px] font-medium mt-0.5">Tactics</span>
     </button>
-    <button onclick="switchTab('games')" id="bm-tab-games" class="bottom-tab-btn flex flex-col items-center text-slate-400 hover:text-white p-1 transition-all">
-      <i data-lucide="trophy" class="w-5 h-5"></i>
-      <span class="text-[10px] font-medium mt-0.5">Games</span>
+    <button onclick="switchTab('games')" id="bm-tab-games" class="bottom-tab-btn flex flex-col items-center text-slate-400 hover:text-white p-1 transition-all shrink-0">
+      <i data-lucide="trophy" class="w-4 h-4"></i>
+      <span class="text-[9px] font-medium mt-0.5">Games</span>
     </button>
-    <button onclick="switchTab('leaderboards')" id="bm-tab-leaderboards" class="bottom-tab-btn flex flex-col items-center text-slate-400 hover:text-white p-1 transition-all">
-      <i data-lucide="award" class="w-5 h-5"></i>
-      <span class="text-[10px] font-medium mt-0.5">Leaders</span>
+    <button onclick="switchTab('injury')" id="bm-tab-injury" class="bottom-tab-btn flex flex-col items-center text-slate-400 hover:text-white p-1 transition-all shrink-0">
+      <i data-lucide="activity" class="w-4 h-4"></i>
+      <span class="text-[9px] font-medium mt-0.5">Recovery</span>
     </button>
-    <button onclick="switchTab('schedule')" id="bm-tab-schedule" class="bottom-tab-btn flex flex-col items-center text-slate-400 hover:text-white p-1 transition-all">
-      <i data-lucide="calendar" class="w-5 h-5"></i>
-      <span class="text-[10px] font-medium mt-0.5">Schedule</span>
+    <button onclick="switchTab('leaderboards')" id="bm-tab-leaderboards" class="bottom-tab-btn flex flex-col items-center text-slate-400 hover:text-white p-1 transition-all shrink-0">
+      <i data-lucide="award" class="w-4 h-4"></i>
+      <span class="text-[9px] font-medium mt-0.5">Stats</span>
+    </button>
+    <button onclick="switchTab('schedule')" id="bm-tab-schedule" class="bottom-tab-btn flex flex-col items-center text-slate-400 hover:text-white p-1 transition-all shrink-0">
+      <i data-lucide="calendar" class="w-4 h-4"></i>
+      <span class="text-[9px] font-medium mt-0.5">Schedule</span>
+    </button>
+    <button onclick="switchTab('mystats')" id="bm-tab-mystats" class="bottom-tab-btn flex flex-col items-center text-amber-400 p-1 transition-all shrink-0 hidden">
+      <i data-lucide="star" class="w-4 h-4"></i>
+      <span class="text-[9px] font-bold mt-0.5">MyStats</span>
     </button>
   </nav>
 
@@ -183,7 +190,6 @@
 
       <!-- MATCH COUNTDOWN & WEATHER WIDGET ROW -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <!-- Dynamic Countdown Widget -->
         <div class="bg-gradient-to-r from-surf-red/20 via-surf-card to-surf-card border border-surf-red/40 rounded-xl p-4 flex items-center justify-between shadow-lg">
           <div class="flex items-center space-x-3">
             <div class="p-2.5 bg-surf-red text-white rounded-lg shrink-0">
@@ -197,7 +203,6 @@
           <span id="countdown-location" class="text-xs text-slate-400 hidden sm:inline font-semibold">Peoria, AZ</span>
         </div>
 
-        <!-- Weather Widget -->
         <div class="bg-surf-card border border-surf-border rounded-xl p-4 flex items-center justify-between shadow-lg">
           <div class="flex items-center space-x-3">
             <div class="p-2.5 bg-blue-500/20 text-blue-400 rounded-lg border border-blue-500/30 shrink-0">
@@ -212,7 +217,7 @@
         </div>
       </div>
       
-      <!-- Announcements & Birthdays Header with Post Button -->
+      <!-- Announcements & Birthdays Header -->
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 pt-2">
         <h2 class="font-bold text-base sm:text-lg text-white flex items-center space-x-2">
           <i data-lucide="bell" class="w-5 h-5 text-surf-red"></i>
@@ -224,8 +229,28 @@
         </button>
       </div>
 
-      <!-- Announcements & Birthdays Banner List -->
       <div id="announcements-container" class="space-y-3"></div>
+
+      <!-- MATCH-DAY COMMENTS SECTION -->
+      <div class="bg-surf-card border border-surf-border rounded-xl p-4 sm:p-6 space-y-4">
+        <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+          <div>
+            <h2 class="font-bold text-base sm:text-lg text-white flex items-center space-x-2">
+              <i data-lucide="message-square" class="w-5 h-5 text-surf-red"></i>
+              <span>Match Day Comments Board</span>
+            </h2>
+            <p class="text-xs text-slate-400">Post and view live game day notes. Comments auto-delete after match day!</p>
+          </div>
+          <button onclick="openMatchCommentModal()" class="bg-slate-900 border border-surf-border hover:border-surf-red text-slate-300 hover:text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center space-x-1">
+            <i data-lucide="plus" class="w-3.5 h-3.5 text-surf-red"></i>
+            <span>Add Match Comment</span>
+          </button>
+        </div>
+
+        <div id="match-comments-container" class="space-y-2.5">
+          <p class="text-xs text-slate-500 py-3 text-center">Loading match comments...</p>
+        </div>
+      </div>
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
         <div class="bg-surf-card border border-surf-border rounded-xl p-4 sm:p-5 flex items-center space-x-3 sm:space-x-4 hover:border-surf-red/40 transition-all shadow-sm">
@@ -336,7 +361,7 @@
       <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
           <h2 class="text-lg sm:text-xl font-bold text-white" data-i18n="roster_title">AZ Surf U13 Squad Roster</h2>
-          <p class="text-xs sm:text-sm text-slate-400" data-i18n="roster_subtitle">Click any player to view detailed breakdown grid & edit details</p>
+          <p class="text-xs sm:text-sm text-slate-400" data-i18n="roster_subtitle">Click any player to view detailed breakdown grid & direct SMS text buttons</p>
         </div>
 
         <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
@@ -369,7 +394,6 @@
         </div>
 
         <div class="flex flex-wrap items-center gap-2">
-          <!-- Drawing Tools Selector -->
           <div class="bg-slate-900 border border-surf-border rounded-lg p-1 flex items-center space-x-1">
             <button onclick="setDrawMode('select')" id="tool-select" class="px-2 py-1 rounded text-[11px] font-bold bg-surf-red text-white transition-all">Players</button>
             <button onclick="setDrawMode('pen')" id="tool-pen" class="px-2 py-1 rounded text-[11px] font-bold text-slate-300 hover:text-white transition-all">✏️ Pen</button>
@@ -388,7 +412,6 @@
         </div>
       </div>
 
-      <!-- TACTICAL RECOVERY PANEL INTEGRATION -->
       <div id="tactics-recovery-notes" class="bg-slate-900/80 border border-surf-border rounded-xl p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
         <div class="flex items-center space-x-3">
           <div class="p-2 bg-emerald-500/20 text-emerald-400 rounded-lg border border-emerald-500/30 shrink-0">
@@ -411,9 +434,7 @@
           <div class="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-20 border-b-2 border-x-2 border-emerald-500/30 rounded-b-xl"></div>
           <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-48 h-20 border-t-2 border-x-2 border-emerald-500/30 rounded-t-xl"></div>
 
-          <!-- Drawing Canvas Overlay -->
           <canvas id="pitch-drawing-canvas" class="absolute inset-0 z-20 w-full h-full cursor-crosshair touch-none"></canvas>
-
           <div id="pitch-slots-container" class="relative w-full h-[440px] sm:h-[500px] z-30 pointer-events-none"></div>
         </div>
 
@@ -423,7 +444,6 @@
             <span class="text-xs font-normal text-amber-400" id="tap-mode-indicator">Tap player to select</span>
           </h3>
           <p class="text-xs text-slate-400 mb-4" data-i18n="bench_subtitle">Drag or Tap to place on pitch</p>
-
           <div id="bench-container" class="space-y-2 flex-grow overflow-y-auto max-h-[440px] pr-1"></div>
         </div>
       </div>
@@ -441,7 +461,7 @@
       <div class="flex justify-between items-center">
         <div>
           <h2 class="text-lg sm:text-xl font-bold text-white" data-i18n="games_title">Match History & Box Scores</h2>
-          <p class="text-xs sm:text-sm text-slate-400" data-i18n="games_subtitle">Season game logs, results, and game management</p>
+          <p class="text-xs sm:text-sm text-slate-400" data-i18n="games_subtitle">Most recent games are displayed right at the top!</p>
         </div>
       </div>
 
@@ -466,12 +486,42 @@
       </div>
     </section>
 
-    <!-- LEADERBOARDS TAB -->
+    <!-- LEADERBOARDS / TEAM STATS TAB -->
     <section id="sec-leaderboards" class="hidden space-y-6">
       <div class="flex justify-between items-center">
         <div>
-          <h2 class="text-lg sm:text-xl font-bold text-white" data-i18n="leader_title">Player Stat Leaderboards</h2>
-          <p class="text-xs sm:text-sm text-slate-400" data-i18n="leader_subtitle">Top rankings across key stats</p>
+          <h2 class="text-lg sm:text-xl font-bold text-white">Leaderboards & Advanced Team Stats</h2>
+          <p class="text-xs sm:text-sm text-slate-400">Top player rankings alongside complex team efficiency metrics</p>
+        </div>
+      </div>
+
+      <!-- ADVANCED TEAM STATS SUB-GRID -->
+      <div class="bg-surf-card border border-surf-border rounded-xl p-5 shadow-lg space-y-4">
+        <h3 class="font-bold text-base text-white flex items-center space-x-2 border-b border-surf-border pb-2">
+          <i data-lucide="trending-up" class="w-5 h-5 text-surf-red"></i>
+          <span>Advanced Team Performance Metrics</span>
+        </h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+          <div class="bg-slate-900/80 border border-surf-border p-3.5 rounded-xl">
+            <span class="text-[10px] text-slate-400 font-bold uppercase block">Shot Conversion Rate</span>
+            <span id="adv-shot-conversion" class="text-xl font-black text-emerald-400">0%</span>
+            <span class="text-[9px] text-slate-500 block mt-0.5">Goals / Total Shots</span>
+          </div>
+          <div class="bg-slate-900/80 border border-surf-border p-3.5 rounded-xl">
+            <span class="text-[10px] text-slate-400 font-bold uppercase block">Goal Contribution Ratio</span>
+            <span id="adv-goal-contrib" class="text-xl font-black text-blue-400">0.0</span>
+            <span class="text-[9px] text-slate-500 block mt-0.5">(Goals + Assists) / Match</span>
+          </div>
+          <div class="bg-slate-900/80 border border-surf-border p-3.5 rounded-xl">
+            <span class="text-[10px] text-slate-400 font-bold uppercase block">Clean Sheet Rate</span>
+            <span id="adv-cleansheet-rate" class="text-xl font-black text-purple-400">0%</span>
+            <span class="text-[9px] text-slate-500 block mt-0.5">Matches with 0 Goals Allowed</span>
+          </div>
+          <div class="bg-slate-900/80 border border-surf-border p-3.5 rounded-xl">
+            <span class="text-[10px] text-slate-400 font-bold uppercase block">Fair Play Discipline</span>
+            <span id="adv-fairplay" class="text-xl font-black text-amber-400">0 Cards</span>
+            <span class="text-[9px] text-slate-500 block mt-0.5">Total Yellow / Red Cards</span>
+          </div>
         </div>
       </div>
 
@@ -502,16 +552,16 @@
       </div>
     </section>
 
-    <!-- SCHEDULE TAB -->
+    <!-- SCHEDULE TAB (With Going / Not Going / Maybe RSVPs) -->
     <section id="sec-schedule" class="hidden space-y-6">
       <div class="flex justify-between items-center">
         <div>
-          <h2 class="text-lg sm:text-xl font-bold text-white" data-i18n="sched_title">Surf Upcoming Games</h2>
-          <p class="text-xs sm:text-sm text-slate-400" data-i18n="sched_subtitle">Official team fixtures, tournaments, and calendar export</p>
+          <h2 class="text-lg sm:text-xl font-bold text-white" data-i18n="sched_title">Surf Upcoming Games & RSVPs</h2>
+          <p class="text-xs sm:text-sm text-slate-400" data-i18n="sched_subtitle">Official fixtures, calendar export, and live Going/Not Going tracking</p>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="schedule-cards-grid"></div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="schedule-cards-grid"></div>
     </section>
 
     <!-- MY STATS / PROFILE TAB -->
@@ -533,11 +583,10 @@
           </div>
           <button onclick="openMyProfileModal()" class="bg-surf-red hover:bg-surf-redHover text-white px-4 py-2 rounded-xl text-xs font-bold transition-all shadow flex items-center space-x-1.5">
             <i data-lucide="edit-3" class="w-4 h-4"></i>
-            <span>Edit My Profile & Info</span>
+            <span>Edit My Profile & Birthday</span>
           </button>
         </div>
 
-        <!-- Expanded Personal Quick Stats Grid -->
         <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-6 text-center">
           <div class="bg-slate-900/80 border border-surf-border p-3.5 rounded-xl">
             <span class="text-[10px] text-slate-400 uppercase font-bold block">Goals</span>
@@ -561,7 +610,6 @@
           </div>
         </div>
 
-        <!-- VISUAL PERFORMANCE CHART SECTION -->
         <div class="bg-slate-900/60 border border-surf-border rounded-2xl p-5 mb-6">
           <div class="flex items-center justify-between mb-4">
             <h3 class="text-sm font-bold text-white flex items-center space-x-2">
@@ -571,16 +619,12 @@
             <span class="text-[10px] bg-slate-950 border border-surf-border text-slate-400 px-2.5 py-1 rounded">Live SVG Chart</span>
           </div>
 
-          <!-- SVG Bar Chart -->
           <div class="w-full overflow-x-auto">
             <svg id="mystats-svg-chart" viewBox="0 0 500 200" class="w-full h-48 font-sans">
-              <!-- Grid lines -->
               <line x1="50" y1="20" x2="480" y2="20" stroke="#27272A" stroke-dasharray="4" />
               <line x1="50" y1="70" x2="480" y2="70" stroke="#27272A" stroke-dasharray="4" />
               <line x1="50" y1="120" x2="480" y2="120" stroke="#27272A" stroke-dasharray="4" />
               <line x1="50" y1="170" x2="480" y2="170" stroke="#27272A" />
-
-              <!-- Chart bars rendered dynamically -->
               <g id="chart-bars-group"></g>
             </svg>
           </div>
@@ -590,7 +634,6 @@
           </div>
         </div>
 
-        <!-- Advanced Personal Metrics Row -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
           <div class="bg-slate-900/50 border border-surf-border rounded-xl p-4">
             <span class="text-[10px] text-slate-400 uppercase font-bold block mb-1">Total Goal Contributions (G + A)</span>
@@ -604,23 +647,25 @@
           </div>
         </div>
 
-        <!-- Optional Profile Details Display -->
         <div class="bg-slate-900/50 border border-surf-border rounded-xl p-4 space-y-3">
           <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center space-x-2">
             <i data-lucide="user-check" class="w-4 h-4 text-surf-red"></i>
-            <span>Custom Public Profile Details (Optional)</span>
+            <span>Custom Public Profile Details</span>
           </h4>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
             <div class="bg-slate-950 p-3 rounded-lg border border-surf-border">
               <span class="text-slate-400 block mb-0.5">Nickname:</span>
               <strong id="mystats-disp-nickname" class="text-white text-sm">None set</strong>
             </div>
             <div class="bg-slate-950 p-3 rounded-lg border border-surf-border">
-              <span class="text-slate-400 block mb-0.5">Contact Phone / Info:</span>
+              <span class="text-slate-400 block mb-0.5">Phone Number:</span>
               <strong id="mystats-disp-phone" class="text-white text-sm">None set</strong>
             </div>
+            <div class="bg-slate-950 p-3 rounded-lg border border-surf-border">
+              <span class="text-slate-400 block mb-0.5">Birthday:</span>
+              <strong id="mystats-disp-birthday" class="text-white text-sm">None set</strong>
+            </div>
           </div>
-          <p class="text-[11px] text-slate-400 italic">✨ These optional details are shared live on your public roster card so teammates and parents can easily get in touch with you!</p>
         </div>
       </div>
     </section>
@@ -659,15 +704,15 @@
     </div>
   </div>
 
-  <!-- MY PROFILE / SETTINGS MODAL -->
+  <!-- MY PROFILE / SETTINGS MODAL (Includes Phone & Birthday) -->
   <div id="my-profile-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-surf-dark border border-surf-border rounded-xl max-w-md w-full p-6 shadow-2xl relative">
       <button onclick="toggleModal('my-profile-modal', false)" class="absolute top-4 right-4 text-slate-400 hover:text-white">
         <i data-lucide="x" class="w-6 h-6"></i>
       </button>
 
-      <h3 class="text-lg font-bold text-white mb-1">My Profile Settings</h3>
-      <p class="text-xs text-slate-400 mb-4">Add optional info like a nickname or phone number. Visible to the team!</p>
+      <h3 class="text-lg font-bold text-white mb-1">My Profile & Birthday Settings</h3>
+      <p class="text-xs text-slate-400 mb-4">Add your phone number for direct texting and your birthday for the team countdown!</p>
 
       <form id="my-profile-form" onsubmit="handleMyProfileSubmit(event)" class="space-y-3">
         <div>
@@ -679,8 +724,12 @@
           <input type="text" id="profile-nickname" placeholder="e.g. Speedy" class="w-full bg-slate-900 border border-surf-border rounded px-3 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red" />
         </div>
         <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">Optional Contact Phone / Details</label>
-          <input type="text" id="profile-phone" placeholder="e.g. 555-0199 or Parent Contact" class="w-full bg-slate-900 border border-surf-border rounded px-3 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red" />
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Phone Number (For SMS Direct Text Button)</label>
+          <input type="tel" id="profile-phone" placeholder="e.g. 6025550199" class="w-full bg-slate-900 border border-surf-border rounded px-3 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Birthday (For Team Countdown)</label>
+          <input type="date" id="profile-birthday" class="w-full bg-slate-900 border border-surf-border rounded px-3 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red" />
         </div>
 
         <div class="pt-3 flex justify-between items-center">
@@ -689,6 +738,40 @@
             <button type="button" onclick="toggleModal('my-profile-modal', false)" class="px-3 py-1.5 text-xs text-slate-400 hover:text-white border border-surf-border rounded">Cancel</button>
             <button type="submit" class="px-4 py-1.5 text-xs bg-surf-red text-white font-bold rounded hover:bg-surf-redHover">Save Profile</button>
           </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADD MATCH COMMENT MODAL (Smart Dropdown for Today's Games) -->
+  <div id="match-comment-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-surf-dark border border-surf-border rounded-xl max-w-md w-full p-6 shadow-2xl relative">
+      <button onclick="toggleModal('match-comment-modal', false)" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+
+      <h3 class="text-lg font-bold text-white mb-1">Post Match Day Comment</h3>
+      <p class="text-xs text-slate-400 mb-4">Select today's match from the dropdown and add your comment.</p>
+
+      <form id="match-comment-form" onsubmit="handleMatchCommentSubmit(event)" class="space-y-3">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Select Today's Match</label>
+          <select id="comment-game-select" required class="w-full bg-slate-900 border border-surf-border rounded px-3 py-2 text-xs text-white focus:outline-none focus:border-surf-red font-bold">
+            <!-- Populated dynamically -->
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Your Name</label>
+          <input type="text" id="comment-author" required placeholder="e.g. CJ (Player) or Parent" class="w-full bg-slate-900 border border-surf-border rounded px-3 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Comment</label>
+          <textarea id="comment-text" required rows="2" placeholder="Let's get the win today!" class="w-full bg-slate-900 border border-surf-border rounded px-3 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red"></textarea>
+        </div>
+
+        <div class="pt-3 flex justify-end space-x-2">
+          <button type="button" onclick="toggleModal('match-comment-modal', false)" class="px-3 py-1.5 text-xs text-slate-400 hover:text-white border border-surf-border rounded">Cancel</button>
+          <button type="submit" class="px-4 py-1.5 text-xs bg-surf-red text-white font-bold rounded hover:bg-surf-redHover">Post Comment</button>
         </div>
       </form>
     </div>
@@ -807,7 +890,7 @@
 
         <div class="pt-3 flex justify-end space-x-2">
           <button type="button" onclick="toggleModal('injury-modal', false)" class="px-3 py-1.5 text-xs text-slate-400 hover:text-white border border-surf-border rounded">Cancel</button>
-          <button type="submit" id="injury-save-btn" class="px-4 py-1.5 text-xs bg-surf-red text-white font-bold rounded hover:bg-surf-redHover">Save Recovery Log</button>
+          <button type="submit" class="px-4 py-1.5 text-xs bg-surf-red text-white font-bold rounded hover:bg-surf-redHover">Save Recovery Log</button>
         </div>
       </form>
     </div>
@@ -870,10 +953,8 @@
 
         <hr class="border-surf-border my-4" />
 
-        <!-- DYNAMIC PLAYER STATS ROWS CONTAINER -->
         <div id="player-stats-rows-container" class="space-y-3"></div>
 
-        <!-- BUTTON TO ADD ANOTHER PLAYER -->
         <button type="button" onclick="addPlayerStatRow()" class="w-full py-2.5 bg-slate-900 border border-dashed border-surf-border hover:border-surf-red text-slate-300 hover:text-white rounded-lg text-xs font-bold transition-all flex items-center justify-center space-x-1.5 shadow-sm">
           <i data-lucide="plus" class="w-4 h-4 text-surf-red"></i>
           <span>Add Another Player's Stats</span>
@@ -907,10 +988,9 @@
         </div>
       </div>
 
-      <!-- OPTIONAL PROFILE CONTACT / NICKNAME DISPLAY -->
-      <div id="pm-optional-info" class="hidden mb-6 bg-slate-900/80 border border-surf-border p-3 rounded-xl text-xs space-y-1">
+      <div id="pm-optional-info" class="hidden mb-6 bg-slate-900/80 border border-surf-border p-3 rounded-xl text-xs space-y-2">
         <p class="text-slate-300"><strong class="text-surf-red">Nickname:</strong> <span id="pm-disp-nickname">-</span></p>
-        <p class="text-slate-300"><strong class="text-surf-red">Contact Info:</strong> <span id="pm-disp-phone">-</span></p>
+        <div id="pm-sms-container" class="pt-1"></div>
       </div>
 
       <div class="grid grid-cols-4 gap-2 mb-6 bg-slate-900/60 p-3 rounded-xl border border-surf-border text-center">
@@ -1075,10 +1155,12 @@
     let savedPlaybooks = [];
     let injuries = [];
     let userProfiles = [];
+    let matchComments = [];
+    let scheduleRsvps = [];
     let currentUser = JSON.parse(localStorage.getItem('az_surf_user') || 'null');
 
-    // SQUAD BIRTHDAYS LIST
-    const playerBirthdays = [
+    // SQUAD BIRTHDAYS LIST (Will be dynamically overridden/augmented by Supabase profile birthdays)
+    const defaultBirthdays = [
       { name: 'Christian', month: 1, day: 10 },
       { name: 'Xaiden', month: 2, day: 10 },
       { name: 'CJ', month: 2, day: 21 },
@@ -1089,7 +1171,6 @@
       { name: 'Xander', month: 10, day: 18 }
     ];
 
-    // MULTILINGUAL DICTIONARY (EN / ES)
     let currentLang = 'en';
     const translations = {
       en: {
@@ -1098,7 +1179,7 @@
         nav_roster: "Roster",
         nav_tactics: "Tactics Board",
         nav_games: "Game Log",
-        nav_leaders: "Leaders",
+        nav_leaders: "Leaders / Stats",
         nav_schedule: "Schedule",
         btn_add_stats: "Stats",
         lbl_weather: "Field Weather (Peoria, AZ)",
@@ -1118,7 +1199,7 @@
         met_gaa: "Avg Goals Allowed",
         met_total: "Total Matches",
         roster_title: "AZ Surf U13 Squad Roster",
-        roster_subtitle: "Click any player to view detailed breakdown grid & edit details",
+        roster_subtitle: "Click any player to view detailed breakdown grid & direct SMS text buttons",
         tactics_title: "Interactive Pitch Formation & Drawing Board",
         tactics_subtitle: "Drag players OR select a drawing tool to sketch runs and passing lanes!",
         btn_save_lineup: "Save Lineup",
@@ -1127,14 +1208,14 @@
         bench_subtitle: "Drag or Tap to place on pitch",
         btn_past_lineups: "See Past Submitted Lineups",
         games_title: "Match History & Box Scores",
-        games_subtitle: "Season game logs, results, and game management",
-        leader_title: "Player Stat Leaderboards",
-        leader_subtitle: "Top rankings across key stats",
+        games_subtitle: "Most recent games are displayed right at the top!",
+        leader_title: "Leaderboards & Advanced Team Stats",
+        leader_subtitle: "Top player rankings alongside complex team efficiency metrics",
         lead_goals: "Goals Scored",
         lead_assists: "Assists",
         lead_saves: "Goalie Saves",
-        sched_title: "Surf Upcoming Games",
-        sched_subtitle: "Official team fixtures, tournaments, and calendar export"
+        sched_title: "Surf Upcoming Games & RSVPs",
+        sched_subtitle: "Official fixtures, calendar export, and live Going/Not Going tracking"
       },
       es: {
         sub_title: "FÚTBOL CLUB SUB-13 VARONIL",
@@ -1142,7 +1223,7 @@
         nav_roster: "Plantilla",
         nav_tactics: "Pizarra Táctica",
         nav_games: "Partidos",
-        nav_leaders: "Líderes",
+        nav_leaders: "Líderes / Stats",
         nav_schedule: "Calendario",
         btn_add_stats: "Estadísticas",
         lbl_weather: "Clima en el Campo (Peoria, AZ)",
@@ -1162,7 +1243,7 @@
         met_gaa: "Prom. Goles Permitidos",
         met_total: "Partidos Totales",
         roster_title: "Plantilla AZ Surf Sub-13",
-        roster_subtitle: "Haz clic en cualquier jugador para ver detalles y editar",
+        roster_subtitle: "Haz clic en cualquier jugador para ver detalles y botones SMS",
         tactics_title: "Formación Interactiva y Pizarra de Dibujo",
         tactics_subtitle: "¡Arrastra jugadores o selecciona una herramienta de dibujo para trazar jugadas!",
         btn_save_lineup: "Guardar Alineación",
@@ -1171,14 +1252,14 @@
         bench_subtitle: "Arrastra o toca para colocar en la cancha",
         btn_past_lineups: "Ver Alineaciones Anteriores",
         games_title: "Historial de Partidos y Marcadores",
-        games_subtitle: "Registros de temporada, resultados y gestión",
-        leader_title: "Tablas de Líderes Estadísticos",
-        leader_subtitle: "Mejores clasificaciones en estadísticas clave",
+        games_subtitle: "¡Los partidos más recientes aparecen arriba!",
+        leader_title: "Tablas de Líderes y Estadísticas Avanzadas",
+        leader_subtitle: "Ranking de jugadores y métricas de eficiencia del equipo",
         lead_goals: "Goles Anotados",
         lead_assists: "Asistencias",
         lead_saves: "Atajadas de Portero",
-        sched_title: "Próximos Juegos Surf",
-        sched_subtitle: "Calendario oficial de partidos, torneos y exportación de calendario"
+        sched_title: "Próximos Juegos Surf y RSVPs",
+        sched_subtitle: "Calendario oficial de partidos y seguimiento de asistencia Asistiré/No Asistiré"
       }
     };
 
@@ -1194,7 +1275,6 @@
       });
     }
 
-    // AUDIO & HAPTIC FEEDBACK
     function playFeedback() {
       if (navigator.vibrate) navigator.vibrate(30);
       try {
@@ -1212,24 +1292,15 @@
       } catch(e) {}
     }
 
-    // CONFETTI CELEBRATION HELPER
     function triggerConfetti() {
-      confetti({
-        particleCount: 120,
-        spread: 80,
-        origin: { y: 0.6 }
-      });
+      confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
     }
 
-    // MOBILE MENU TOGGLE
     function toggleMobileMenu(show) {
       playFeedback();
       const menu = document.getElementById('mobile-menu-drawer');
-      if (show) {
-        menu.classList.remove('hidden');
-      } else {
-        menu.classList.add('hidden');
-      }
+      if (show) menu.classList.remove('hidden');
+      else menu.classList.add('hidden');
     }
 
     function mobileNavClick(tabName) {
@@ -1237,12 +1308,13 @@
       switchTab(tabName);
     }
 
-    // SCHEDULE WITH .ICS CALENDAR EXPORT (Past games removed)
+    // SCHEDULE (Past games removed as requested previously)
     const schedule = [
       { 
         title: 'Scrimmage vs West Valley Surf U13B', 
         type: 'Scrimmage', 
         dateStr: '2026-11-13T18:00:00',
+        dateOnly: '2026-11-13',
         time: '6:00 PM', 
         location: 'Deem Hills Park', 
         mapUrl: 'https://maps.google.com/?q=Deem+Hills+Park',
@@ -1254,6 +1326,7 @@
         title: 'November 14th Game vs RSL AZ', 
         type: 'Game', 
         dateStr: '2026-11-14T11:00:00',
+        dateOnly: '2026-11-14',
         time: '11:00 AM', 
         location: 'Benedict Sports Complex', 
         mapUrl: 'https://maps.google.com/?q=Benedict+Sports+Complex',
@@ -1265,6 +1338,7 @@
         title: 'November 21st Game vs Phoenix Rising', 
         type: 'Game', 
         dateStr: '2026-11-21T14:30:00',
+        dateOnly: '2026-11-21',
         time: '2:30 PM', 
         location: 'West Valley Events Complex', 
         mapUrl: 'https://maps.google.com/?q=West+Valley+Events+Complex',
@@ -1276,6 +1350,7 @@
         title: 'Holiday Classic Tournament', 
         type: 'Tournament', 
         dateStr: '2026-12-11T09:00:00',
+        dateOnly: '2026-12-11',
         time: 'TBD', 
         location: 'TBD', 
         mapUrl: '',
@@ -1289,7 +1364,6 @@
       playFeedback();
       const startDate = new Date(item.dateStr);
       const endDate = new Date(startDate.getTime() + 2 * 60 * 60 * 1000);
-      
       const formatDate = (d) => d.toISOString().replace(/-|:|\.\d+/g, '');
       
       const icsContent = `BEGIN:VCALENDAR
@@ -1388,7 +1462,7 @@ END:VCALENDAR`;
       updateMyStatsTabVisibility();
     });
 
-    // AUTHENTICATION & PROFILE SYSTEM HANDLERS
+    // AUTH & PROFILE HANDLING
     function handleAuthButtonClick() {
       playFeedback();
       if (currentUser) {
@@ -1411,17 +1485,17 @@ END:VCALENDAR`;
       const role = document.getElementById('signin-role').value;
       const playerId = parseInt(document.getElementById('signin-player-select').value);
       const player = players.find(p => p.id === playerId);
-
       if (!player) return;
 
-      const existing = userProfiles.find(up => up.player_id === playerId) || { player_id: playerId, role, nickname: '', phone: '' };
+      const existing = userProfiles.find(up => up.player_id === playerId) || { player_id: playerId, role, nickname: '', phone: '', birthday: '' };
 
       currentUser = {
         playerId: player.id,
         playerName: player.name,
         role: role,
         nickname: existing.nickname || '',
-        phone: existing.phone || ''
+        phone: existing.phone || '',
+        birthday: existing.birthday || ''
       };
 
       localStorage.setItem('az_surf_user', JSON.stringify(currentUser));
@@ -1429,7 +1503,7 @@ END:VCALENDAR`;
       updateAuthButtonUI();
       updateMyStatsTabVisibility();
       renderAll();
-      alert(`Welcome, ${player.name} (${role})! You are now signed in.`);
+      alert(`Welcome, ${player.name} (${role})! Signed in successfully.`);
     }
 
     function openMyProfileModal() {
@@ -1438,6 +1512,7 @@ END:VCALENDAR`;
       document.getElementById('my-profile-identity').innerText = `${player ? player.name : currentUser.playerName} (${currentUser.role})`;
       document.getElementById('profile-nickname').value = currentUser.nickname || '';
       document.getElementById('profile-phone').value = currentUser.phone || '';
+      document.getElementById('profile-birthday').value = currentUser.birthday || '';
       toggleModal('my-profile-modal', true);
     }
 
@@ -1447,9 +1522,11 @@ END:VCALENDAR`;
 
       const nickname = document.getElementById('profile-nickname').value.trim();
       const phone = document.getElementById('profile-phone').value.trim();
+      const birthday = document.getElementById('profile-birthday').value.trim();
 
       currentUser.nickname = nickname;
       currentUser.phone = phone;
+      currentUser.birthday = birthday;
       localStorage.setItem('az_surf_user', JSON.stringify(currentUser));
 
       const { error } = await supabaseClient
@@ -1458,21 +1535,23 @@ END:VCALENDAR`;
           player_id: currentUser.playerId, 
           role: currentUser.role, 
           nickname, 
-          phone 
+          phone, 
+          birthday 
         }], { onConflict: 'player_id' });
 
       if (error) {
-        alert("Error saving profile details: " + error.message);
+        alert("Error saving profile to Supabase: " + error.message);
       } else {
         const idx = userProfiles.findIndex(up => up.player_id === currentUser.playerId);
         if (idx !== -1) {
-          userProfiles[idx] = { ...userProfiles[idx], nickname, phone };
+          userProfiles[idx] = { ...userProfiles[idx], nickname, phone, birthday };
         } else {
-          userProfiles.push({ player_id: currentUser.playerId, role: currentUser.role, nickname, phone });
+          userProfiles.push({ player_id: currentUser.playerId, role: currentUser.role, nickname, phone, birthday });
         }
         toggleModal('my-profile-modal', false);
+        initBirthdayCountdowns();
         renderAll();
-        alert("Profile updated successfully!");
+        alert("Profile saved successfully to Supabase!");
       }
     }
 
@@ -1485,7 +1564,7 @@ END:VCALENDAR`;
       updateMyStatsTabVisibility();
       switchTab('overview');
       renderAll();
-      alert("You have successfully signed out.");
+      alert("Successfully signed out.");
     }
 
     function updateAuthButtonUI() {
@@ -1502,13 +1581,16 @@ END:VCALENDAR`;
     function updateMyStatsTabVisibility() {
       const desktopTab = document.getElementById('tab-mystats');
       const mobileMenuTab = document.getElementById('mobile-menu-mystats');
+      const mobileBottomTab = document.getElementById('bm-tab-mystats');
 
       if (currentUser) {
         if (desktopTab) desktopTab.classList.remove('hidden');
         if (mobileMenuTab) mobileMenuTab.classList.remove('hidden');
+        if (mobileBottomTab) mobileBottomTab.classList.remove('hidden');
       } else {
         if (desktopTab) desktopTab.classList.add('hidden');
         if (mobileMenuTab) mobileMenuTab.classList.add('hidden');
+        if (mobileBottomTab) mobileBottomTab.classList.add('hidden');
       }
     }
 
@@ -1564,18 +1646,16 @@ END:VCALENDAR`;
 
       const diffTime = christmas - now;
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
       const banner = document.getElementById('holiday-countdown-banner');
       if (!banner) return;
 
       if (diffDays <= 5 && diffDays >= 0) {
         banner.classList.remove('hidden');
         banner.classList.add('flex');
-        
         if (diffDays >= 1 && diffDays <= 3) {
-          banner.innerHTML = `🎄 <strong>Merry Christmas!</strong> Wishing all AZ Surf players and families a wonderful holiday season! 🎁`;
+          banner.innerHTML = `🎄 <strong>Merry Christmas!</strong> Wishing all AZ Surf families a wonderful holiday season! 🎁`;
         } else if (diffDays === 0) {
-          banner.innerHTML = `🎅 <strong>Merry Christmas Day!</strong> Enjoy the holiday with friends and family! 🌟`;
+          banner.innerHTML = `🎅 <strong>Merry Christmas Day!</strong> Enjoy the holiday! 🌟`;
         } else {
           banner.innerHTML = `🎁 Countdown to Christmas: <strong>${diffDays} days left</strong> until December 25th!`;
         }
@@ -1591,13 +1671,21 @@ END:VCALENDAR`;
       const banner = document.getElementById('birthday-countdown-banner');
       if (!banner) return;
 
-      let activeBday = null;
-
-      for (let b of playerBirthdays) {
-        let bdayDate = new Date(currentYear, b.month, b.day);
-        if (bdayDate < now) {
-          bdayDate.setFullYear(currentYear + 1);
+      let combinedBirthdays = [...defaultBirthdays];
+      userProfiles.forEach(up => {
+        if (up.birthday) {
+          const [yr, mo, dy] = up.birthday.split('-');
+          const playerObj = players.find(p => p.id === up.player_id);
+          if (playerObj) {
+            combinedBirthdays.push({ name: playerObj.name, month: parseInt(mo), day: parseInt(dy) });
+          }
         }
+      });
+
+      let activeBday = null;
+      for (let b of combinedBirthdays) {
+        let bdayDate = new Date(currentYear, b.month - 1, b.day);
+        if (bdayDate < now) bdayDate.setFullYear(currentYear + 1);
         const diffTime = bdayDate - now;
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
@@ -1629,6 +1717,8 @@ END:VCALENDAR`;
       const { data: dbPlaybook } = await supabaseClient.from('playbook').select('*').order('created_at', { ascending: false });
       const { data: dbInjuries } = await supabaseClient.from('injuries').select('*');
       const { data: dbUserProfiles } = await supabaseClient.from('user_profiles').select('*');
+      const { data: dbMatchComments } = await supabaseClient.from('match_comments').select('*');
+      const { data: dbScheduleRsvps } = await supabaseClient.from('schedule_rsvps').select('*');
 
       if (dbPlayers && dbPlayers.length > 0) {
         players = dbPlayers.map(p => ({
@@ -1643,8 +1733,18 @@ END:VCALENDAR`;
       if (dbMilestones) milestones = dbMilestones;
       if (dbInjuries) injuries = dbInjuries;
       if (dbUserProfiles) userProfiles = dbUserProfiles;
+      if (dbScheduleRsvps) scheduleRsvps = dbScheduleRsvps;
 
+      // MATCH COMMENTS AUTO-DELETION FILTER (Only keep comments where match_date >= today)
       const todayStr = new Date().toISOString().split('T')[0];
+      if (dbMatchComments) {
+        const expiredIds = dbMatchComments.filter(c => c.match_date < todayStr).map(c => c.id);
+        if (expiredIds.length > 0) {
+          await supabaseClient.from('match_comments').delete().in('id', expiredIds);
+        }
+        matchComments = dbMatchComments.filter(c => c.match_date >= todayStr);
+      }
+
       if (injuries && injuries.length > 0) {
         for (let inj of injuries) {
           if (inj.return_date && inj.return_date <= todayStr && inj.status !== 'Full Recovery') {
@@ -1675,14 +1775,12 @@ END:VCALENDAR`;
       if (!milestones || milestones.length === 0) return;
       const totalGoals = players.reduce((sum, p) => sum + (p.goals || 0), 0);
       const totalWins = games.filter(g => g.result === 'WIN').length;
-
       const completedIds = [];
 
       milestones = milestones.filter(m => {
         let current = m.current_value;
         if (m.category === 'Goals') current = totalGoals;
         if (m.category === 'Wins') current = totalWins;
-
         if (current >= m.target_value) {
           completedIds.push(m.id);
           return false;
@@ -1717,8 +1815,6 @@ END:VCALENDAR`;
         if(bmBtn) {
           bmBtn.classList.remove('text-surf-red');
           bmBtn.classList.add('text-slate-400');
-          const span = bmBtn.querySelector('span');
-          if(span) span.className = 'text-[10px] font-medium mt-0.5';
         }
       });
 
@@ -1735,8 +1831,6 @@ END:VCALENDAR`;
       if(activeBmBtn) {
         activeBmBtn.classList.add('text-surf-red');
         activeBmBtn.classList.remove('text-slate-400');
-        const span = activeBmBtn.querySelector('span');
-        if(span) span.className = 'text-[10px] font-bold mt-0.5';
       }
 
       if (tabName === 'tactics') {
@@ -1744,10 +1838,122 @@ END:VCALENDAR`;
         initTacticsCanvas();
         updateTacticsRecoverySummary();
       }
-
       if (tabName === 'mystats') {
         renderMyStats();
       }
+    }
+
+    // MATCH COMMENTS MODAL & SUBMISSION (Match-Day Only Dropdown)
+    function openMatchCommentModal() {
+      playFeedback();
+      const todayStr = new Date().toISOString().split('T')[0];
+      const todayGames = schedule.filter(item => item.dateOnly === todayStr);
+      const select = document.getElementById('comment-game-select');
+      
+      if (todayGames.length === 0) {
+        select.innerHTML = `<option value="">No matches scheduled for today (${todayStr})</option>`;
+      } else {
+        select.innerHTML = todayGames.map(g => `<option value="${g.title}">${g.title} (${g.time})</option>`).join('');
+      }
+
+      if (currentUser) {
+        const player = players.find(p => p.id === currentUser.playerId);
+        document.getElementById('comment-author').value = player ? `${player.name} (${currentUser.role})` : currentUser.playerName;
+      }
+
+      toggleModal('match-comment-modal', true);
+    }
+
+    async function handleMatchCommentSubmit(e) {
+      e.preventDefault();
+      playFeedback();
+      const gameTitle = document.getElementById('comment-game-select').value;
+      const author = document.getElementById('comment-author').value.trim();
+      const comment = document.getElementById('comment-text').value.trim();
+      const todayStr = new Date().toISOString().split('T')[0];
+
+      if (!gameTitle || gameTitle.includes('No matches')) {
+        alert("You can only post comments on days with a scheduled game!");
+        return;
+      }
+
+      const { data, error } = await supabaseClient.from('match_comments').insert([{
+        game_title: gameTitle,
+        match_date: todayStr,
+        author_name: author,
+        comment: comment
+      }]).select();
+
+      if (error) {
+        alert("Error posting comment: " + error.message);
+      } else {
+        if (data && data.length > 0) matchComments.push(data[0]);
+        toggleModal('match-comment-modal', false);
+        document.getElementById('match-comment-form').reset();
+        renderMatchComments();
+        alert("Match comment posted successfully!");
+      }
+    }
+
+    function renderMatchComments() {
+      const container = document.getElementById('match-comments-container');
+      if (!container) return;
+
+      if (matchComments.length === 0) {
+        container.innerHTML = `<p class="text-xs text-slate-500 py-3 text-center italic">No comments for today's matches yet. Be the first to add one!</p>`;
+        return;
+      }
+
+      container.innerHTML = matchComments.map(c => `
+        <div class="bg-slate-900/80 border border-surf-border rounded-xl p-3.5 flex justify-between items-start gap-3 shadow">
+          <div>
+            <div class="flex items-center space-x-2 mb-1">
+              <span class="text-[10px] bg-surf-red/20 text-surf-red border border-surf-red/30 px-2 py-0.5 rounded font-bold uppercase">${c.game_title}</span>
+              <span class="text-xs font-bold text-white">${c.author_name}</span>
+            </div>
+            <p class="text-xs text-slate-300">${c.comment}</p>
+          </div>
+          <span class="text-[9px] text-slate-500 font-mono shrink-0">${c.match_date}</span>
+        </div>
+      `).join('');
+    }
+
+    // SCHEDULE RSVP HANDLERS
+    async function handleRsvpSubmit(event, eventTitle) {
+      event.preventDefault();
+      playFeedback();
+      const form = event.target;
+      const name = form.querySelector('.rsvp-name-input').value.trim();
+      const status = form.querySelector('.rsvp-status-select').value;
+
+      if (!name) {
+        alert("Please enter your name.");
+        return;
+      }
+
+      // Check if user already submitted for this event
+      const existing = scheduleRsvps.find(r => r.event_title === eventTitle && r.participant_name.toLowerCase() === name.toLowerCase());
+
+      if (existing) {
+        await supabaseClient.from('schedule_rsvps').update({ status }).eq('id', existing.id);
+        existing.status = status;
+      } else {
+        const { data, error } = await supabaseClient.from('schedule_rsvps').insert([{
+          event_title: eventTitle,
+          participant_name: name,
+          status: status
+        }]).select();
+
+        if (error) {
+          alert("Error saving RSVP: " + error.message);
+          return;
+        }
+        if (data && data.length > 0) scheduleRsvps.push(data[0]);
+      }
+
+      form.reset();
+      renderSchedule();
+      alert(`RSVP recorded as "${status}" for ${name}!`);
     }
 
     function renderMyStats() {
@@ -1766,27 +1972,13 @@ END:VCALENDAR`;
       document.getElementById('mystats-saves').innerText = p.saves || 0;
       document.getElementById('mystats-cards').innerText = `${p.yc || 0} / ${p.rc || 0}`;
 
-      const totalContrib = (p.goals || 0) + (p.assists || 0);
-      document.getElementById('mystats-contributions').innerText = totalContrib;
-
-      const disciplineEl = document.getElementById('mystats-discipline');
-      const totalCards = (p.yc || 0) + (p.rc || 0);
-      if (totalCards === 0) {
-        disciplineEl.innerText = "Perfect 🟢";
-        disciplineEl.className = "text-xl font-black text-emerald-400";
-      } else if (totalCards <= 2) {
-        disciplineEl.innerText = "Caution 🟡";
-        disciplineEl.className = "text-xl font-black text-amber-400";
-      } else {
-        disciplineEl.innerText = "Needs Caution 🔴";
-        disciplineEl.className = "text-xl font-black text-rose-400";
-      }
+      document.getElementById('mystats-contributions').innerText = (p.goals || 0) + (p.assists || 0);
 
       const profileInfo = userProfiles.find(up => up.player_id === p.id);
-      document.getElementById('mystats-disp-nickname').innerText = (profileInfo && profileInfo.nickname) ? profileInfo.nickname : 'None set (Click Edit)';
-      document.getElementById('mystats-disp-phone').innerText = (profileInfo && profileInfo.phone) ? profileInfo.phone : 'None set (Click Edit)';
+      document.getElementById('mystats-disp-nickname').innerText = (profileInfo && profileInfo.nickname) ? profileInfo.nickname : 'None set';
+      document.getElementById('mystats-disp-phone').innerText = (profileInfo && profileInfo.phone) ? profileInfo.phone : 'None set';
+      document.getElementById('mystats-disp-birthday').innerText = (profileInfo && profileInfo.birthday) ? profileInfo.birthday : 'None set';
 
-      // RENDER SVG PERFORMANCE CHART
       renderMyStatsChart(p);
     }
 
@@ -1813,32 +2005,25 @@ END:VCALENDAR`;
 
       metrics.forEach((m, idx) => {
         const xCenter = startX + (idx * colWidth) + (colWidth / 2);
-        
         const myHeight = Math.min(130, (m.myVal / m.max) * 130);
         const teamHeight = Math.min(130, (m.teamVal / m.max) * 130);
-
         const myY = 170 - myHeight;
         const teamY = 170 - teamHeight;
 
         svgHtml += `
-          <!-- Bar Group for ${m.label} -->
           <rect x="${xCenter - 22}" y="${myY}" width="18" height="${myHeight}" rx="3" fill="#E50000" />
           <text x="${xCenter - 13}" y="${myY - 6}" fill="#F87171" font-size="10" font-weight="bold" text-anchor="middle">${m.myVal}</text>
-
           <rect x="${xCenter + 2}" y="${teamY}" width="18" height="${teamHeight}" rx="3" fill="#475569" />
           <text x="${xCenter + 11}" y="${teamY - 6}" fill="#94A3B8" font-size="10" font-weight="bold" text-anchor="middle">${m.teamVal}</text>
-
           <text x="${xCenter}" y="190" fill="#E2E8F0" font-size="11" font-weight="bold" text-anchor="middle">${m.label}</text>
         `;
       });
-
       group.innerHTML = svgHtml;
     }
 
     function updateTacticsRecoverySummary() {
       const summaryText = document.getElementById('tactics-recovery-text');
       if (!summaryText) return;
-
       const activeInjuries = injuries.filter(i => i.status !== 'Full Recovery');
       if (activeInjuries.length === 0) {
         summaryText.innerText = 'All players fully fit and available for selection.';
@@ -1855,9 +2040,7 @@ END:VCALENDAR`;
         modal.classList.remove('hidden');
         if (modalId === 'admin-modal') {
           const container = document.getElementById('player-stats-rows-container');
-          if (container && container.children.length === 0) {
-            addPlayerStatRow();
-          }
+          if (container && container.children.length === 0) addPlayerStatRow();
         }
       } else {
         modal.classList.add('hidden');
@@ -1870,7 +2053,6 @@ END:VCALENDAR`;
       if (!container) return;
       const rowId = 'p_row_' + Date.now() + Math.random().toString(36).substr(2, 5);
       const sorted = [...players].sort((a,b) => a.number - b.number);
-      
       const defaultOption = `<option value="" ${selectedId === '' ? 'selected' : ''}>-- Select Player --</option>`;
       const optionsHtml = defaultOption + sorted.map(p => `<option value="${p.id}" ${p.id == selectedId ? 'selected' : ''}>#${p.number} - ${p.name} ${p.isCaptain ? '(C)' : ''}</option>`).join('');
 
@@ -1884,8 +2066,7 @@ END:VCALENDAR`;
             <span>Player Performance Entry</span>
           </label>
           <button type="button" onclick="document.getElementById('${rowId}').remove()" class="text-xs text-rose-400 hover:text-rose-300 font-semibold flex items-center space-x-1">
-            <i data-lucide="trash-2" class="w-3 h-3"></i>
-            <span>Remove</span>
+            <i data-lucide="trash-2" class="w-3 h-3"></i><span>Remove</span>
           </button>
         </div>
         <div>
@@ -1935,6 +2116,7 @@ END:VCALENDAR`;
       renderTacticsBoard();
       renderAnnouncements();
       renderMilestones();
+      renderMatchComments();
       if (currentUser) renderMyStats();
       lucide.createIcons();
     }
@@ -1946,11 +2128,7 @@ END:VCALENDAR`;
       const content = document.getElementById('ann-content').value;
       const expires_at = document.getElementById('ann-expires').value;
 
-      const { data, error } = await supabaseClient
-        .from('announcements')
-        .insert([{ title, content, badge_type, expires_at }])
-        .select();
-
+      const { data, error } = await supabaseClient.from('announcements').insert([{ title, content, badge_type, expires_at }]).select();
       if (error) {
         alert("Error posting announcement: " + error.message);
       } else {
@@ -1969,7 +2147,6 @@ END:VCALENDAR`;
       const category = document.getElementById('ms-category').value;
 
       const { data, error } = await supabaseClient.from('team_milestones').insert([{ title, target_value, category, current_value: 0 }]).select();
-
       if (error) {
         alert("Error adding milestone: " + error.message);
       } else {
@@ -1990,7 +2167,6 @@ END:VCALENDAR`;
       const return_date = document.getElementById('inj-returndate').value;
 
       const { data, error } = await supabaseClient.from('injuries').insert([{ player_name, injury_type, status, return_date }]).select();
-
       if (error) {
         alert("Error saving recovery status: " + error.message);
       } else {
@@ -2036,16 +2212,11 @@ END:VCALENDAR`;
     function renderAnnouncements() {
       const container = document.getElementById('announcements-container');
       if (!container) return;
-
       const todayStr = new Date().toISOString().split('T')[0];
-
-      const activeAnnouncements = announcements.filter(a => {
-        if (!a.expires_at) return true;
-        return a.expires_at >= todayStr;
-      });
+      const activeAnnouncements = announcements.filter(a => !a.expires_at || a.expires_at >= todayStr);
 
       if (activeAnnouncements.length === 0) {
-        container.innerHTML = `<p class="text-xs text-slate-500 italic">No active announcements. Click above to post one!</p>`;
+        container.innerHTML = `<p class="text-xs text-slate-500 italic">No active announcements.</p>`;
         return;
       }
 
@@ -2064,7 +2235,6 @@ END:VCALENDAR`;
           <span class="text-[10px] text-slate-400 font-mono shrink-0">Expires: ${a.expires_at || 'Never'}</span>
         </div>
       `).join('');
-      
       lucide.createIcons();
     }
 
@@ -2083,7 +2253,6 @@ END:VCALENDAR`;
         let current = m.current_value;
         if (m.category === 'Goals') current = totalGoals;
         if (m.category === 'Wins') current = totalWins;
-
         const pct = Math.min(100, Math.round((current / m.target_value) * 100));
 
         return `
@@ -2125,10 +2294,8 @@ END:VCALENDAR`;
       if (!pb) return;
       currentFormationKey = pb.formation_key;
       pitchAssignments = pb.assignments || {};
-
       const sel = document.getElementById('formation-select');
       if (sel) sel.value = currentFormationKey;
-
       renderTacticsBoard();
       toggleModal('playbook-modal', false);
     }
@@ -2148,7 +2315,6 @@ END:VCALENDAR`;
 
     async function saveTacticsToSupabase() {
       playFeedback();
-      
       let title = "";
       while (!title || title.trim() === "") {
         title = prompt("Enter a name for this lineup setup (Required):", "Matchday Lineup");
@@ -2176,14 +2342,10 @@ END:VCALENDAR`;
       ['select', 'pen', 'arrow'].forEach(m => {
         const btn = document.getElementById(`tool-${m}`);
         if(btn) {
-          if (m === mode) {
-            btn.className = 'px-2 py-1 rounded text-[11px] font-bold bg-surf-red text-white transition-all';
-          } else {
-            btn.className = 'px-2 py-1 rounded text-[11px] font-bold text-slate-300 hover:text-white transition-all';
-          }
+          if (m === mode) btn.className = 'px-2 py-1 rounded text-[11px] font-bold bg-surf-red text-white transition-all';
+          else btn.className = 'px-2 py-1 rounded text-[11px] font-bold text-slate-300 hover:text-white transition-all';
         }
       });
-
       const canvas = document.getElementById('pitch-drawing-canvas');
       const slotsContainer = document.getElementById('pitch-slots-container');
       if (canvas && slotsContainer) {
@@ -2230,9 +2392,7 @@ END:VCALENDAR`;
         const y = clientY - rect.top;
         currentPath.endX = x;
         currentPath.endY = y;
-        if (drawMode === 'pen') {
-          currentPath.points.push({x, y});
-        }
+        if (drawMode === 'pen') currentPath.points.push({x, y});
         redrawCanvas();
       };
 
@@ -2271,7 +2431,6 @@ END:VCALENDAR`;
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
       const allToDraw = [...drawingPaths];
       if (currentPath) allToDraw.push(currentPath);
 
@@ -2279,20 +2438,16 @@ END:VCALENDAR`;
         ctx.strokeStyle = '#FACC15';
         ctx.fillStyle = '#FACC15';
         ctx.lineWidth = 3;
-
         if (path.type === 'pen' && path.points) {
           ctx.beginPath();
           ctx.moveTo(path.points[0].x, path.points[0].y);
-          for (let i = 1; i < path.points.length; i++) {
-            ctx.lineTo(path.points[i].x, path.points[i].y);
-          }
+          for (let i = 1; i < path.points.length; i++) ctx.lineTo(path.points[i].x, path.points[i].y);
           ctx.stroke();
         } else if (path.type === 'arrow') {
           ctx.beginPath();
           ctx.moveTo(path.startX, path.startY);
           ctx.lineTo(path.endX, path.endY);
           ctx.stroke();
-
           const angle = Math.atan2(path.endY - path.startY, path.endX - path.startX);
           ctx.beginPath();
           ctx.moveTo(path.endX, path.endY);
@@ -2319,7 +2474,6 @@ END:VCALENDAR`;
       slots.forEach((slot, idx) => {
         const assignedPlayerId = pitchAssignments[idx];
         const player = players.find(p => p.id === assignedPlayerId);
-
         const slotDiv = document.createElement('div');
         slotDiv.className = 'absolute -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center cursor-pointer group pointer-events-auto transition-all duration-300 ease-in-out transform';
         slotDiv.style.top = slot.top;
@@ -2360,7 +2514,6 @@ END:VCALENDAR`;
             <span class="text-[8px] sm:text-[9px] font-semibold text-emerald-400/70 mt-0.5 sm:mt-1 uppercase tracking-wider">${slot.label}</span>
           `;
         }
-
         container.appendChild(slotDiv);
       });
 
@@ -2394,17 +2547,13 @@ END:VCALENDAR`;
           `;
         }).join('');
       }
-
       lucide.createIcons();
     }
 
     function selectBenchPlayer(playerId) {
       playFeedback();
-      if (selectedBenchPlayerId === playerId) {
-        selectedBenchPlayerId = null;
-      } else {
-        selectedBenchPlayerId = playerId;
-      }
+      if (selectedBenchPlayerId === playerId) selectedBenchPlayerId = null;
+      else selectedBenchPlayerId = playerId;
       renderTacticsBoard();
     }
 
@@ -2502,46 +2651,53 @@ END:VCALENDAR`;
         const isMe = currentUser && currentUser.playerId === p.id;
         const profileInfo = userProfiles.find(up => up.player_id === p.id);
         const nicknameDisplay = profileInfo && profileInfo.nickname ? `<span class="text-[10px] text-amber-400 font-semibold block mt-1">"${profileInfo.nickname}"</span>` : '';
+        const phoneButton = profileInfo && profileInfo.phone ? `<a href="sms:${profileInfo.phone}" onclick="event.stopPropagation()" class="mt-2 inline-flex items-center space-x-1 bg-blue-600/20 border border-blue-500/40 text-blue-400 hover:bg-blue-600 hover:text-white px-2 py-1 rounded text-[10px] font-bold transition-all"><i data-lucide="message-circle" class="w-3 h-3"></i><span>Text Player</span></a>` : '';
 
         return `
-          <div onclick="openPlayerModal(${p.id})" class="bg-surf-card border ${isMe ? 'border-surf-red shadow-lg shadow-surf-red/25 ring-1 ring-surf-red' : 'border-surf-border'} rounded-xl p-4 hover:border-surf-red/50 cursor-pointer transition-all hover:scale-[1.02] relative shadow-md">
-            <div class="flex justify-between items-start mb-3">
-              <span class="w-9 h-9 rounded-full bg-surf-red/20 text-surf-red font-mono font-black flex items-center justify-center text-base border border-surf-red/40 shrink-0">
-                #${p.number}
-              </span>
-              <div class="flex items-center space-x-1">
-                ${isMe ? '<span class="bg-surf-red text-white text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-wider animate-pulse">Me</span>' : ''}
-                ${p.isCaptain ? '<span class="bg-amber-500/20 text-amber-400 border border-amber-500/40 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase">Captain</span>' : ''}
-                <span class="text-[10px] font-semibold text-slate-300 bg-slate-900 px-2 py-1 rounded border border-surf-border">
-                  ${p.pos || 'Player'}
+          <div onclick="openPlayerModal(${p.id})" class="bg-surf-card border ${isMe ? 'border-surf-red shadow-lg shadow-surf-red/25 ring-1 ring-surf-red' : 'border-surf-border'} rounded-xl p-4 hover:border-surf-red/50 cursor-pointer transition-all hover:scale-[1.02] relative shadow-md flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-start mb-3">
+                <span class="w-9 h-9 rounded-full bg-surf-red/20 text-surf-red font-mono font-black flex items-center justify-center text-base border border-surf-red/40 shrink-0">
+                  #${p.number}
                 </span>
+                <div class="flex items-center space-x-1">
+                  ${isMe ? '<span class="bg-surf-red text-white text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-wider animate-pulse">Me</span>' : ''}
+                  ${p.isCaptain ? '<span class="bg-amber-500/20 text-amber-400 border border-amber-500/40 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase">Captain</span>' : ''}
+                  <span class="text-[10px] font-semibold text-slate-300 bg-slate-900 px-2 py-1 rounded border border-surf-border">
+                    ${p.pos || 'Player'}
+                  </span>
+                </div>
               </div>
+
+              <h3 class="font-bold text-lg text-white mb-0.5">${p.name}</h3>
+              ${nicknameDisplay}
             </div>
 
-            <h3 class="font-bold text-lg text-white mb-0.5">${p.name}</h3>
-            ${nicknameDisplay}
-
-            <div class="grid grid-cols-4 gap-1 bg-slate-900/60 p-2 rounded-lg text-center text-xs mt-3">
-              <div>
-                <span class="block text-[9px] text-slate-400">G</span>
-                <span class="font-bold text-surf-red">${p.goals || 0}</span>
-              </div>
-              <div>
-                <span class="block text-[9px] text-slate-400">Sh</span>
-                <span class="font-bold text-emerald-400">${p.shots || 0}</span>
-              </div>
-              <div>
-                <span class="block text-[9px] text-slate-400">A</span>
-                <span class="font-bold text-blue-400">${p.assists || 0}</span>
-              </div>
-              <div>
-                <span class="block text-[9px] text-slate-400">YC/RC</span>
-                <span class="font-bold text-slate-300">${p.yc || 0}/${p.rc || 0}</span>
+            <div>
+              ${phoneButton}
+              <div class="grid grid-cols-4 gap-1 bg-slate-900/60 p-2 rounded-lg text-center text-xs mt-3">
+                <div>
+                  <span class="block text-[9px] text-slate-400">G</span>
+                  <span class="font-bold text-surf-red">${p.goals || 0}</span>
+                </div>
+                <div>
+                  <span class="block text-[9px] text-slate-400">Sh</span>
+                  <span class="font-bold text-emerald-400">${p.shots || 0}</span>
+                </div>
+                <div>
+                  <span class="block text-[9px] text-slate-400">A</span>
+                  <span class="font-bold text-blue-400">${p.assists || 0}</span>
+                </div>
+                <div>
+                  <span class="block text-[9px] text-slate-400">YC/RC</span>
+                  <span class="font-bold text-slate-300">${p.yc || 0}/${p.rc || 0}</span>
+                </div>
               </div>
             </div>
           </div>
         `;
       }).join('');
+      lucide.createIcons();
     }
 
     function openPlayerModal(playerId) {
@@ -2554,17 +2710,20 @@ END:VCALENDAR`;
       document.getElementById('pm-pos').innerText = p.pos || 'Player';
 
       const captTag = document.getElementById('pm-captain-tag');
-      if (p.isCaptain) {
-        captTag.classList.remove('hidden');
-      } else {
-        captTag.classList.add('hidden');
-      }
+      if (p.isCaptain) captTag.classList.remove('hidden');
+      else captTag.classList.add('hidden');
 
       const profileInfo = userProfiles.find(up => up.player_id === p.id);
       const optionalBox = document.getElementById('pm-optional-info');
+      const smsContainer = document.getElementById('pm-sms-container');
+
       if (profileInfo && (profileInfo.nickname || profileInfo.phone)) {
         document.getElementById('pm-disp-nickname').innerText = profileInfo.nickname || 'None';
-        document.getElementById('pm-disp-phone').innerText = profileInfo.phone || 'None';
+        if (profileInfo.phone) {
+          smsContainer.innerHTML = `<a href="sms:${profileInfo.phone}" class="inline-flex items-center space-x-1.5 bg-blue-600/20 border border-blue-500/40 text-blue-400 hover:bg-blue-600 hover:text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all"><i data-lucide="message-circle" class="w-4 h-4"></i><span>Text Player (${profileInfo.phone})</span></a>`;
+        } else {
+          smsContainer.innerHTML = '';
+        }
         optionalBox.classList.remove('hidden');
       } else {
         optionalBox.classList.add('hidden');
@@ -2577,13 +2736,11 @@ END:VCALENDAR`;
 
       const teamTotalGoals = players.reduce((sum, item) => sum + (item.goals || 0), 0);
       const teamTotalAssists = players.reduce((sum, item) => sum + (item.assists || 0), 0);
-
       const goalPct = teamTotalGoals > 0 ? Math.round(((p.goals || 0) / teamTotalGoals) * 100) : 0;
       const assistPct = teamTotalAssists > 0 ? Math.round(((p.assists || 0) / teamTotalAssists) * 100) : 0;
 
       document.getElementById('pm-goal-share').innerText = `${goalPct}%`;
       document.getElementById('pm-bar-goals').style.width = `${goalPct}%`;
-
       document.getElementById('pm-assist-share').innerText = `${assistPct}%`;
       document.getElementById('pm-bar-assists').style.width = `${assistPct}%`;
 
@@ -2599,6 +2756,7 @@ END:VCALENDAR`;
       document.getElementById('edit-p-saves').value = p.saves || 0;
 
       toggleModal('player-modal', true);
+      lucide.createIcons();
     }
 
     async function handleEditPlayerSubmit(e) {
@@ -2620,10 +2778,7 @@ END:VCALENDAR`;
         players[idx] = { id, name, number, pos, isCaptain, goals, shots, assists, yc, rc, saves };
       }
 
-      await supabaseClient
-        .from('players')
-        .upsert([{ id, name, number, pos, goals, shots, assists, yc, rc, saves }]);
-
+      await supabaseClient.from('players').upsert([{ id, name, number, pos, goals, shots, assists, yc, rc, saves }]);
       toggleModal('player-modal', false);
       renderAll();
     }
@@ -2637,7 +2792,7 @@ END:VCALENDAR`;
         return;
       }
 
-      // REVERSED: Most recent games at the top
+      // FLIPPED: Most recent games at the top
       const sortedGames = [...games].reverse();
 
       container.innerHTML = sortedGames.map(g => {
@@ -2691,6 +2846,7 @@ END:VCALENDAR`;
           </div>
         `;
       }).join('');
+      lucide.createIcons();
     }
 
     function openGameEditModal(gameId) {
@@ -2714,22 +2870,13 @@ END:VCALENDAR`;
       const opponentScore = parseInt(document.getElementById('edit-g-oppscore').value);
 
       let result = "DRAW";
-      if (ourScore > opponentScore) {
-        result = "WIN";
-        triggerConfetti();
-      }
+      if (ourScore > opponentScore) { result = "WIN"; triggerConfetti(); }
       if (ourScore < opponentScore) result = "LOSS";
 
       const idx = games.findIndex(g => g.id === id);
-      if (idx !== -1) {
-        games[idx] = { id, opponent, date, ourScore, opponentScore, result };
-      }
+      if (idx !== -1) games[idx] = { id, opponent, date, ourScore, opponentScore, result };
 
-      await supabaseClient
-        .from('games')
-        .update({ opponent, date, ourScore, opponentScore, result })
-        .eq('id', id);
-
+      await supabaseClient.from('games').update({ opponent, date, ourScore, opponentScore, result }).eq('id', id);
       toggleModal('game-edit-modal', false);
       renderAll();
     }
@@ -2742,6 +2889,26 @@ END:VCALENDAR`;
     }
 
     function renderLeaderboards() {
+      // ADVANCED TEAM METRICS CALCULATION
+      const totalGoals = players.reduce((s, p) => s + (p.goals || 0), 0);
+      const totalShots = players.reduce((s, p) => s + (p.shots || 0), 0);
+      const shotConversion = totalShots > 0 ? Math.round((totalGoals / totalShots) * 100) : 0;
+
+      const totalAssists = players.reduce((s, p) => s + (p.assists || 0), 0);
+      const goalContribRatio = games.length > 0 ? ((totalGoals + totalAssists) / games.length).toFixed(1) : '0.0';
+
+      const cleanSheets = games.filter(g => (g.opponentScore || 0) === 0).length;
+      const cleanSheetRate = games.length > 0 ? Math.round((cleanSheets / games.length) * 100) : 0;
+
+      const totalYellows = players.reduce((s, p) => s + (p.yc || 0), 0);
+      const totalReds = players.reduce((s, p) => s + (p.rc || 0), 0);
+
+      document.getElementById('adv-shot-conversion').innerText = `${shotConversion}%`;
+      document.getElementById('adv-goal-contrib').innerText = goalContribRatio;
+      document.getElementById('adv-cleansheet-rate').innerText = `${cleanSheetRate}%`;
+      document.getElementById('adv-fairplay').innerText = `${totalYellows}Y / ${totalReds}R`;
+
+      // STANDARD LEADERBOARDS
       const goalsList = document.getElementById('leaderboard-goals');
       const assistsList = document.getElementById('leaderboard-assists');
       const savesList = document.getElementById('leaderboard-saves');
@@ -2782,49 +2949,90 @@ END:VCALENDAR`;
 
     function renderSchedule() {
       const grid = document.getElementById('schedule-cards-grid');
-      grid.innerHTML = schedule.map(item => `
-        <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex flex-col justify-between space-y-4 shadow-lg">
-          <div class="flex justify-between items-start">
-            <div>
-              <span class="text-xs font-bold ${item.type === 'Tournament' ? 'text-surf-red' : 'text-slate-400'} uppercase">${item.type || 'Game'}</span>
-              <h3 class="text-base font-bold text-white mt-0.5">${item.title}</h3>
-              <p class="text-xs text-surf-red mt-1 flex items-center"><i data-lucide="clock" class="w-3 h-3 mr-1 inline"></i>${item.time || 'TBD'}</p>
-              <p class="text-xs text-slate-400 flex items-center mt-0.5"><i data-lucide="map-pin" class="w-3 h-3 mr-1 inline"></i>${item.location || 'TBD'}</p>
-            </div>
-            <div class="flex items-center space-x-1.5">
-              <button onclick='exportIcs(${JSON.stringify(item)})' title="Add to Calendar (.ics)" class="bg-slate-900 border border-surf-border hover:border-surf-red text-xs text-amber-400 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0">
-                <i data-lucide="calendar-plus" class="w-3.5 h-3.5"></i>
-              </button>
-              ${item.mapUrl ? `<a href="${item.mapUrl}" target="_blank" class="bg-slate-900 border border-surf-border hover:border-surf-red text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0"><i data-lucide="external-link" class="w-3.5 h-3.5"></i></a>` : ''}
-            </div>
-          </div>
+      if (!grid) return;
 
-          <div class="pt-3 border-t border-surf-border/60 grid grid-cols-3 gap-1.5 text-[10px]">
-            <div class="bg-slate-900/80 border border-surf-border p-1.5 rounded flex flex-col items-center text-center">
-              <i data-lucide="footprints" class="w-3.5 h-3.5 text-emerald-400 mb-1"></i>
-              <span class="text-slate-400 font-semibold">Studs</span>
-              <span class="text-white font-bold truncate max-w-full">${item.studs}</span>
+      grid.innerHTML = schedule.map(item => {
+        const itemRsvps = scheduleRsvps.filter(r => r.event_title === item.title);
+        const goingList = itemRsvps.filter(r => r.status === 'Going');
+        const notGoingList = itemRsvps.filter(r => r.status === 'Not Going');
+        const maybeList = itemRsvps.filter(r => r.status === 'Maybe');
+
+        return `
+          <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex flex-col justify-between space-y-4 shadow-lg">
+            <div class="flex justify-between items-start">
+              <div>
+                <span class="text-xs font-bold ${item.type === 'Tournament' ? 'text-surf-red' : 'text-slate-400'} uppercase">${item.type || 'Game'}</span>
+                <h3 class="text-base font-bold text-white mt-0.5">${item.title}</h3>
+                <p class="text-xs text-surf-red mt-1 flex items-center"><i data-lucide="clock" class="w-3 h-3 mr-1 inline"></i>${item.time || 'TBD'}</p>
+                <p class="text-xs text-slate-400 flex items-center mt-0.5"><i data-lucide="map-pin" class="w-3 h-3 mr-1 inline"></i>${item.location || 'TBD'}</p>
+              </div>
+              <div class="flex items-center space-x-1.5">
+                <button onclick='exportIcs(${JSON.stringify(item)})' title="Add to Calendar (.ics)" class="bg-slate-900 border border-surf-border hover:border-surf-red text-xs text-amber-400 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0">
+                  <i data-lucide="calendar-plus" class="w-3.5 h-3.5"></i>
+                </button>
+                ${item.mapUrl ? `<a href="${item.mapUrl}" target="_blank" class="bg-slate-900 border border-surf-border hover:border-surf-red text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg font-semibold flex items-center space-x-1 shrink-0"><i data-lucide="external-link" class="w-3.5 h-3.5"></i></a>` : ''}
+              </div>
             </div>
-            <div class="bg-slate-900/80 border border-surf-border p-1.5 rounded flex flex-col items-center text-center">
-              <i data-lucide="shirt" class="w-3.5 h-3.5 text-blue-400 mb-1"></i>
-              <span class="text-slate-400 font-semibold">Layers</span>
-              <span class="text-white font-bold truncate max-w-full">${item.clothes}</span>
+
+            <div class="pt-2 border-t border-surf-border/60 grid grid-cols-3 gap-1.5 text-[10px]">
+              <div class="bg-slate-900/80 border border-surf-border p-1.5 rounded flex flex-col items-center text-center">
+                <i data-lucide="footprints" class="w-3.5 h-3.5 text-emerald-400 mb-1"></i>
+                <span class="text-slate-400 font-semibold">Studs</span>
+                <span class="text-white font-bold truncate max-w-full">${item.studs}</span>
+              </div>
+              <div class="bg-slate-900/80 border border-surf-border p-1.5 rounded flex flex-col items-center text-center">
+                <i data-lucide="shirt" class="w-3.5 h-3.5 text-blue-400 mb-1"></i>
+                <span class="text-slate-400 font-semibold">Layers</span>
+                <span class="text-white font-bold truncate max-w-full">${item.clothes}</span>
+              </div>
+              <div class="bg-slate-900/80 border border-surf-border p-1.5 rounded flex flex-col items-center text-center">
+                <i data-lucide="droplet" class="w-3.5 h-3.5 text-surf-red mb-1"></i>
+                <span class="text-slate-400 font-semibold">Hydration</span>
+                <span class="text-white font-bold truncate max-w-full">${item.hydration}</span>
+              </div>
             </div>
-            <div class="bg-slate-900/80 border border-surf-border p-1.5 rounded flex flex-col items-center text-center">
-              <i data-lucide="droplet" class="w-3.5 h-3.5 text-surf-red mb-1"></i>
-              <span class="text-slate-400 font-semibold">Hydration</span>
-              <span class="text-white font-bold truncate max-w-full">${item.hydration}</span>
+
+            <!-- LIVE RSVP SECTION -->
+            <div class="bg-slate-900/90 border border-surf-border rounded-xl p-3.5 space-y-3">
+              <h4 class="text-xs font-bold text-white flex items-center space-x-1.5">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+                <span>Match Attendance RSVP</span>
+              </h4>
+
+              <form onsubmit="handleRsvpSubmit(event, '${item.title.replace(/'/g, "\\'")}')" class="flex flex-col sm:flex-row gap-2">
+                <input type="text" placeholder="Your Name" required class="rsvp-name-input bg-slate-950 border border-surf-border rounded px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red flex-grow" />
+                <select class="rsvp-status-select bg-slate-950 border border-surf-border rounded px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red font-bold">
+                  <option value="Going">Going ✅</option>
+                  <option value="Not Going">Not Going ❌</option>
+                  <option value="Maybe">Maybe ⚠️</option>
+                </select>
+                <button type="submit" class="bg-surf-red hover:bg-surf-redHover text-white px-3 py-1.5 rounded text-xs font-bold transition-all shadow">RSVP</button>
+              </form>
+
+              <div class="grid grid-cols-3 gap-2 pt-2 border-t border-surf-border/60 text-[10px]">
+                <div class="bg-emerald-950/40 border border-emerald-500/30 p-2 rounded">
+                  <span class="font-bold text-emerald-400 block mb-1">Going (${goingList.length})</span>
+                  <p class="text-slate-300">${goingList.map(r => r.participant_name).join(', ') || 'None yet'}</p>
+                </div>
+                <div class="bg-rose-950/40 border border-rose-500/30 p-2 rounded">
+                  <span class="font-bold text-rose-400 block mb-1">Not Going (${notGoingList.length})</span>
+                  <p class="text-slate-300">${notGoingList.map(r => r.participant_name).join(', ') || 'None'}</p>
+                </div>
+                <div class="bg-amber-950/40 border border-amber-500/30 p-2 rounded">
+                  <span class="font-bold text-amber-400 block mb-1">Maybe (${maybeList.length})</span>
+                  <p class="text-slate-300">${maybeList.map(r => r.participant_name).join(', ') || 'None'}</p>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
       lucide.createIcons();
     }
 
     async function handleFormSubmit(e) {
       e.preventDefault();
       playFeedback();
-
       const btn = document.getElementById('save-btn');
       btn.innerText = "Saving...";
       btn.disabled = true;
@@ -2835,10 +3043,7 @@ END:VCALENDAR`;
       const opponentScore = parseInt(document.getElementById('form-their-score').value);
       
       let result = "DRAW";
-      if (ourScore > opponentScore) {
-        result = "WIN";
-        triggerConfetti();
-      }
+      if (ourScore > opponentScore) { result = "WIN"; triggerConfetti(); }
       if (ourScore < opponentScore) result = "LOSS";
 
       const newGame = { id: Date.now(), date, opponent, ourScore, opponentScore, result };
@@ -2849,7 +3054,6 @@ END:VCALENDAR`;
       for (const row of rows) {
         const selectEl = row.querySelector('.player-select');
         const pId = parseInt(selectEl.value);
-        
         if (isNaN(pId)) continue;
 
         const pGoals = parseInt(row.querySelector('.p-goals').value) || 0;
@@ -2884,7 +3088,6 @@ END:VCALENDAR`;
       }
 
       renderAll();
-
       btn.innerText = "Save Match Stats";
       btn.disabled = false;
       toggleModal('admin-modal', false);
