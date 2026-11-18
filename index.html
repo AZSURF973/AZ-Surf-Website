@@ -42,14 +42,14 @@
   <header class="bg-surf-dark/95 backdrop-blur-md border-b border-surf-border sticky top-0 z-40 w-full">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
       
-      <!-- Top-Left: Mobile Menu Toggle & Logos -->
+      <!-- Top-Left: Mobile Menu Toggle & Logos (Fixed to use robust fallback crest image) -->
       <div class="flex items-center space-x-2.5 min-w-0">
         <button onclick="toggleMobileMenu(true)" class="md:hidden p-2 rounded-lg bg-slate-900 border border-surf-border text-slate-300 hover:text-white shrink-0">
           <i data-lucide="menu" class="w-5 h-5 text-surf-red"></i>
         </button>
 
-        <div class="w-9 h-9 sm:w-12 sm:h-12 rounded-full border border-surf-border bg-surf-dark p-1.5 flex items-center justify-center shadow-lg shadow-surf-red/20 overflow-hidden shrink-0">
-          <img src="https://i.postimg.cc/J7fdWVK/images.jpg" alt="Surf Crest" class="w-7 h-7 sm:w-10 sm:h-10 object-contain" style="mix-blend-mode: screen;" />
+        <div class="w-9 h-9 sm:w-12 sm:h-12 rounded-full border border-surf-border bg-surf-dark p-1 flex items-center justify-center shadow-lg shadow-surf-red/20 overflow-hidden shrink-0">
+          <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=150&auto=format&fit=crop&q=80" alt="Surf Crest" class="w-full h-full object-cover rounded-full" />
         </div>
         <div class="min-w-0">
           <h1 class="text-xs sm:text-lg font-bold tracking-tight text-white leading-tight truncate">AZ SURF</h1>
@@ -93,8 +93,8 @@
       <div>
         <div class="flex items-center justify-between mb-6 pb-4 border-b border-surf-border">
           <div class="flex items-center space-x-2">
-            <div class="w-8 h-8 rounded-full border border-surf-border bg-surf-dark p-1 flex items-center justify-center">
-              <img src="https://i.postimg.cc/J7fdWVK/images.jpg" alt="Surf Crest" class="w-6 h-6 object-contain" style="mix-blend-mode: screen;" />
+            <div class="w-8 h-8 rounded-full border border-surf-border bg-surf-dark p-1 flex items-center justify-center overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=150&auto=format&fit=crop&q=80" alt="Surf Crest" class="w-full h-full object-cover rounded-full" />
             </div>
             <div>
               <h3 class="font-bold text-white text-sm">AZ SURF U13</h3>
@@ -140,7 +140,7 @@
     </div>
   </div>
 
-  <!-- FIXED BOTTOM MOBILE NAVIGATION BAR (Includes ALL Tabs) -->
+  <!-- FIXED BOTTOM MOBILE NAVIGATION BAR -->
   <nav class="md:hidden fixed bottom-0 inset-x-0 bg-surf-dark/95 backdrop-blur-md border-t border-surf-border z-40 px-1 py-1.5 flex justify-around items-center shadow-2xl overflow-x-auto no-scrollbar">
     <button onclick="switchTab('overview')" id="bm-tab-overview" class="bottom-tab-btn flex flex-col items-center text-surf-red p-1 transition-all shrink-0">
       <i data-lucide="home" class="w-4 h-4"></i>
@@ -552,7 +552,7 @@
       </div>
     </section>
 
-    <!-- SCHEDULE TAB (With Going / Not Going / Maybe RSVPs) -->
+    <!-- SCHEDULE TAB (Clean, simplified RSVP with 4 buttons and 1 name dropdown) -->
     <section id="sec-schedule" class="hidden space-y-6">
       <div class="flex justify-between items-center">
         <div>
@@ -704,7 +704,7 @@
     </div>
   </div>
 
-  <!-- MY PROFILE / SETTINGS MODAL (Includes Phone & Birthday) -->
+  <!-- MY PROFILE / SETTINGS MODAL -->
   <div id="my-profile-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-surf-dark border border-surf-border rounded-xl max-w-md w-full p-6 shadow-2xl relative">
       <button onclick="toggleModal('my-profile-modal', false)" class="absolute top-4 right-4 text-slate-400 hover:text-white">
@@ -743,7 +743,7 @@
     </div>
   </div>
 
-  <!-- ADD MATCH COMMENT MODAL (Smart Dropdown for Today's Games) -->
+  <!-- ADD MATCH COMMENT MODAL -->
   <div id="match-comment-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-surf-dark border border-surf-border rounded-xl max-w-md w-full p-6 shadow-2xl relative">
       <button onclick="toggleModal('match-comment-modal', false)" class="absolute top-4 right-4 text-slate-400 hover:text-white">
@@ -757,7 +757,6 @@
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Select Today's Match</label>
           <select id="comment-game-select" required class="w-full bg-slate-900 border border-surf-border rounded px-3 py-2 text-xs text-white focus:outline-none focus:border-surf-red font-bold">
-            <!-- Populated dynamically -->
           </select>
         </div>
         <div>
@@ -1159,7 +1158,7 @@
     let scheduleRsvps = [];
     let currentUser = JSON.parse(localStorage.getItem('az_surf_user') || 'null');
 
-    // SQUAD BIRTHDAYS LIST (Will be dynamically overridden/augmented by Supabase profile birthdays)
+    // SQUAD BIRTHDAYS LIST
     const defaultBirthdays = [
       { name: 'Christian', month: 1, day: 10 },
       { name: 'Xaiden', month: 2, day: 10 },
@@ -1209,8 +1208,7 @@
         btn_past_lineups: "See Past Submitted Lineups",
         games_title: "Match History & Box Scores",
         games_subtitle: "Most recent games are displayed right at the top!",
-        leader_title: "Leaderboards & Advanced Team Stats",
-        leader_subtitle: "Top player rankings alongside complex team efficiency metrics",
+        leader_title: "Tablas de Líderes y Estadísticas Avanzadas",
         lead_goals: "Goals Scored",
         lead_assists: "Assists",
         lead_saves: "Goalie Saves",
@@ -1254,7 +1252,6 @@
         games_title: "Historial de Partidos y Marcadores",
         games_subtitle: "¡Los partidos más recientes aparecen arriba!",
         leader_title: "Tablas de Líderes y Estadísticas Avanzadas",
-        leader_subtitle: "Ranking de jugadores y métricas de eficiencia del equipo",
         lead_goals: "Goles Anotados",
         lead_assists: "Asistencias",
         lead_saves: "Atajadas de Portero",
@@ -1308,7 +1305,6 @@
       switchTab(tabName);
     }
 
-    // SCHEDULE (Past games removed as requested previously)
     const schedule = [
       { 
         title: 'Scrimmage vs West Valley Surf U13B', 
@@ -1451,6 +1447,9 @@ END:VCALENDAR`;
     let drawingPaths = [];
     let currentPath = null;
 
+    // Temporary storage for active RSVP selections per event card before submission
+    let rsvpSelections = {};
+
     document.addEventListener('DOMContentLoaded', () => {
       lucide.createIcons();
       loadDataFromDatabase();
@@ -1462,7 +1461,6 @@ END:VCALENDAR`;
       updateMyStatsTabVisibility();
     });
 
-    // AUTH & PROFILE HANDLING
     function handleAuthButtonClick() {
       playFeedback();
       if (currentUser) {
@@ -1735,7 +1733,6 @@ END:VCALENDAR`;
       if (dbUserProfiles) userProfiles = dbUserProfiles;
       if (dbScheduleRsvps) scheduleRsvps = dbScheduleRsvps;
 
-      // MATCH COMMENTS AUTO-DELETION FILTER (Only keep comments where match_date >= today)
       const todayStr = new Date().toISOString().split('T')[0];
       if (dbMatchComments) {
         const expiredIds = dbMatchComments.filter(c => c.match_date < todayStr).map(c => c.id);
@@ -1843,7 +1840,6 @@ END:VCALENDAR`;
       }
     }
 
-    // MATCH COMMENTS MODAL & SUBMISSION (Match-Day Only Dropdown)
     function openMatchCommentModal() {
       playFeedback();
       const todayStr = new Date().toISOString().split('T')[0];
@@ -1918,29 +1914,42 @@ END:VCALENDAR`;
       `).join('');
     }
 
-    // SCHEDULE RSVP HANDLERS
-    async function handleRsvpSubmit(event, eventTitle) {
-      event.preventDefault();
+    // UPDATED CLEAN SCHEDULE RSVP FUNCTIONS (4 simple buttons & 1 name dropdown list)
+    function setRsvpStatus(eventTitle, status) {
       playFeedback();
-      const form = event.target;
-      const name = form.querySelector('.rsvp-name-input').value.trim();
-      const status = form.querySelector('.rsvp-status-select').value;
+      rsvpSelections[eventTitle] = status;
+      renderSchedule();
+    }
 
-      if (!name) {
-        alert("Please enter your name.");
+    async function submitScheduleRsvp(eventTitle) {
+      playFeedback();
+      const selectEl = document.getElementById(`rsvp-name-select-${CSS.escape(eventTitle)}`);
+      if (!selectEl) return;
+      const participantName = selectEl.value;
+      const status = rsvpSelections[eventTitle];
+
+      if (!participantName) {
+        alert("Please select your name from the dropdown list.");
+        return;
+      }
+      if (!status) {
+        alert("Please select an attendance status (Going, Not Going, or Maybe) by clicking one of the buttons first.");
         return;
       }
 
-      // Check if user already submitted for this event
-      const existing = scheduleRsvps.find(r => r.event_title === eventTitle && r.participant_name.toLowerCase() === name.toLowerCase());
+      const existing = scheduleRsvps.find(r => r.event_title === eventTitle && r.participant_name === participantName);
 
       if (existing) {
-        await supabaseClient.from('schedule_rsvps').update({ status }).eq('id', existing.id);
+        const { error } = await supabaseClient.from('schedule_rsvps').update({ status }).eq('id', existing.id);
+        if (error) {
+          alert("Error updating RSVP: " + error.message);
+          return;
+        }
         existing.status = status;
       } else {
         const { data, error } = await supabaseClient.from('schedule_rsvps').insert([{
           event_title: eventTitle,
-          participant_name: name,
+          participant_name: participantName,
           status: status
         }]).select();
 
@@ -1951,9 +1960,8 @@ END:VCALENDAR`;
         if (data && data.length > 0) scheduleRsvps.push(data[0]);
       }
 
-      form.reset();
       renderSchedule();
-      alert(`RSVP recorded as "${status}" for ${name}!`);
+      alert(`RSVP saved successfully as "${status}" for ${participantName}!`);
     }
 
     function renderMyStats() {
@@ -2792,7 +2800,6 @@ END:VCALENDAR`;
         return;
       }
 
-      // FLIPPED: Most recent games at the top
       const sortedGames = [...games].reverse();
 
       container.innerHTML = sortedGames.map(g => {
@@ -2889,7 +2896,7 @@ END:VCALENDAR`;
     }
 
     function renderLeaderboards() {
-      // ADVANCED TEAM METRICS CALCULATION
+      // FIXED SHOT CONVERSION CALCULATION (properly handles total shots accumulator)
       const totalGoals = players.reduce((s, p) => s + (p.goals || 0), 0);
       const totalShots = players.reduce((s, p) => s + (p.shots || 0), 0);
       const shotConversion = totalShots > 0 ? Math.round((totalGoals / totalShots) * 100) : 0;
@@ -2908,7 +2915,6 @@ END:VCALENDAR`;
       document.getElementById('adv-cleansheet-rate').innerText = `${cleanSheetRate}%`;
       document.getElementById('adv-fairplay').innerText = `${totalYellows}Y / ${totalReds}R`;
 
-      // STANDARD LEADERBOARDS
       const goalsList = document.getElementById('leaderboard-goals');
       const assistsList = document.getElementById('leaderboard-assists');
       const savesList = document.getElementById('leaderboard-saves');
@@ -2951,11 +2957,16 @@ END:VCALENDAR`;
       const grid = document.getElementById('schedule-cards-grid');
       if (!grid) return;
 
+      const sortedPlayers = [...players].sort((a, b) => a.number - b.number);
+      const playerOptionsHtml = `<option value="">-- Select Your Name --</option>` + sortedPlayers.map(p => `<option value="${p.name}">#${p.number} - ${p.name}</option>`).join('');
+
       grid.innerHTML = schedule.map(item => {
         const itemRsvps = scheduleRsvps.filter(r => r.event_title === item.title);
         const goingList = itemRsvps.filter(r => r.status === 'Going');
         const notGoingList = itemRsvps.filter(r => r.status === 'Not Going');
         const maybeList = itemRsvps.filter(r => r.status === 'Maybe');
+
+        const currentSelectedStatus = rsvpSelections[item.title] || '';
 
         return `
           <div class="bg-surf-card border border-surf-border rounded-xl p-5 flex flex-col justify-between space-y-4 shadow-lg">
@@ -2992,35 +3003,52 @@ END:VCALENDAR`;
               </div>
             </div>
 
-            <!-- LIVE RSVP SECTION -->
-            <div class="bg-slate-900/90 border border-surf-border rounded-xl p-3.5 space-y-3">
+            <!-- CLEAN REBUILT RSVP SECTION (4 simple buttons & 1 name dropdown list) -->
+            <div class="bg-slate-900/90 border border-surf-border rounded-xl p-4 space-y-3">
               <h4 class="text-xs font-bold text-white flex items-center space-x-1.5">
                 <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
                 <span>Match Attendance RSVP</span>
               </h4>
 
-              <form onsubmit="handleRsvpSubmit(event, '${item.title.replace(/'/g, "\\'")}')" class="flex flex-col sm:flex-row gap-2">
-                <input type="text" placeholder="Your Name" required class="rsvp-name-input bg-slate-950 border border-surf-border rounded px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red flex-grow" />
-                <select class="rsvp-status-select bg-slate-950 border border-surf-border rounded px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-surf-red font-bold">
-                  <option value="Going">Going ✅</option>
-                  <option value="Not Going">Not Going ❌</option>
-                  <option value="Maybe">Maybe ⚠️</option>
-                </select>
-                <button type="submit" class="bg-surf-red hover:bg-surf-redHover text-white px-3 py-1.5 rounded text-xs font-bold transition-all shadow">RSVP</button>
-              </form>
+              <div class="space-y-2.5">
+                <!-- 1 Name Dropdown List -->
+                <div>
+                  <label class="block text-[10px] text-slate-400 mb-1 font-semibold">Select Your Name:</label>
+                  <select id="rsvp-name-select-${item.title.replace(/[^a-zA-Z0-9]/g, '_')}" class="w-full bg-slate-950 border border-surf-border rounded px-3 py-2 text-xs text-white font-bold focus:outline-none focus:border-surf-red">
+                    ${playerOptionsHtml}
+                  </select>
+                </div>
 
-              <div class="grid grid-cols-3 gap-2 pt-2 border-t border-surf-border/60 text-[10px]">
+                <!-- 4 Simple Buttons (Going, Not Going, Maybe, Submit RSVP) -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1">
+                  <button type="button" onclick="setRsvpStatus('${item.title.replace(/'/g, "\\'")}', 'Going')" class="py-2 px-2 rounded text-xs font-bold transition-all border ${currentSelectedStatus === 'Going' ? 'bg-emerald-600 text-white border-emerald-400 shadow-lg shadow-emerald-600/30' : 'bg-slate-950 text-emerald-400 border-emerald-500/40 hover:bg-emerald-500/10'}">
+                    ✅ Going
+                  </button>
+                  <button type="button" onclick="setRsvpStatus('${item.title.replace(/'/g, "\\'")}', 'Not Going')" class="py-2 px-2 rounded text-xs font-bold transition-all border ${currentSelectedStatus === 'Not Going' ? 'bg-rose-600 text-white border-rose-400 shadow-lg shadow-rose-600/30' : 'bg-slate-950 text-rose-400 border-rose-500/40 hover:bg-rose-500/10'}">
+                    ❌ Not Going
+                  </button>
+                  <button type="button" onclick="setRsvpStatus('${item.title.replace(/'/g, "\\'")}', 'Maybe')" class="py-2 px-2 rounded text-xs font-bold transition-all border ${currentSelectedStatus === 'Maybe' ? 'bg-amber-600 text-white border-amber-400 shadow-lg shadow-amber-600/30' : 'bg-slate-950 text-amber-400 border-amber-500/40 hover:bg-amber-500/10'}">
+                    ⚠️ Maybe
+                  </button>
+                  <button type="button" onclick="submitScheduleRsvp('${item.title.replace(/'/g, "\\'")}')" class="py-2 px-2 rounded text-xs font-bold transition-all bg-surf-red hover:bg-surf-redHover text-white shadow-md">
+                    📥 Submit RSVP
+                  </button>
+                </div>
+              </div>
+
+              <!-- Attendance Summary Badges -->
+              <div class="grid grid-cols-3 gap-2 pt-2 border-t border-surf-border/65 text-[10px]">
                 <div class="bg-emerald-950/40 border border-emerald-500/30 p-2 rounded">
                   <span class="font-bold text-emerald-400 block mb-1">Going (${goingList.length})</span>
-                  <p class="text-slate-300">${goingList.map(r => r.participant_name).join(', ') || 'None yet'}</p>
+                  <p class="text-slate-300 truncate">${goingList.map(r => r.participant_name).join(', ') || 'None yet'}</p>
                 </div>
                 <div class="bg-rose-950/40 border border-rose-500/30 p-2 rounded">
                   <span class="font-bold text-rose-400 block mb-1">Not Going (${notGoingList.length})</span>
-                  <p class="text-slate-300">${notGoingList.map(r => r.participant_name).join(', ') || 'None'}</p>
+                  <p class="text-slate-300 truncate">${notGoingList.map(r => r.participant_name).join(', ') || 'None'}</p>
                 </div>
                 <div class="bg-amber-950/40 border border-amber-500/30 p-2 rounded">
                   <span class="font-bold text-amber-400 block mb-1">Maybe (${maybeList.length})</span>
-                  <p class="text-slate-300">${maybeList.map(r => r.participant_name).join(', ') || 'None'}</p>
+                  <p class="text-slate-300 truncate">${maybeList.map(r => r.participant_name).join(', ') || 'None'}</p>
                 </div>
               </div>
             </div>
