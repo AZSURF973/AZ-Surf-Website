@@ -176,9 +176,9 @@
     <section id="sec-overview" class="space-y-6">
 
       <!-- HOLIDAY & BIRTHDAY COUNTDOWN BANNERS -->
-      <div id="holiday-countdown-banner" class="hidden bg-gradient-to-r from-emerald-600/30 via-surf-card to-surf-red/20 border border-emerald-500/40 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-lg text-xs sm:text-sm text-white font-medium">
+      <div id="holiday-countdown-banner" class="hidden bg-gradient-to-r from-emerald-600/30 via-surf-card to-surf-red/20 border border-emerald-500/40 rounded-xl p-4 flex-wrap items-center justify-between gap-3 shadow-lg text-xs sm:text-sm text-white font-medium">
       </div>
-      <div id="birthday-countdown-banner" class="hidden bg-gradient-to-r from-purple-600/30 via-surf-card to-blue-500/20 border border-purple-500/40 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-lg text-xs sm:text-sm text-white font-medium">
+      <div id="birthday-countdown-banner" class="hidden bg-gradient-to-r from-purple-600/30 via-surf-card to-blue-500/20 border border-purple-500/40 rounded-xl p-4 flex-wrap items-center justify-between gap-3 shadow-lg text-xs sm:text-sm text-white font-medium">
       </div>
 
       <!-- MATCH COUNTDOWN & WEATHER WIDGET ROW -->
@@ -1237,7 +1237,7 @@
       switchTab(tabName);
     }
 
-    // SCHEDULE WITH .ICS CALENDAR EXPORT
+    // SCHEDULE WITH .ICS CALENDAR EXPORT (Past games removed)
     const schedule = [
       { 
         title: 'Scrimmage vs West Valley Surf U13B', 
@@ -1814,7 +1814,6 @@ END:VCALENDAR`;
       metrics.forEach((m, idx) => {
         const xCenter = startX + (idx * colWidth) + (colWidth / 2);
         
-        // Normalize height (max 130px for 170 y-axis baseline)
         const myHeight = Math.min(130, (m.myVal / m.max) * 130);
         const teamHeight = Math.min(130, (m.teamVal / m.max) * 130);
 
@@ -2051,7 +2050,7 @@ END:VCALENDAR`;
       }
 
       container.innerHTML = activeAnnouncements.map(a => `
-        <div class="bg-gradient-to-r from-surf-red/20 via-surf-card to-surf-card border border-surf-red/40 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-lg">
+        <div class="bg-gradient-to-r from-surf-red/20 via-surf-card to-surf-card border border-surf-red/40 rounded-xl p-4 flex flex-wrap items-center justify-between gap-3 shadow-lg">
           <div class="flex items-center space-x-3">
             <div class="p-2.5 bg-surf-red text-white rounded-lg shrink-0">
               <i data-lucide="${a.badge_type === 'Birthday' ? 'cake' : 'bell'}" class="w-5 h-5"></i>
@@ -2638,7 +2637,10 @@ END:VCALENDAR`;
         return;
       }
 
-      container.innerHTML = games.map(g => {
+      // REVERSED: Most recent games at the top
+      const sortedGames = [...games].reverse();
+
+      container.innerHTML = sortedGames.map(g => {
         let badgeStyle = 'bg-slate-500/10 text-slate-300 border-slate-500/30';
         let badgeIcon = 'minus';
         let winGlow = '';
