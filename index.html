@@ -2273,7 +2273,7 @@ END:VCALENDAR`;
       renderSchedule();
     }
 
-    // FIXED RSVP SUBMISSION FUNCTIONALITY
+    // FIXED RSVP SUBMISSION FUNCTIONALITY WITH EXPLICIT ERROR-CHECKING
     async function submitScheduleRsvp(eventTitle) {
       playFeedback();
       const safeId = eventTitle.replace(/[^a-zA-Z0-9]/g, '_');
@@ -2296,7 +2296,7 @@ END:VCALENDAR`;
       if (existing) {
         const { error } = await supabaseClient.from('schedule_rsvps').update({ status }).eq('id', existing.id);
         if (error) {
-          alert("Error updating RSVP: " + error.message);
+          alert("Error updating RSVP in Supabase: " + error.message);
           return;
         }
         existing.status = status;
@@ -2308,7 +2308,7 @@ END:VCALENDAR`;
         }]).select();
 
         if (error) {
-          alert("Error saving RSVP: " + error.message);
+          alert("Error saving RSVP to Supabase: " + error.message);
           return;
         }
         if (data && data.length > 0) scheduleRsvps.push(data[0]);
@@ -2694,7 +2694,7 @@ END:VCALENDAR`;
       }]).select();
 
       if (error) {
-        alert("Error saving tactics: " + error.message);
+        alert("Error saving tactics to Supabase: " + error.message);
       } else {
         alert("Tactics saved successfully to Supabase playbook!");
         if (data && data.length > 0) savedPlaybooks.unshift(data[0]);
@@ -3143,9 +3143,13 @@ END:VCALENDAR`;
         players[idx] = { id, name, number, pos, isCaptain, goals, shots, assists, yc, rc, saves };
       }
 
-      await supabaseClient.from('players').upsert([{ id, name, number, pos, goals, shots, assists, yc, rc, saves }]);
-      toggleModal('player-modal', false);
-      renderAll();
+      const { error } = await supabaseClient.from('players').upsert([{ id, name, number, pos, goals, shots, assists, yc, rc, saves }]);
+      if (error) {
+        alert("Error saving player update to Supabase: " + error.message);
+      } else {
+        toggleModal('player-modal', false);
+        renderAll();
+      }
     }
 
     function renderGames() {
@@ -3240,16 +3244,24 @@ END:VCALENDAR`;
       const idx = games.findIndex(g => g.id === id);
       if (idx !== -1) games[idx] = { id, opponent, date, ourScore, opponentScore, result };
 
-      await supabaseClient.from('games').update({ opponent, date, ourScore, opponentScore, result }).eq('id', id);
-      toggleModal('game-edit-modal', false);
-      renderAll();
+      const { error } = await supabaseClient.from('games').update({ opponent, date, ourScore, opponentScore, result }).eq('id', id);
+      if (error) {
+        alert("Error updating game in Supabase: " + error.message);
+      } else {
+        toggleModal('game-edit-modal', false);
+        renderAll();
+      }
     }
 
     async function deleteGame(gameId) {
       if(!confirm("Are you sure you want to delete this game log entry?")) return;
       games = games.filter(g => g.id !== gameId);
-      await supabaseClient.from('games').delete().eq('id', gameId);
-      renderAll();
+      const { error } = await supabaseClient.from('games').delete().eq('id', gameId);
+      if (error) {
+        alert("Error deleting game from Supabase: " + error.message);
+      } else {
+        renderAll();
+      }
     }
 
     function renderLeaderboards() {
@@ -3429,7 +3441,13 @@ END:VCALENDAR`;
 
       const newGame = { id: Date.now(), date, opponent, ourScore, opponentScore, result };
       games.push(newGame);
-      await supabaseClient.from('games').insert([{ date, opponent, ourScore, opponentScore, result }]);
+      const { error: gameErr } = await supabaseClient.from('games').insert([{ date, opponent, ourScore, opponentScore, result }]);
+      if (gameErr) {
+        alert("Error saving game to Supabase: " + gameErr.message);
+        btn.innerText = "Save Match Stats";
+        btn.disabled = false;
+        return;
+      }
 
       const rows = document.querySelectorAll('#player-stats-rows-container > div');
       for (const row of rows) {
@@ -3453,7 +3471,7 @@ END:VCALENDAR`;
           players[pIdx].rc = (players[pIdx].rc || 0) + pRc;
           players[pIdx].saves = (players[pIdx].saves || 0) + pSaves;
 
-          await supabaseClient.from('players').upsert([{ 
+          const { error: playerErr } = await supabaseClient.from('players').upsert([{ 
             id: players[pIdx].id, 
             name: players[pIdx].name, 
             number: players[pIdx].number, 
@@ -3465,6 +3483,9 @@ END:VCALENDAR`;
             rc: players[pIdx].rc, 
             saves: players[pIdx].saves 
           }]);
+          if (playerErr) {
+            alert(`Error updating player ${players[pIdx].name}: ` + playerErr.message);
+          }
         }
       }
 
