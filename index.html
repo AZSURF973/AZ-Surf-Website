@@ -252,6 +252,28 @@
         </div>
       </div>
 
+      <!-- TEAM PHOTOS & VIDEOS GALLERY -->
+      <div class="bg-surf-card border border-surf-border rounded-xl p-4 sm:p-6 space-y-4">
+        <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+          <div>
+            <h2 class="font-bold text-base sm:text-lg text-white flex items-center space-x-2">
+              <i data-lucide="image" class="w-5 h-5 text-surf-red"></i>
+              <span>Team Photos &amp; Match Highlights</span>
+            </h2>
+            <p class="text-xs text-slate-400">Upload game photos or short highlight clips (MP4, JPG, PNG).</p>
+          </div>
+          <label class="bg-surf-red hover:bg-surf-redHover text-white px-3.5 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer inline-flex items-center space-x-1.5 shrink-0">
+            <i data-lucide="upload" class="w-4 h-4"></i>
+            <span id="upload-btn-text">Upload Photo / Video</span>
+            <input type="file" id="media-file-input" accept="image/*,video/*" class="hidden" onchange="handleMediaUpload(event)" />
+          </label>
+        </div>
+
+        <div id="team-media-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <p class="text-xs text-slate-500 col-span-full text-center py-4">Loading team photos &amp; videos...</p>
+        </div>
+      </div>
+
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
         <div class="bg-surf-card border border-surf-border rounded-xl p-4 sm:p-5 flex items-center space-x-3 sm:space-x-4 hover:border-surf-red/40 transition-all shadow-sm">
           <div class="p-2.5 sm:p-3 bg-surf-red/10 text-surf-red rounded-lg shrink-0">
@@ -1460,6 +1482,66 @@ END:VCALENDAR`;
       updateMyStatsTabVisibility();
     });
 
+    async function handleMediaUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const btnText = document.getElementById('upload-btn-text');
+      btnText.innerText = 'Uploading...';
+
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Date.now()}_${Math.random().toString(36).substring(2, 7)}.${fileExt}`;
+
+      const { error } = await supabaseClient.storage
+        .from('team-media')
+        .upload(fileName, file, { cacheControl: '3600', upsert: false });
+
+      btnText.innerText = 'Upload Photo / Video';
+      event.target.value = '';
+
+      if (error) {
+        alert('Upload failed: ' + error.message);
+      } else {
+        alert('Uploaded successfully!');
+        loadTeamMedia();
+      }
+    }
+
+    async function loadTeamMedia() {
+      const grid = document.getElementById('team-media-grid');
+      if (!grid) return;
+
+      const { data, error } = await supabaseClient.storage
+        .from('team-media')
+        .list('', { limit: 30, sortBy: { column: 'created_at', order: 'desc' } });
+
+      if (error || !data || data.length === 0) {
+        grid.innerHTML = '<p class="text-xs text-slate-500 col-span-full text-center py-4">No photos or videos uploaded yet.</p>';
+        return;
+      }
+
+      grid.innerHTML = data
+        .filter(item => item.name !== '.emptyFolderPlaceholder')
+        .map(item => {
+          const { data: urlData } = supabaseClient.storage.from('team-media').getPublicUrl(item.name);
+          const url = urlData.publicUrl;
+          const isVideo = /\.(mp4|mov|webm)$/i.test(item.name);
+
+          if (isVideo) {
+            return `
+              <div class="bg-slate-900 border border-surf-border rounded-xl overflow-hidden shadow">
+                <video src="${url}" controls playsinline class="w-full h-48 object-cover bg-black"></video>
+              </div>
+            `;
+          }
+          return `
+            <div class="bg-slate-900 border border-surf-border rounded-xl overflow-hidden shadow">
+              <img src="${url}" alt="Team upload" class="w-full h-48 object-cover" />
+            </div>
+          `;
+        }).join('');
+    }
+
     function handleAuthButtonClick() {
       playFeedback();
       if (currentUser) {
@@ -1513,7 +1595,6 @@ END:VCALENDAR`;
       toggleModal('my-profile-modal', true);
     }
 
-    // FIXED SUPABASE PROFILE SAVE FUNCTION (Avoids missing unique constraint error)
     async function handleMyProfileSubmit(e) {
       e.preventDefault();
       playFeedback();
@@ -1527,27 +1608,9 @@ END:VCALENDAR`;
       currentUser.birthday = birthday;
       localStorage.setItem('az_surf_user', JSON.stringify(currentUser));
 
-      // Check if user profile already exists for this player in Supabase
-      const { data: existingRecords } = await supabaseClient
+      const { error } = await supabaseClient
         .from('user_profiles')
-        .select('id')
-        .eq('player_id', currentUser.playerId);
-
-      let error = null;
-      if (existingRecords && existingRecords.length > 0) {
-        // Update existing record
-        const res = await supabaseClient
-          .from('user_profiles')
-          .update({ role: currentUser.role, nickname, phone, birthday })
-          .eq('player_id', currentUser.playerId);
-        error = res.error;
-      } else {
-        // Insert new record
-        const res = await supabaseClient
-          .from('user_profiles')
-          .insert([{ player_id: currentUser.playerId, role: currentUser.role, nickname, phone, birthday }]);
-        error = res.error;
-      }
+        .upsert({ player_id: currentUser.playerId, role: currentUser.role, nickname, phone, birthday }, { onConflict: 'player_id' });
 
       if (error) {
         alert("Error saving profile to Supabase: " + error.message);
@@ -1777,6 +1840,7 @@ END:VCALENDAR`;
       checkAndAutoDeleteMilestones();
       updateAuthButtonUI();
       updateMyStatsTabVisibility();
+      loadTeamMedia();
       renderAll();
     }
 
