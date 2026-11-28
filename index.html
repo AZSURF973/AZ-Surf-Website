@@ -18,9 +18,9 @@
         extend: {
           colors: {
             surf: {
-              red: '#C5A059',         /* Logo Gold */
-              redHover: '#D4AF37',    /* Lighter Gold on Hover */
-              redLight: '#F3E5AB',    /* Soft Gold Light */
+              red: '#DA291C',         /* Surf Red */
+              redHover: '#FF3333',    /* Lighter Red on Hover */
+              redLight: '#FF9999',    /* Soft Red Light */
               black: '#000000',
               dark: '#0A0A0A',
               card: '#141414',
@@ -36,7 +36,7 @@
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 </head>
-<body class="min-h-screen text-slate-100 font-sans flex flex-col bg-black pb-28 md:pb-12 antialiased selection:bg-[#C5A059] selection:text-black overflow-x-hidden">
+<body class="min-h-screen text-slate-100 font-sans flex flex-col bg-black pb-28 md:pb-12 antialiased selection:bg-[#DA291C] selection:text-white overflow-x-hidden">
 
   <!-- TOP HEADER -->
   <header class="bg-black/95 backdrop-blur-md border-b border-[#262626] sticky top-0 z-40 w-full shadow-lg">
@@ -44,23 +44,23 @@
       
       <!-- Top-Left: Mobile Menu Toggle & Fixed Logo -->
       <div class="flex items-center space-x-2.5 min-w-0">
-        <button onclick="toggleMobileMenu(true)" class="md:hidden p-2 rounded-lg bg-gradient-to-br from-[#141414] to-black border border-[#C5A059]/40 text-slate-300 hover:text-white shrink-0 shadow-sm">
-          <i data-lucide="menu" class="w-5 h-5 text-[#C5A059]"></i>
+        <button onclick="toggleMobileMenu(true)" class="md:hidden p-2 rounded-lg bg-gradient-to-br from-[#141414] to-black border border-[#DA291C]/40 text-slate-300 hover:text-white shrink-0 shadow-sm">
+          <i data-lucide="menu" class="w-5 h-5 text-[#DA291C]"></i>
         </button>
 
-        <div class="w-9 h-9 sm:w-12 sm:h-12 rounded-full border-2 border-[#C5A059] bg-black p-0.5 flex items-center justify-center shadow-md shadow-[#C5A059]/20 overflow-hidden shrink-0">
-          <img src="https://i.postimg.cc/J7fdQWVK/images.jpg" alt="Surf Crest" class="w-full h-full object-cover rounded-full" />
+        <div class="w-9 h-9 sm:w-12 sm:h-12 rounded-full border-2 border-[#DA291C] bg-black p-0.5 flex items-center justify-center shadow-md shadow-[#DA291C]/20 overflow-hidden shrink-0">
+          <img src="https://i.postimg.cc/J7fdWVK/images.jpg" alt="Surf Crest" class="w-full h-full object-cover rounded-full" />
         </div>
         <div class="min-w-0">
           <h1 class="text-xs sm:text-lg font-bold tracking-tight text-white leading-tight truncate">AZ SURF</h1>
-          <p class="text-[9px] sm:text-xs font-semibold text-[#C5A059] truncate" data-i18n="sub_title">U13 BOYS CLUB SOCCER</p>
+          <p class="text-[9px] sm:text-xs font-semibold text-[#DA291C] truncate" data-i18n="sub_title">U13 BOYS CLUB SOCCER</p>
         </div>
       </div>
 
       <!-- Desktop Navigation Tabs -->
       <nav id="desktop-nav" class="hidden md:flex space-x-1 items-center overflow-x-auto no-scrollbar">
-        <button onclick="switchTab('overview')" id="tab-overview" class="tab-btn px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all text-[#C5A059] bg-[#141414] border border-[#C5A059]/30 shrink-0 shadow-sm" data-i18n="nav_overview">Overview</button>
-        <button onclick="switchTab('matchday')" id="tab-matchday" class="tab-btn px-2.5 py-1.5 rounded-lg text-xs font-bold text-[#C5A059] hover:text-white hover:bg-[#141414] transition-all shrink-0 hidden animate-pulse border border-[#C5A059]/50">🔥 Match Day</button>
+        <button onclick="switchTab('overview')" id="tab-overview" class="tab-btn px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all text-[#DA291C] bg-[#141414] border border-[#DA291C]/30 shrink-0 shadow-sm" data-i18n="nav_overview">Overview</button>
+        <button onclick="switchTab('matchday')" id="tab-matchday" class="tab-btn px-2.5 py-1.5 rounded-lg text-xs font-bold text-[#DA291C] hover:text-white hover:bg-[#141414] transition-all shrink-0 hidden animate-pulse border border-[#DA291C]/50">🔥 Match Day</button>
         <button onclick="switchTab('roster')" id="tab-roster" class="tab-btn px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-[#141414] transition-all shrink-0">Roster</button>
         <button onclick="switchTab('tactics')" id="tab-tactics" class="tab-btn px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-[#141414] transition-all shrink-0">Tactics</button>
         <button onclick="switchTab('games')" id="tab-games" class="tab-btn px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-[#141414] transition-all shrink-0">Games</button>
@@ -68,20 +68,20 @@
         <button onclick="switchTab('injury')" id="tab-injury" class="tab-btn px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-[#141414] transition-all shrink-0">Recovery</button>
         <button onclick="switchTab('leaderboards')" id="tab-leaderboards" class="tab-btn px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-[#141414] transition-all shrink-0">Leaders</button>
         <button onclick="switchTab('schedule')" id="tab-schedule" class="tab-btn px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-[#141414] transition-all shrink-0">Schedule</button>
-        <button onclick="switchTab('mystats')" id="tab-mystats" class="tab-btn px-2.5 py-1.5 rounded-lg text-xs font-bold text-[#C5A059] hover:text-white hover:bg-[#141414] transition-all shrink-0 hidden border border-[#C5A059]/30">⭐ My Stats</button>
+        <button onclick="switchTab('mystats')" id="tab-mystats" class="tab-btn px-2.5 py-1.5 rounded-lg text-xs font-bold text-[#DA291C] hover:text-white hover:bg-[#141414] transition-all shrink-0 hidden border border-[#DA291C]/30">⭐ My Stats</button>
       </nav>
 
       <!-- Action Buttons & Lang Toggle -->
       <div class="flex items-center space-x-1.5 shrink-0">
-        <button id="auth-action-btn" onclick="handleAuthButtonClick()" class="bg-[#141414] border border-[#262626] hover:border-[#C5A059] text-slate-300 hover:text-white px-2.5 py-1.5 rounded-lg text-[11px] sm:text-xs font-bold transition-all flex items-center space-x-1 shadow-sm">
-          <i data-lucide="user" class="w-3 h-3 text-[#C5A059] shrink-0"></i>
+        <button id="auth-action-btn" onclick="handleAuthButtonClick()" class="bg-[#141414] border border-[#262626] hover:border-[#DA291C] text-slate-300 hover:text-white px-2.5 py-1.5 rounded-lg text-[11px] sm:text-xs font-bold transition-all flex items-center space-x-1 shadow-sm">
+          <i data-lucide="user" class="w-3 h-3 text-[#DA291C] shrink-0"></i>
           <span id="auth-btn-label" class="truncate max-w-[70px] sm:max-w-[100px]">Sign In</span>
         </button>
-        <button onclick="toggleLanguage()" class="bg-[#141414] border border-[#262626] hover:border-[#C5A059] text-slate-300 hover:text-white px-2 py-1.5 rounded-lg text-[11px] sm:text-xs font-bold transition-all flex items-center space-x-1 shrink-0 shadow-sm">
-          <i data-lucide="globe" class="w-3 h-3 text-[#C5A059]"></i>
+        <button onclick="toggleLanguage()" class="bg-[#141414] border border-[#262626] hover:border-[#DA291C] text-slate-300 hover:text-white px-2 py-1.5 rounded-lg text-[11px] sm:text-xs font-bold transition-all flex items-center space-x-1 shrink-0 shadow-sm">
+          <i data-lucide="globe" class="w-3 h-3 text-[#DA291C]"></i>
           <span id="lang-indicator">ES</span>
         </button>
-        <button onclick="toggleModal('admin-modal', true)" class="flex items-center space-x-1 bg-gradient-to-r from-[#C5A059] to-[#D4AF37] text-black px-2.5 py-1.5 rounded-lg font-bold text-[11px] sm:text-xs hover:opacity-90 transition-all shadow-md shrink-0">
+        <button onclick="toggleModal('admin-modal', true)" class="flex items-center space-x-1 bg-gradient-to-r from-[#DA291C] to-[#FF3333] text-white px-2.5 py-1.5 rounded-lg font-bold text-[11px] sm:text-xs hover:opacity-90 transition-all shadow-md shrink-0">
           <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i>
           <span class="hidden sm:inline">Stats</span>
         </button>
@@ -95,12 +95,12 @@
       <div>
         <div class="flex items-center justify-between mb-6 pb-4 border-b border-[#262626]">
           <div class="flex items-center space-x-2">
-            <div class="w-8 h-8 rounded-full border border-[#C5A059] bg-black p-0.5 flex items-center justify-center overflow-hidden">
-              <img src="https://i.postimg.cc/J7fdQWVK/images.jpg" alt="Surf Crest" class="w-full h-full object-cover rounded-full" />
+            <div class="w-8 h-8 rounded-full border border-[#DA291C] bg-black p-0.5 flex items-center justify-center overflow-hidden">
+              <img src="https://i.postimg.cc/J7fdWVK/images.jpg" alt="Surf Crest" class="w-full h-full object-cover rounded-full" />
             </div>
             <div>
               <h3 class="font-bold text-white text-sm">AZ SURF U13</h3>
-              <span class="text-[10px] text-[#C5A059] font-semibold">Navigation Menu</span>
+              <span class="text-[10px] text-[#DA291C] font-semibold">Navigation Menu</span>
             </div>
           </div>
           <button onclick="toggleMobileMenu(false)" class="text-slate-400 hover:text-white p-1">
@@ -109,35 +109,35 @@
         </div>
 
         <div class="space-y-1.5">
-          <button onclick="mobileNavClick('overview')" class="w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold text-slate-200 hover:bg-[#141414] hover:text-[#C5A059] border border-transparent hover:border-[#C5A059]/30 transition-all flex items-center space-x-3">
-            <i data-lucide="home" class="w-4 h-4 text-[#C5A059]"></i><span>Overview</span>
+          <button onclick="mobileNavClick('overview')" class="w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold text-slate-200 hover:bg-[#141414] hover:text-[#DA291C] border border-transparent hover:border-[#DA291C]/30 transition-all flex items-center space-x-3">
+            <i data-lucide="home" class="w-4 h-4 text-[#DA291C]"></i><span>Overview</span>
           </button>
-          <button onclick="mobileNavClick('matchday')" id="mobile-menu-matchday" class="w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold text-[#C5A059] bg-[#141414] border border-[#C5A059]/40 transition-all flex items-center space-x-3 hidden">
-            <i data-lucide="flame" class="w-4 h-4 text-[#C5A059]"></i><span>Match Day Hub</span>
+          <button onclick="mobileNavClick('matchday')" id="mobile-menu-matchday" class="w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold text-[#DA291C] bg-[#141414] border border-[#DA291C]/40 transition-all flex items-center space-x-3 hidden">
+            <i data-lucide="flame" class="w-4 h-4 text-[#DA291C]"></i><span>Match Day Hub</span>
           </button>
-          <button onclick="mobileNavClick('roster')" class="w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold text-slate-200 hover:bg-[#141414] hover:text-[#C5A059] border border-transparent hover:border-[#C5A059]/30 transition-all flex items-center space-x-3">
-            <i data-lucide="users" class="w-4 h-4 text-[#C5A059]"></i><span>Roster</span>
+          <button onclick="mobileNavClick('roster')" class="w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold text-slate-200 hover:bg-[#141414] hover:text-[#DA291C] border border-transparent hover:border-[#DA291C]/30 transition-all flex items-center space-x-3">
+            <i data-lucide="users" class="w-4 h-4 text-[#DA291C]"></i><span>Roster</span>
           </button>
-          <button onclick="mobileNavClick('tactics')" class="w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold text-slate-200 hover:bg-[#141414] hover:text-[#C5A059] border border-transparent hover:border-[#C5A059]/30 transition-all flex items-center space-x-3">
-            <i data-lucide="layout" class="w-4 h-4 text-[#C5A059]"></i><span>Tactics Board</span>
+          <button onclick="mobileNavClick('tactics')" class="w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold text-slate-200 hover:bg-[#141414] hover:text-[#DA291C] border border-transparent hover:border-[#DA291C]/30 transition-all flex items-center space-x-3">
+            <i data-lucide="layout" class="w-4 h-4 text-[#DA291C]"></i><span>Tactics Board</span>
           </button>
-          <button onclick="mobileNavClick('games')" class="w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold text-slate-200 hover:bg-[#141414] hover:text-[#C5A059] border border-transparent hover:border-[#C5A059]/30 transition-all flex items-center space-x-3">
-            <i data-lucide="trophy" class="w-4 h-4 text-[#C5A059]"></i><span>Match History</span>
+          <button onclick="mobileNavClick('games')" class="w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold text-slate-200 hover:bg-[#141414] hover:text-[#DA291C] border border-transparent hover:border-[#DA291C]/30 transition-all flex items-center space-x-3">
+            <i data-lucide="trophy" class="w-4 h-4 text-[#DA291C]"></i><span>Match History</span>
           </button>
-          <button onclick="mobileNavClick('photos')" class="w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold text-slate-200 hover:bg-[#141414] hover:text-[#C5A059] border border-transparent hover:border-[#C5A059]/30 transition-all flex items-center space-x-3">
-            <i data-lucide="image" class="w-4 h-4 text-[#C5A059]"></i><span>Team Photos</span>
+          <button onclick="mobileNavClick('photos')" class="w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold text-slate-200 hover:bg-[#141414] hover:text-[#DA291C] border border-transparent hover:border-[#DA291C]/30 transition-all flex items-center space-x-3">
+            <i data-lucide="image" class="w-4 h-4 text-[#DA291C]"></i><span>Team Photos</span>
           </button>
-          <button onclick="mobileNavClick('injury')" class="w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold text-slate-200 hover:bg-[#141414] hover:text-[#C5A059] border border-transparent hover:border-[#C5A059]/30 transition-all flex items-center space-x-3">
-            <i data-lucide="activity" class="w-4 h-4 text-[#C5A059]"></i><span>Recovery Log</span>
+          <button onclick="mobileNavClick('injury')" class="w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold text-slate-200 hover:bg-[#141414] hover:text-[#DA291C] border border-transparent hover:border-[#DA291C]/30 transition-all flex items-center space-x-3">
+            <i data-lucide="activity" class="w-4 h-4 text-[#DA291C]"></i><span>Recovery Log</span>
           </button>
-          <button onclick="mobileNavClick('leaderboards')" class="w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold text-slate-200 hover:bg-[#141414] hover:text-[#C5A059] border border-transparent hover:border-[#C5A059]/30 transition-all flex items-center space-x-3">
-            <i data-lucide="award" class="w-4 h-4 text-[#C5A059]"></i><span>Leaders / Team Stats</span>
+          <button onclick="mobileNavClick('leaderboards')" class="w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold text-slate-200 hover:bg-[#141414] hover:text-[#DA291C] border border-transparent hover:border-[#DA291C]/30 transition-all flex items-center space-x-3">
+            <i data-lucide="award" class="w-4 h-4 text-[#DA291C]"></i><span>Leaders / Team Stats</span>
           </button>
-          <button onclick="mobileNavClick('schedule')" class="w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold text-slate-200 hover:bg-[#141414] hover:text-[#C5A059] border border-transparent hover:border-[#C5A059]/30 transition-all flex items-center space-x-3">
-            <i data-lucide="calendar" class="w-4 h-4 text-[#C5A059]"></i><span>Schedule</span>
+          <button onclick="mobileNavClick('schedule')" class="w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold text-slate-200 hover:bg-[#141414] hover:text-[#DA291C] border border-transparent hover:border-[#DA291C]/30 transition-all flex items-center space-x-3">
+            <i data-lucide="calendar" class="w-4 h-4 text-[#DA291C]"></i><span>Schedule</span>
           </button>
-          <button onclick="mobileNavClick('mystats')" id="mobile-menu-mystats" class="w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold text-[#C5A059] bg-[#141414] border border-[#C5A059]/40 transition-all flex items-center space-x-3 hidden">
-            <i data-lucide="star" class="w-4 h-4 text-[#C5A059]"></i><span>⭐ My Stats Dashboard</span>
+          <button onclick="mobileNavClick('mystats')" id="mobile-menu-mystats" class="w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold text-[#DA291C] bg-[#141414] border border-[#DA291C]/40 transition-all flex items-center space-x-3 hidden">
+            <i data-lucide="star" class="w-4 h-4 text-[#DA291C]"></i><span>⭐ My Stats Dashboard</span>
           </button>
         </div>
       </div>
@@ -150,11 +150,11 @@
 
   <!-- FIXED BOTTOM MOBILE NAVIGATION BAR (ALL TABS INCLUDED) -->
   <nav class="md:hidden fixed bottom-0 inset-x-0 bg-black/95 backdrop-blur-md border-t border-[#262626] z-40 px-2 py-2 flex items-center gap-1 shadow-2xl overflow-x-auto no-scrollbar">
-    <button onclick="switchTab('overview')" id="bm-tab-overview" class="bottom-tab-btn flex flex-col items-center justify-center min-w-[56px] text-[#C5A059] bg-[#141414] border border-[#C5A059]/30 p-1.5 rounded-xl transition-all shrink-0">
+    <button onclick="switchTab('overview')" id="bm-tab-overview" class="bottom-tab-btn flex flex-col items-center justify-center min-w-[56px] text-[#DA291C] bg-[#141414] border border-[#DA291C]/30 p-1.5 rounded-xl transition-all shrink-0">
       <i data-lucide="home" class="w-4 h-4"></i>
       <span class="text-[9px] font-bold mt-0.5 truncate w-full text-center">Overview</span>
     </button>
-    <button onclick="switchTab('matchday')" id="bm-tab-matchday" class="bottom-tab-btn flex flex-col items-center justify-center min-w-[56px] text-[#C5A059] bg-[#141414] border border-[#C5A059]/50 p-1.5 rounded-xl transition-all shrink-0 hidden animate-pulse">
+    <button onclick="switchTab('matchday')" id="bm-tab-matchday" class="bottom-tab-btn flex flex-col items-center justify-center min-w-[56px] text-[#DA291C] bg-[#141414] border border-[#DA291C]/50 p-1.5 rounded-xl transition-all shrink-0 hidden animate-pulse">
       <i data-lucide="flame" class="w-4 h-4"></i>
       <span class="text-[9px] font-bold mt-0.5 truncate w-full text-center">MatchDay</span>
     </button>
@@ -186,7 +186,7 @@
       <i data-lucide="calendar" class="w-4 h-4"></i>
       <span class="text-[9px] font-medium mt-0.5 truncate w-full text-center">Schedule</span>
     </button>
-    <button onclick="switchTab('mystats')" id="bm-tab-mystats" class="bottom-tab-btn flex flex-col items-center justify-center min-w-[56px] text-[#C5A059] bg-[#141414] border border-[#C5A059]/30 p-1.5 rounded-xl transition-all shrink-0 hidden">
+    <button onclick="switchTab('mystats')" id="bm-tab-mystats" class="bottom-tab-btn flex flex-col items-center justify-center min-w-[56px] text-[#DA291C] bg-[#141414] border border-[#DA291C]/30 p-1.5 rounded-xl transition-all shrink-0 hidden">
       <i data-lucide="star" class="w-4 h-4"></i>
       <span class="text-[9px] font-bold mt-0.5 truncate w-full text-center">MyStats</span>
     </button>
@@ -199,33 +199,33 @@
     <section id="sec-overview" class="space-y-6">
 
       <!-- HOLIDAY & BIRTHDAY COUNTDOWN BANNERS -->
-      <div id="holiday-countdown-banner" class="hidden bg-gradient-to-r from-[#141414] via-[#1A1A1A] to-[#C5A059]/20 border border-[#C5A059]/40 rounded-xl p-4 flex-wrap items-center justify-between gap-3 shadow-xl text-xs sm:text-sm text-white font-medium">
+      <div id="holiday-countdown-banner" class="hidden bg-gradient-to-r from-[#141414] via-[#1A1A1A] to-[#DA291C]/20 border border-[#DA291C]/40 rounded-xl p-4 flex-wrap items-center justify-between gap-3 shadow-xl text-xs sm:text-sm text-white font-medium">
       </div>
-      <div id="birthday-countdown-banner" class="hidden bg-gradient-to-r from-[#141414] via-[#1A1A1A] to-[#C5A059]/20 border border-[#C5A059]/40 rounded-xl p-4 flex-wrap items-center justify-between gap-3 shadow-xl text-xs sm:text-sm text-white font-medium">
+      <div id="birthday-countdown-banner" class="hidden bg-gradient-to-r from-[#141414] via-[#1A1A1A] to-[#DA291C]/20 border border-[#DA291C]/40 rounded-xl p-4 flex-wrap items-center justify-between gap-3 shadow-xl text-xs sm:text-sm text-white font-medium">
       </div>
 
       <!-- MATCH COUNTDOWN & WEATHER WIDGET ROW -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="bg-gradient-to-r from-[#C5A059]/20 via-[#141414] to-[#141414] border border-[#C5A059]/50 rounded-2xl p-4 flex items-center justify-between shadow-xl">
+        <div class="bg-gradient-to-r from-[#DA291C]/20 via-[#141414] to-[#141414] border border-[#DA291C]/50 rounded-2xl p-4 flex items-center justify-between shadow-xl">
           <div class="flex items-center space-x-3.5">
-            <div class="p-3 bg-gradient-to-br from-[#C5A059] to-[#D4AF37] text-black rounded-xl shrink-0 shadow-md">
+            <div class="p-3 bg-gradient-to-br from-[#DA291C] to-[#FF3333] text-white rounded-xl shrink-0 shadow-md">
               <i data-lucide="timer" class="w-5 h-5"></i>
             </div>
             <div>
-              <span id="countdown-label" class="text-[10px] font-black text-[#C5A059] uppercase tracking-wider">Next Kickoff Countdown</span>
+              <span id="countdown-label" class="text-[10px] font-black text-[#DA291C] uppercase tracking-wider">Next Kickoff Countdown</span>
               <h4 id="countdown-timer" class="font-mono font-black text-white text-base sm:text-lg">Loading schedule...</h4>
             </div>
           </div>
           <span id="countdown-location" class="text-xs text-slate-300 hidden sm:inline font-semibold bg-black/60 px-2.5 py-1 rounded-lg border border-[#262626]">Peoria, AZ</span>
         </div>
 
-        <div class="bg-[#141414] border border-[#262626] hover:border-[#C5A059]/40 rounded-2xl p-4 flex items-center justify-between shadow-xl transition-all">
+        <div class="bg-[#141414] border border-[#262626] hover:border-[#DA291C]/40 rounded-2xl p-4 flex items-center justify-between shadow-xl transition-all">
           <div class="flex items-center space-x-3.5">
-            <div class="p-3 bg-[#C5A059]/10 text-[#C5A059] rounded-xl border border-[#C5A059]/30 shrink-0 shadow-inner">
+            <div class="p-3 bg-[#DA291C]/10 text-[#DA291C] rounded-xl border border-[#DA291C]/30 shrink-0 shadow-inner">
               <i data-lucide="cloud-sun" class="w-5 h-5"></i>
             </div>
             <div>
-              <span class="text-[10px] font-black text-[#C5A059] uppercase tracking-wider" data-i18n="lbl_weather">Field Weather (Peoria, AZ)</span>
+              <span class="text-[10px] font-black text-[#DA291C] uppercase tracking-wider" data-i18n="lbl_weather">Field Weather (Peoria, AZ)</span>
               <h4 id="weather-widget" class="font-bold text-white text-base">Fetching weather...</h4>
             </div>
           </div>
@@ -236,13 +236,13 @@
       <!-- Announcements & Birthdays Header -->
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 pt-2">
         <h2 class="font-bold text-base sm:text-lg text-white flex items-center space-x-2">
-          <div class="p-1.5 bg-[#C5A059]/20 text-[#C5A059] rounded-lg border border-[#C5A059]/30">
+          <div class="p-1.5 bg-[#DA291C]/20 text-[#DA291C] rounded-lg border border-[#DA291C]/30">
             <i data-lucide="bell" class="w-4 h-4"></i>
           </div>
           <span data-i18n="hdr_spotlight">Team Spotlight & Announcements</span>
         </h2>
-        <button onclick="toggleModal('announcement-modal', true)" class="bg-[#141414] border border-[#262626] hover:border-[#C5A059] text-slate-300 hover:text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 shadow-sm">
-          <i data-lucide="plus" class="w-3.5 h-3.5 text-[#C5A059]"></i>
+        <button onclick="toggleModal('announcement-modal', true)" class="bg-[#141414] border border-[#262626] hover:border-[#DA291C] text-slate-300 hover:text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 shadow-sm">
+          <i data-lucide="plus" class="w-3.5 h-3.5 text-[#DA291C]"></i>
           <span data-i18n="btn_post_ann">Post Announcement / Birthday</span>
         </button>
       </div>
@@ -250,8 +250,8 @@
       <div id="announcements-container" class="space-y-3"></div>
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-        <div class="bg-gradient-to-b from-[#141414] to-[#0A0A0A] border border-[#262626] rounded-2xl p-4 sm:p-5 flex items-center space-x-3 sm:space-x-4 hover:border-[#C5A059]/40 transition-all shadow-lg">
-          <div class="p-3 bg-[#C5A059]/10 text-[#C5A059] rounded-xl border border-[#C5A059]/30 shrink-0 shadow-inner">
+        <div class="bg-gradient-to-b from-[#141414] to-[#0A0A0A] border border-[#262626] rounded-2xl p-4 sm:p-5 flex items-center space-x-3 sm:space-x-4 hover:border-[#DA291C]/40 transition-all shadow-lg">
+          <div class="p-3 bg-[#DA291C]/10 text-[#DA291C] rounded-xl border border-[#DA291C]/30 shrink-0 shadow-inner">
             <i data-lucide="trophy" class="w-5 h-5 sm:w-6 sm:h-6"></i>
           </div>
           <div>
@@ -260,8 +260,8 @@
           </div>
         </div>
 
-        <div class="bg-gradient-to-b from-[#141414] to-[#0A0A0A] border border-[#262626] rounded-2xl p-4 sm:p-5 flex items-center space-x-3 sm:space-x-4 hover:border-[#C5A059]/40 transition-all shadow-lg">
-          <div class="p-3 bg-[#C5A059]/10 text-[#C5A059] rounded-xl border border-[#C5A059]/30 shrink-0 shadow-inner">
+        <div class="bg-gradient-to-b from-[#141414] to-[#0A0A0A] border border-[#262626] rounded-2xl p-4 sm:p-5 flex items-center space-x-3 sm:space-x-4 hover:border-[#DA291C]/40 transition-all shadow-lg">
+          <div class="p-3 bg-[#DA291C]/10 text-[#DA291C] rounded-xl border border-[#DA291C]/30 shrink-0 shadow-inner">
             <i data-lucide="target" class="w-5 h-5 sm:w-6 sm:h-6"></i>
           </div>
           <div>
@@ -270,8 +270,8 @@
           </div>
         </div>
 
-        <div class="bg-gradient-to-b from-[#141414] to-[#0A0A0A] border border-[#262626] rounded-2xl p-4 sm:p-5 flex items-center space-x-3 sm:space-x-4 hover:border-[#C5A059]/40 transition-all shadow-lg">
-          <div class="p-3 bg-[#C5A059]/10 text-[#C5A059] rounded-xl border border-[#C5A059]/30 shrink-0 shadow-inner">
+        <div class="bg-gradient-to-b from-[#141414] to-[#0A0A0A] border border-[#262626] rounded-2xl p-4 sm:p-5 flex items-center space-x-3 sm:space-x-4 hover:border-[#DA291C]/40 transition-all shadow-lg">
+          <div class="p-3 bg-[#DA291C]/10 text-[#DA291C] rounded-xl border border-[#DA291C]/30 shrink-0 shadow-inner">
             <i data-lucide="footprints" class="w-5 h-5 sm:w-6 sm:h-6"></i>
           </div>
           <div>
@@ -280,8 +280,8 @@
           </div>
         </div>
 
-        <div class="bg-gradient-to-b from-[#141414] to-[#0A0A0A] border border-[#262626] rounded-2xl p-4 sm:p-5 flex items-center space-x-3 sm:space-x-4 hover:border-[#C5A059]/40 transition-all shadow-lg">
-          <div class="p-3 bg-[#C5A059]/10 text-[#C5A059] rounded-xl border border-[#C5A059]/30 shrink-0 shadow-inner">
+        <div class="bg-gradient-to-b from-[#141414] to-[#0A0A0A] border border-[#262626] rounded-2xl p-4 sm:p-5 flex items-center space-x-3 sm:space-x-4 hover:border-[#DA291C]/40 transition-all shadow-lg">
+          <div class="p-3 bg-[#DA291C]/10 text-[#DA291C] rounded-xl border border-[#DA291C]/30 shrink-0 shadow-inner">
             <i data-lucide="shield" class="w-5 h-5 sm:w-6 sm:h-6"></i>
           </div>
           <div>
@@ -295,13 +295,13 @@
       <div class="bg-[#141414] border border-[#262626] rounded-2xl p-4 sm:p-6 shadow-xl">
         <div class="flex justify-between items-center mb-4">
           <h2 class="font-bold text-base sm:text-lg text-white flex items-center space-x-2">
-            <div class="p-1.5 bg-[#C5A059]/20 text-[#C5A059] rounded-lg border border-[#C5A059]/30">
+            <div class="p-1.5 bg-[#DA291C]/20 text-[#DA291C] rounded-lg border border-[#DA291C]/30">
               <i data-lucide="flag" class="w-4 h-4"></i>
             </div>
             <span data-i18n="hdr_milestones">Team Season Milestones</span>
           </h2>
-          <button onclick="toggleModal('milestone-modal', true)" class="bg-black border border-[#262626] hover:border-[#C5A059] text-slate-300 hover:text-white px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center space-x-1 shadow-sm">
-            <i data-lucide="plus" class="w-3.5 h-3.5 text-[#C5A059]"></i>
+          <button onclick="toggleModal('milestone-modal', true)" class="bg-black border border-[#262626] hover:border-[#DA291C] text-slate-300 hover:text-white px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center space-x-1 shadow-sm">
+            <i data-lucide="plus" class="w-3.5 h-3.5 text-[#DA291C]"></i>
             <span data-i18n="btn_add_ms">Add Milestone</span>
           </button>
         </div>
@@ -311,7 +311,7 @@
       <div class="bg-[#141414] border border-[#262626] rounded-2xl p-4 sm:p-6 shadow-xl">
         <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-4 gap-2">
           <h2 class="font-bold text-base sm:text-lg text-white flex items-center space-x-2">
-            <div class="p-1.5 bg-[#C5A059]/20 text-[#C5A059] rounded-lg border border-[#C5A059]/30">
+            <div class="p-1.5 bg-[#DA291C]/20 text-[#DA291C] rounded-lg border border-[#DA291C]/30">
               <i data-lucide="pie-chart" class="w-4 h-4"></i>
             </div>
             <span data-i18n="hdr_analytics">Team Performance Analytics</span>
@@ -326,11 +326,11 @@
 
         <div class="space-y-2 mb-6 bg-black/50 p-4 rounded-xl border border-[#262626]">
           <div class="flex justify-between text-xs font-semibold">
-            <span class="text-slate-300"><span data-i18n="lbl_winrate">Win Rate</span>: <strong id="win-rate-pct" class="text-[#C5A059]">0%</strong></span>
+            <span class="text-slate-300"><span data-i18n="lbl_winrate">Win Rate</span>: <strong id="win-rate-pct" class="text-[#DA291C]">0%</strong></span>
             <span class="text-slate-400"><span id="goals-per-game">0.0</span> <span data-i18n="lbl_gpg">Goals / Game</span></span>
           </div>
           <div class="w-full bg-black rounded-full h-3 overflow-hidden flex border border-[#262626]">
-            <div id="bar-wins" class="bg-gradient-to-r from-[#C5A059] to-[#D4AF37] h-full transition-all duration-500" style="width: 0%"></div>
+            <div id="bar-wins" class="bg-gradient-to-r from-[#DA291C] to-[#FF3333] h-full transition-all duration-500" style="width: 0%"></div>
             <div id="bar-draws" class="bg-slate-600 h-full transition-all duration-500" style="width: 0%"></div>
             <div id="bar-losses" class="bg-slate-800 h-full transition-all duration-500" style="width: 0%"></div>
           </div>
@@ -339,7 +339,7 @@
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 text-center">
           <div class="bg-black border border-[#262626] p-3.5 rounded-xl shadow-inner">
             <span class="text-[10px] text-slate-400 font-bold uppercase block">Win %</span>
-            <span id="metric-win-pct" class="text-lg sm:text-xl font-black text-[#C5A059]">0%</span>
+            <span id="metric-win-pct" class="text-lg sm:text-xl font-black text-[#DA291C]">0%</span>
           </div>
           <div class="bg-black border border-[#262626] p-3.5 rounded-xl shadow-inner">
             <span class="text-[10px] text-slate-400 font-bold uppercase block" data-i18n="met_gd">Goal Diff</span>
@@ -347,7 +347,7 @@
           </div>
           <div class="bg-black border border-[#262626] p-3.5 rounded-xl shadow-inner">
             <span class="text-[10px] text-slate-400 font-bold uppercase block" data-i18n="met_gaa">Avg Goals Allowed</span>
-            <span id="metric-gaa" class="text-lg sm:text-xl font-black text-[#C5A059]">0.0</span>
+            <span id="metric-gaa" class="text-lg sm:text-xl font-black text-[#DA291C]">0.0</span>
           </div>
           <div class="bg-black border border-[#262626] p-3.5 rounded-xl shadow-inner">
             <span class="text-[10px] text-slate-400 font-bold uppercase block" data-i18n="met_total">Total Matches</span>
@@ -359,14 +359,14 @@
 
     <!-- MATCH DAY TAB (Conditionally Shown Only on Match Day) -->
     <section id="sec-matchday" class="hidden space-y-6">
-      <div class="bg-gradient-to-r from-[#141414] via-[#1C1C1C] to-[#C5A059]/20 border-2 border-[#C5A059]/60 rounded-2xl p-5 sm:p-6 shadow-2xl relative overflow-hidden">
+      <div class="bg-gradient-to-r from-[#141414] via-[#1C1C1C] to-[#DA291C]/20 border-2 border-[#DA291C]/60 rounded-2xl p-5 sm:p-6 shadow-2xl relative overflow-hidden">
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
           <div>
-            <span class="bg-[#C5A059]/20 text-[#C5A059] border border-[#C5A059]/40 text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">🔥 Today Is Match Day!</span>
+            <span class="bg-[#DA291C]/20 text-[#DA291C] border border-[#DA291C]/40 text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">🔥 Today Is Match Day!</span>
             <h2 class="text-xl sm:text-2xl font-black text-white mt-2">AZ Surf U13 Match Hub</h2>
             <p class="text-xs sm:text-sm text-slate-300">Live comments and match day line-up proposals below.</p>
           </div>
-          <button onclick="openMatchCommentModal()" class="bg-gradient-to-r from-[#C5A059] to-[#D4AF37] hover:opacity-90 text-black px-4 py-2.5 rounded-xl text-xs font-bold transition-all shadow-lg flex items-center space-x-2 shrink-0">
+          <button onclick="openMatchCommentModal()" class="bg-gradient-to-r from-[#DA291C] to-[#FF3333] hover:opacity-90 text-white px-4 py-2.5 rounded-xl text-xs font-bold transition-all shadow-lg flex items-center space-x-2 shrink-0">
             <i data-lucide="message-square" class="w-4 h-4"></i>
             <span>Add Match Comment</span>
           </button>
@@ -376,7 +376,7 @@
       <!-- Match Day Fixtures -->
       <div class="space-y-4">
         <h3 class="text-sm font-bold text-white flex items-center space-x-2">
-          <i data-lucide="calendar" class="w-4 h-4 text-[#C5A059]"></i>
+          <i data-lucide="calendar" class="w-4 h-4 text-[#DA291C]"></i>
           <span>Today's Fixture(s)</span>
         </h3>
         <div id="matchday-fixtures-container" class="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -388,12 +388,12 @@
       <div class="bg-[#141414] border border-[#262626] rounded-2xl p-5 shadow-xl flex flex-col sm:flex-row justify-between items-center gap-4">
         <div>
           <h3 class="font-bold text-white text-base flex items-center space-x-2">
-            <i data-lucide="layout" class="w-5 h-5 text-[#C5A059]"></i>
+            <i data-lucide="layout" class="w-5 h-5 text-[#DA291C]"></i>
             <span>Propose Lineup &amp; Tactics for Today</span>
           </h3>
           <p class="text-xs text-slate-400 mt-0.5">Preview the starting formation setup for today's fixture.</p>
         </div>
-        <button onclick="openMiniTacticsModal()" class="bg-gradient-to-r from-[#C5A059] to-[#D4AF37] hover:opacity-90 text-black px-4 py-2.5 rounded-xl text-xs font-bold transition-all shadow-md flex items-center space-x-2 shrink-0">
+        <button onclick="openMiniTacticsModal()" class="bg-gradient-to-r from-[#DA291C] to-[#FF3333] hover:opacity-90 text-white px-4 py-2.5 rounded-xl text-xs font-bold transition-all shadow-md flex items-center space-x-2 shrink-0">
           <i data-lucide="eye" class="w-4 h-4"></i>
           <span>Propose / View Tactics (Read-Only)</span>
         </button>
@@ -403,10 +403,10 @@
       <div class="bg-[#141414] border border-[#262626] rounded-2xl p-4 sm:p-6 space-y-4 shadow-xl">
         <div class="flex justify-between items-center">
           <h3 class="font-bold text-base sm:text-lg text-white flex items-center space-x-2">
-            <i data-lucide="message-circle" class="w-5 h-5 text-[#C5A059]"></i>
+            <i data-lucide="message-circle" class="w-5 h-5 text-[#DA291C]"></i>
             <span>Live Match Day Comments</span>
           </h3>
-          <span class="text-[10px] bg-[#C5A059]/10 text-[#C5A059] border border-[#C5A059]/30 px-2.5 py-1 rounded-lg font-bold">Auto-deletes after match day</span>
+          <span class="text-[10px] bg-[#DA291C]/10 text-[#DA291C] border border-[#DA291C]/30 px-2.5 py-1 rounded-lg font-bold">Auto-deletes after match day</span>
         </div>
         <div id="match-comments-container" class="space-y-2.5">
           <p class="text-xs text-slate-500 py-3 text-center">Loading comments...</p>
@@ -425,9 +425,9 @@
         <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
           <div class="relative flex-grow md:flex-grow-0">
             <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
-            <input type="text" id="roster-search" oninput="filterRoster()" placeholder="Search player..." class="bg-black border border-[#262626] rounded-xl pl-9 pr-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5A059] w-full md:w-44 shadow-inner" />
+            <input type="text" id="roster-search" oninput="filterRoster()" placeholder="Search player..." class="bg-black border border-[#262626] rounded-xl pl-9 pr-3 py-2 text-xs text-white focus:outline-none focus:border-[#DA291C] w-full md:w-44 shadow-inner" />
           </div>
-          <select id="roster-pos-filter" onchange="filterRoster()" class="bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5A059] shadow-inner font-bold">
+          <select id="roster-pos-filter" onchange="filterRoster()" class="bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DA291C] shadow-inner font-bold">
             <option value="ALL">All Positions</option>
             <option value="Forward">Forwards</option>
             <option value="Midfield">Midfielders</option>
@@ -445,7 +445,7 @@
       <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4 bg-[#141414] border border-[#262626] rounded-2xl p-5 shadow-xl">
         <div>
           <h2 class="text-lg sm:text-xl font-bold text-white flex items-center space-x-2">
-            <i data-lucide="layout" class="text-[#C5A059] w-6 h-6"></i>
+            <i data-lucide="layout" class="text-[#DA291C] w-6 h-6"></i>
             <span data-i18n="tactics_title">Interactive Pitch Formation & Drawing Board</span>
           </h2>
           <p class="text-xs sm:text-sm text-slate-400" data-i18n="tactics_subtitle">Drag players OR select a drawing tool to sketch runs and passing lanes!</p>
@@ -453,44 +453,44 @@
 
         <div class="flex flex-wrap items-center gap-2">
           <div class="bg-black border border-[#262626] rounded-xl p-1 flex items-center space-x-1 shadow-inner">
-            <button onclick="setDrawMode('select')" id="tool-select" class="px-2.5 py-1.5 rounded-lg text-[11px] font-bold bg-[#C5A059] text-black transition-all shadow">Players</button>
+            <button onclick="setDrawMode('select')" id="tool-select" class="px-2.5 py-1.5 rounded-lg text-[11px] font-bold bg-[#DA291C] text-white transition-all shadow">Players</button>
             <button onclick="setDrawMode('pen')" id="tool-pen" class="px-2.5 py-1.5 rounded-lg text-[11px] font-bold text-slate-300 hover:text-white transition-all">✏️ Pen</button>
             <button onclick="setDrawMode('arrow')" id="tool-arrow" class="px-2.5 py-1.5 rounded-lg text-[11px] font-bold text-slate-300 hover:text-white transition-all">↗️ Arrow</button>
-            <button onclick="clearCanvas()" class="px-2.5 py-1.5 rounded-lg text-[11px] font-bold text-[#C5A059] hover:bg-[#C5A059]/20 transition-all">Clear</button>
+            <button onclick="clearCanvas()" class="px-2.5 py-1.5 rounded-lg text-[11px] font-bold text-[#DA291C] hover:bg-[#DA291C]/20 transition-all">Clear</button>
           </div>
 
-          <select id="formation-select" onchange="changeFormation(this.value)" class="bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white font-bold focus:outline-none focus:border-[#C5A059] shadow-inner">
+          <select id="formation-select" onchange="changeFormation(this.value)" class="bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white font-bold focus:outline-none focus:border-[#DA291C] shadow-inner">
             <option value="4-3-3">4-3-3</option>
             <option value="4-2-3-1">4-2-3-1</option>
             <option value="4-4-2">4-4-2</option>
             <option value="3-4-3">3-4-3</option>
           </select>
-          <button onclick="saveTacticsToSupabase()" class="bg-gradient-to-r from-[#C5A059] to-[#D4AF37] hover:opacity-90 text-black px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-md" data-i18n="btn_save_lineup">Save</button>
-          <button onclick="clearPitch()" class="bg-black border border-[#262626] hover:border-[#C5A059] text-slate-300 px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-sm" data-i18n="btn_clear">Clear</button>
+          <button onclick="saveTacticsToSupabase()" class="bg-gradient-to-r from-[#DA291C] to-[#FF3333] hover:opacity-90 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-md" data-i18n="btn_save_lineup">Save</button>
+          <button onclick="clearPitch()" class="bg-black border border-[#262626] hover:border-[#DA291C] text-slate-300 px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-sm" data-i18n="btn_clear">Clear</button>
         </div>
       </div>
 
       <div id="tactics-recovery-notes" class="bg-[#141414] border border-[#262626] rounded-2xl p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 shadow-lg">
         <div class="flex items-center space-x-3">
-          <div class="p-2.5 bg-[#C5A059]/20 text-[#C5A059] rounded-xl border border-[#C5A059]/30 shrink-0">
+          <div class="p-2.5 bg-[#DA291C]/20 text-[#DA291C] rounded-xl border border-[#DA291C]/30 shrink-0">
             <i data-lucide="activity" class="w-5 h-5"></i>
           </div>
           <div>
-            <h4 class="text-xs font-bold text-[#C5A059] uppercase tracking-wide">Tactical Squad Availability</h4>
+            <h4 class="text-xs font-bold text-[#DA291C] uppercase tracking-wide">Tactical Squad Availability</h4>
             <p class="text-xs text-slate-300" id="tactics-recovery-text">Loading player readiness data...</p>
           </div>
         </div>
-        <button onclick="switchTab('injury')" class="bg-black border border-[#262626] hover:border-[#C5A059] text-xs font-semibold px-3 py-2 rounded-xl text-slate-300 hover:text-white transition-all shrink-0 shadow-sm">
+        <button onclick="switchTab('injury')" class="bg-black border border-[#262626] hover:border-[#DA291C] text-xs font-semibold px-3 py-2 rounded-xl text-slate-300 hover:text-white transition-all shrink-0 shadow-sm">
           Manage Recovery Log
         </button>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div class="lg:col-span-2 bg-gradient-to-b from-black via-[#0A0A0A] to-black border-2 border-[#C5A059]/40 rounded-2xl p-4 relative min-h-[460px] sm:min-h-[520px] flex flex-col justify-between overflow-hidden shadow-2xl">
-          <div class="absolute inset-x-0 top-1/2 h-0.5 bg-[#C5A059]/30"></div>
-          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-28 border-2 border-[#C5A059]/30 rounded-full"></div>
-          <div class="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-20 border-b-2 border-x-2 border-[#C5A059]/30 rounded-b-xl"></div>
-          <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-48 h-20 border-t-2 border-x-2 border-[#C5A059]/30 rounded-t-xl"></div>
+        <div class="lg:col-span-2 bg-gradient-to-b from-black via-[#0A0A0A] to-black border-2 border-[#DA291C]/40 rounded-2xl p-4 relative min-h-[460px] sm:min-h-[520px] flex flex-col justify-between overflow-hidden shadow-2xl">
+          <div class="absolute inset-x-0 top-1/2 h-0.5 bg-[#DA291C]/30"></div>
+          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-28 border-2 border-[#DA291C]/30 rounded-full"></div>
+          <div class="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-20 border-b-2 border-x-2 border-[#DA291C]/30 rounded-b-xl"></div>
+          <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-48 h-20 border-t-2 border-x-2 border-[#DA291C]/30 rounded-t-xl"></div>
 
           <canvas id="pitch-drawing-canvas" class="absolute inset-0 z-20 w-full h-full cursor-crosshair touch-none"></canvas>
           <div id="pitch-slots-container" class="relative w-full h-[440px] sm:h-[500px] z-30 pointer-events-none"></div>
@@ -499,7 +499,7 @@
         <div class="bg-[#141414] border border-[#262626] rounded-2xl p-5 flex flex-col shadow-xl">
           <h3 class="font-bold text-white text-base mb-1 flex items-center justify-between">
             <span data-i18n="bench_title">Available Roster</span>
-            <span class="text-xs font-normal text-[#C5A059]" id="tap-mode-indicator">Tap player to select</span>
+            <span class="text-xs font-normal text-[#DA291C]" id="tap-mode-indicator">Tap player to select</span>
           </h3>
           <p class="text-xs text-slate-400 mb-4" data-i18n="bench_subtitle">Drag or Tap to place on pitch</p>
           <div id="bench-container" class="space-y-2 flex-grow overflow-y-auto max-h-[440px] pr-1"></div>
@@ -507,8 +507,8 @@
       </div>
 
       <div class="flex justify-center pt-2">
-        <button onclick="openPlaybookModal()" class="flex items-center space-x-2 bg-[#141414] border border-[#262626] hover:border-[#C5A059] text-slate-300 hover:text-white px-5 py-3 rounded-2xl font-bold text-xs transition-all shadow-xl">
-          <i data-lucide="history" class="w-4 h-4 text-[#C5A059]"></i>
+        <button onclick="openPlaybookModal()" class="flex items-center space-x-2 bg-[#141414] border border-[#262626] hover:border-[#DA291C] text-slate-300 hover:text-white px-5 py-3 rounded-2xl font-bold text-xs transition-all shadow-xl">
+          <i data-lucide="history" class="w-4 h-4 text-[#DA291C]"></i>
           <span data-i18n="btn_past_lineups">See Past Submitted Lineups</span>
         </button>
       </div>
@@ -531,12 +531,12 @@
       <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4 bg-[#141414] border border-[#262626] rounded-2xl p-6 shadow-xl">
         <div>
           <h2 class="text-lg sm:text-xl font-bold text-white flex items-center space-x-2">
-            <i data-lucide="image" class="w-6 h-6 text-[#C5A059]"></i>
+            <i data-lucide="image" class="w-6 h-6 text-[#DA291C]"></i>
             <span>Team Photos &amp; Match Highlights Gallery</span>
           </h2>
           <p class="text-xs sm:text-sm text-slate-400 mt-1">Submit new game photos or highlight clips, and view past memories submitted by the squad.</p>
         </div>
-        <label class="bg-gradient-to-r from-[#C5A059] to-[#D4AF37] hover:opacity-90 text-black px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer inline-flex items-center space-x-2 shadow-lg shrink-0">
+        <label class="bg-gradient-to-r from-[#DA291C] to-[#FF3333] hover:opacity-90 text-white px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer inline-flex items-center space-x-2 shadow-lg shrink-0">
           <i data-lucide="upload" class="w-4 h-4"></i>
           <span id="upload-btn-text">Upload Photo / Video</span>
           <input type="file" id="media-file-input" accept="image/*,video/*" class="hidden" onchange="handleMediaUpload(event)" />
@@ -555,7 +555,7 @@
           <h2 class="text-lg sm:text-xl font-bold text-white">Player Recovery & Injury Status</h2>
           <p class="text-xs sm:text-sm text-slate-400">Track player recovery timelines and injury updates</p>
         </div>
-        <button onclick="toggleModal('injury-modal', true)" class="bg-gradient-to-r from-[#C5A059] to-[#D4AF37] hover:opacity-90 text-black px-4 py-2.5 rounded-xl text-xs font-bold transition-all shadow-md flex items-center space-x-1.5 shrink-0">
+        <button onclick="toggleModal('injury-modal', true)" class="bg-gradient-to-r from-[#DA291C] to-[#FF3333] hover:opacity-90 text-white px-4 py-2.5 rounded-xl text-xs font-bold transition-all shadow-md flex items-center space-x-1.5 shrink-0">
           <i data-lucide="plus-circle" class="w-4 h-4"></i>
           <span>Report Injury / Status</span>
         </button>
@@ -578,28 +578,28 @@
       <!-- ADVANCED TEAM STATS SUB-GRID -->
       <div class="bg-[#141414] border border-[#262626] rounded-2xl p-5 shadow-xl space-y-4">
         <h3 class="font-bold text-base text-white flex items-center space-x-2 border-b border-[#262626] pb-3">
-          <i data-lucide="trending-up" class="w-5 h-5 text-[#C5A059]"></i>
+          <i data-lucide="trending-up" class="w-5 h-5 text-[#DA291C]"></i>
           <span>Advanced Team Performance Metrics</span>
         </h3>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
           <div class="bg-black border border-[#262626] p-4 rounded-xl shadow-inner">
             <span class="text-[10px] text-slate-400 font-bold uppercase block">Shot Conversion Rate</span>
-            <span id="adv-shot-conversion" class="text-xl font-black text-[#C5A059]">0%</span>
+            <span id="adv-shot-conversion" class="text-xl font-black text-[#DA291C]">0%</span>
             <span class="text-[9px] text-slate-500 block mt-0.5">Goals / Total Shots</span>
           </div>
           <div class="bg-black border border-[#262626] p-4 rounded-xl shadow-inner">
             <span class="text-[10px] text-slate-400 font-bold uppercase block">Goal Contribution Ratio</span>
-            <span id="adv-goal-contrib" class="text-xl font-black text-[#C5A059]">0.0</span>
+            <span id="adv-goal-contrib" class="text-xl font-black text-[#DA291C]">0.0</span>
             <span class="text-[9px] text-slate-500 block mt-0.5">(Goals + Assists) / Match</span>
           </div>
           <div class="bg-black border border-[#262626] p-4 rounded-xl shadow-inner">
             <span class="text-[10px] text-slate-400 font-bold uppercase block">Clean Sheet Rate</span>
-            <span id="adv-cleansheet-rate" class="text-xl font-black text-[#C5A059]">0%</span>
+            <span id="adv-cleansheet-rate" class="text-xl font-black text-[#DA291C]">0%</span>
             <span class="text-[9px] text-slate-500 block mt-0.5">Matches with 0 Goals Allowed</span>
           </div>
           <div class="bg-black border border-[#262626] p-4 rounded-xl shadow-inner">
             <span class="text-[10px] text-slate-400 font-bold uppercase block">Fair Play Discipline</span>
-            <span id="adv-fairplay" class="text-xl font-black text-[#C5A059]">0 Cards</span>
+            <span id="adv-fairplay" class="text-xl font-black text-[#DA291C]">0 Cards</span>
             <span class="text-[9px] text-slate-500 block mt-0.5">Total Yellow / Red Cards</span>
           </div>
         </div>
@@ -607,7 +607,7 @@
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div class="bg-[#141414] border border-[#262626] rounded-2xl p-5 shadow-xl">
-          <h3 class="font-bold text-base text-[#C5A059] mb-4 flex items-center justify-between border-b border-[#262626] pb-3">
+          <h3 class="font-bold text-base text-[#DA291C] mb-4 flex items-center justify-between border-b border-[#262626] pb-3">
             <span data-i18n="lead_goals">Goals Scored</span>
             <i data-lucide="target" class="w-4 h-4"></i>
           </h3>
@@ -615,7 +615,7 @@
         </div>
 
         <div class="bg-[#141414] border border-[#262626] rounded-2xl p-5 shadow-xl">
-          <h3 class="font-bold text-base text-[#C5A059] mb-4 flex items-center justify-between border-b border-[#262626] pb-3">
+          <h3 class="font-bold text-base text-[#DA291C] mb-4 flex items-center justify-between border-b border-[#262626] pb-3">
             <span data-i18n="lead_assists">Assists</span>
             <i data-lucide="footprints" class="w-4 h-4"></i>
           </h3>
@@ -623,7 +623,7 @@
         </div>
 
         <div class="bg-[#141414] border border-[#262626] rounded-2xl p-5 shadow-xl">
-          <h3 class="font-bold text-base text-[#C5A059] mb-4 flex items-center justify-between border-b border-[#262626] pb-3">
+          <h3 class="font-bold text-base text-[#DA291C] mb-4 flex items-center justify-between border-b border-[#262626] pb-3">
             <span data-i18n="lead_saves">Goalie Saves</span>
             <i data-lucide="shield" class="w-4 h-4"></i>
           </h3>
@@ -647,21 +647,21 @@
     <!-- MY STATS / PROFILE TAB -->
     <section id="sec-mystats" class="hidden space-y-6">
       <div class="bg-[#141414] border border-[#262626] rounded-2xl p-6 shadow-2xl relative overflow-hidden">
-        <div class="absolute -right-10 -top-10 w-40 h-40 bg-[#C5A059]/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -right-10 -top-10 w-40 h-40 bg-[#DA291C]/10 rounded-full blur-3xl pointer-events-none"></div>
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 pb-6 border-b border-[#262626]">
           <div class="flex items-center space-x-4">
-            <div id="mystats-jersey" class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#C5A059] to-[#D4AF37] text-black font-mono font-black text-2xl flex items-center justify-center border-2 border-white/20 shadow-lg">
+            <div id="mystats-jersey" class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#DA291C] to-[#FF3333] text-white font-mono font-black text-2xl flex items-center justify-center border-2 border-white/20 shadow-lg">
               #0
             </div>
             <div>
               <div class="flex items-center space-x-2">
                 <h2 id="mystats-name" class="text-2xl font-black text-white">Player Name</h2>
-                <span id="mystats-role-badge" class="bg-[#C5A059]/20 text-[#C5A059] border border-[#C5A059]/40 text-[10px] font-bold px-2.5 py-0.5 rounded uppercase">Player</span>
+                <span id="mystats-role-badge" class="bg-[#DA291C]/20 text-[#DA291C] border border-[#DA291C]/40 text-[10px] font-bold px-2.5 py-0.5 rounded uppercase">Player</span>
               </div>
-              <p id="mystats-position" class="text-xs text-[#C5A059] font-semibold mt-1">Position / Details</p>
+              <p id="mystats-position" class="text-xs text-[#DA291C] font-semibold mt-1">Position / Details</p>
             </div>
           </div>
-          <button onclick="openMyProfileModal()" class="bg-gradient-to-r from-[#C5A059] to-[#D4AF37] hover:opacity-90 text-black px-4 py-2.5 rounded-xl text-xs font-bold transition-all shadow-md flex items-center space-x-1.5">
+          <button onclick="openMyProfileModal()" class="bg-gradient-to-r from-[#DA291C] to-[#FF3333] hover:opacity-90 text-white px-4 py-2.5 rounded-xl text-xs font-bold transition-all shadow-md flex items-center space-x-1.5">
             <i data-lucide="edit-3" class="w-4 h-4"></i>
             <span>Edit My Profile & Birthday</span>
           </button>
@@ -670,7 +670,7 @@
         <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-6 text-center">
           <div class="bg-black border border-[#262626] p-3.5 rounded-xl shadow-inner">
             <span class="text-[10px] text-slate-400 uppercase font-bold block">Goals</span>
-            <span id="mystats-goals" class="text-2xl font-black text-[#C5A059]">0</span>
+            <span id="mystats-goals" class="text-2xl font-black text-[#DA291C]">0</span>
           </div>
           <div class="bg-black border border-[#262626] p-3.5 rounded-xl shadow-inner">
             <span class="text-[10px] text-slate-400 uppercase font-bold block">Shots</span>
@@ -686,14 +686,14 @@
           </div>
           <div class="bg-black border border-[#262626] p-3.5 rounded-xl col-span-2 sm:col-span-1 shadow-inner">
             <span class="text-[10px] text-slate-400 uppercase font-bold block">Cards (Y / R)</span>
-            <span id="mystats-cards" class="text-2xl font-black text-[#C5A059]">0 / 0</span>
+            <span id="mystats-cards" class="text-2xl font-black text-[#DA291C]">0 / 0</span>
           </div>
         </div>
 
         <div class="bg-black/60 border border-[#262626] rounded-2xl p-5 mb-6 shadow-inner">
           <div class="flex items-center justify-between mb-4">
             <h3 class="text-sm font-bold text-white flex items-center space-x-2">
-              <i data-lucide="bar-chart-2" class="w-4 h-4 text-[#C5A059]"></i>
+              <i data-lucide="bar-chart-2" class="w-4 h-4 text-[#DA291C]"></i>
               <span>Personal Performance vs Team Average</span>
             </h3>
             <span class="text-[10px] bg-black border border-[#262626] text-slate-400 px-2.5 py-1 rounded-lg">Live SVG Chart</span>
@@ -709,7 +709,7 @@
             </svg>
           </div>
           <div class="flex items-center justify-center space-x-6 mt-3 text-[11px] font-semibold">
-            <div class="flex items-center space-x-1.5"><span class="w-3 h-3 bg-[#C5A059] rounded"></span><span class="text-slate-300">My Stats</span></div>
+            <div class="flex items-center space-x-1.5"><span class="w-3 h-3 bg-[#DA291C] rounded"></span><span class="text-slate-300">My Stats</span></div>
             <div class="flex items-center space-x-1.5"><span class="w-3 h-3 bg-slate-600 rounded"></span><span class="text-slate-400">Team Average</span></div>
           </div>
         </div>
@@ -722,14 +722,14 @@
           </div>
           <div class="bg-black/50 border border-[#262626] rounded-xl p-4">
             <span class="text-[10px] text-slate-400 uppercase font-bold block mb-1">Disciplinary Clean Record</span>
-            <span id="mystats-discipline" class="text-xl font-black text-[#C5A059]">Perfect 🟢</span>
+            <span id="mystats-discipline" class="text-xl font-black text-[#DA291C]">Perfect 🟢</span>
             <p class="text-[11px] text-slate-400 mt-1">Based on active yellow and red card counts.</p>
           </div>
         </div>
 
         <div class="bg-black/50 border border-[#262626] rounded-xl p-4 space-y-3">
           <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center space-x-2">
-            <i data-lucide="user-check" class="w-4 h-4 text-[#C5A059]"></i>
+            <i data-lucide="user-check" class="w-4 h-4 text-[#DA291C]"></i>
             <span>Custom Public Profile Details</span>
           </h4>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
@@ -760,21 +760,21 @@
       </button>
 
       <h3 class="text-lg font-bold text-white mb-1 flex items-center space-x-2">
-        <i data-lucide="layout" class="text-[#C5A059] w-5 h-5"></i>
+        <i data-lucide="layout" class="text-[#DA291C] w-5 h-5"></i>
         <span>Today's Tactical Lineup Preview</span>
       </h3>
       <p class="text-xs text-slate-400 mb-4">Read-only view of the current tactics board formation.</p>
 
       <!-- Mini Pitch Rendering -->
-      <div class="bg-black border-2 border-[#C5A059]/40 rounded-2xl p-3 relative h-80 flex flex-col justify-between overflow-hidden shadow-inner mb-4">
-        <div class="absolute inset-x-0 top-1/2 h-0.5 bg-[#C5A059]/30"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 border-2 border-[#C5A059]/30 rounded-full"></div>
+      <div class="bg-black border-2 border-[#DA291C]/40 rounded-2xl p-3 relative h-80 flex flex-col justify-between overflow-hidden shadow-inner mb-4">
+        <div class="absolute inset-x-0 top-1/2 h-0.5 bg-[#DA291C]/30"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 border-2 border-[#DA291C]/30 rounded-full"></div>
         <div id="mini-pitch-slots" class="relative w-full h-full z-10 pointer-events-none"></div>
       </div>
 
       <div class="bg-black border border-[#262626] rounded-xl p-3 text-xs text-slate-300 flex items-center justify-between">
         <span>To modify this lineup, go to the main <strong>Tactics Board</strong> tab.</span>
-        <button onclick="toggleModal('mini-tactics-modal', false); switchTab('tactics');" class="bg-gradient-to-r from-[#C5A059] to-[#D4AF37] text-black px-3.5 py-2 rounded-xl font-bold hover:opacity-90 transition-opacity shrink-0">Open Board</button>
+        <button onclick="toggleModal('mini-tactics-modal', false); switchTab('tactics');" class="bg-gradient-to-r from-[#DA291C] to-[#FF3333] text-white px-3.5 py-2 rounded-xl font-bold hover:opacity-90 transition-opacity shrink-0">Open Board</button>
       </div>
     </div>
   </div>
@@ -792,20 +792,20 @@
       <form id="signin-form" onsubmit="handleSignInSubmit(event)" class="space-y-3">
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">I am a...</label>
-          <select id="signin-role" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5A059] font-bold shadow-inner">
+          <select id="signin-role" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DA291C] font-bold shadow-inner">
             <option value="Player">⚽ Player</option>
             <option value="Parent / Guardian">👨‍👩‍👦 Parent / Guardian</option>
           </select>
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Select Player Name</label>
-          <select id="signin-player-select" required class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5A059] font-bold shadow-inner">
+          <select id="signin-player-select" required class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DA291C] font-bold shadow-inner">
           </select>
         </div>
 
         <div class="pt-3 flex justify-end space-x-2">
           <button type="button" onclick="toggleModal('signin-modal', false)" class="px-3.5 py-2 text-xs text-slate-400 hover:text-white border border-[#262626] rounded-xl">Cancel</button>
-          <button type="submit" class="px-4 py-2 text-xs bg-gradient-to-r from-[#C5A059] to-[#D4AF37] text-black font-bold rounded-xl hover:opacity-90 shadow">Continue</button>
+          <button type="submit" class="px-4 py-2 text-xs bg-gradient-to-r from-[#DA291C] to-[#FF3333] text-white font-bold rounded-xl hover:opacity-90 shadow">Continue</button>
         </div>
       </form>
     </div>
@@ -824,26 +824,26 @@
       <form id="my-profile-form" onsubmit="handleMyProfileSubmit(event)" class="space-y-3">
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Signed in as:</label>
-          <p id="my-profile-identity" class="text-xs font-bold text-[#C5A059] bg-black p-2.5 rounded-xl border border-[#262626]"></p>
+          <p id="my-profile-identity" class="text-xs font-bold text-[#DA291C] bg-black p-2.5 rounded-xl border border-[#262626]"></p>
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Optional Nickname</label>
-          <input type="text" id="profile-nickname" placeholder="e.g. Speedy" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5A059] shadow-inner" />
+          <input type="text" id="profile-nickname" placeholder="e.g. Speedy" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DA291C] shadow-inner" />
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Phone Number (For SMS Direct Text Button)</label>
-          <input type="tel" id="profile-phone" placeholder="e.g. 6025550199" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5A059] shadow-inner" />
+          <input type="tel" id="profile-phone" placeholder="e.g. 6025550199" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DA291C] shadow-inner" />
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Birthday (For Team Countdown)</label>
-          <input type="date" id="profile-birthday" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5A059] shadow-inner" />
+          <input type="date" id="profile-birthday" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DA291C] shadow-inner" />
         </div>
 
         <div class="pt-3 flex justify-between items-center">
-          <button type="button" onclick="signOut()" class="px-3.5 py-2 text-xs text-[#C5A059] hover:text-white border border-[#C5A059]/30 rounded-xl font-semibold">Sign Out</button>
+          <button type="button" onclick="signOut()" class="px-3.5 py-2 text-xs text-[#DA291C] hover:text-white border border-[#DA291C]/30 rounded-xl font-semibold">Sign Out</button>
           <div class="space-x-2">
             <button type="button" onclick="toggleModal('my-profile-modal', false)" class="px-3.5 py-2 text-xs text-slate-400 hover:text-white border border-[#262626] rounded-xl">Cancel</button>
-            <button type="submit" class="px-4 py-2 text-xs bg-gradient-to-r from-[#C5A059] to-[#D4AF37] text-black font-bold rounded-xl hover:opacity-90 shadow">Save Profile</button>
+            <button type="submit" class="px-4 py-2 text-xs bg-gradient-to-r from-[#DA291C] to-[#FF3333] text-white font-bold rounded-xl hover:opacity-90 shadow">Save Profile</button>
           </div>
         </div>
       </form>
@@ -863,21 +863,21 @@
       <form id="match-comment-form" onsubmit="handleMatchCommentSubmit(event)" class="space-y-3">
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Select Today's Match</label>
-          <select id="comment-game-select" required class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5A059] font-bold shadow-inner">
+          <select id="comment-game-select" required class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DA291C] font-bold shadow-inner">
           </select>
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Your Name</label>
-          <input type="text" id="comment-author" required placeholder="e.g. CJ (Player) or Parent" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5A059] shadow-inner" />
+          <input type="text" id="comment-author" required placeholder="e.g. CJ (Player) or Parent" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DA291C] shadow-inner" />
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Comment</label>
-          <textarea id="comment-text" required rows="2" placeholder="Let's get the win today!" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5A059] shadow-inner"></textarea>
+          <textarea id="comment-text" required rows="2" placeholder="Let's get the win today!" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DA291C] shadow-inner"></textarea>
         </div>
 
         <div class="pt-3 flex justify-end space-x-2">
           <button type="button" onclick="toggleModal('match-comment-modal', false)" class="px-3.5 py-2 text-xs text-slate-400 hover:text-white border border-[#262626] rounded-xl">Cancel</button>
-          <button type="submit" class="px-4 py-2 text-xs bg-gradient-to-r from-[#C5A059] to-[#D4AF37] text-black font-bold rounded-xl hover:opacity-90 shadow">Post Comment</button>
+          <button type="submit" class="px-4 py-2 text-xs bg-gradient-to-r from-[#DA291C] to-[#FF3333] text-white font-bold rounded-xl hover:opacity-90 shadow">Post Comment</button>
         </div>
       </form>
     </div>
@@ -896,7 +896,7 @@
       <form id="announcement-form" onsubmit="handleAnnouncementSubmit(event)" class="space-y-3">
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Badge Type</label>
-          <select id="ann-type" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5A059] shadow-inner">
+          <select id="ann-type" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DA291C] shadow-inner">
             <option value="Birthday">🎉 Birthday</option>
             <option value="Notice">⚡ Notice / Update</option>
             <option value="Tournament">🏆 Tournament Alert</option>
@@ -904,20 +904,20 @@
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Title</label>
-          <input type="text" id="ann-title" required placeholder="e.g. Happy Birthday Jionni!" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5A059] shadow-inner" />
+          <input type="text" id="ann-title" required placeholder="e.g. Happy Birthday Jionni!" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DA291C] shadow-inner" />
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Message</label>
-          <textarea id="ann-content" required rows="2" placeholder="Wishing you a great day!" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5A059] shadow-inner"></textarea>
+          <textarea id="ann-content" required rows="2" placeholder="Wishing you a great day!" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DA291C] shadow-inner"></textarea>
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Expiration Date (Auto-Hide)</label>
-          <input type="date" id="ann-expires" required class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5A059] shadow-inner" />
+          <input type="date" id="ann-expires" required class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DA291C] shadow-inner" />
         </div>
 
         <div class="pt-3 flex justify-end space-x-2">
           <button type="button" onclick="toggleModal('announcement-modal', false)" class="px-3.5 py-2 text-xs text-slate-400 hover:text-white border border-[#262626] rounded-xl">Cancel</button>
-          <button type="submit" class="px-4 py-2 text-xs bg-gradient-to-r from-[#C5A059] to-[#D4AF37] text-black font-bold rounded-xl hover:opacity-90 shadow">Post Banner</button>
+          <button type="submit" class="px-4 py-2 text-xs bg-gradient-to-r from-[#DA291C] to-[#FF3333] text-white font-bold rounded-xl hover:opacity-90 shadow">Post Banner</button>
         </div>
       </form>
     </div>
@@ -936,16 +936,16 @@
       <form id="milestone-form" onsubmit="handleMilestoneSubmit(event)" class="space-y-3">
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Milestone Title</label>
-          <input type="text" id="ms-title" required placeholder="e.g. Season Clean Sheets" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5A059] shadow-inner" />
+          <input type="text" id="ms-title" required placeholder="e.g. Season Clean Sheets" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DA291C] shadow-inner" />
         </div>
         <div class="grid grid-cols-2 gap-2">
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">Target Value</label>
-            <input type="number" id="ms-target" required min="1" placeholder="10" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5A059] shadow-inner" />
+            <input type="number" id="ms-target" required min="1" placeholder="10" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DA291C] shadow-inner" />
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">Category</label>
-            <select id="ms-category" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5A059] shadow-inner">
+            <select id="ms-category" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DA291C] shadow-inner">
               <option value="Defense">Defense</option>
               <option value="Goals">Goals</option>
               <option value="Wins">Wins</option>
@@ -955,7 +955,7 @@
 
         <div class="pt-3 flex justify-end space-x-2">
           <button type="button" onclick="toggleModal('milestone-modal', false)" class="px-3.5 py-2 text-xs text-slate-400 hover:text-white border border-[#262626] rounded-xl">Cancel</button>
-          <button type="submit" class="px-4 py-2 text-xs bg-gradient-to-r from-[#C5A059] to-[#D4AF37] text-black font-bold rounded-xl hover:opacity-90 shadow">Save Milestone</button>
+          <button type="submit" class="px-4 py-2 text-xs bg-gradient-to-r from-[#DA291C] to-[#FF3333] text-white font-bold rounded-xl hover:opacity-90 shadow">Save Milestone</button>
         </div>
       </form>
     </div>
@@ -974,16 +974,16 @@
       <form id="injury-form" onsubmit="handleInjurySubmit(event)" class="space-y-3">
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Player Name</label>
-          <select id="inj-player" required class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5A059] font-bold shadow-inner">
+          <select id="inj-player" required class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DA291C] font-bold shadow-inner">
           </select>
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Injury / Condition Type</label>
-          <input type="text" id="inj-type" required placeholder="e.g. Ankle Sprain, Mild Concussion" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5A059] shadow-inner" />
+          <input type="text" id="inj-type" required placeholder="e.g. Ankle Sprain, Mild Concussion" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DA291C] shadow-inner" />
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Status</label>
-          <select id="inj-status" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5A059] shadow-inner">
+          <select id="inj-status" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DA291C] shadow-inner">
             <option value="Out">🔴 Out / Resting</option>
             <option value="Day-to-Day">🟡 Day-to-Day / Limited</option>
             <option value="Full Recovery">🟢 Cleared / Ready to Play</option>
@@ -991,12 +991,12 @@
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Expected Return Date</label>
-          <input type="date" id="inj-returndate" required class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5A059] shadow-inner" />
+          <input type="date" id="inj-returndate" required class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DA291C] shadow-inner" />
         </div>
 
         <div class="pt-3 flex justify-end space-x-2">
           <button type="button" onclick="toggleModal('injury-modal', false)" class="px-3.5 py-2 text-xs text-slate-400 hover:text-white border border-[#262626] rounded-xl">Cancel</button>
-          <button type="submit" class="px-4 py-2 text-xs bg-gradient-to-r from-[#C5A059] to-[#D4AF37] text-black font-bold rounded-xl hover:opacity-90 shadow">Save Recovery Log</button>
+          <button type="submit" class="px-4 py-2 text-xs bg-gradient-to-r from-[#DA291C] to-[#FF3333] text-white font-bold rounded-xl hover:opacity-90 shadow">Save Recovery Log</button>
         </div>
       </form>
     </div>
@@ -1010,7 +1010,7 @@
       </button>
 
       <h3 class="text-lg font-bold text-white mb-1 flex items-center space-x-2">
-        <i data-lucide="history" class="text-[#C5A059] w-5 h-5"></i>
+        <i data-lucide="history" class="text-[#DA291C] w-5 h-5"></i>
         <span>Saved Team Lineups</span>
       </h3>
       <p class="text-xs text-slate-400 mb-4">Click any saved lineup to load it onto your pitch tactics board.</p>
@@ -1029,7 +1029,7 @@
       </button>
 
       <h3 class="text-lg font-bold text-white mb-1 flex items-center space-x-2">
-        <i data-lucide="plus-circle" class="text-[#C5A059] w-5 h-5"></i>
+        <i data-lucide="plus-circle" class="text-[#DA291C] w-5 h-5"></i>
         <span>Add Game Stats</span>
       </h3>
       <p class="text-xs text-slate-400 mb-6">Enter new match results and performance metrics for as many players as you need.</p>
@@ -1038,22 +1038,22 @@
         <div class="grid grid-cols-2 gap-4">
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">Opponent Team</label>
-            <input type="text" id="form-opponent" required placeholder="e.g. West Valley Surf U13B" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-[#C5A059] shadow-inner" />
+            <input type="text" id="form-opponent" required placeholder="e.g. West Valley Surf U13B" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-[#DA291C] shadow-inner" />
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">Date</label>
-            <input type="date" id="form-date" required class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-[#C5A059] shadow-inner" />
+            <input type="date" id="form-date" required class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-[#DA291C] shadow-inner" />
           </div>
         </div>
 
         <div class="grid grid-cols-2 gap-4">
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">AZ Surf Score</label>
-            <input type="number" id="form-our-score" required min="0" placeholder="3" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-[#C5A059] shadow-inner" />
+            <input type="number" id="form-our-score" required min="0" placeholder="3" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-[#DA291C] shadow-inner" />
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">Opponent Score</label>
-            <input type="number" id="form-their-score" required min="0" placeholder="1" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-[#C5A059] shadow-inner" />
+            <input type="number" id="form-their-score" required min="0" placeholder="1" class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-[#DA291C] shadow-inner" />
           </div>
         </div>
 
@@ -1061,14 +1061,14 @@
 
         <div id="player-stats-rows-container" class="space-y-3"></div>
 
-        <button type="button" onclick="addPlayerStatRow()" class="w-full py-2.5 bg-black border border-dashed border-[#262626] hover:border-[#C5A059] text-slate-300 hover:text-white rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-1.5 shadow-sm">
-          <i data-lucide="plus" class="w-4 h-4 text-[#C5A059]"></i>
+        <button type="button" onclick="addPlayerStatRow()" class="w-full py-2.5 bg-black border border-dashed border-[#262626] hover:border-[#DA291C] text-slate-300 hover:text-white rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-1.5 shadow-sm">
+          <i data-lucide="plus" class="w-4 h-4 text-[#DA291C]"></i>
           <span>Add Another Player's Stats</span>
         </button>
 
         <div class="pt-4 flex justify-end space-x-3">
           <button type="button" onclick="toggleModal('admin-modal', false)" class="px-4 py-2 rounded-xl text-sm text-slate-400 hover:text-white border border-[#262626]">Cancel</button>
-          <button type="submit" id="save-btn" class="px-4 py-2 rounded-xl text-sm bg-gradient-to-r from-[#C5A059] to-[#D4AF37] text-black font-bold hover:opacity-90 shadow">Save Match Stats</button>
+          <button type="submit" id="save-btn" class="px-4 py-2 rounded-xl text-sm bg-gradient-to-r from-[#DA291C] to-[#FF3333] text-white font-bold hover:opacity-90 shadow">Save Match Stats</button>
         </div>
       </form>
     </div>
@@ -1082,27 +1082,27 @@
       </button>
 
       <div class="flex items-center space-x-4 mb-6">
-        <div id="pm-jersey-badge" class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#C5A059]/30 to-[#C5A059]/10 text-[#C5A059] font-mono font-black text-2xl flex items-center justify-center border border-[#C5A059]/40 shrink-0 shadow">
+        <div id="pm-jersey-badge" class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#DA291C]/30 to-[#DA291C]/10 text-[#DA291C] font-mono font-black text-2xl flex items-center justify-center border border-[#DA291C]/40 shrink-0 shadow">
           #0
         </div>
         <div>
           <div class="flex items-center space-x-2">
             <h3 id="pm-name" class="text-xl font-bold text-white leading-tight">Player Name</h3>
-            <span id="pm-captain-tag" class="hidden bg-[#C5A059]/20 text-[#C5A059] border border-[#C5A059]/40 text-[10px] font-bold px-2 py-0.5 rounded uppercase">Captain</span>
+            <span id="pm-captain-tag" class="hidden bg-[#DA291C]/20 text-[#DA291C] border border-[#DA291C]/40 text-[10px] font-bold px-2 py-0.5 rounded uppercase">Captain</span>
           </div>
-          <span id="pm-pos" class="inline-block bg-black border border-[#262626] text-[#C5A059] text-xs font-semibold px-2.5 py-0.5 rounded-lg mt-1">Position</span>
+          <span id="pm-pos" class="inline-block bg-black border border-[#262626] text-[#DA291C] text-xs font-semibold px-2.5 py-0.5 rounded-lg mt-1">Position</span>
         </div>
       </div>
 
       <div id="pm-optional-info" class="hidden mb-6 bg-black/80 border border-[#262626] p-3.5 rounded-xl text-xs space-y-2">
-        <p class="text-slate-300"><strong class="text-[#C5A059]">Nickname:</strong> <span id="pm-disp-nickname">-</span></p>
+        <p class="text-slate-300"><strong class="text-[#DA291C]">Nickname:</strong> <span id="pm-disp-nickname">-</span></p>
         <div id="pm-sms-container" class="pt-1"></div>
       </div>
 
       <div class="grid grid-cols-4 gap-2 mb-6 bg-black/60 p-3.5 rounded-2xl border border-[#262626] text-center shadow-inner">
         <div>
           <span class="text-[10px] text-slate-400 uppercase font-semibold">Goals</span>
-          <p id="pm-goals" class="text-lg font-black text-[#C5A059]">0</p>
+          <p id="pm-goals" class="text-lg font-black text-[#DA291C]">0</p>
         </div>
         <div>
           <span class="text-[10px] text-slate-400 uppercase font-semibold">Shots</span>
@@ -1122,20 +1122,20 @@
         <div>
           <div class="flex justify-between text-xs font-semibold mb-1">
             <span class="text-slate-300">Team Goal Contribution %</span>
-            <span id="pm-goal-share" class="text-[#C5A059]">0%</span>
+            <span id="pm-goal-share" class="text-[#DA291C]">0%</span>
           </div>
           <div class="w-full bg-black rounded-full h-2.5 overflow-hidden border border-[#262626]">
-            <div id="pm-bar-goals" class="bg-gradient-to-r from-[#C5A059] to-[#D4AF37] h-full transition-all duration-500" style="width: 0%"></div>
+            <div id="pm-bar-goals" class="bg-gradient-to-r from-[#DA291C] to-[#FF3333] h-full transition-all duration-500" style="width: 0%"></div>
           </div>
         </div>
 
         <div>
           <div class="flex justify-between text-xs font-semibold mb-1">
             <span class="text-slate-300">Team Assist Share %</span>
-            <span id="pm-assist-share" class="text-[#C5A059]">0%</span>
+            <span id="pm-assist-share" class="text-[#DA291C]">0%</span>
           </div>
           <div class="w-full bg-black rounded-full h-2.5 overflow-hidden border border-[#262626]">
-            <div id="pm-bar-assists" class="bg-gradient-to-r from-[#C5A059] to-[#D4AF37] h-full transition-all duration-500" style="width: 0%"></div>
+            <div id="pm-bar-assists" class="bg-gradient-to-r from-[#DA291C] to-[#FF3333] h-full transition-all duration-500" style="width: 0%"></div>
           </div>
         </div>
       </div>
@@ -1191,7 +1191,7 @@
             </div>
           </div>
 
-          <button type="submit" class="w-full bg-gradient-to-r from-[#C5A059] to-[#D4AF37] text-black font-bold py-2 rounded-xl text-xs hover:opacity-90 transition-opacity mt-2 shadow">
+          <button type="submit" class="w-full bg-gradient-to-r from-[#DA291C] to-[#FF3333] text-white font-bold py-2 rounded-xl text-xs hover:opacity-90 transition-opacity mt-2 shadow">
             Save Player Updates
           </button>
         </form>
@@ -1212,27 +1212,27 @@
         <input type="hidden" id="edit-g-id" />
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Opponent</label>
-          <input type="text" id="edit-g-opponent" required class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-[#C5A059] shadow-inner" />
+          <input type="text" id="edit-g-opponent" required class="w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-[#DA291C] shadow-inner" />
         </div>
 
         <div class="grid grid-cols-3 gap-2">
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">Date</label>
-            <input type="date" id="edit-g-date" required class="w-full bg-black border border-[#262626] rounded-xl px-2 py-2 text-xs text-white focus:outline-none focus:border-[#C5A059] shadow-inner" />
+            <input type="date" id="edit-g-date" required class="w-full bg-black border border-[#262626] rounded-xl px-2 py-2 text-xs text-white focus:outline-none focus:border-[#DA291C] shadow-inner" />
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">AZ Surf</label>
-            <input type="number" id="edit-g-ourscore" required min="0" class="w-full bg-black border border-[#262626] rounded-xl px-2 py-2 text-sm text-white text-center focus:outline-none focus:border-[#C5A059] shadow-inner" />
+            <input type="number" id="edit-g-ourscore" required min="0" class="w-full bg-black border border-[#262626] rounded-xl px-2 py-2 text-sm text-white text-center focus:outline-none focus:border-[#DA291C] shadow-inner" />
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">Opponent</label>
-            <input type="number" id="edit-g-oppscore" required min="0" class="w-full bg-black border border-[#262626] rounded-xl px-2 py-2 text-sm text-white text-center focus:outline-none focus:border-[#C5A059] shadow-inner" />
+            <input type="number" id="edit-g-oppscore" required min="0" class="w-full bg-black border border-[#262626] rounded-xl px-2 py-2 text-sm text-white text-center focus:outline-none focus:border-[#DA291C] shadow-inner" />
           </div>
         </div>
 
         <div class="pt-3 flex justify-end space-x-2">
           <button type="button" onclick="toggleModal('game-edit-modal', false)" class="px-3.5 py-2 text-xs text-slate-400 hover:text-white border border-[#262626] rounded-xl">Cancel</button>
-          <button type="submit" class="px-4 py-2 text-xs bg-gradient-to-r from-[#C5A059] to-[#D4AF37] text-black font-bold rounded-xl hover:opacity-90 shadow">Update Game</button>
+          <button type="submit" class="px-4 py-2 text-xs bg-gradient-to-r from-[#DA291C] to-[#FF3333] text-white font-bold rounded-xl hover:opacity-90 shadow">Update Game</button>
         </div>
       </form>
     </div>
@@ -1593,7 +1593,7 @@ END:VCALENDAR`;
 
       if (error) {
         console.error('Error loading media:', error);
-        grid.innerHTML = `<p class="text-xs text-[#C5A059] col-span-full text-center py-8 bg-[#141414] border border-[#262626] rounded-xl">Could not load photos: ${error.message}. Make sure a SELECT policy is enabled on the "team-media" bucket!</p>`;
+        grid.innerHTML = `<p class="text-xs text-[#DA291C] col-span-full text-center py-8 bg-[#141414] border border-[#262626] rounded-xl">Could not load photos: ${error.message}. Make sure a SELECT policy is enabled on the "team-media" bucket!</p>`;
         return;
       }
 
@@ -1961,13 +1961,13 @@ END:VCALENDAR`;
         
         const btn = document.getElementById(`tab-${tab}`);
         if(btn) {
-          btn.classList.remove('text-[#C5A059]', 'bg-[#141414]', 'border-[#C5A059]/30');
+          btn.classList.remove('text-[#DA291C]', 'bg-[#141414]', 'border-[#DA291C]/30');
           btn.classList.add('text-slate-400');
         }
 
         const bmBtn = document.getElementById(`bm-tab-${tab}`);
         if(bmBtn) {
-          bmBtn.classList.remove('text-[#C5A059]', 'bg-[#141414]', 'border-[#C5A059]/30');
+          bmBtn.classList.remove('text-[#DA291C]', 'bg-[#141414]', 'border-[#DA291C]/30');
           bmBtn.classList.add('text-slate-400');
         }
       });
@@ -1977,13 +1977,13 @@ END:VCALENDAR`;
 
       const activeBtn = document.getElementById(`tab-${tabName}`);
       if(activeBtn) {
-        activeBtn.classList.add('text-[#C5A059]', 'bg-[#141414]', 'border', 'border-[#C5A059]/30');
+        activeBtn.classList.add('text-[#DA291C]', 'bg-[#141414]', 'border', 'border-[#DA291C]/30');
         activeBtn.classList.remove('text-slate-400');
       }
 
       const activeBmBtn = document.getElementById(`bm-tab-${tabName}`);
       if(activeBmBtn) {
-        activeBmBtn.classList.add('text-[#C5A059]', 'bg-[#141414]', 'border', 'border-[#C5A059]/30');
+        activeBmBtn.classList.add('text-[#DA291C]', 'bg-[#141414]', 'border', 'border-[#DA291C]/30');
         activeBmBtn.classList.remove('text-slate-400');
       }
 
@@ -2064,7 +2064,7 @@ END:VCALENDAR`;
         <div class="bg-black border border-[#262626] rounded-xl p-3.5 flex justify-between items-start gap-3 shadow">
           <div>
             <div class="flex items-center space-x-2 mb-1">
-              <span class="text-[10px] bg-[#C5A059]/20 text-[#C5A059] border border-[#C5A059]/30 px-2 py-0.5 rounded font-bold uppercase">${c.game_title}</span>
+              <span class="text-[10px] bg-[#DA291C]/20 text-[#DA291C] border border-[#DA291C]/30 px-2 py-0.5 rounded font-bold uppercase">${c.game_title}</span>
               <span class="text-xs font-bold text-white">${c.author_name}</span>
             </div>
             <p class="text-xs text-slate-300">${c.comment}</p>
@@ -2087,31 +2087,31 @@ END:VCALENDAR`;
       }
 
       container.innerHTML = todayGames.map(item => `
-        <div class="bg-[#141414] border border-[#C5A059]/40 rounded-2xl p-5 flex flex-col justify-between space-y-4 shadow-xl">
+        <div class="bg-[#141414] border border-[#DA291C]/40 rounded-2xl p-5 flex flex-col justify-between space-y-4 shadow-xl">
           <div>
             <div class="flex justify-between items-start">
               <div>
-                <span class="text-[10px] bg-[#C5A059]/20 text-[#C5A059] border border-[#C5A059]/30 px-2.5 py-0.5 rounded-lg font-bold uppercase">Today's Fixture</span>
+                <span class="text-[10px] bg-[#DA291C]/20 text-[#DA291C] border border-[#DA291C]/30 px-2.5 py-0.5 rounded-lg font-bold uppercase">Today's Fixture</span>
                 <h3 class="text-base sm:text-lg font-bold text-white mt-1.5">${item.title}</h3>
-                <p class="text-xs text-[#C5A059] mt-1 flex items-center"><i data-lucide="clock" class="w-3.5 h-3.5 mr-1 inline"></i>${item.time}</p>
+                <p class="text-xs text-[#DA291C] mt-1 flex items-center"><i data-lucide="clock" class="w-3.5 h-3.5 mr-1 inline"></i>${item.time}</p>
                 <p class="text-xs text-slate-400 flex items-center mt-0.5"><i data-lucide="map-pin" class="w-3.5 h-3.5 mr-1 inline"></i>${item.location}</p>
               </div>
-              ${item.mapUrl ? `<a href="${item.mapUrl}" target="_blank" class="bg-black border border-[#262626] hover:border-[#C5A059] text-xs text-slate-300 hover:text-white px-3 py-2 rounded-xl font-semibold flex items-center space-x-1 shrink-0 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i><span>Map</span></a>` : ''}
+              ${item.mapUrl ? `<a href="${item.mapUrl}" target="_blank" class="bg-black border border-[#262626] hover:border-[#DA291C] text-xs text-slate-300 hover:text-white px-3 py-2 rounded-xl font-semibold flex items-center space-x-1 shrink-0 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i><span>Map</span></a>` : ''}
             </div>
 
             <div class="grid grid-cols-3 gap-2 mt-4 text-[10px]">
               <div class="bg-black border border-[#262626] p-2 rounded-xl flex flex-col items-center text-center shadow-inner">
-                <i data-lucide="footprints" class="w-3.5 h-3.5 text-[#C5A059] mb-1"></i>
+                <i data-lucide="footprints" class="w-3.5 h-3.5 text-[#DA291C] mb-1"></i>
                 <span class="text-slate-400 font-semibold">Studs</span>
                 <span class="text-white font-bold truncate">${item.studs}</span>
               </div>
               <div class="bg-black border border-[#262626] p-2 rounded-xl flex flex-col items-center text-center shadow-inner">
-                <i data-lucide="shirt" class="w-3.5 h-3.5 text-[#C5A059] mb-1"></i>
+                <i data-lucide="shirt" class="w-3.5 h-3.5 text-[#DA291C] mb-1"></i>
                 <span class="text-slate-400 font-semibold">Kit</span>
                 <span class="text-white font-bold truncate">${item.clothes}</span>
               </div>
               <div class="bg-black border border-[#262626] p-2 rounded-xl flex flex-col items-center text-center shadow-inner">
-                <i data-lucide="droplet" class="w-3.5 h-3.5 text-[#C5A059] mb-1"></i>
+                <i data-lucide="droplet" class="w-3.5 h-3.5 text-[#DA291C] mb-1"></i>
                 <span class="text-slate-400 font-semibold">Hydration</span>
                 <span class="text-white font-bold truncate">${item.hydration}</span>
               </div>
@@ -2145,7 +2145,7 @@ END:VCALENDAR`;
 
         if (player) {
           slotDiv.innerHTML = `
-            <div class="w-7 h-7 rounded-full bg-gradient-to-br from-[#C5A059] to-[#D4AF37] text-black border border-white font-mono font-black flex items-center justify-center text-[10px] shadow">
+            <div class="w-7 h-7 rounded-full bg-gradient-to-br from-[#DA291C] to-[#FF3333] text-white border border-white font-mono font-black flex items-center justify-center text-[10px] shadow">
               #${player.number}
             </div>
             <span class="bg-black text-white font-bold text-[8px] px-1 py-0.2 rounded mt-0.5 whitespace-nowrap border border-[#262626]">
@@ -2154,7 +2154,7 @@ END:VCALENDAR`;
           `;
         } else {
           slotDiv.innerHTML = `
-            <div class="w-7 h-7 rounded-full bg-black/60 border border-dashed border-[#C5A059] text-[#C5A059] font-bold flex items-center justify-center text-[9px]">
+            <div class="w-7 h-7 rounded-full bg-black/60 border border-dashed border-[#DA291C] text-[#DA291C] font-bold flex items-center justify-center text-[9px]">
               ${slot.label}
             </div>
           `;
@@ -2218,8 +2218,8 @@ END:VCALENDAR`;
         const teamY = 170 - teamHeight;
 
         svgHtml += `
-          <rect x="${xCenter - 22}" y="${myY}" width="18" height="${myHeight}" rx="3" fill="#C5A059" />
-          <text x="${xCenter - 13}" y="${myY - 6}" fill="#C5A059" font-size="10" font-weight="bold" text-anchor="middle">${m.myVal}</text>
+          <rect x="${xCenter - 22}" y="${myY}" width="18" height="${myHeight}" rx="3" fill="#DA291C" />
+          <text x="${xCenter - 13}" y="${myY - 6}" fill="#DA291C" font-size="10" font-weight="bold" text-anchor="middle">${m.myVal}</text>
           <rect x="${xCenter + 2}" y="${teamY}" width="18" height="${teamHeight}" rx="3" fill="#262626" />
           <text x="${xCenter + 11}" y="${teamY - 6}" fill="#94A3B8" font-size="10" font-weight="bold" text-anchor="middle">${m.teamVal}</text>
           <text x="${xCenter}" y="190" fill="#E2E8F0" font-size="11" font-weight="bold" text-anchor="middle">${m.label}</text>
@@ -2268,16 +2268,16 @@ END:VCALENDAR`;
       div.className = 'bg-black/50 p-3.5 rounded-xl border border-[#262626] space-y-2.5 relative shadow';
       div.innerHTML = `
         <div class="flex justify-between items-center">
-          <label class="block text-xs font-bold text-[#C5A059] uppercase flex items-center space-x-1">
+          <label class="block text-xs font-bold text-[#DA291C] uppercase flex items-center space-x-1">
             <i data-lucide="user" class="w-3.5 h-3.5"></i>
             <span>Player Performance Entry</span>
           </label>
-          <button type="button" onclick="document.getElementById('${rowId}').remove()" class="text-xs text-[#C5A059] hover:text-white font-semibold flex items-center space-x-1">
+          <button type="button" onclick="document.getElementById('${rowId}').remove()" class="text-xs text-[#DA291C] hover:text-white font-semibold flex items-center space-x-1">
             <i data-lucide="trash-2" class="w-3 h-3"></i><span>Remove</span>
           </button>
         </div>
         <div>
-          <select class="player-select w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5A059] font-bold shadow-inner">
+          <select class="player-select w-full bg-black border border-[#262626] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DA291C] font-bold shadow-inner">
             ${optionsHtml}
           </select>
         </div>
@@ -2395,9 +2395,9 @@ END:VCALENDAR`;
       }
 
       grid.innerHTML = injuries.map(i => {
-        let statusColor = 'bg-[#C5A059]/20 text-[#C5A059] border-[#C5A059]/30';
-        if (i.status === 'Day-to-Day') statusColor = 'bg-[#C5A059]/20 text-[#C5A059] border-[#C5A059]/30';
-        if (i.status === 'Full Recovery' || i.status.includes('Cleared')) statusColor = 'bg-[#C5A059]/20 text-[#C5A059] border-[#C5A059]/30';
+        let statusColor = 'bg-[#DA291C]/20 text-[#DA291C] border-[#DA291C]/30';
+        if (i.status === 'Day-to-Day') statusColor = 'bg-[#DA291C]/20 text-[#DA291C] border-[#DA291C]/30';
+        if (i.status === 'Full Recovery' || i.status.includes('Cleared')) statusColor = 'bg-[#DA291C]/20 text-[#DA291C] border-[#DA291C]/30';
 
         return `
           <div class="bg-[#141414] border border-[#262626] rounded-2xl p-4 flex flex-col justify-between space-y-3 shadow-xl">
@@ -2429,13 +2429,13 @@ END:VCALENDAR`;
       }
 
       container.innerHTML = activeAnnouncements.map(a => `
-        <div class="bg-gradient-to-r from-[#141414] via-[#1A1A1A] to-[#C5A059]/20 border border-[#C5A059]/40 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3 shadow-xl">
+        <div class="bg-gradient-to-r from-[#141414] via-[#1A1A1A] to-[#DA291C]/20 border border-[#DA291C]/40 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3 shadow-xl">
           <div class="flex items-center space-x-3.5">
-            <div class="p-3 bg-gradient-to-br from-[#C5A059] to-[#D4AF37] text-black rounded-xl shrink-0 shadow-md">
+            <div class="p-3 bg-gradient-to-br from-[#DA291C] to-[#FF3333] text-white rounded-xl shrink-0 shadow-md">
               <i data-lucide="${a.badge_type === 'Birthday' ? 'cake' : 'bell'}" class="w-5 h-5"></i>
             </div>
             <div>
-              <span class="text-[10px] font-black text-[#C5A059] uppercase tracking-wider">${a.badge_type} Spotlight</span>
+              <span class="text-[10px] font-black text-[#DA291C] uppercase tracking-wider">${a.badge_type} Spotlight</span>
               <h4 class="font-bold text-white text-base">${a.title}</h4>
               <p class="text-xs text-slate-300">${a.content}</p>
             </div>
@@ -2467,10 +2467,10 @@ END:VCALENDAR`;
           <div class="bg-black/80 border border-[#262626] p-4 rounded-xl space-y-2 shadow-inner">
             <div class="flex justify-between items-center text-xs font-bold">
               <span class="text-white">🏆 ${m.title}</span>
-              <span class="text-[#C5A059] font-mono">${current} / ${m.target_value} (${pct}%)</span>
+              <span class="text-[#DA291C] font-mono">${current} / ${m.target_value} (${pct}%)</span>
             </div>
             <div class="w-full bg-black rounded-full h-2.5 overflow-hidden border border-[#262626]">
-              <div class="bg-gradient-to-r from-[#C5A059] to-[#D4AF37] h-full transition-all duration-500" style="width: ${pct}%"></div>
+              <div class="bg-gradient-to-r from-[#DA291C] to-[#FF3333] h-full transition-all duration-500" style="width: ${pct}%"></div>
             </div>
           </div>
         `;
@@ -2484,12 +2484,12 @@ END:VCALENDAR`;
         list.innerHTML = `<p class="text-xs text-slate-500 py-4 text-center">No saved lineups found in Supabase.</p>`;
       } else {
         list.innerHTML = savedPlaybooks.map(pb => `
-          <div onclick="loadSavedLineup(${pb.id})" class="bg-black border border-[#262626] hover:border-[#C5A059] p-3.5 rounded-xl flex justify-between items-center cursor-pointer transition-all hover:scale-[1.01] shadow-sm">
+          <div onclick="loadSavedLineup(${pb.id})" class="bg-black border border-[#262626] hover:border-[#DA291C] p-3.5 rounded-xl flex justify-between items-center cursor-pointer transition-all hover:scale-[1.01] shadow-sm">
             <div>
               <h4 class="font-bold text-sm text-white">${pb.title}</h4>
-              <span class="text-[10px] text-[#C5A059] font-semibold uppercase">Formation: ${pb.formation_key}</span>
+              <span class="text-[10px] text-[#DA291C] font-semibold uppercase">Formation: ${pb.formation_key}</span>
             </div>
-            <span class="text-[10px] bg-[#C5A059]/10 text-[#C5A059] border border-[#C5A059]/20 px-2.5 py-1 rounded-xl font-bold">Load onto pitch</span>
+            <span class="text-[10px] bg-[#DA291C]/10 text-[#DA291C] border border-[#DA291C]/20 px-2.5 py-1 rounded-xl font-bold">Load onto pitch</span>
           </div>
         `).join('');
       }
@@ -2550,7 +2550,7 @@ END:VCALENDAR`;
       ['select', 'pen', 'arrow'].forEach(m => {
         const btn = document.getElementById(`tool-${m}`);
         if(btn) {
-          if (m === mode) btn.className = 'px-2.5 py-1.5 rounded-lg text-[11px] font-bold bg-[#C5A059] text-black transition-all shadow';
+          if (m === mode) btn.className = 'px-2.5 py-1.5 rounded-lg text-[11px] font-bold bg-[#DA291C] text-white transition-all shadow';
           else btn.className = 'px-2.5 py-1.5 rounded-lg text-[11px] font-bold text-slate-300 hover:text-white transition-all';
         }
       });
@@ -2643,8 +2643,8 @@ END:VCALENDAR`;
       if (currentPath) allToDraw.push(currentPath);
 
       allToDraw.forEach(path => {
-        ctx.strokeStyle = '#C5A059';
-        ctx.fillStyle = '#C5A059';
+        ctx.strokeStyle = '#DA291C';
+        ctx.fillStyle = '#DA291C';
         ctx.lineWidth = 3;
         if (path.type === 'pen' && path.points) {
           ctx.beginPath();
@@ -2707,7 +2707,7 @@ END:VCALENDAR`;
 
         if (player) {
           slotDiv.innerHTML = `
-            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-[#C5A059] to-[#D4AF37] text-black border-2 border-white font-mono font-black flex items-center justify-center text-xs sm:text-sm shadow-xl shadow-black/80 group-hover:scale-110 transition-transform">
+            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-[#DA291C] to-[#FF3333] text-white border-2 border-white font-mono font-black flex items-center justify-center text-xs sm:text-sm shadow-xl shadow-black/80 group-hover:scale-110 transition-transform">
               #${player.number}
             </div>
             <span class="bg-black text-white font-bold text-[9px] sm:text-[10px] px-1.5 py-0.5 rounded-lg mt-0.5 sm:mt-1 shadow border border-[#262626] whitespace-nowrap">
@@ -2716,10 +2716,10 @@ END:VCALENDAR`;
           `;
         } else {
           slotDiv.innerHTML = `
-            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/70 border-2 border-dashed border-[#C5A059]/50 text-[#C5A059] font-bold flex items-center justify-center text-[11px] sm:text-xs group-hover:border-white transition-colors shadow-inner">
+            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/70 border-2 border-dashed border-[#DA291C]/50 text-[#DA291C] font-bold flex items-center justify-center text-[11px] sm:text-xs group-hover:border-white transition-colors shadow-inner">
               ${slot.label}
             </div>
-            <span class="text-[8px] sm:text-[9px] font-semibold text-[#C5A059]/70 mt-0.5 sm:mt-1 uppercase tracking-wider">${slot.label}</span>
+            <span class="text-[8px] sm:text-[9px] font-semibold text-[#DA291C]/70 mt-0.5 sm:mt-1 uppercase tracking-wider">${slot.label}</span>
           `;
         }
         container.appendChild(slotDiv);
@@ -2737,15 +2737,15 @@ END:VCALENDAR`;
             <div draggable="true" 
                  ondragstart="handleDragStart(event, ${p.id})" 
                  onclick="selectBenchPlayer(${p.id})" 
-                 class="bg-black border ${isSelected ? 'border-[#C5A059] bg-[#C5A059]/10' : 'border-[#262626] hover:border-[#C5A059]'} p-3 rounded-xl flex justify-between items-center cursor-pointer active:cursor-grabbing transition-all shadow-sm">
+                 class="bg-black border ${isSelected ? 'border-[#DA291C] bg-[#DA291C]/10' : 'border-[#262626] hover:border-[#DA291C]'} p-3 rounded-xl flex justify-between items-center cursor-pointer active:cursor-grabbing transition-all shadow-sm">
               <div class="flex items-center space-x-3">
-                <span class="w-7 h-7 rounded-full bg-[#C5A059]/20 text-[#C5A059] font-mono font-bold flex items-center justify-center text-xs border border-[#C5A059]/30 shrink-0">
+                <span class="w-7 h-7 rounded-full bg-[#DA291C]/20 text-[#DA291C] font-mono font-bold flex items-center justify-center text-xs border border-[#DA291C]/30 shrink-0">
                   #${p.number}
                 </span>
                 <div>
                   <p class="text-xs font-bold text-white flex items-center space-x-1">
                     <span>${p.name}</span>
-                    ${p.isCaptain ? '<span class="text-[9px] bg-[#C5A059]/20 text-[#C5A059] border border-[#C5A059]/30 px-1 py-0.2 rounded">C</span>' : ''}
+                    ${p.isCaptain ? '<span class="text-[9px] bg-[#DA291C]/20 text-[#DA291C] border border-[#DA291C]/30 px-1 py-0.2 rounded">C</span>' : ''}
                   </p>
                   <span class="text-[9px] text-slate-400 uppercase">${p.pos || 'Player'}</span>
                 </div>
@@ -2826,7 +2826,7 @@ END:VCALENDAR`;
       } else {
         formContainer.innerHTML = recent5.map(g => {
           let bg = 'bg-slate-700 text-slate-200';
-          if (g.result === 'WIN') bg = 'bg-gradient-to-r from-[#C5A059] to-[#D4AF37] text-black font-bold';
+          if (g.result === 'WIN') bg = 'bg-gradient-to-r from-[#DA291C] to-[#FF3333] text-white font-bold';
           if (g.result === 'LOSS') bg = 'bg-[#262626] text-slate-300';
           return `<span class="w-5 h-5 rounded-md ${bg} text-[10px] font-black flex items-center justify-center shadow-sm">${g.result[0]}</span>`;
         }).join('');
@@ -2858,19 +2858,19 @@ END:VCALENDAR`;
       rosterGrid.innerHTML = filtered.map(p => {
         const isMe = currentUser && currentUser.playerId === p.id;
         const profileInfo = userProfiles.find(up => up.player_id === p.id);
-        const nicknameDisplay = profileInfo && profileInfo.nickname ? `<span class="text-[10px] text-[#C5A059] font-semibold block mt-1">"${profileInfo.nickname}"</span>` : '';
-        const phoneButton = profileInfo && profileInfo.phone ? `<a href="sms:${profileInfo.phone}" onclick="event.stopPropagation()" class="mt-2 inline-flex items-center space-x-1 bg-[#C5A059]/20 border border-[#C5A059]/40 text-[#C5A059] hover:bg-[#C5A059] hover:text-black px-2.5 py-1.5 rounded-xl text-[10px] font-bold transition-all shadow-sm"><i data-lucide="message-circle" class="w-3 h-3"></i><span>Text Player</span></a>` : '';
+        const nicknameDisplay = profileInfo && profileInfo.nickname ? `<span class="text-[10px] text-[#DA291C] font-semibold block mt-1">"${profileInfo.nickname}"</span>` : '';
+        const phoneButton = profileInfo && profileInfo.phone ? `<a href="sms:${profileInfo.phone}" onclick="event.stopPropagation()" class="mt-2 inline-flex items-center space-x-1 bg-[#DA291C]/20 border border-[#DA291C]/40 text-[#DA291C] hover:bg-[#DA291C] hover:text-white px-2.5 py-1.5 rounded-xl text-[10px] font-bold transition-all shadow-sm"><i data-lucide="message-circle" class="w-3 h-3"></i><span>Text Player</span></a>` : '';
 
         return `
-          <div onclick="openPlayerModal(${p.id})" class="bg-[#141414] border ${isMe ? 'border-[#C5A059] shadow-xl shadow-[#C5A059]/20 ring-1 ring-[#C5A059]' : 'border-[#262626]'} rounded-2xl p-4 hover:border-[#C5A059]/60 cursor-pointer transition-all hover:scale-[1.02] relative shadow-lg flex flex-col justify-between">
+          <div onclick="openPlayerModal(${p.id})" class="bg-[#141414] border ${isMe ? 'border-[#DA291C] shadow-xl shadow-[#DA291C]/20 ring-1 ring-[#DA291C]' : 'border-[#262626]'} rounded-2xl p-4 hover:border-[#DA291C]/60 cursor-pointer transition-all hover:scale-[1.02] relative shadow-lg flex flex-col justify-between">
             <div>
               <div class="flex justify-between items-start mb-3">
-                <span class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#C5A059]/30 to-[#C5A059]/10 text-[#C5A059] font-mono font-black flex items-center justify-center text-base border border-[#C5A059]/40 shrink-0 shadow-inner">
+                <span class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#DA291C]/30 to-[#DA291C]/10 text-[#DA291C] font-mono font-black flex items-center justify-center text-base border border-[#DA291C]/40 shrink-0 shadow-inner">
                   #${p.number}
                 </span>
                 <div class="flex items-center space-x-1">
-                  ${isMe ? '<span class="bg-gradient-to-r from-[#C5A059] to-[#D4AF37] text-black text-[10px] font-black px-2 py-0.5 rounded-lg uppercase tracking-wider animate-pulse shadow">Me</span>' : ''}
-                  ${p.isCaptain ? '<span class="bg-[#C5A059]/20 text-[#C5A059] border border-[#C5A059]/40 text-[10px] font-extrabold px-2 py-0.5 rounded-lg uppercase">Captain</span>' : ''}
+                  ${isMe ? '<span class="bg-gradient-to-r from-[#DA291C] to-[#FF3333] text-white text-[10px] font-black px-2 py-0.5 rounded-lg uppercase tracking-wider animate-pulse shadow">Me</span>' : ''}
+                  ${p.isCaptain ? '<span class="bg-[#DA291C]/20 text-[#DA291C] border border-[#DA291C]/40 text-[10px] font-extrabold px-2 py-0.5 rounded-lg uppercase">Captain</span>' : ''}
                   <span class="text-[10px] font-semibold text-slate-300 bg-black px-2 py-1 rounded-lg border border-[#262626]">
                     ${p.pos || 'Player'}
                   </span>
@@ -2886,7 +2886,7 @@ END:VCALENDAR`;
               <div class="grid grid-cols-4 gap-1.5 bg-black/60 p-2.5 rounded-xl text-center text-xs mt-3 border border-[#262626] shadow-inner">
                 <div>
                   <span class="block text-[9px] text-slate-400 font-semibold">G</span>
-                  <span class="font-bold text-[#C5A059]">${p.goals || 0}</span>
+                  <span class="font-bold text-[#DA291C]">${p.goals || 0}</span>
                 </div>
                 <div>
                   <span class="block text-[9px] text-slate-400 font-semibold">Sh</span>
@@ -2928,7 +2928,7 @@ END:VCALENDAR`;
       if (profileInfo && (profileInfo.nickname || profileInfo.phone)) {
         document.getElementById('pm-disp-nickname').innerText = profileInfo.nickname || 'None';
         if (profileInfo.phone) {
-          smsContainer.innerHTML = `<a href="sms:${profileInfo.phone}" class="inline-flex items-center space-x-1.5 bg-[#C5A059]/20 border border-[#C5A059]/40 text-[#C5A059] hover:bg-[#C5A059] hover:text-black px-3 py-1.5 rounded-xl text-xs font-bold transition-all shadow-sm"><i data-lucide="message-circle" class="w-4 h-4"></i><span>Text Player (${profileInfo.phone})</span></a>`;
+          smsContainer.innerHTML = `<a href="sms:${profileInfo.phone}" class="inline-flex items-center space-x-1.5 bg-[#DA291C]/20 border border-[#DA291C]/40 text-[#DA291C] hover:bg-[#DA291C] hover:text-white px-3 py-1.5 rounded-xl text-xs font-bold transition-all shadow-sm"><i data-lucide="message-circle" class="w-4 h-4"></i><span>Text Player (${profileInfo.phone})</span></a>`;
         } else {
           smsContainer.innerHTML = '';
         }
@@ -3008,9 +3008,9 @@ END:VCALENDAR`;
         let winGlow = '';
 
         if (g.result === 'WIN') {
-          badgeStyle = 'bg-[#C5A059]/20 text-[#C5A059] border-[#C5A059]/40 shadow-sm shadow-[#C5A059]/10';
+          badgeStyle = 'bg-[#DA291C]/20 text-[#DA291C] border-[#DA291C]/40 shadow-sm shadow-[#DA291C]/10';
           badgeIcon = 'trophy';
-          winGlow = 'border-l-4 border-l-[#C5A059]';
+          winGlow = 'border-l-4 border-l-[#DA291C]';
         } else if (g.result === 'LOSS') {
           badgeStyle = 'bg-[#262626] text-slate-400 border-[#262626]';
           badgeIcon = 'x-circle';
@@ -3020,7 +3020,7 @@ END:VCALENDAR`;
         }
 
         return `
-          <div class="bg-[#141414] border border-[#262626] ${winGlow} rounded-2xl p-5 flex flex-col justify-between space-y-4 shadow-xl hover:border-[#C5A059]/50 transition-all duration-200">
+          <div class="bg-[#141414] border border-[#262626] ${winGlow} rounded-2xl p-5 flex flex-col justify-between space-y-4 shadow-xl hover:border-[#DA291C]/50 transition-all duration-200">
             <div class="flex items-start justify-between gap-3">
               <div class="min-w-0 flex-1">
                 <span class="text-[11px] font-mono font-semibold text-slate-400 tracking-wider block uppercase">${g.date}</span>
@@ -3036,17 +3036,17 @@ END:VCALENDAR`;
               <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Score</span>
               <div class="flex items-center space-x-2 font-mono font-black text-lg sm:text-xl tracking-tight">
                 <span class="text-slate-100">AZ Surf</span>
-                <span class="px-2.5 py-0.5 rounded-lg bg-[#C5A059]/20 text-[#C5A059] border border-[#C5A059]/40">${g.ourScore}</span>
+                <span class="px-2.5 py-0.5 rounded-lg bg-[#DA291C]/20 text-[#DA291C] border border-[#DA291C]/40">${g.ourScore}</span>
                 <span class="text-slate-500">-</span>
                 <span class="px-2.5 py-0.5 rounded-lg bg-[#262626] text-slate-200 border border-[#262626]">${g.opponentScore}</span>
               </div>
             </div>
 
             <div class="pt-3 border-t border-[#262626] flex items-center justify-end space-x-2">
-              <button onclick="openGameEditModal(${g.id})" class="px-3.5 py-2 bg-black hover:bg-[#262626] border border-[#262626] hover:border-[#C5A059] text-xs text-slate-300 hover:text-white rounded-xl font-bold flex items-center space-x-1.5 transition-all shadow-sm">
-                <i data-lucide="edit-2" class="w-3.5 h-3.5 text-[#C5A059]"></i><span>Edit</span>
+              <button onclick="openGameEditModal(${g.id})" class="px-3.5 py-2 bg-black hover:bg-[#262626] border border-[#262626] hover:border-[#DA291C] text-xs text-slate-300 hover:text-white rounded-xl font-bold flex items-center space-x-1.5 transition-all shadow-sm">
+                <i data-lucide="edit-2" class="w-3.5 h-3.5 text-[#DA291C]"></i><span>Edit</span>
               </button>
-              <button onclick="deleteGame(${g.id})" class="px-3.5 py-2 bg-black hover:bg-[#262626] border border-[#262626] hover:border-[#C5A059] text-xs text-slate-400 hover:text-[#C5A059] rounded-xl font-bold flex items-center space-x-1.5 transition-all shadow-sm">
+              <button onclick="deleteGame(${g.id})" class="px-3.5 py-2 bg-black hover:bg-[#262626] border border-[#262626] hover:border-[#DA291C] text-xs text-slate-400 hover:text-[#DA291C] rounded-xl font-bold flex items-center space-x-1.5 transition-all shadow-sm">
                 <i data-lucide="trash-2" class="w-3.5 h-3.5"></i><span>Delete</span>
               </button>
             </div>
@@ -3147,9 +3147,9 @@ END:VCALENDAR`;
         }).join('');
       };
 
-      goalsList.innerHTML = generateListHtml(byGoals, 'text-[#C5A059]');
-      assistsList.innerHTML = generateListHtml(byAssists, 'text-[#C5A059]');
-      savesList.innerHTML = bySaves.length > 0 ? generateListHtml(bySaves, 'text-[#C5A059]') : `<p class="text-xs text-slate-500 py-6 text-center">No goalie saves logged yet.</p>`;
+      goalsList.innerHTML = generateListHtml(byGoals, 'text-[#DA291C]');
+      assistsList.innerHTML = generateListHtml(byAssists, 'text-[#DA291C]');
+      savesList.innerHTML = bySaves.length > 0 ? generateListHtml(bySaves, 'text-[#DA291C]') : `<p class="text-xs text-slate-500 py-6 text-center">No goalie saves logged yet.</p>`;
     }
 
     function renderSchedule() {
@@ -3160,32 +3160,32 @@ END:VCALENDAR`;
         <div class="bg-[#141414] border border-[#262626] rounded-2xl p-5 flex flex-col justify-between space-y-4 shadow-xl">
           <div class="flex justify-between items-start">
             <div>
-              <span class="text-xs font-bold ${item.type === 'Tournament' ? 'text-[#C5A059]' : 'text-slate-400'} uppercase">${item.type || 'Game'}</span>
+              <span class="text-xs font-bold ${item.type === 'Tournament' ? 'text-[#DA291C]' : 'text-slate-400'} uppercase">${item.type || 'Game'}</span>
               <h3 class="text-base font-bold text-white mt-0.5">${item.title}</h3>
-              <p class="text-xs text-[#C5A059] mt-1 flex items-center"><i data-lucide="clock" class="w-3 h-3 mr-1 inline"></i>${item.time || 'TBD'}</p>
+              <p class="text-xs text-[#DA291C] mt-1 flex items-center"><i data-lucide="clock" class="w-3 h-3 mr-1 inline"></i>${item.time || 'TBD'}</p>
               <p class="text-xs text-slate-400 flex items-center mt-0.5"><i data-lucide="map-pin" class="w-3 h-3 mr-1 inline"></i>${item.location || 'TBD'}</p>
             </div>
             <div class="flex items-center space-x-1.5">
-              <button onclick='exportIcs(${JSON.stringify(item)})' title="Add to Calendar (.ics)" class="bg-black border border-[#262626] hover:border-[#C5A059] text-xs text-[#C5A059] hover:text-white px-3 py-2 rounded-xl font-semibold flex items-center space-x-1 shrink-0 shadow-sm">
+              <button onclick='exportIcs(${JSON.stringify(item)})' title="Add to Calendar (.ics)" class="bg-black border border-[#262626] hover:border-[#DA291C] text-xs text-[#DA291C] hover:text-white px-3 py-2 rounded-xl font-semibold flex items-center space-x-1 shrink-0 shadow-sm">
                 <i data-lucide="calendar-plus" class="w-3.5 h-3.5"></i>
               </button>
-              ${item.mapUrl ? `<a href="${item.mapUrl}" target="_blank" class="bg-black border border-[#262626] hover:border-[#C5A059] text-xs text-slate-300 hover:text-white px-3 py-2 rounded-xl font-semibold flex items-center space-x-1 shrink-0 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i></a>` : ''}
+              ${item.mapUrl ? `<a href="${item.mapUrl}" target="_blank" class="bg-black border border-[#262626] hover:border-[#DA291C] text-xs text-slate-300 hover:text-white px-3 py-2 rounded-xl font-semibold flex items-center space-x-1 shrink-0 shadow-sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i></a>` : ''}
             </div>
           </div>
 
           <div class="pt-2 border-t border-[#262626] grid grid-cols-3 gap-1.5 text-[10px]">
             <div class="bg-black border border-[#262626] p-2 rounded-xl flex flex-col items-center text-center shadow-inner">
-              <i data-lucide="footprints" class="w-3.5 h-3.5 text-[#C5A059] mb-1"></i>
+              <i data-lucide="footprints" class="w-3.5 h-3.5 text-[#DA291C] mb-1"></i>
               <span class="text-slate-400 font-semibold">Studs</span>
               <span class="text-white font-bold truncate max-w-full">${item.studs}</span>
             </div>
             <div class="bg-black border border-[#262626] p-2 rounded-xl flex flex-col items-center text-center shadow-inner">
-              <i data-lucide="shirt" class="w-3.5 h-3.5 text-[#C5A059] mb-1"></i>
+              <i data-lucide="shirt" class="w-3.5 h-3.5 text-[#DA291C] mb-1"></i>
               <span class="text-slate-400 font-semibold">Layers</span>
               <span class="text-white font-bold truncate max-w-full">${item.clothes}</span>
             </div>
             <div class="bg-black border border-[#262626] p-2 rounded-xl flex flex-col items-center text-center shadow-inner">
-              <i data-lucide="droplet" class="w-3.5 h-3.5 text-[#C5A059] mb-1"></i>
+              <i data-lucide="droplet" class="w-3.5 h-3.5 text-[#DA291C] mb-1"></i>
               <span class="text-slate-400 font-semibold">Hydration</span>
               <span class="text-white font-bold truncate max-w-full">${item.hydration}</span>
             </div>
